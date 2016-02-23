@@ -1,0 +1,16 @@
+﻿{
+  "version": "1.0.0-*",
+  "description": "Composr.Repository.Sql Class Library",
+  "authors": [ "rtapsee" ],
+  "tags": [ "" ],
+  "projectUrl": "",
+  "licenseUrl": "",
+  "frameworks": {
+    "dnx451": { }
+  },
+  "dependencies": {
+    "Composr.Core": "1.0.0-*",
+    "Composr.Util": "1.0.0-*",
+    "Dapper": "1.42.0"
+  }
+}

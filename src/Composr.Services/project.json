@@ -1,0 +1,17 @@
+{
+  "version": "1.0.0-*",
+  "description": "Composr.Services Class Library",
+  "authors": [ "rtapsee" ],
+  "tags": [ "" ],
+  "projectUrl": "",
+  "licenseUrl": "",
+  "frameworks": {
+    "dnx451": { }
+  },
+  "dependencies": {
+    "Composr.Core": "1.0.0-*",
+    "Composr.Repository.Sql": "1.0.0-*",
+    "Composr.Specifications": "1.0.0-*",
+    "Composr.Util": "1.0.0-*"
+  }
+}

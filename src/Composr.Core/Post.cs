@@ -5,19 +5,19 @@ namespace Composr.Core
     /// <summary>
     /// represents a blog post
     /// </summary>
-    public class Post
+    public class Post: IComposrEntity
     {
         public Post(Blog blog)
         {
             if (blog== null) throw new ArgumentNullException();
-            if(!blog.BlogID.HasValue || blog.BlogID.Value <= 0) throw new ArgumentException("Invalid blog");
+            if(!blog.ID.HasValue || blog.ID.Value <= 0) throw new ArgumentException("Invalid blog");
 
             Blog = blog;
             Status = PostStatus.DRAFT;
         }
 
         int? postid;
-        public int? PostID
+        public int? ID
         {
             get { return postid; }
             set 

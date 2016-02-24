@@ -9,8 +9,8 @@ namespace Composr.Specifications
     {
         public PostValidator()
         {
-            RuleSet("Blog", () => { RuleFor(post => post.Blog).NotNull().Must((post, blog) => post.Blog.BlogID.HasValue && post.Blog.BlogID.Value > 0); });
-            RuleSet("PostID", () => { RuleFor(post => post.PostID).Must((post, postid) => !postid.HasValue || (postid.HasValue && postid.Value > 0)); });
+            RuleSet("Blog", () => { RuleFor(post => post.Blog).NotNull().Must((post, blog) => post.Blog.ID.HasValue && post.Blog.ID.Value > 0); });
+            RuleSet("PostID", () => { RuleFor(post => post.ID).Must((post, postid) => !postid.HasValue || (postid.HasValue && postid.Value > 0)); });
             RuleSet("Active", () => { RuleFor(post => post.Status).NotEmpty().Must((post, status) => status == PostStatus.DRAFT || status == PostStatus.PUBLISHED); });
             RuleSet("Deleted", () => { RuleFor(post => post.Status).NotEmpty().Equal(PostStatus.DELETED); });
             RuleSet("Title", () => { RuleFor(post => post.Title).NotEmpty(); });            

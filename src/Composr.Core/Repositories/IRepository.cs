@@ -2,7 +2,7 @@
 
 namespace Composr.Core.Repositories
 {
-    public interface Repository<T>
+    public interface IRepository<T> where T :class,IComposrEntity
     {
         Locale Locale { get; set; }
         T Get(int id);

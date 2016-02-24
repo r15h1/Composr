@@ -102,13 +102,13 @@ namespace Composr.Tests
         //------------------------------------------------------------------------------------
 
         [Fact]
-        public void PostWhenExistingMustNotHaveNegativeID() => Assert.Throws<ArgumentException>(()=> new Post(new Blog(1)) { PostID = -1, Title = "title" });
+        public void PostWhenExistingMustNotHaveNegativeID() => Assert.Throws<ArgumentException>(()=> new Post(new Blog(1)) { ID = -1, Title = "title" });
 
        
         [Fact]
         public void PostWhenExistingMustHavePositiveID()
         {
-            Post post = new Post(new Blog(1)) { PostID = 123, Title = "title" };
+            Post post = new Post(new Blog(1)) { ID = 123, Title = "title" };
             ISpecification<Post> specification = new MinimalPostSpecification();
             var compliance = specification.EvaluateCompliance(post);
             Assert.True(compliance.IsSatisfied);
@@ -117,7 +117,7 @@ namespace Composr.Tests
         [Fact]
         public void PostWhenExistingCanHaveDraftStatus()
         {
-            Post post = new Post(new Blog(1)) { PostID = 123, Title = "title", Status = PostStatus.DRAFT };
+            Post post = new Post(new Blog(1)) { ID = 123, Title = "title", Status = PostStatus.DRAFT };
             ISpecification<Post> specification = new MinimalPostSpecification();
             var compliance = specification.EvaluateCompliance(post);
             Assert.True(compliance.IsSatisfied);
@@ -126,7 +126,7 @@ namespace Composr.Tests
         [Fact]
         public void PostWhenExistingCanHavePublishedStatus()
         {
-            Post post = new Post(new Blog(1)) { PostID = 123, Title = "title", Status = PostStatus.PUBLISHED };
+            Post post = new Post(new Blog(1)) { ID = 123, Title = "title", Status = PostStatus.PUBLISHED };
             ISpecification<Post> specification = new MinimalPostSpecification();
             var compliance = specification.EvaluateCompliance(post);
             Assert.True(compliance.IsSatisfied);
@@ -135,7 +135,7 @@ namespace Composr.Tests
         [Fact]
         public void PostWhenExistingCanNotHaveDeletedStatus()
         {
-            Post post = new Post(new Blog(1)) { PostID = 123, Title = "title", Status = PostStatus.DELETED };
+            Post post = new Post(new Blog(1)) { ID = 123, Title = "title", Status = PostStatus.DELETED };
             ISpecification<Post> specification = new MinimalPostSpecification();
             var compliance = specification.EvaluateCompliance(post);
             Assert.False(compliance.IsSatisfied);
@@ -144,7 +144,7 @@ namespace Composr.Tests
         [Fact]
         public void PostWhenExistingCanNotHaveNullTitle()
         {
-            Post post = new Post(new Blog(1)) { PostID = 123, Title = null };
+            Post post = new Post(new Blog(1)) { ID = 123, Title = null };
             ISpecification<Post> specification = new MinimalPostSpecification();
             var compliance = specification.EvaluateCompliance(post);
             Assert.False(compliance.IsSatisfied);
@@ -153,7 +153,7 @@ namespace Composr.Tests
         [Fact]
         public void PostWhenExistingCanNotHaveEmptyTitle()
         {
-            Post post = new Post(new Blog(1)) { PostID = 123, Title = null };
+            Post post = new Post(new Blog(1)) { ID = 123, Title = null };
             ISpecification<Post> specification = new MinimalPostSpecification();
             var compliance = specification.EvaluateCompliance(post);
             Assert.False(compliance.IsSatisfied);
@@ -162,7 +162,7 @@ namespace Composr.Tests
         [Fact]
         public void PostWhenExistingCanNotHaveValidTitle()
         {
-            Post post = new Post(new Blog(1)) { PostID = 123, Title = "title" };
+            Post post = new Post(new Blog(1)) { ID = 123, Title = "title" };
             ISpecification<Post> specification = new MinimalPostSpecification();
             var compliance = specification.EvaluateCompliance(post);
             Assert.True(compliance.IsSatisfied);

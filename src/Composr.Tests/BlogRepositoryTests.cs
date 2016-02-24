@@ -11,7 +11,7 @@ namespace Composr.Tests
     
     public class BlogRepositoryTests
     {
-        private Composr.Core.Repositories.BlogRepository repo;
+        private Composr.Core.Repositories.IRepository<Blog> repo;
 
         public BlogRepositoryTests()
         {
@@ -65,7 +65,7 @@ namespace Composr.Tests
                 int id1 = repo.Save(b);
                 Blog b1 = repo.Get(id1);
 
-                Assert.Equal(b1.BlogID, b.BlogID);
+                Assert.Equal(b1.ID, b.ID);
                 Assert.Equal(b1.Locale, b.Locale);
                 Assert.Equal(b1.Description, desc);
                 Assert.Equal(b1.Name, name);
@@ -84,7 +84,7 @@ namespace Composr.Tests
 
                 repo.Delete(b);
                 repo.Locale = b.Locale.Value;
-                Blog b2 = repo.Get(b.BlogID.Value);
+                Blog b2 = repo.Get(b.ID.Value);
                 Assert.Null(b2);
             }
         }
@@ -98,7 +98,7 @@ namespace Composr.Tests
             IList<Blog> list = Builder<Blog>.CreateListOfSize(newblogs)
                     .WhereTheFirst(3).Has(x =>x.Locale = Locale.EN)
                     .AndTheNext(2).Have(x => x.Locale = Locale.FR)
-                    .WhereAll().Have(x => x.Url = ("http://" + FizzWare.NBuilder.Generators.GetRandom.WwwUrl())).And(x => x.BlogID = null)                    
+                    .WhereAll().Have(x => x.Url = ("http://" + FizzWare.NBuilder.Generators.GetRandom.WwwUrl())).And(x => x.ID = null)                    
                     .Build();
 
             using (TransactionScope t = new TransactionScope())
@@ -125,7 +125,7 @@ namespace Composr.Tests
                     .AndTheNext(1).Has(x => x.Name = "lord of the rings")
                     .WhereAll()
                         .Have(x => x.Description = null)
-                        .And(x => x.BlogID = null)
+                        .And(x => x.ID = null)
                         .And(x=> x.Locale = Locale.EN)
                     .Build();
 
@@ -149,7 +149,7 @@ namespace Composr.Tests
                     .AndTheNext(1).Has(x => x.Description = "maple leafs")
                     .WhereAll()
                         .Have(x => x.Name = "codelabs")
-                        .And(x => x.BlogID = null)
+                        .And(x => x.ID = null)
                         .And(x => x.Locale = Locale.EN)
                     .Build();
 
@@ -172,7 +172,7 @@ namespace Composr.Tests
                     .AndTheNext(1).Has(x => x.Description = "manchester untied football club").And(x => x.Name = "manutd.com")
                     .AndTheNext(1).Has(x => x.Description = "toronto raptors basket ball").And(x => x.Name = "raptors")
                     .WhereAll()
-                        .Have(x => x.BlogID = null)
+                        .Have(x => x.ID = null)
                         .And(x => x.Locale = Locale.EN)
                     .Build();
 
@@ -198,7 +198,7 @@ namespace Composr.Tests
                     .AndTheNext(1).Has(x => x.Description = "manchester untied football club").And(x => x.Name = "manutd.com")
                     .AndTheNext(1).Has(x => x.Description = "toronto raptors basket ball").And(x => x.Name = "raptors")
                     .WhereAll()
-                        .Have(x => x.BlogID = null)
+                        .Have(x => x.ID = null)
                         .And(x => x.Locale = Locale.EN)
                     .Build();
 
@@ -227,7 +227,7 @@ namespace Composr.Tests
                     .AndTheNext(1).Has(x => x.Description = "manchester untied football club").And(x => x.Name = "manutd.com")
                     .AndTheNext(1).Has(x => x.Description = "toronto raptors basket ball").And(x => x.Name = "raptors")
                     .WhereAll()
-                        .Have(x => x.BlogID = null)
+                        .Have(x => x.ID = null)
                         .And(x => x.Locale = Locale.EN)
                     .Build();
             
@@ -259,7 +259,7 @@ namespace Composr.Tests
                      .AndTheNext(1).Has(x => x.Description = "new kid on the block").And(x => x.Name = "new kids")
                      .AndTheNext(1).Has(x => x.Description = "toronto raptors basket ball").And(x => x.Name = "raptors")
                      .WhereAll()
-                         .Have(x => x.BlogID = null)
+                         .Have(x => x.ID = null)
                          .And(x => x.Locale = Locale.EN)
                      .Build();
 
@@ -293,7 +293,7 @@ namespace Composr.Tests
                      .AndTheNext(1).Has(x => x.Description = "manchester untied football club").And(x => x.Name = "manutd.com")
                      .AndTheNext(1).Has(x => x.Description = "toronto raptors basket ball").And(x => x.Name = "raptors")
                      .WhereAll()
-                         .Have(x => x.BlogID = null)
+                         .Have(x => x.ID = null)
                          .And(x => x.Locale = Locale.EN)
                      .Build();
 

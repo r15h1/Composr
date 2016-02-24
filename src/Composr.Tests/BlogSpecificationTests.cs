@@ -22,7 +22,7 @@ namespace Composr.Tests
         public void BlogWhenNewMustHaveNullID()
         {
             ISpecification<Blog> specification = new MinimalBlogSpecification();
-            Blog blog = new Blog() { Name = "abcfeg XYZ 1234567890_ ", Locale = Locale.EN, BlogID = null };
+            Blog blog = new Blog() { Name = "abcfeg XYZ 1234567890_ ", Locale = Locale.EN, ID = null };
             var compliance = specification.EvaluateCompliance(blog);
             Assert.True(compliance.IsSatisfied);
         }
@@ -96,7 +96,7 @@ namespace Composr.Tests
         public void BlogWhenExistingMustHaveValidID()
         {
             ISpecification<Blog> specification = new MinimalBlogSpecification();
-            Blog blog = new Blog() { Name = "abcfeg XYZ 1234567890_ ", Locale = Locale.EN, BlogID = 12 };
+            Blog blog = new Blog() { Name = "abcfeg XYZ 1234567890_ ", Locale = Locale.EN, ID = 12 };
             var compliance = specification.EvaluateCompliance(blog);
             Assert.True(compliance.IsSatisfied);
         }
@@ -109,7 +109,7 @@ namespace Composr.Tests
         public void BlogWhenExistingMustHaveNonNullName()
         {
             ISpecification<Blog> specification = new MinimalBlogSpecification();
-            Blog blog = new Blog() { Name = null, BlogID = 12 };
+            Blog blog = new Blog() { Name = null, ID = 12 };
             var compliance = specification.EvaluateCompliance(blog);
             Assert.False(compliance.IsSatisfied);
         }
@@ -118,7 +118,7 @@ namespace Composr.Tests
         public void BlogWhenExistingMustHaveNonEmptyName()
         {
             ISpecification<Blog> specification = new MinimalBlogSpecification();
-            Blog blog = new Blog() { Name = string.Empty, BlogID = 12 };
+            Blog blog = new Blog() { Name = string.Empty, ID = 12 };
             var compliance = specification.EvaluateCompliance(blog);
             Assert.False(compliance.IsSatisfied);
         }
@@ -127,7 +127,7 @@ namespace Composr.Tests
         public void BlogWhenExistingMustHaveNonWhitespaceName()
         {
             ISpecification<Blog> specification = new MinimalBlogSpecification();
-            Blog blog = new Blog() { Name = "  ", BlogID = 12 };
+            Blog blog = new Blog() { Name = "  ", ID = 12 };
             var compliance = specification.EvaluateCompliance(blog);
             Assert.False(compliance.IsSatisfied);
         }
@@ -136,7 +136,7 @@ namespace Composr.Tests
         public void BlogWhenExistingMustHaveNoSpecialCharacterInName()
         {
             ISpecification<Blog> specification = new MinimalBlogSpecification();
-            Blog blog = new Blog() { Name = "ab%", BlogID = 12 };
+            Blog blog = new Blog() { Name = "ab%", ID = 12 };
             var compliance = specification.EvaluateCompliance(blog);
             Assert.False(compliance.IsSatisfied);
         }
@@ -145,7 +145,7 @@ namespace Composr.Tests
         public void BlogWhenExistingMustHaveNameConsistingOnlyOdAlphaNumericCharactersWhitespaceAndUnderscore()
         {
             ISpecification<Blog> specification = new MinimalBlogSpecification();
-            Blog blog = new Blog() { Name = "abcfeg XYZ 1234567890_ ", BlogID = 12 };
+            Blog blog = new Blog() { Name = "abcfeg XYZ 1234567890_ ", ID = 12 };
             var compliance = specification.EvaluateCompliance(blog);
             Assert.True(compliance.IsSatisfied);
         }
@@ -154,7 +154,7 @@ namespace Composr.Tests
         public void BlogWhenExistingMustHaveLocaleSet()
         {
             ISpecification<Blog> specification = new MinimalBlogSpecification();
-            Blog blog = new Blog() { Name = "abcfeg XYZ 1234567890_ ", Locale = null, BlogID = 12 };
+            Blog blog = new Blog() { Name = "abcfeg XYZ 1234567890_ ", Locale = null, ID = 12 };
             var compliance = specification.EvaluateCompliance(blog);
             Assert.False(compliance.IsSatisfied);
         }
@@ -163,7 +163,7 @@ namespace Composr.Tests
         public void BlogWhenExistingWorksWithSetLocale()
         {
             ISpecification<Blog> specification = new MinimalBlogSpecification();
-            Blog blog = new Blog() { Name = "abcfeg XYZ 1234567890_ ", Locale = Locale.EN, BlogID = 12 };
+            Blog blog = new Blog() { Name = "abcfeg XYZ 1234567890_ ", Locale = Locale.EN, ID = 12 };
             var compliance = specification.EvaluateCompliance(blog);
             Assert.True(compliance.IsSatisfied);
         }

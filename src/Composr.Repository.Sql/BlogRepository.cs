@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Composr.Repository.Sql
 {
-    public class BlogRepository : Composr.Core.Repositories.BlogRepository
+    public class BlogRepository : Composr.Core.Repositories.IRepository<Blog>
     {
 
         public BlogRepository()
@@ -33,10 +33,10 @@ namespace Composr.Repository.Sql
         /// <returns></returns>
         public int Save(Blog blog)
         {
-            if (!blog.BlogID.HasValue) return Create(blog);
+            if (!blog.ID.HasValue) return Create(blog);
             
             Update(blog);
-            return blog.BlogID.Value;
+            return blog.ID.Value;
         }
 
         public void Delete(Blog blog)
@@ -108,7 +108,7 @@ namespace Composr.Repository.Sql
         private void Update(Blog blog)
         {
             var p = new DynamicParameters();
-            p.Add("@BlogID", blog.BlogID);
+            p.Add("@BlogID", blog.ID);
             p.Add("@LocaleID", (int)blog.Locale);
             p.Add("@Name", blog.Name);
             p.Add("@Description", blog.Description);
@@ -120,7 +120,7 @@ namespace Composr.Repository.Sql
         private void MarkDeleted(Blog blog)
         {
             var p = new DynamicParameters();
-            p.Add("@BlogID", blog.BlogID);
+            p.Add("@BlogID", blog.ID);
             p.Add("@LocaleID", (int)blog.Locale);
             QueryExecutor.ExecuteSingle<Blog>("Blog_Delete", p);
         }        

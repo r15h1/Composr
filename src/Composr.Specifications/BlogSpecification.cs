@@ -10,7 +10,7 @@ namespace Composr.Specifications
     {
         public BlogValidator()
         {
-            RuleSet("BlogID", () => { RuleFor(blog => blog.BlogID).Must((blog, blogid) => !blogid.HasValue || (blogid.HasValue && blogid.Value > 0)); });
+            RuleSet("BlogID", () => { RuleFor(blog => blog.ID).Must((blog, blogid) => !blogid.HasValue || (blogid.HasValue && blogid.Value > 0)); });
             RuleSet("Name", () => { RuleFor(blog => blog.Name).NotEmpty().Must(Composr.Util.Extensions.IsAlphaNumericWhiteSpaceUnderscore); });
             RuleSet("Locale", () => { RuleFor(blog => blog.Locale).NotNull(); });
         }

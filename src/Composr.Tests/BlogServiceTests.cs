@@ -4,6 +4,7 @@ using Composr.Services;
 using Xunit;
 using System;
 using System.Transactions;
+using Composr.Specifications;
 
 namespace Composr.Tests
 {
@@ -15,7 +16,7 @@ namespace Composr.Tests
         {
             using (TransactionScope t = new TransactionScope())
             {
-                BlogService service = new BlogService(new BlogRepository());
+                Service<Blog> service = GetService();
                 Assert.Throws<ArgumentNullException>(()=> service.Save(null));
             }
         }
@@ -27,7 +28,7 @@ namespace Composr.Tests
             {
                 try
                 {
-                    BlogService service = new BlogService(new BlogRepository());
+                    Service<Blog> service = GetService();
                     Blog blog = new Blog();
                     Assert.Throws<SpecificationException>(()=>service.Save(blog));
                 }
@@ -43,7 +44,7 @@ namespace Composr.Tests
         {
             using (TransactionScope t = new TransactionScope())
             {
-                BlogService service = new BlogService(new BlogRepository());
+                Service<Blog> service = GetService();
                 Blog blog = new Blog() { Name = "" };                    
                 Assert.Throws< SpecificationException>(()=> service.Save(blog));                
             }
@@ -54,7 +55,7 @@ namespace Composr.Tests
         {
             using (TransactionScope t = new TransactionScope())
             {
-                BlogService service = new BlogService(new BlogRepository());
+                Service<Blog> service = GetService();
                 Blog blog = new Blog() { Name = "   " };
                 Assert.Throws<SpecificationException>(() => service.Save(blog));                
             }
@@ -65,7 +66,7 @@ namespace Composr.Tests
         {
             using (TransactionScope t = new TransactionScope())
             {
-                BlogService service = new BlogService(new BlogRepository());
+                Service<Blog> service = GetService();
                 Blog blog = new Blog() { Name = "abc&" };
                 Assert.Throws<SpecificationException>(() => service.Save(blog));
             }
@@ -76,10 +77,10 @@ namespace Composr.Tests
         {
             using (TransactionScope t = new TransactionScope())
             {
-                BlogService service = new BlogService(new BlogRepository());
+                Service<Blog> service = GetService();
                 Blog blog = new Blog() {  Name = "abc" };
                 int blogid = service.Save(blog);
-                Assert.True(blogid > 0 && !blog.BlogID.HasValue);
+                Assert.True(blogid > 0 && !blog.ID.HasValue);
             }
         }
 
@@ -88,11 +89,16 @@ namespace Composr.Tests
         {
             using (TransactionScope t = new TransactionScope())
             {
-                BlogService service = new BlogService(new BlogRepository());
+                Service<Blog> service = GetService();
                 Blog blog = new Blog(1) { Name = "abc" };
                 int blogid = service.Save(blog);
                 Assert.True(blogid == 1);
             }
+        }
+
+        private Service<Blog> GetService()
+        {
+            return new Service<Blog>(new BlogRepository(), new MinimalBlogSpecification());
         }
     }
 }

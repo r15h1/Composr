@@ -2,7 +2,7 @@
 
 namespace Composr.Core
 {
-    public class Blog
+    public class Blog: IComposrEntity
     {
         public Blog()
         {
@@ -12,7 +12,7 @@ namespace Composr.Core
         public Blog(int blogid)
         {
             Init();
-            this.BlogID = blogid;
+            this.ID = blogid;
         }
 
         private void Init()
@@ -21,7 +21,7 @@ namespace Composr.Core
         }
 
         int? blogid;
-        public int? BlogID {
+        public int? ID {
             get { return blogid; }
             set
             {

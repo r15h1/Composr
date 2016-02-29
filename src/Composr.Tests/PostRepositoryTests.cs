@@ -28,8 +28,8 @@ namespace Composr.Tests
                 Post post2 = repo.Get(id);
                 
                 Assert.True(post1.Body.Equals(post2.Body));
-                Assert.True(post1.Blog.ID.Equals(post2.Blog.ID));
-                Assert.True(post2.ID == id);
+                Assert.True(post1.Blog.Id.Equals(post2.Blog.Id));
+                Assert.True(post2.Id == id);
                 Assert.True(post1.Status == post2.Status);
                 Assert.True(post1.Title.Equals(post2.Title));
             }
@@ -46,7 +46,7 @@ namespace Composr.Tests
 
                 IList<Post> l1 = Builder<Post>
                         .CreateListOfSize(newposts)
-                        .WhereAll().AreConstructedUsing<Post>(()=>new Post(blog)).And(p => p.ID = null)
+                        .WhereAll().AreConstructedUsing<Post>(()=>new Post(blog)).And(p => p.Id = null)
                         .Build();
                                 
                 repo.Locale = Locale.EN;
@@ -100,7 +100,7 @@ namespace Composr.Tests
 
             IList<Post> list = Builder<Post>
                         .CreateListOfSize(newposts)
-                        .WhereAll().AreConstructedWith(blog).And(p => p.ID = null)
+                        .WhereAll().AreConstructedWith(blog).And(p => p.Id = null)
                         .Build();
 
             using (TransactionScope t = new TransactionScope())
@@ -221,7 +221,7 @@ namespace Composr.Tests
                     if (count > 3) deleted.Add(id);
                 }
 
-                foreach (int deletedid in deleted) repo.Delete(new Post(blog) { ID = deletedid });
+                foreach (int deletedid in deleted) repo.Delete(new Post(blog) { Id = deletedid });
                 
                 Assert.True(repo.Count(null) == (list.Count - deleted.Count));
             }
@@ -251,7 +251,7 @@ namespace Composr.Tests
                     .AndTheNext(1).IsConstructedUsing(() => new Post(blog)).And(x => x.Title = "motoautomatic").And(x => x.Body = "upsell your car")
                     .AndTheNext(1).IsConstructedUsing(() => new Post(blog)).And(x => x.Title = "man utd").And(x => x.Body = "football club")
                     .AndTheNext(1).IsConstructedUsing(() => new Post(blog)).And(x => x.Title = "maple sell leafs").And(x => x.Body = "never win anything")
-                    .WhereAll().IsConstructedUsing(() => new Post(blog)).And(p => p.ID = null)
+                    .WhereAll().IsConstructedUsing(() => new Post(blog)).And(p => p.Id = null)
                     .Build();
             return list;
         }

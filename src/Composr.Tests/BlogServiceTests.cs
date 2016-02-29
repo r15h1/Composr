@@ -80,7 +80,7 @@ namespace Composr.Tests
                 Service<Blog> service = GetService();
                 Blog blog = new Blog() {  Name = "abc" };
                 int blogid = service.Save(blog);
-                Assert.True(blogid > 0 && !blog.ID.HasValue);
+                Assert.True(blogid > 0 && !blog.Id.HasValue);
             }
         }
 

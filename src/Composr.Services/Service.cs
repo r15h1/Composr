@@ -23,7 +23,7 @@ namespace Composr.Services
 
         public void Delete(T t)
         {
-            if (t == null || !t.ID.HasValue) throw new ArgumentNullException();
+            if (t == null || !t.Id.HasValue) throw new ArgumentNullException();
             repository.Delete(t);
         }
 

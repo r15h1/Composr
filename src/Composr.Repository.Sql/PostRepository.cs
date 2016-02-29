@@ -37,7 +37,7 @@ namespace Composr.Repository.Sql
                         row => new Composr.Core.Post(new BlogRepository().Get((int)row.BlogID))
                         {
                             Body = row.Body,
-                            ID = row.PostID,
+                            Id = row.PostID,
                             Status = (Core.PostStatus)Enum.Parse(typeof(Core.PostStatus), row.PostStatusID.ToString()),
                             Title = row.Title
                         }                        
@@ -66,7 +66,7 @@ namespace Composr.Repository.Sql
                         row => new Composr.Core.Post(new BlogRepository().Get((int)row.BlogID))
                         {
                             Body = row.Body,
-                            ID = row.PostID,
+                            Id = row.PostID,
                             Status = (Core.PostStatus)Enum.Parse(typeof(Core.PostStatus), row.PostStatusID.ToString()),
                             Title = row.Title
                         }
@@ -77,7 +77,7 @@ namespace Composr.Repository.Sql
         public int Count(string criteria)
         {
             var p = new DynamicParameters();
-            p.Add("@BlogID", Blog.ID);
+            p.Add("@BlogID", Blog.Id);
             p.Add("@Criteria", criteria);
             p.Add("@LocaleID", (int)Locale);
             return QueryExecutor.ExecuteSingle<int>("Post_Count", p);
@@ -85,15 +85,15 @@ namespace Composr.Repository.Sql
 
         public int Save(Core.Post post)
         {
-            if (!post.ID.HasValue) return Create(post);
+            if (!post.Id.HasValue) return Create(post);
             Update(post);
-            return post.ID.Value;
+            return post.Id.Value;
         }
 
         private void Update(Post post)
         {
             var p = new DynamicParameters();
-            p.Add("@PostID", post.ID);
+            p.Add("@PostID", post.Id);
             p.Add("@LocaleID", (int)post.Blog.Locale);
             p.Add("@Title", post.Title);
             p.Add("@Body", post.Body);
@@ -110,7 +110,7 @@ namespace Composr.Repository.Sql
         private int Create(Core.Post post)
         {
             var p = new DynamicParameters();
-            p.Add("@BlogID", post.Blog.ID);
+            p.Add("@BlogID", post.Blog.Id);
             p.Add("@LocaleID", (int)post.Blog.Locale);
             p.Add("@Title", post.Title);
             p.Add("@Body", post.Body);
@@ -122,7 +122,7 @@ namespace Composr.Repository.Sql
         public void Delete(Core.Post post)
         {
             var p = new DynamicParameters();
-            p.Add("@PostID", post.ID);
+            p.Add("@PostID", post.Id);
             p.Add("@LocaleID", (int)post.Blog.Locale);
 
             QueryExecutor.ExecuteSingle<Post>("Post_Delete", p);

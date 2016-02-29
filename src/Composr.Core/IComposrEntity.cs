@@ -7,6 +7,6 @@ namespace Composr.Core
 {
     public interface IComposrEntity
     {
-        int? ID { get; set; }
+        int? Id { get; set; }
     }
 }

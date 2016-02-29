@@ -10,14 +10,14 @@ namespace Composr.Core
         public Post(Blog blog)
         {
             if (blog== null) throw new ArgumentNullException();
-            if(!blog.ID.HasValue || blog.ID.Value <= 0) throw new ArgumentException("Invalid blog");
+            if(!blog.Id.HasValue || blog.Id.Value <= 0) throw new ArgumentException("Invalid blog");
 
             Blog = blog;
             Status = PostStatus.DRAFT;
         }
 
         int? postid;
-        public int? ID
+        public int? Id
         {
             get { return postid; }
             set 

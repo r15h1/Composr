@@ -12,7 +12,7 @@ namespace Composr.Core
         public Blog(int blogid)
         {
             Init();
-            this.ID = blogid;
+            this.Id = blogid;
         }
 
         private void Init()
@@ -21,7 +21,7 @@ namespace Composr.Core
         }
 
         int? blogid;
-        public int? ID {
+        public int? Id {
             get { return blogid; }
             set
             {

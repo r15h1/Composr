@@ -100,7 +100,7 @@ namespace Composr.Tests
 
             IList<Post> list = Builder<Post>
                         .CreateListOfSize(newposts)
-                        .WhereAll().AreConstructedWith(blog).And(p => p.Id = null)
+                        .WhereAll().AreConstructedUsing<Post>(() => new Post(blog)).And(p => p.Id = null)
                         .Build();
 
             using (TransactionScope t = new TransactionScope())

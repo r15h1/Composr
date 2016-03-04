@@ -30,7 +30,7 @@ namespace Composr.Web.Controllers
         }
 
         [HttpGet]
-        [Route("posts/{postid:int}")]
+        [Route("posts/{postid:int}")] 
         public IActionResult Details(int postid)
         {
             return View(service.Get(postid));

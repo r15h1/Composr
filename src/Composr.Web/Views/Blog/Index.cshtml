@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Composr.Core.Blog>
+
+@{
+    ViewBag.Title = "Blogs";
+}
+
+<ol class="breadcrumb">
+    <li class="active">blogs</li>    
+</ol>
+
+<div class="btn-toolbar" role="toolbar">
+    <a class="btn btn-primary pull-right" id="newbutton" href="/admin/blogs/posts/new">New Blog</a>
+</div>
+
+<div class="table-responsive">
+
+    @if (Model.Count() > 0)
+    {
+        <table class="table table-bordered table-condensed table-hover">
+            <tbody>
+                @foreach (var blog in Model)
+                {
+                    <tr>
+                        <th class="col-md-4"><a href="/admin/blogs/@blog.Id">@blog.Name</a></th>
+                        <td>@blog.Description</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else {
+        <span>No blogs found</span>
+    }
+
+</div>

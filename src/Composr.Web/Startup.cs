@@ -1,10 +1,7 @@
-﻿using System;
-using Composr.Core;
-using Composr.Mock.Repositories;
+﻿using Composr.Core;
+using Composr.Web.MultiTenancy;
 using Microsoft.AspNet.Builder;
-using Microsoft.AspNet.Diagnostics;
 using Microsoft.AspNet.Hosting;
-using Microsoft.AspNet.Http;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Composr.Web
@@ -15,6 +12,7 @@ namespace Composr.Web
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMultitenancy<Blog, BlogResolver>();
             services.AddMvc();
 
             services.AddScoped<Composr.Core.Repositories.IRepository<Composr.Core.Blog>, Composr.Mock.Repositories.BlogRepository>();
@@ -32,6 +30,7 @@ namespace Composr.Web
         {
             app.UseStaticFiles();
             app.UseDeveloperExceptionPage();
+            app.UseMultitenancy<Blog>();
             app.UseMvc();           
         }
 

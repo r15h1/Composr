@@ -11,10 +11,22 @@ namespace Composr.Mock.Repositories
     {
         
         private Blog blog;
+        static List<Post> posts;
 
         static PostRepository()
         {
-            
+            Initialize();
+        }
+
+        private static void Initialize()
+        {
+            posts = (List<Post>)Builder<Post>
+                        .CreateListOfSize(30)
+                        .WhereTheFirst<Post>(10).AreConstructedUsing(() => new Post(new Blog(1)))
+                        .AndTheNext<Post>(8).AreConstructedUsing(() => new Post(new Blog(2)))
+                        .AndTheNext<Post>(7).AreConstructedUsing(() => new Post(new Blog(3)))
+                        .AndTheNext<Post>(5).AreConstructedUsing(() => new Post(new Blog(4)))
+                        .Build();
         }
 
         public PostRepository(Blog blog)
@@ -47,12 +59,15 @@ namespace Composr.Mock.Repositories
 
         public IList<Post> Get(Filter filter)
         {
-            throw new NotImplementedException();
+            if (filter == null || string.IsNullOrWhiteSpace(filter.Criteria)) 
+                return posts.FindAll(p => p.Blog.Id == blog.Id);
+
+            return posts.FindAll(p => p.Blog.Id == blog.Id && p.Title.Contains(filter.Criteria));
         }
 
         public Post Get(int id)
         {
-            throw new NotImplementedException();
+            return posts.SingleOrDefault(p => p.Blog.Id == blog.Id && p.Id == id);
         }
 
         public int Save(Post item)

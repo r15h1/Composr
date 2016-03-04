@@ -1,2 +1,35 @@
-﻿@model int
-Hello @Model.ToString()
+﻿@model IList<Composr.Core.Post>
+@{
+    ViewBag.Title = "Posts";
+}
+
+<ol class="breadcrumb">
+    <li><a href="/admin/blogs">blogs</a></li>
+    <li class="active">posts</li>
+</ol>
+
+<div class="btn-toolbar" role="toolbar">
+    <a class="btn btn-primary pull-right" id="newbutton" href="/admin/blogs/@Model.FirstOrDefault().Blog.Id/posts/new">New Post</a>
+</div>
+
+<div class="table-responsive">
+  
+    @if (Model.Count() > 0)
+    {
+        <table class="table table-bordered table-condensed table-hover">
+            <tbody>
+                @foreach (var post in Model)
+                {
+                    <tr>
+                        <th class="col-md-4"><a href="/admin/blogs/@post.Blog.Id/posts/@post.Id">@post.Title</a></th>
+                        <td>@post.Status</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else {
+        <span>No posts</span>
+    }
+
+</div>

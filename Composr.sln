@@ -26,6 +26,8 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Composr.Web", "src\Composr.
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Composr.Mock", "src\Composr.Mock\Composr.Mock.xproj", "{F193C4B0-0043-49EF-80A0-7E19E937A780}"
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Composr.MultiTenancy", "src\Composr.MultiTenancy\Composr.MultiTenancy.xproj", "{4E48FD26-77CB-4075-90ED-49EFF3CD9E30}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -64,6 +66,10 @@ Global
 		{F193C4B0-0043-49EF-80A0-7E19E937A780}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F193C4B0-0043-49EF-80A0-7E19E937A780}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F193C4B0-0043-49EF-80A0-7E19E937A780}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E48FD26-77CB-4075-90ED-49EFF3CD9E30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E48FD26-77CB-4075-90ED-49EFF3CD9E30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E48FD26-77CB-4075-90ED-49EFF3CD9E30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E48FD26-77CB-4075-90ED-49EFF3CD9E30}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -77,5 +83,6 @@ Global
 		{E1579732-EEE7-49FF-85C8-95A8D3D3489E} = {08A43D43-B127-44AF-AF4E-0C467CCF9E2E}
 		{DAA40A0B-2645-470B-9C87-8BD53C1CD98F} = {08A43D43-B127-44AF-AF4E-0C467CCF9E2E}
 		{F193C4B0-0043-49EF-80A0-7E19E937A780} = {08A43D43-B127-44AF-AF4E-0C467CCF9E2E}
+		{4E48FD26-77CB-4075-90ED-49EFF3CD9E30} = {08A43D43-B127-44AF-AF4E-0C467CCF9E2E}
 	EndGlobalSection
 EndGlobal

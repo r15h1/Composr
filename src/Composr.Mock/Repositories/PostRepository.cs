@@ -70,9 +70,25 @@ namespace Composr.Mock.Repositories
             return posts.SingleOrDefault(p => p.Blog.Id == blog.Id && p.Id == id);
         }
 
-        public int Save(Post item)
+        public int Save(Post post)
         {
-            throw new NotImplementedException();
+            if (post.Id.HasValue) return UpdatePost(post);
+
+            return InsertPost(post);
         }
-    }
+
+        private int InsertPost(Post post)
+        {
+            post.Id = posts.Count + 1;
+            posts.Add(post);
+            return post.Id.Value;
+        }
+
+        private int UpdatePost(Post post)
+        {
+            var index = posts.FindIndex(p => p.Id == post.Id);
+            posts[index] = post;
+            return index;
+        }
+    };
 }

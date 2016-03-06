@@ -1,5 +1,6 @@
 ﻿using Composr.Core;
 using Composr.Web.MultiTenancy;
+using Composr.Web.ViewModels;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,7 +32,7 @@ namespace Composr.Web
             app.UseStaticFiles();
             app.UseDeveloperExceptionPage();
             app.UseMultitenancy<Blog>();
-            app.UseMvc();           
+            app.UseMvc();
         }
 
         // Entry point for the application.

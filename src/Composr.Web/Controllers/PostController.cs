@@ -2,18 +2,19 @@
 using Composr.Core.Repositories;
 using Composr.Core.Services;
 using Composr.Web.Models;
+using Composr.Web.ViewModels;
 using Microsoft.AspNet.Mvc;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Composr.Web.Controllers
 {
-    [Route("admin/blogs/{blogid:int}")]
+    [Route("admin/blogs/{blogid:int}/posts")]
     public class PostController : Controller
     {
         private IService<Post> service;
         private Blog blog;
-
+        
         public PostController(IService<Post> service, Blog blog)
         {
             this.service = service;
@@ -22,25 +23,53 @@ namespace Composr.Web.Controllers
 
         [HttpGet]
         [Route("")]
-        [Route("posts")]
-        public IActionResult Index(PostRequestModel model)
+        public IActionResult Index([FromQuery]PostRequestModel model)
         {
             Filter filter = new Filter() { Criteria= model.Search };
             return View(service.Get(filter));
         }
 
         [HttpGet]
-        [Route("posts/{postid:int}")] 
+        [Route("{postid:int}")] 
         public IActionResult Details(int postid)
         {
-            return View(service.Get(postid));
+            Post post = service.Get(postid);
+            PostViewModel model = new PostViewModel() { BlogId = post.Blog.Id, Id = post.Id, Body = post.Body, Title = post.Title };
+            return View(model);
         }
 
         [HttpGet]
-        [Route("posts/new")]
+        [Route("new")]
         public IActionResult Create()
         {
-            return View(blog);
+            return View(new PostViewModel() { BlogId = blog.Id });
+        }
+
+        [HttpPost]
+        [Route("new")]
+        public IActionResult Create([FromForm]PostViewModel model)
+        {
+            service.Save(MapPost(model));
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        [Route("{postid:int}")]
+        public IActionResult Update([FromRoute]int postid, [FromForm]PostViewModel model)
+        {
+            model.Id = postid;
+            service.Save(MapPost(model));
+            return RedirectToAction("Index");
+        }
+
+        private Post MapPost(PostViewModel model)
+        {
+            return new Post(blog)
+            {
+                Body = model.Body,
+                Title = model.Title,
+                Id = model.Id
+            };
         }
     }
 }

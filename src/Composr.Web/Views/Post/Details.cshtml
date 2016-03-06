@@ -1,26 +1,28 @@
-﻿@model Composr.Core.Post
+﻿@model Composr.Web.ViewModels.PostViewModel
 @{
     ViewBag.Title = "Post Details";
 }
 
 <ol class="breadcrumb">
     <li><a href="/admin/blogs">blogs</a></li>
-    <li><a href="/admin/blogs/@Model.Blog.Id/posts">posts</a></li>
+    <li><a href="/admin/blogs/@Model.BlogId/posts">posts</a></li>
     <li class="active">details</li>
 </ol>
-<div class="btn-toolbar" role="toolbar">
-    <button type="submit" class="btn btn-primary pull-right">Save</button>
-    <button type="button" class="btn btn-default pull-right">Cancel</button>
-</div>
-<form>
+
+<form method="post">
+    <div class="btn-toolbar" role="toolbar">
+        <button type="submit" class="btn btn-primary pull-right">Save</button>
+        <button type="button" class="btn btn-default pull-right">Cancel</button>
+    </div>
+
     <div class="form-group">
-        <label for="title">Title</label><input class="form-control" type="text" name="title" id="title" value="@Model.Title" required />
+        <label for="title">Title</label><input class="form-control" type="text" name="title" id="title" asp-for="Title" value="@Model.Title"/>
     </div>
     <div class="form-group">
         <label for="body">Body</label>
-        <textarea class="form-control" name="body" id="body" rows="10" required> @Model.Body</textarea>
+        <textarea class="form-control" name="body" id="body" asp-for="Body" rows="10">@Model.Body</textarea>
 
-        <div class="radio">            
+        <div class="radio">
             <label class="radio-inline"><input type="radio" name="optradio" value="draft" />Draft</label>
             <label class="radio-inline"><input type="radio" name="optradio" value="published" />Published</label>
         </div>

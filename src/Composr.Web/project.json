@@ -17,6 +17,7 @@
     "Microsoft.AspNet.Mvc.WebApiCompatShim": "6.0.0-rc1-final",
     "Microsoft.AspNet.Server.Kestrel": "1.0.0-rc1-final",
     "Microsoft.AspNet.StaticFiles": "1.0.0-rc1-final",
+    "Microsoft.AspNet.Tooling.Razor": "1.0.0-rc1-final",
     "SaasKit.Multitenancy": "1.1.0-alpha"
   },
 

@@ -42,21 +42,29 @@ namespace Composr.Web.Controllers
         [Route("new")]
         public IActionResult Create()
         {
-            return View(new PostViewModel() { BlogId = blog.Id });
+            return View("Details", new PostViewModel() { BlogId = blog.Id });
         }
 
         [HttpPost]
         [Route("new")]
         public IActionResult Create([FromForm]PostViewModel model)
         {
-            service.Save(MapPost(model));
-            return RedirectToAction("Index");
+            return Save(model);
         }
 
         [HttpPost]
         [Route("{postid:int}")]
         public IActionResult Update([FromRoute]int postid, [FromForm]PostViewModel model)
         {
+            return Save(model, postid);
+        }
+
+        private IActionResult Save(PostViewModel model, int? postid = null)
+        {
+            model.BlogId = blog.Id;
+            if (!ModelState.IsValid)
+                return View("Details", model);
+
             model.Id = postid;
             service.Save(MapPost(model));
             return RedirectToAction("Index");

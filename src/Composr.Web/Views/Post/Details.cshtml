@@ -12,15 +12,20 @@
 <form method="post">
     <div class="btn-toolbar" role="toolbar">
         <button type="submit" class="btn btn-primary pull-right">Save</button>
-        <button type="button" class="btn btn-default pull-right">Cancel</button>
+        <button type="button" class="btn btn-default pull-right" asp-action="Index">Cancel</button>
+    </div>
+
+    <div asp-validation-summary="ValidationSummary.ModelOnly"></div>
+
+    <div class="form-group">
+        <label for="title">Title</label><input class="form-control" type="text" name="title" id="title" asp-for="Title" value="@Model.Title" required minlength="5" maxlength="100"/>
+        <span asp-validation-for="title" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label for="title">Title</label><input class="form-control" type="text" name="title" id="title" asp-for="Title" value="@Model.Title"/>
-    </div>
-    <div class="form-group">
         <label for="body">Body</label>
-        <textarea class="form-control" name="body" id="body" asp-for="Body" rows="10">@Model.Body</textarea>
+        <textarea class="form-control" name="body" id="body" asp-for="Body" rows="10" required>@Model.Body</textarea>
+        <span asp-validation-for="title" class="text-danger"></span>
 
         <div class="radio">
             <label class="radio-inline"><input type="radio" name="optradio" value="draft" />Draft</label>
@@ -28,3 +33,8 @@
         </div>
     </div>
 </form>
+
+@section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

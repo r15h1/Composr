@@ -32,7 +32,7 @@ namespace Composr.Web
             app.UseStaticFiles();
             app.UseDeveloperExceptionPage();
             app.UseMultitenancy<Blog>();
-            app.UseMvc();
+            app.UseMvc();            
         }
 
         // Entry point for the application.

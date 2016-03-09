@@ -34,7 +34,7 @@ namespace Composr.Web.Controllers
         public IActionResult Details(int postid)
         {
             Post post = service.Get(postid);
-            PostViewModel model = new PostViewModel() { BlogId = post.Blog.Id, Id = post.Id, Body = post.Body, Title = post.Title };
+            PostViewModel model = new PostViewModel() { BlogId = post.Blog.Id, Id = post.Id, Body = post.Body, Title = post.Title , PostStatus = post.Status};
             return View(model);
         }
 
@@ -76,7 +76,8 @@ namespace Composr.Web.Controllers
             {
                 Body = model.Body,
                 Title = model.Title,
-                Id = model.Id
+                Id = model.Id,
+                Status = model.PostStatus
             };
         }
     }

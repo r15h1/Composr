@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Composr.Core;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Composr.Web.ViewModels
 {
@@ -17,5 +14,9 @@ namespace Composr.Web.ViewModels
         public string Body { get; set; }
 
         public int? BlogId { get; set; }
+
+        public PostStatus PostStatus { get; set; }
+
+        //public IEnumerable
     }
 }

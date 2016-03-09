@@ -2,7 +2,7 @@
 
 namespace Composr.Repository.Sql
 {
-    internal class ConnectionFactory
+    internal static class ConnectionFactory
     {
         /// <summary>
         /// creates a connection using the provided connection string

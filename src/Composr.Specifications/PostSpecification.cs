@@ -12,7 +12,7 @@ namespace Composr.Specifications
             RuleSet("Blog", () => { RuleFor(post => post.Blog).NotNull().Must((post, blog) => post.Blog.Id.HasValue && post.Blog.Id.Value > 0); });
             RuleSet("PostID", () => { RuleFor(post => post.Id).Must((post, postid) => !postid.HasValue || (postid.HasValue && postid.Value > 0)); });
             RuleSet("Active", () => { RuleFor(post => post.Status).NotEmpty().Must((post, status) => status == PostStatus.DRAFT || status == PostStatus.PUBLISHED); });
-            RuleSet("Deleted", () => { RuleFor(post => post.Status).NotEmpty().Equal(PostStatus.DELETED); });
+            //RuleSet("Deleted", () => { RuleFor(post => post.Status).NotEmpty().Equal(PostStatus.DELETED); });
             RuleSet("Title", () => { RuleFor(post => post.Title).NotEmpty(); });            
         }        
     }

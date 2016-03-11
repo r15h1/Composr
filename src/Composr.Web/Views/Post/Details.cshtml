@@ -12,7 +12,7 @@
 <form method="post">
     <div class="btn-toolbar" role="toolbar">
         <button type="submit" class="btn btn-primary pull-right">Save</button>
-        <button type="button" class="btn btn-default pull-right" asp-action="Index">Cancel</button>
+        <a class="btn btn-default pull-right" href="/admin/blogs/@Model.BlogId/posts">Cancel</a>
     </div>
 
     <div asp-validation-summary="ValidationSummary.ModelOnly"></div>

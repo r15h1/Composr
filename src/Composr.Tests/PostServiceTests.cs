@@ -62,16 +62,16 @@ namespace Composr.Tests
             ));
         }
 
-        [Fact]
-        public void PostServiceThrowsSpecificationExceptionWhenSavingPostWithDeletedStatus()
-        {
-           Composr.Services.Service<Post> service = CreatePostService();
-            Assert.Throws<SpecificationException>(() => service.Save(new Post(new Blog(1))
-            {
-                Title = "abcd",
-                Status = PostStatus.DELETED
-            }));
-        }
+        //[Fact]
+        //public void PostServiceThrowsSpecificationExceptionWhenSavingPostWithDeletedStatus()
+        //{
+        //   Composr.Services.Service<Post> service = CreatePostService();
+        //    Assert.Throws<SpecificationException>(() => service.Save(new Post(new Blog(1))
+        //    {
+        //        Title = "abcd",
+        //        Status = PostStatus.DELETED
+        //    }));
+        //}
 
         [Fact]
         public void PostServiceSavesPostWithValidTitleAndDraftStatus()

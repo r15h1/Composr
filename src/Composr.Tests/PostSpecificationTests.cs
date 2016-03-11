@@ -54,14 +54,14 @@ namespace Composr.Tests
             Assert.True(compliance.IsSatisfied);
         }
 
-        [Fact]
-        public void PostWhenNewCanNotHaveDeletedStatus()
-        {
-            Post post = new Post(new Blog(1)) { Title = "title", Status = PostStatus.DELETED };
-            ISpecification<Post> specification = new MinimalPostSpecification();
-            var compliance = specification.EvaluateCompliance(post);
-            Assert.False(compliance.IsSatisfied);
-        }
+        //[Fact]
+        //public void PostWhenNewCanNotHaveDeletedStatus()
+        //{
+        //    Post post = new Post(new Blog(1)) { Title = "title", Status = PostStatus.DELETED };
+        //    ISpecification<Post> specification = new MinimalPostSpecification();
+        //    var compliance = specification.EvaluateCompliance(post);
+        //    Assert.False(compliance.IsSatisfied);
+        //}
 
         [Fact]
         public void PostWhenNewCanNotHaveNullTitle()
@@ -132,14 +132,14 @@ namespace Composr.Tests
             Assert.True(compliance.IsSatisfied);
         }
 
-        [Fact]
-        public void PostWhenExistingCanNotHaveDeletedStatus()
-        {
-            Post post = new Post(new Blog(1)) { Id = 123, Title = "title", Status = PostStatus.DELETED };
-            ISpecification<Post> specification = new MinimalPostSpecification();
-            var compliance = specification.EvaluateCompliance(post);
-            Assert.False(compliance.IsSatisfied);
-        }
+        //[Fact]
+        //public void PostWhenExistingCanNotHaveDeletedStatus()
+        //{
+        //    Post post = new Post(new Blog(1)) { Id = 123, Title = "title", Status = PostStatus.DELETED };
+        //    ISpecification<Post> specification = new MinimalPostSpecification();
+        //    var compliance = specification.EvaluateCompliance(post);
+        //    Assert.False(compliance.IsSatisfied);
+        //}
 
         [Fact]
         public void PostWhenExistingCanNotHaveNullTitle()

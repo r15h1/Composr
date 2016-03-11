@@ -21,16 +21,14 @@ namespace Composr.Web.Controllers
             this.blog = blog;
         }
 
-        [HttpGet]
-        [Route("")]
+        [HttpGet("")]
         public IActionResult Index([FromQuery]PostRequestModel model)
         {
             Filter filter = new Filter() { Criteria= model.Search };
             return View(service.Get(filter));
         }
 
-        [HttpGet]
-        [Route("{postid:int}")] 
+        [HttpGet("{postid:int}")] 
         public IActionResult Details(int postid)
         {
             Post post = service.Get(postid);
@@ -38,22 +36,19 @@ namespace Composr.Web.Controllers
             return View(model);
         }
 
-        [HttpGet]
-        [Route("new")]
+        [HttpGet("new")]
         public IActionResult Create()
         {
             return View("Details", new PostViewModel() { BlogId = blog.Id });
         }
 
-        [HttpPost]
-        [Route("new")]
+        [HttpPost("new")]
         public IActionResult Create([FromForm]PostViewModel model)
         {
             return Save(model);
         }
 
-        [HttpPost]
-        [Route("{postid:int}")]
+        [HttpPost("{postid:int}")]
         public IActionResult Update([FromRoute]int postid, [FromForm]PostViewModel model)
         {
             return Save(model, postid);

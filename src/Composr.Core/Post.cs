@@ -34,5 +34,10 @@ namespace Composr.Core
         public Blog Blog { get; private set; }
 
         public string Body { get; set; }
+
+        /// <summary>
+        /// uniform resource name - must be unique by blogid and language
+        /// </summary>
+        public string URN { get; set; }
     }
 }

@@ -20,17 +20,19 @@
             <thead>
                 <tr>
                     <th class="col-md-1 col-sm-1 col-xs-1">Post Id</th>
-                    <th class="col-md-8 col-sm-8 col-xs-8">Title</th>
-                    <th>Status</th>
+                    <th class="col-md-5 col-sm-5 col-xs-5">Title</th>
+                    <th class="col-md-4 col-sm-4 col-xs-4">URN</th>
+                    <th class="col-md-1 col-sm-1 col-xs-1">Status</th>
                     <th class="col-md-1 col-sm-1 col-xs-1"></th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var post in Model)
+                @foreach (var  post in Model)
                 {
                     <tr>
                         <td>@post.Id</td>
                         <td><a href="/admin/blogs/@post.Blog.Id/posts/@post.Id">@post.Title</a></td>
+                        <td>@post.URN</td>
                         <td>@post.Status</td>
                         <td class="text-center"><a href="/admin/blogs/@post.Blog.Id/posts/@post.Id"><i class="glyphicon glyphicon-edit" data-toggle="tooltip" title="edit this post"></i></a></td>
                     </tr>

@@ -17,6 +17,7 @@ namespace Composr.Web.ViewModels
 
         public PostStatus PostStatus { get; set; }
 
-        //public IEnumerable
+        [StringLength(250)]
+        public string URN { get; set; }
     }
 }

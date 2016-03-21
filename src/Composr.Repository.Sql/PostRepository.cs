@@ -39,7 +39,8 @@ namespace Composr.Repository.Sql
                             Body = row.Body,
                             Id = row.PostID,
                             Status = (Core.PostStatus)Enum.Parse(typeof(Core.PostStatus), row.PostStatusID.ToString()),
-                            Title = row.Title
+                            Title = row.Title,
+                            URN = row.URN
                         }                        
                 ).SingleOrDefault<Post>() ;
             }
@@ -98,6 +99,7 @@ namespace Composr.Repository.Sql
             p.Add("@Title", post.Title);
             p.Add("@Body", post.Body);
             p.Add("@PostStatusID", (int)post.Status);
+            p.Add("@URN", post.URN);
 
             QueryExecutor.ExecuteSingle<Post>("Post_Update", p);
         }
@@ -115,6 +117,7 @@ namespace Composr.Repository.Sql
             p.Add("@Title", post.Title);
             p.Add("@Body", post.Body);
             p.Add("@PostStatusID", (int)post.Status);
+            p.Add("@URN", post.URN);
 
             return QueryExecutor.ExecuteSingle<int>("Post_Create", p);
         }

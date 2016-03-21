@@ -69,9 +69,10 @@ namespace Composr.Tests
                 int id = repo.Save(CreateNewPost());
                 Post post1 = repo.Get(id);
                 post1.Title = "new title";
+                post1.URN = "new urn";
                 repo.Save(post1);
                 Post post2 = repo.Get(id);
-                Assert.True(post1.Title.Equals(post2.Title));
+                Assert.True(post1.Title.Equals(post2.Title) && post1.URN.Equals(post2.URN));
             }
         }
 
@@ -246,11 +247,11 @@ namespace Composr.Tests
         {
             IList<Post> list = Builder<Post>
                     .CreateListOfSize(5)
-                    .WhereTheFirst(1).IsConstructedUsing(() => new Post(blog)).And(x => x.Title = "autotrader").And(x => x.Body = "sell your cars")
-                    .AndTheNext(1).IsConstructedUsing(() => new Post(blog)).And(x => x.Title = "das auto").And(x => x.Body = "volkswagen is diesel")
-                    .AndTheNext(1).IsConstructedUsing(() => new Post(blog)).And(x => x.Title = "motoautomatic").And(x => x.Body = "upsell your car")
-                    .AndTheNext(1).IsConstructedUsing(() => new Post(blog)).And(x => x.Title = "man utd").And(x => x.Body = "football club")
-                    .AndTheNext(1).IsConstructedUsing(() => new Post(blog)).And(x => x.Title = "maple sell leafs").And(x => x.Body = "never win anything")
+                    .WhereTheFirst(1).IsConstructedUsing(() => new Post(blog)).And(x => x.Title = "autotrader").And(x => x.Body = "sell your cars").And(x => x.URN = "auto-trader")
+                    .AndTheNext(1).IsConstructedUsing(() => new Post(blog)).And(x => x.Title = "das auto").And(x => x.Body = "volkswagen is diesel").And(x => x.URN = "das-auto")
+                    .AndTheNext(1).IsConstructedUsing(() => new Post(blog)).And(x => x.Title = "motoautomatic").And(x => x.Body = "upsell your car").And(x => x.URN = "moto-automatic")
+                    .AndTheNext(1).IsConstructedUsing(() => new Post(blog)).And(x => x.Title = "man utd").And(x => x.Body = "football club").And(x => x.URN = "man-utd")
+                    .AndTheNext(1).IsConstructedUsing(() => new Post(blog)).And(x => x.Title = "maple sell leafs").And(x => x.Body = "never win anything").And(x => x.URN = "maple-sell-leafs")
                     .WhereAll().IsConstructedUsing(() => new Post(blog)).And(p => p.Id = null)
                     .Build();
             return list;
@@ -262,7 +263,8 @@ namespace Composr.Tests
             {
                 Title = "test post title",
                 Body = "this is the post's body",
-                Status = PostStatus.DRAFT                
+                Status = PostStatus.DRAFT,
+                URN = "test-post-urn"
             };
         }
 

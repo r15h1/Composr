@@ -33,17 +33,22 @@ namespace Composr.Repository.Sql
 
             using (System.Data.IDbConnection conn = ConnectionFactory.CreateConnection())
             {
-                return conn.Query("Post_Select_One", p, commandType: System.Data.CommandType.StoredProcedure).Select(
-                        row => new Composr.Core.Post(new BlogRepository().Get((int)row.BlogID))
-                        {
-                            Body = row.Body,
-                            Id = row.PostID,
-                            Status = (Core.PostStatus)Enum.Parse(typeof(Core.PostStatus), row.PostStatusID.ToString()),
-                            Title = row.Title,
-                            URN = row.URN
-                        }                        
-                ).SingleOrDefault<Post>() ;
+                return conn.Query("Post_Select_One", p, commandType: System.Data.CommandType.StoredProcedure).Select<dynamic, Post>(
+                        row => BuildPost(row)
+                ).SingleOrDefault();
             }
+        }
+
+        private Post BuildPost(dynamic row)
+        {
+            return new Composr.Core.Post(new BlogRepository().Get((int)row.BlogID))
+            {
+                Body = row.Body,
+                Id = row.PostID,
+                Status = (Core.PostStatus)Enum.Parse(typeof(Core.PostStatus), row.PostStatusID.ToString()),
+                Title = row.Title,
+                URN = row.URN
+            };
         }
 
         public IList<Core.Post> Get(Filter filter)
@@ -63,15 +68,9 @@ namespace Composr.Repository.Sql
 
             using (System.Data.IDbConnection conn = ConnectionFactory.CreateConnection())
             {
-                return conn.Query("Post_Select_Many", p, commandType: System.Data.CommandType.StoredProcedure).Select(
-                        row => new Composr.Core.Post(new BlogRepository().Get((int)row.BlogID))
-                        {
-                            Body = row.Body,
-                            Id = row.PostID,
-                            Status = (Core.PostStatus)Enum.Parse(typeof(Core.PostStatus), row.PostStatusID.ToString()),
-                            Title = row.Title
-                        }
-                ).ToList<Post>();
+                return conn.Query("Post_Select_Many", p, commandType: System.Data.CommandType.StoredProcedure).Select<dynamic, Post>(
+                        row => BuildPost(row)
+                ).ToList();
             }
         }
 

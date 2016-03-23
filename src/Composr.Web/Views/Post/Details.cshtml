@@ -9,7 +9,7 @@
     <li class="active">details</li>
 </ol>
 
-<form method="post">
+<form method="post" name="myform" id="myform">
     <div class="btn-toolbar" role="toolbar">
         <button type="submit" class="btn btn-primary pull-right">Save</button>
         <a class="btn btn-default pull-right" href="/admin/blogs/@Model.BlogId/posts">Cancel</a>
@@ -19,7 +19,7 @@
 
     <div class="form-group">
         <label for="title">Title</label><input class="form-control" type="text" name="title" id="title" asp-for="Title" value="@Model.Title" required minlength="5" maxlength="100"/>
-        <span asp-validation-for="Title"></span>
+        <span asp-validation-for="Title" class="label label-warning"></span>
     </div>
 
     <div class="form-group">
@@ -32,21 +32,14 @@
         <textarea autofocus class="form-control" name="body" id="body" asp-for="Body" rows="10" required>@Model.Body</textarea>
         <span asp-validation-for="Body"></span>
     </div>
-
-    @*<div class="form-group">
-        <div class="dropdown">
-            <label for="poststatus">Status</label>
-            <select id="poststatus" name="poststatus" asp-for="PostStatus" asp-items="Html.GetEnumSelectList<Composr.Core.PostStatus>()">
-            </select>
-        </div>
-    </div>*@
 </form>
 
 @section scripts {
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/tinymce/tinymce.min.js"></script>
-@*<script src="~/lib/tinymce/tinymce.jquery.min.js"></script>*@
+
     <script>
-        tinymce.init({
+        tinyMCE.init({
             plugins: [
                 'advlist autolink lists link image charmap print preview hr anchor pagebreak',
                 'searchreplace wordcount visualblocks visualchars code fullscreen',
@@ -61,7 +54,51 @@
                 editor.on('change', function () {
                     editor.save();
                 });
+            },
+            onchange_callback: function (editor) {
+                tinyMCE.triggerSave();
+                $("#" + editor.id).valid();
             }
-      });
+        });
+
+        $(function () {
+            var validator = $("#myform").submit(function () {
+                // update underlying textarea before submit validation
+                tinyMCE.triggerSave();
+            }).validate({
+                ignore: "",
+                rules: {
+                    title: "required",
+                    content: "required"
+                },
+                errorPlacement: function (label, element) {
+                    // position error label after generated textarea
+                    if (element.is("textarea")) {
+                        label.insertAfter(element.next());
+                    } else {
+                        label.insertAfter(element)
+                    }
+                }
+            });
+            validator.focusInvalid = function () {
+                // put focus on tinymce on submit validation
+                if (this.settings.focusInvalid) {
+                    try {
+                        var toFocus = $(this.findLastActive() || this.errorList.length && this.errorList[0].element || []);
+                        if (toFocus.is("textarea")) {
+                            tinyMCE.get(toFocus.attr("id")).focus();
+                        } else {
+                            toFocus.filter(":visible").focus();
+                        }
+                    } catch (e) {
+                        // ignore IE throwing errors when focusing hidden elements
+                    }
+                }
+            }
+        })
     </script>
+}
+
+@section css {
+
 }

@@ -294,5 +294,52 @@ namespace Composr.Tests
             var compliance = specification.EvaluateCompliance(post);
             Assert.True(compliance.Errors.Count == 1);
         }
+
+        [Fact]
+        public void PostWhenPublishedMustNotHaveMetaDescWithMinLengthMinus1Chars()
+        {
+            Post post = new Post(new Blog(1)) { Id = 123, Title = "title", Status = PostStatus.PUBLISHED, URN = new string('a', URN_MAX_LENGTH - 1) };
+            post.Attributes.Add(PostAttributeKeys.MetaDescription, new string('a', META_DESC_MIN_LENGTH - 1));
+            ISpecification<Post> specification = new BasicPostSpecification().And(new PublishedPostSpecification());
+            var compliance = specification.EvaluateCompliance(post);
+            Assert.True(compliance.Errors.Count == 1);
+        }
+
+        [Fact]
+        public void PostWhenPublishedMustNotHaveMetaDescWithMaxLengthPlus1Chars()
+        {
+            Post post = new Post(new Blog(1)) { Id = 123, Title = "title", Status = PostStatus.PUBLISHED, URN = new string('a', URN_MAX_LENGTH - 1) };
+            post.Attributes.Add(PostAttributeKeys.MetaDescription, new string('a', META_DESC_MAX_LENGTH + 1));
+            ISpecification<Post> specification = new BasicPostSpecification().And(new PublishedPostSpecification());
+            var compliance = specification.EvaluateCompliance(post);
+            Assert.True(compliance.Errors.Count == 1);
+        }
+
+        [Fact]
+        public void PostWhenPublishedCanHaveMetaDescWithMaxLengthMinus1Chars()
+        {
+            Post post = new Post(new Blog(1)) { Id = 123, Title = "title", Status = PostStatus.PUBLISHED, URN = new string('a', URN_MAX_LENGTH - 1) };
+            post.Attributes.Add(PostAttributeKeys.MetaDescription, new string('a', META_DESC_MAX_LENGTH - 1));
+            ISpecification<Post> specification = new BasicPostSpecification().And(new PublishedPostSpecification());
+            var compliance = specification.EvaluateCompliance(post);
+            Assert.True(compliance.IsSatisfied);
+        }
+
+        [Fact]
+        public void PostWhenPublishedCanHaveMetaDescWithMinLengthPlus1Chars()
+        {
+            Post post = new Post(new Blog(1)) { Id = 123, Title = "title", Status = PostStatus.PUBLISHED, URN = new string('a', URN_MAX_LENGTH - 1) };
+            post.Attributes.Add(PostAttributeKeys.MetaDescription, new string('a', META_DESC_MIN_LENGTH + 1));
+            ISpecification<Post> specification = new BasicPostSpecification().And(new PublishedPostSpecification());
+            var compliance = specification.EvaluateCompliance(post);
+            Assert.True(compliance.IsSatisfied);
+        }
+
+        [Fact]
+        public void PostMetaDescMustAlwaysSatisfyRegex()
+        {
+            //alpha numeric, punctuation and space
+            Assert.True(1 == 2);
+        }
     }
 } 

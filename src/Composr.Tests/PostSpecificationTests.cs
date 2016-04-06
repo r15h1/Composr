@@ -9,6 +9,11 @@ namespace Composr.Tests
     
     public class PostSpecificationTests
     {
+        private const int URN_MIN_LENGTH = 5;
+        private const int URN_MAX_LENGTH = 200;
+
+
+
         [Fact]
         public void PostBlogCannotBeNull()
         {
@@ -170,12 +175,73 @@ namespace Composr.Tests
 
         //------------------------------------------------------------------------------------
         [Fact]
-        public void PostWhenPublishedMustNotHaveEmptyURN()
+        public void PostWhenPublishedMustNotHaveNullURN()
         {
             Post post = new Post(new Blog(1)) { Id = 123, Title = "title", Status = PostStatus.PUBLISHED };
+            post.Attributes.Add(PostAttributeKeys.MetaDescription, new string('a', 155));
             ISpecification<Post> specification = new BasicPostSpecification().And(new PublishedPostSpecification());
             var compliance = specification.EvaluateCompliance(post);
-            Assert.False(compliance.IsSatisfied);
+            Assert.True(compliance.Errors.Count == 1);
+        }
+
+        [Fact]
+        public void PostWhenPublishedMustNotHaveEmptyURN()
+        {
+            Post post = new Post(new Blog(1)) { Id = 123, Title = "title", Status = PostStatus.PUBLISHED, URN = string.Empty };
+            post.Attributes.Add(PostAttributeKeys.MetaDescription, new string('a', 155));
+            ISpecification<Post> specification = new BasicPostSpecification().And(new PublishedPostSpecification());
+            var compliance = specification.EvaluateCompliance(post);
+            Assert.True(compliance.Errors.Count == 2);
+        }
+
+        [Fact]
+        public void PostWhenPublishedMustNotHaveWhiteSpaceURN()
+        {
+            Post post = new Post(new Blog(1)) { Id = 123, Title = "title", Status = PostStatus.PUBLISHED, URN = "  " };
+            post.Attributes.Add(PostAttributeKeys.MetaDescription, new string('a', 155));
+            ISpecification<Post> specification = new BasicPostSpecification().And(new PublishedPostSpecification());
+            var compliance = specification.EvaluateCompliance(post);
+            Assert.True(compliance.Errors.Count == 2);
+        }
+
+        [Fact]
+        public void PostWhenPublishedMustNotHaveURNWithLessThanMinAllowedChars()
+        {
+            Post post = new Post(new Blog(1)) { Id = 123, Title = "title", Status = PostStatus.PUBLISHED, URN = new string('a', URN_MIN_LENGTH - 1) };
+            post.Attributes.Add(PostAttributeKeys.MetaDescription, new string('a', 155));
+            ISpecification<Post> specification = new BasicPostSpecification().And(new PublishedPostSpecification());
+            var compliance = specification.EvaluateCompliance(post);
+            Assert.True(compliance.Errors.Count == 1);
+        }
+
+        [Fact]
+        public void PostWhenPublishedMustNotHaveURNWithMoreThanMaxAllowedChars()
+        {
+            Post post = new Post(new Blog(1)) { Id = 123, Title = "title", Status = PostStatus.PUBLISHED, URN = new string('a', URN_MAX_LENGTH + 1) };
+            post.Attributes.Add(PostAttributeKeys.MetaDescription, new string('a', 155));
+            ISpecification<Post> specification = new BasicPostSpecification().And(new PublishedPostSpecification());
+            var compliance = specification.EvaluateCompliance(post);
+            Assert.True(compliance.Errors.Count == 1);
+        }
+
+        [Fact]
+        public void PostWhenPublishedURNIsValidWithMinLengthPlus1Chars()
+        {
+            Post post = new Post(new Blog(1)) { Id = 123, Title = "title", Status = PostStatus.PUBLISHED, URN = new string('a', URN_MIN_LENGTH + 1) };
+            post.Attributes.Add(PostAttributeKeys.MetaDescription, new string('a', 155));
+            ISpecification<Post> specification = new BasicPostSpecification().And(new PublishedPostSpecification());
+            var compliance = specification.EvaluateCompliance(post);
+            Assert.True(compliance.IsSatisfied);
+        }
+
+        [Fact]
+        public void PostWhenPublishedURNIsValidNWithMaxLengthMinus1Chars()
+        {
+            Post post = new Post(new Blog(1)) { Id = 123, Title = "title", Status = PostStatus.PUBLISHED, URN = new string('a', URN_MAX_LENGTH - 1) };
+            post.Attributes.Add(PostAttributeKeys.MetaDescription, new string('a', 155));
+            ISpecification<Post> specification = new BasicPostSpecification().And(new PublishedPostSpecification());
+            var compliance = specification.EvaluateCompliance(post);
+            Assert.True(compliance.IsSatisfied);
         }
     }
-}
+} 

@@ -110,7 +110,7 @@ namespace Composr.Tests
         private static Services.Service<Post> CreatePostService()
         {
             Blog blog = new Blog(1);
-            Composr.Services.Service<Post> service = new Composr.Services.Service<Post>(new PostRepository(blog), new MinimalPostSpecification());
+            Composr.Services.Service<Post> service = new Composr.Services.Service<Post>(new PostRepository(blog), new BasicPostSpecification());
             return service;
         }
     }

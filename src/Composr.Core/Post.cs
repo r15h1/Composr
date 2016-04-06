@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Composr.Core
 {
@@ -14,6 +15,7 @@ namespace Composr.Core
 
             Blog = blog;
             Status = PostStatus.DRAFT;
+            Attributes = new Dictionary<string, string>();
         }
 
         int? postid;
@@ -23,7 +25,7 @@ namespace Composr.Core
             set 
             {
                 if (value.HasValue && value.Value <= 0) throw new ArgumentException("postid must be greater than zero");
-                postid = value;
+                postid = value;                
             }
         }
 
@@ -39,5 +41,7 @@ namespace Composr.Core
         /// uniform resource name - must be unique by blogid and language
         /// </summary>
         public string URN { get; set; }
+
+        public IDictionary<string, string> Attributes { get; set; }
     }
 }

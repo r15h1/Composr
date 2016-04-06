@@ -13,6 +13,9 @@ namespace Composr.Web.ViewModels
         [Required(ErrorMessage = "Body is missing")]
         public string Body { get; set; }
 
+        [StringLength(maximumLength:160, MinimumLength =150)]
+        public string MetaDescription { get; set; }
+
         public int? BlogId { get; set; }
 
         public PostStatus PostStatus { get; set; }

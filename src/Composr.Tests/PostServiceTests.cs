@@ -95,12 +95,15 @@ namespace Composr.Tests
             using (TransactionScope t = new TransactionScope())
             {
                 Composr.Services.Service<Post> service = CreatePostService();
-                int id = service.Save(new Post(new Blog(1))
+                Post post = new Post(new Blog(1))
                 {
                     Title = "Abc",
-                    Status = PostStatus.PUBLISHED
-                }
-                );
+                    Status = PostStatus.PUBLISHED,
+                    URN = new string('a', 5)
+                };
+
+                post.Attributes.Add(PostAttributeKeys.MetaDescription, new string('a', 155));
+                int id = service.Save(post);
                 Assert.True(id > 0);
             }
         }
@@ -110,7 +113,7 @@ namespace Composr.Tests
         private static Services.Service<Post> CreatePostService()
         {
             Blog blog = new Blog(1);
-            Composr.Services.Service<Post> service = new Composr.Services.Service<Post>(new PostRepository(blog), new BasicPostSpecification());
+            Composr.Services.Service<Post> service = new Composr.Services.Service<Post>(new PostRepository(blog), new PostSpecification());
             return service;
         }
     }

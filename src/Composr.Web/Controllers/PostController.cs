@@ -32,8 +32,10 @@ namespace Composr.Web.Controllers
         public IActionResult Details(int postid)
         {
             Post post = service.Get(postid);
-            PostViewModel model = new PostViewModel() { BlogId = post.Blog.Id, Id = post.Id, Body = post.Body, Title = post.Title , PostStatus = post.Status, URN = post.URN};
-            return View(model);
+            PostViewModel viewModel = new PostViewModel() { BlogId = post.Blog.Id, Id = post.Id, Body = post.Body, Title = post.Title , PostStatus = post.Status, URN = post.URN};
+            if (post.Attributes.ContainsKey(PostAttributeKeys.MetaDescription))
+                viewModel.MetaDescription = post.Attributes[PostAttributeKeys.MetaDescription];
+            return View(viewModel);
         }
 
         [HttpGet("new")]
@@ -49,32 +51,34 @@ namespace Composr.Web.Controllers
         }
 
         [HttpPost("{postid:int}")]
-        public IActionResult Update([FromRoute]int postid, [FromForm]PostViewModel model)
+        public IActionResult Update([FromRoute]int postid, [FromForm]PostViewModel viewModel)
         {
-            return Save(model, postid);
+            return Save(viewModel, postid);
         }
 
-        private IActionResult Save(PostViewModel model, int? postid = null)
+        private IActionResult Save(PostViewModel viewModel, int? postid = null)
         {
-            model.BlogId = blog.Id;
+            viewModel.BlogId = blog.Id;
             if (!ModelState.IsValid)
-                return View("Details", model);
+                return View("Details", viewModel);
 
-            model.Id = postid;
-            service.Save(MapPost(model));
+            viewModel.Id = postid;
+            service.Save(MapPost(viewModel));
             return RedirectToAction("Index");
         }
 
-        private Post MapPost(PostViewModel model)
+        private Post MapPost(PostViewModel viewModel)
         {
-            return new Post(blog)
+            var post = new Post(blog)
             {
-                Body = model.Body,
-                Title = model.Title,
-                Id = model.Id,
-                Status = model.PostStatus,
-                URN = model.URN
+                Body = viewModel.Body,
+                Title = viewModel.Title,
+                Id = viewModel.Id,
+                Status = viewModel.PostStatus,
+                URN = viewModel.URN
             };
+            post.Attributes.Add(PostAttributeKeys.MetaDescription, viewModel.MetaDescription);
+            return post;
         }
     }
 }

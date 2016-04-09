@@ -20,7 +20,7 @@ namespace Composr.Web
             services.AddScoped<Composr.Core.Repositories.IRepository<Composr.Core.Post>, Composr.Mock.Repositories.PostRepository>();
             
             services.AddScoped<Composr.Core.Specifications.ISpecification<Composr.Core.Blog>, Composr.Specifications.MinimalBlogSpecification>();
-            services.AddScoped<Composr.Core.Specifications.ISpecification<Composr.Core.Post>, Composr.Specifications.BasicPostSpecification>();
+            services.AddScoped<Composr.Core.Specifications.ISpecification<Composr.Core.Post>, Composr.Specifications.PostSpecification>();
 
             services.AddScoped<Composr.Core.Services.IService<Composr.Core.Post>, Composr.Services.Service<Composr.Core.Post>>();
             services.AddScoped<Composr.Core.Services.IService<Composr.Core.Blog>, Composr.Services.Service<Composr.Core.Blog>>();

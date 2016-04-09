@@ -36,7 +36,7 @@ namespace Composr.Tests
         [Fact]
         public void PostWhenNullDoesNotSatisfyNewPostSpecification()
         {
-           ISpecification<Post> specification = new BasicPostSpecification();
+           ISpecification<Post> specification = new PostSpecification();
            var compliance = specification.EvaluateCompliance(null);
            Assert.False(compliance.IsSatisfied);
         }        
@@ -45,7 +45,7 @@ namespace Composr.Tests
         public void PostWhenNewCanHaveDraftStatus()
         {
             Post post = new Post(new Blog(1)) { Title = "title", Status = PostStatus.DRAFT };
-            ISpecification<Post> specification = new BasicPostSpecification();
+            ISpecification<Post> specification = new PostSpecification();
             var compliance = specification.EvaluateCompliance(post);
             Assert.True(compliance.IsSatisfied);
         }
@@ -54,7 +54,7 @@ namespace Composr.Tests
         public void PostWhenNewCanHavePublishedStatus()
         {
             Post post = new Post(new Blog(1)) { Title = "title", Status = PostStatus.PUBLISHED };
-            ISpecification<Post> specification = new BasicPostSpecification();
+            ISpecification<Post> specification = new PostSpecification();
             var compliance = specification.EvaluateCompliance(post);
             Assert.True(compliance.IsSatisfied);
         }
@@ -72,7 +72,7 @@ namespace Composr.Tests
         public void PostWhenNewCanNotHaveNullTitle()
         {
             Post post = new Post(new Blog(1)) { Title =null };
-            ISpecification<Post> specification = new BasicPostSpecification();
+            ISpecification<Post> specification = new PostSpecification();
             var compliance = specification.EvaluateCompliance(post);
             Assert.False(compliance.IsSatisfied);
         }
@@ -81,7 +81,7 @@ namespace Composr.Tests
         public void PostWhenNewCanNotHaveEmptyTitle()
         {
             Post post = new Post(new Blog(1)) { Title = string.Empty };
-            ISpecification<Post> specification = new BasicPostSpecification();
+            ISpecification<Post> specification = new PostSpecification();
             var compliance = specification.EvaluateCompliance(post);
             Assert.False(compliance.IsSatisfied);
         }
@@ -90,7 +90,7 @@ namespace Composr.Tests
         public void PostWhenNewCanNotHaveWhitespaceTitle()
         {
             Post post = new Post(new Blog(1)) { Title = "  " };
-            ISpecification<Post> specification = new BasicPostSpecification();
+            ISpecification<Post> specification = new PostSpecification();
             var compliance = specification.EvaluateCompliance(post);
             Assert.False(compliance.IsSatisfied);
         }
@@ -99,7 +99,7 @@ namespace Composr.Tests
         public void PostWhenNewCanNotHaveValidTitle()
         {
             Post post = new Post(new Blog(1)) { Title = "Post title" };
-            ISpecification<Post> specification = new BasicPostSpecification();
+            ISpecification<Post> specification = new PostSpecification();
             var compliance = specification.EvaluateCompliance(post);
             Assert.True(compliance.IsSatisfied);
         }
@@ -114,7 +114,7 @@ namespace Composr.Tests
         public void PostWhenExistingMustHavePositiveID()
         {
             Post post = new Post(new Blog(1)) { Id = 123, Title = "title" };
-            ISpecification<Post> specification = new BasicPostSpecification();
+            ISpecification<Post> specification = new PostSpecification();
             var compliance = specification.EvaluateCompliance(post);
             Assert.True(compliance.IsSatisfied);
         }
@@ -123,7 +123,7 @@ namespace Composr.Tests
         public void PostWhenExistingCanHaveDraftStatus()
         {
             Post post = new Post(new Blog(1)) { Id = 123, Title = "title", Status = PostStatus.DRAFT };
-            ISpecification<Post> specification = new BasicPostSpecification();
+            ISpecification<Post> specification = new PostSpecification();
             var compliance = specification.EvaluateCompliance(post);
             Assert.True(compliance.IsSatisfied);
         }
@@ -132,7 +132,7 @@ namespace Composr.Tests
         public void PostWhenExistingCanHavePublishedStatus()
         {
             Post post = new Post(new Blog(1)) { Id = 123, Title = "title", Status = PostStatus.PUBLISHED };
-            ISpecification<Post> specification = new BasicPostSpecification();
+            ISpecification<Post> specification = new PostSpecification();
             var compliance = specification.EvaluateCompliance(post);
             Assert.True(compliance.IsSatisfied);
         }
@@ -150,7 +150,7 @@ namespace Composr.Tests
         public void PostWhenExistingCanNotHaveNullTitle()
         {
             Post post = new Post(new Blog(1)) { Id = 123, Title = null };
-            ISpecification<Post> specification = new BasicPostSpecification();
+            ISpecification<Post> specification = new PostSpecification();
             var compliance = specification.EvaluateCompliance(post);
             Assert.False(compliance.IsSatisfied);
         }
@@ -159,7 +159,7 @@ namespace Composr.Tests
         public void PostWhenExistingCanNotHaveEmptyTitle()
         {
             Post post = new Post(new Blog(1)) { Id = 123, Title = null };
-            ISpecification<Post> specification = new BasicPostSpecification();
+            ISpecification<Post> specification = new PostSpecification();
             var compliance = specification.EvaluateCompliance(post);
             Assert.False(compliance.IsSatisfied);
         }
@@ -168,7 +168,7 @@ namespace Composr.Tests
         public void PostWhenExistingCanNotHaveValidTitle()
         {
             Post post = new Post(new Blog(1)) { Id = 123, Title = "title" };
-            ISpecification<Post> specification = new BasicPostSpecification();
+            ISpecification<Post> specification = new PostSpecification();
             var compliance = specification.EvaluateCompliance(post);
             Assert.True(compliance.IsSatisfied);
         }
@@ -179,7 +179,7 @@ namespace Composr.Tests
         {
             Post post = new Post(new Blog(1)) { Id = 123, Title = "title", Status = PostStatus.PUBLISHED };
             post.Attributes.Add(PostAttributeKeys.MetaDescription, new string('a', 155));
-            ISpecification<Post> specification = new BasicPostSpecification().And(new PublishedPostSpecification());
+            ISpecification<Post> specification = new PostSpecification();
             var compliance = specification.EvaluateCompliance(post);
             Assert.True(compliance.Errors.Count == 1);
         }
@@ -189,7 +189,7 @@ namespace Composr.Tests
         {
             Post post = new Post(new Blog(1)) { Id = 123, Title = "title", Status = PostStatus.PUBLISHED, URN = string.Empty };
             post.Attributes.Add(PostAttributeKeys.MetaDescription, new string('a', 155));
-            ISpecification<Post> specification = new BasicPostSpecification().And(new PublishedPostSpecification());
+            ISpecification<Post> specification = new PostSpecification();
             var compliance = specification.EvaluateCompliance(post);
             Assert.True(compliance.Errors.Count == 2);
         }
@@ -199,7 +199,7 @@ namespace Composr.Tests
         {
             Post post = new Post(new Blog(1)) { Id = 123, Title = "title", Status = PostStatus.PUBLISHED, URN = "  " };
             post.Attributes.Add(PostAttributeKeys.MetaDescription, new string('a', 155));
-            ISpecification<Post> specification = new BasicPostSpecification().And(new PublishedPostSpecification());
+            ISpecification<Post> specification = new PostSpecification();
             var compliance = specification.EvaluateCompliance(post);
             Assert.True(compliance.Errors.Count == 2);
         }
@@ -209,7 +209,7 @@ namespace Composr.Tests
         {
             Post post = new Post(new Blog(1)) { Id = 123, Title = "title", Status = PostStatus.PUBLISHED, URN = new string('a', URN_MIN_LENGTH - 1) };
             post.Attributes.Add(PostAttributeKeys.MetaDescription, new string('a', 155));
-            ISpecification<Post> specification = new BasicPostSpecification().And(new PublishedPostSpecification());
+            ISpecification<Post> specification = new PostSpecification();
             var compliance = specification.EvaluateCompliance(post);
             Assert.True(compliance.Errors.Count == 1);
         }
@@ -219,7 +219,7 @@ namespace Composr.Tests
         {
             Post post = new Post(new Blog(1)) { Id = 123, Title = "title", Status = PostStatus.PUBLISHED, URN = new string('a', URN_MAX_LENGTH + 1) };
             post.Attributes.Add(PostAttributeKeys.MetaDescription, new string('a', 155));
-            ISpecification<Post> specification = new BasicPostSpecification().And(new PublishedPostSpecification());
+            ISpecification<Post> specification = new PostSpecification();
             var compliance = specification.EvaluateCompliance(post);
             Assert.True(compliance.Errors.Count == 1);
         }
@@ -229,7 +229,7 @@ namespace Composr.Tests
         {
             Post post = new Post(new Blog(1)) { Id = 123, Title = "title", Status = PostStatus.PUBLISHED, URN = new string('a', URN_MIN_LENGTH + 1) };
             post.Attributes.Add(PostAttributeKeys.MetaDescription, new string('a', 155));
-            ISpecification<Post> specification = new BasicPostSpecification().And(new PublishedPostSpecification());
+            ISpecification<Post> specification = new PostSpecification();
             var compliance = specification.EvaluateCompliance(post);
             Assert.True(compliance.IsSatisfied);
         }
@@ -239,7 +239,7 @@ namespace Composr.Tests
         {
             Post post = new Post(new Blog(1)) { Id = 123, Title = "title", Status = PostStatus.PUBLISHED, URN = new string('a', URN_MAX_LENGTH - 1) };
             post.Attributes.Add(PostAttributeKeys.MetaDescription, new string('a', 155));
-            ISpecification<Post> specification = new BasicPostSpecification().And(new PublishedPostSpecification());
+            ISpecification<Post> specification = new PostSpecification();
             var compliance = specification.EvaluateCompliance(post);
             Assert.True(compliance.IsSatisfied);
         }
@@ -260,7 +260,7 @@ namespace Composr.Tests
         public void PostWhenPublishedMustNotHaveMissingMetaDesc()
         {
             Post post = new Post(new Blog(1)) { Id = 123, Title = "title", Status = PostStatus.PUBLISHED, URN = new string('a', URN_MAX_LENGTH - 1) };
-            ISpecification<Post> specification = new BasicPostSpecification().And(new PublishedPostSpecification());
+            ISpecification<Post> specification = new PostSpecification();
             var compliance = specification.EvaluateCompliance(post);
             Assert.True(compliance.Errors.Count == 1);
         }
@@ -270,7 +270,7 @@ namespace Composr.Tests
         {
             Post post = new Post(new Blog(1)) { Id = 123, Title = "title", Status = PostStatus.PUBLISHED, URN = new string('a', URN_MAX_LENGTH - 1) };
             post.Attributes.Add(PostAttributeKeys.MetaDescription, null);
-            ISpecification<Post> specification = new BasicPostSpecification().And(new PublishedPostSpecification());
+            ISpecification<Post> specification = new PostSpecification();
             var compliance = specification.EvaluateCompliance(post);
             Assert.True(compliance.Errors.Count == 1);
         }
@@ -280,7 +280,7 @@ namespace Composr.Tests
         {
             Post post = new Post(new Blog(1)) { Id = 123, Title = "title", Status = PostStatus.PUBLISHED, URN = new string('a', URN_MAX_LENGTH - 1) };
             post.Attributes.Add(PostAttributeKeys.MetaDescription, string.Empty);
-            ISpecification<Post> specification = new BasicPostSpecification().And(new PublishedPostSpecification());
+            ISpecification<Post> specification = new PostSpecification();
             var compliance = specification.EvaluateCompliance(post);
             Assert.True(compliance.Errors.Count == 1);
         }
@@ -290,7 +290,7 @@ namespace Composr.Tests
         {
             Post post = new Post(new Blog(1)) { Id = 123, Title = "title", Status = PostStatus.PUBLISHED, URN = new string('a', URN_MAX_LENGTH - 1) };
             post.Attributes.Add(PostAttributeKeys.MetaDescription, "     ");
-            ISpecification<Post> specification = new BasicPostSpecification().And(new PublishedPostSpecification());
+            ISpecification<Post> specification = new PostSpecification();
             var compliance = specification.EvaluateCompliance(post);
             Assert.True(compliance.Errors.Count == 1);
         }
@@ -300,7 +300,7 @@ namespace Composr.Tests
         {
             Post post = new Post(new Blog(1)) { Id = 123, Title = "title", Status = PostStatus.PUBLISHED, URN = new string('a', URN_MAX_LENGTH - 1) };
             post.Attributes.Add(PostAttributeKeys.MetaDescription, new string('a', META_DESC_MIN_LENGTH - 1));
-            ISpecification<Post> specification = new BasicPostSpecification().And(new PublishedPostSpecification());
+            ISpecification<Post> specification = new PostSpecification();
             var compliance = specification.EvaluateCompliance(post);
             Assert.True(compliance.Errors.Count == 1);
         }
@@ -310,7 +310,7 @@ namespace Composr.Tests
         {
             Post post = new Post(new Blog(1)) { Id = 123, Title = "title", Status = PostStatus.PUBLISHED, URN = new string('a', URN_MAX_LENGTH - 1) };
             post.Attributes.Add(PostAttributeKeys.MetaDescription, new string('a', META_DESC_MAX_LENGTH + 1));
-            ISpecification<Post> specification = new BasicPostSpecification().And(new PublishedPostSpecification());
+            ISpecification<Post> specification = new PostSpecification();
             var compliance = specification.EvaluateCompliance(post);
             Assert.True(compliance.Errors.Count == 1);
         }
@@ -320,7 +320,7 @@ namespace Composr.Tests
         {
             Post post = new Post(new Blog(1)) { Id = 123, Title = "title", Status = PostStatus.PUBLISHED, URN = new string('a', URN_MAX_LENGTH - 1) };
             post.Attributes.Add(PostAttributeKeys.MetaDescription, new string('a', META_DESC_MAX_LENGTH - 1));
-            ISpecification<Post> specification = new BasicPostSpecification().And(new PublishedPostSpecification());
+            ISpecification<Post> specification = new PostSpecification();
             var compliance = specification.EvaluateCompliance(post);
             Assert.True(compliance.IsSatisfied);
         }
@@ -330,7 +330,7 @@ namespace Composr.Tests
         {
             Post post = new Post(new Blog(1)) { Id = 123, Title = "title", Status = PostStatus.PUBLISHED, URN = new string('a', URN_MAX_LENGTH - 1) };
             post.Attributes.Add(PostAttributeKeys.MetaDescription, new string('a', META_DESC_MIN_LENGTH + 1));
-            ISpecification<Post> specification = new BasicPostSpecification().And(new PublishedPostSpecification());
+            ISpecification<Post> specification = new PostSpecification();
             var compliance = specification.EvaluateCompliance(post);
             Assert.True(compliance.IsSatisfied);
         }

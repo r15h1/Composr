@@ -27,24 +27,14 @@ namespace Composr.Specifications
         }        
     }
 
-    public class BasicPostSpecification : Composr.Core.Specifications.ISpecification<Post>
+    public class PostSpecification : Composr.Core.Specifications.ISpecification<Post>
     {
         public Core.Specifications.Compliance EvaluateCompliance(Post post)
         {
             if (post == null) return new Core.Specifications.Compliance(new List<string> { "post cannot be null" });
 
-            var result = new PostValidator().Validate(post, ruleSet: "Blog,PostID,Active,Title");
+            var result = new PostValidator().Validate(post, ruleSet: "Blog,PostID,Active,Title,Published");
             return new Core.Specifications.Compliance(result.Errors.Select(x => x.ErrorMessage));
         }
     }
-
-    public class PublishedPostSpecification : Composr.Core.Specifications.ISpecification<Post>
-    {
-        public Core.Specifications.Compliance EvaluateCompliance(Post post)
-        {
-            var result = new PostValidator().Validate(post, ruleSet: "Published");
-            return new Core.Specifications.Compliance(result.Errors.Select(x => x.ErrorMessage));
-        }
-    }
-
 }

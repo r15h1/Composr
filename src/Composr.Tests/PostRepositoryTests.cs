@@ -70,9 +70,11 @@ namespace Composr.Tests
                 Post post1 = repo.Get(id);
                 post1.Title = "new title";
                 post1.URN = "new urn";
+                post1.Attributes.Add(PostAttributeKeys.MetaDescription, new string('a', 20));
                 repo.Save(post1);
                 Post post2 = repo.Get(id);
-                Assert.True(post1.Title.Equals(post2.Title) && post1.URN.Equals(post2.URN));
+                Assert.True(post1.Title.Equals(post2.Title) && post1.URN.Equals(post2.URN) && post1.Attributes[PostAttributeKeys.MetaDescription].Equals(post2.Attributes[PostAttributeKeys.MetaDescription]));
+                
             }
         }
 
@@ -259,13 +261,16 @@ namespace Composr.Tests
 
         private Post CreateNewPost()
         {
-            return new Post(new Blog(1))
+            Post p = new Post(new Blog(1))
             {
                 Title = "test post title",
                 Body = "this is the post's body",
                 Status = PostStatus.DRAFT,
                 URN = "test-post-urn"
             };
+
+            p.Attributes.Add(PostAttributeKeys.MetaDescription, new string('a', 155));
+            return p;
         }
 
         private Blog CreateBlog()

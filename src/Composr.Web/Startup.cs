@@ -16,8 +16,8 @@ namespace Composr.Web
             services.AddMultitenancy<Blog, BlogResolver>();
             services.AddMvc();
 
-            services.AddScoped<Composr.Core.Repositories.IRepository<Composr.Core.Blog>, Composr.Mock.Repositories.BlogRepository>();
-            services.AddScoped<Composr.Core.Repositories.IRepository<Composr.Core.Post>, Composr.Mock.Repositories.PostRepository>();
+            services.AddScoped<Composr.Core.Repositories.IRepository<Composr.Core.Blog>, Composr.Repository.Sql.BlogRepository>();
+            services.AddScoped<Composr.Core.Repositories.IRepository<Composr.Core.Post>, Composr.Repository.Sql.PostRepository>();
             
             services.AddScoped<Composr.Core.Specifications.ISpecification<Composr.Core.Blog>, Composr.Specifications.MinimalBlogSpecification>();
             services.AddScoped<Composr.Core.Specifications.ISpecification<Composr.Core.Post>, Composr.Specifications.PostSpecification>();

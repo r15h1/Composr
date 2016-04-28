@@ -3,6 +3,7 @@ using Composr.Core.Repositories;
 using Dapper;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 
 namespace Composr.Repository.Sql
@@ -27,16 +28,30 @@ namespace Composr.Repository.Sql
 
         private Core.Post Fetch(int postid, Core.Locale locale)
         {
+            Core.Post post = null;
             var p = new DynamicParameters();
             p.Add("@LocaleID", (int)locale);
             p.Add("@PostID", postid);
 
             using (System.Data.IDbConnection conn = ConnectionFactory.CreateConnection())
             {
-                return conn.Query("Post_Select_One", p, commandType: System.Data.CommandType.StoredProcedure).Select<dynamic, Post>(
-                        row => BuildPost(row)
-                ).SingleOrDefault();
+                //return conn.Query("Post_Select_One", p, commandType: System.Data.CommandType.StoredProcedure).Select<dynamic, Post>(
+                //        row => BuildPost(row)
+                //).SingleOrDefault();
+
+
+                using (var reader = conn.QueryMultiple("Post_Select_One", p, commandType: System.Data.CommandType.StoredProcedure))
+                {
+                    post = reader.Read().Select<dynamic, Post>(row => BuildPost(row)).SingleOrDefault();
+                    post.Attributes = reader.Read().Select<dynamic, KeyValuePair<string, string>>(row => BuildAttributes(row)).ToDictionary(x => x.Key, x=>x.Value);
+                };
+                return post;
             }
+        }
+
+        private KeyValuePair<string, string> BuildAttributes(dynamic row)
+        {
+            return new KeyValuePair<string, string>(row.Key, row.Value);
         }
 
         private Post BuildPost(dynamic row)
@@ -85,7 +100,9 @@ namespace Composr.Repository.Sql
 
         public int Save(Core.Post post)
         {
-            if (!post.Id.HasValue) return Create(post);
+            if (!post.Id.HasValue)
+                return Create(post);
+
             Update(post);
             return post.Id.Value;
         }
@@ -93,13 +110,14 @@ namespace Composr.Repository.Sql
         private void Update(Post post)
         {
             var p = new DynamicParameters();
+            p.Add("@BlogID", post.Blog.Id);
             p.Add("@PostID", post.Id);
             p.Add("@LocaleID", (int)post.Blog.Locale);
             p.Add("@Title", post.Title);
             p.Add("@Body", post.Body);
             p.Add("@PostStatusID", (int)post.Status);
             p.Add("@URN", post.URN);
-
+            p.Add("@Attributes", GetPostAttributesDataTable(post.Attributes).AsTableValuedParameter("dbo.PostAttrributeTableType"));
             QueryExecutor.ExecuteSingle<Post>("Post_Update", p);
         }
 
@@ -117,8 +135,21 @@ namespace Composr.Repository.Sql
             p.Add("@Body", post.Body);
             p.Add("@PostStatusID", (int)post.Status);
             p.Add("@URN", post.URN);
-
+            p.Add("@Attributes", GetPostAttributesDataTable(post.Attributes).AsTableValuedParameter("dbo.PostAttrributeTableType"));
             return QueryExecutor.ExecuteSingle<int>("Post_Create", p);
+        }
+
+        private DataTable GetPostAttributesDataTable(IDictionary<string, string> attributes)
+        {
+            var dt = new DataTable();
+            dt.Columns.Add("Key", typeof(string));
+            dt.Columns.Add("Value", typeof(string));
+
+            if(attributes != null && attributes.Count > 0)
+                foreach(var attr in attributes)
+                    dt.Rows.Add(attr.Key, attr.Value);                
+            
+            return dt;
         }
 
         public void Delete(Core.Post post)

@@ -70,7 +70,8 @@ namespace Composr.Tests
                 Post post1 = repo.Get(id);
                 post1.Title = "new title";
                 post1.URN = "new urn";
-                post1.Attributes.Add(PostAttributeKeys.MetaDescription, new string('a', 20));
+                post1.Attributes[PostAttributeKeys.MetaDescription] = new string('a', 20);
+                //post1.Attributes.Add("abc", new string('b', 20));
                 repo.Save(post1);
                 Post post2 = repo.Get(id);
                 Assert.True(post1.Title.Equals(post2.Title) && post1.URN.Equals(post2.URN) && post1.Attributes[PostAttributeKeys.MetaDescription].Equals(post2.Attributes[PostAttributeKeys.MetaDescription]));

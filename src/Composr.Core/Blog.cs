@@ -38,6 +38,31 @@ namespace Composr.Core
         public string Name { get; set; }
         
         public string Url { get; set; }
-        
+
+        private string theme;
+        public string Theme
+        {
+            get
+            {
+                return string.IsNullOrWhiteSpace(theme) ? "Default" : theme;
+            }
+            set
+            {
+                theme = value;
+            }
+        }
+
+        private string logo;
+        public string Logo
+        {
+            get
+            {
+                return string.IsNullOrWhiteSpace(logo) ? "~/img/Composr.png" : "~/img/Cocozil.png";
+            }
+            set
+            {
+                logo = value;
+            }
+        }
     }
 }

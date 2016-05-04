@@ -1,8 +1,8 @@
 ﻿using Composr.Core;
 using Composr.Web.MultiTenancy;
-using Composr.Web.ViewModels;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
+using Microsoft.AspNet.Mvc.Razor;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Composr.Web
@@ -15,6 +15,11 @@ namespace Composr.Web
         {
             services.AddMultitenancy<Blog, BlogResolver>();
             services.AddMvc();
+
+            services.Configure<RazorViewEngineOptions>(options =>
+            {
+                options.ViewLocationExpanders.Add(new TenantViewLocationExpander());
+            });
 
             services.AddScoped<Composr.Core.Repositories.IRepository<Composr.Core.Blog>, Composr.Repository.Sql.BlogRepository>();
             services.AddScoped<Composr.Core.Repositories.IRepository<Composr.Core.Post>, Composr.Repository.Sql.PostRepository>();

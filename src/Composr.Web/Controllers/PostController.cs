@@ -18,13 +18,14 @@ namespace Composr.Web.Controllers
         public PostController(IService<Post> service, Blog blog)
         {
             this.service = service;
-            this.blog = blog;
+            this.blog = blog;            
         }
 
         [HttpGet("")]
         public IActionResult Index([FromQuery]PostRequestModel model)
         {
             Filter filter = new Filter() { Criteria= model.Search };
+            ViewData["logo"] = blog.Logo;
             return View(service.Get(filter));
         }
 
@@ -35,18 +36,22 @@ namespace Composr.Web.Controllers
             PostViewModel viewModel = new PostViewModel() { BlogId = post.Blog.Id, Id = post.Id, Body = post.Body, Title = post.Title , PostStatus = post.Status, URN = post.URN};
             if (post.Attributes.ContainsKey(PostAttributeKeys.MetaDescription))
                 viewModel.MetaDescription = post.Attributes[PostAttributeKeys.MetaDescription];
+
+            ViewData["logo"] = blog.Logo;
             return View(viewModel);
         }
 
         [HttpGet("new")]
         public IActionResult Create()
         {
+            ViewData["logo"] = blog.Logo;
             return View("Details", new PostViewModel() { BlogId = blog.Id });
         }
 
         [HttpPost("new")]
         public IActionResult Create([FromForm]PostViewModel model)
         {
+            ViewData["logo"] = blog.Logo;
             return Save(model);
         }
 

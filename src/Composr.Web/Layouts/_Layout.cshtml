@@ -31,7 +31,15 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="#">
-                    <img src="~/img/Composr.png" />
+                    @*<img src="~/img/Composr.png" />*@
+                    @if (@ViewData["logo"] == null)
+                    {
+                        <img src="~/img/Composr.png" />
+                    }
+                    else
+                    {
+                        <img src="@ViewData["logo"]" />
+                    }
                 </a>
             </div>
             <div class="collapse navbar-collapse navbar-ex1-collapse">
@@ -54,9 +62,9 @@
 
         <!-- /.row -->
         <!-- Projects Row -->
-        
-            @RenderBody()
-        
+
+        @RenderBody()
+
         <hr>
         <!-- Footer -->
         <footer>

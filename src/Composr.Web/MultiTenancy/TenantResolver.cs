@@ -11,7 +11,7 @@ namespace Composr.Web.MultiTenancy
     {
         IEnumerable<Blog> blogs = new List<Blog>(new[]
         {
-            new Core.Blog(1) {Description="Blog 1 description", Locale=Core.Locale.EN, Name="Blog1", Url="localhost:5000" },
+            new Core.Blog(1) {Description="Blog 1 description", Locale=Core.Locale.EN, Name="blog1", Url="localhost:5000", Logo="~/img/cocozil.png" },
             new Core.Blog(2) {Description="Blog 2 description", Locale=Core.Locale.EN, Name="Blog2", Url="localhost:5001" },
             new Core.Blog(3) {Description="Blog 3 description", Locale=Core.Locale.EN, Name="Blog3", Url="localhost:5002" },
             new Core.Blog(4) {Description="Blog 4 description", Locale=Core.Locale.EN, Name="Blog4", Url="localhost:5003" }

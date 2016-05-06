@@ -1,13 +1,12 @@
-﻿using System;
-using Xunit;
-using Composr.Core;
-using System.Transactions;
-using System.Collections.Generic;
+﻿using Composr.Core;
 using FizzWare.NBuilder;
+using System.Collections.Generic;
+using System.Transactions;
+using Xunit;
 
 namespace Composr.Tests
 {
-    
+
     public class PostRepositoryTests
     {
         //to be created for next session
@@ -33,6 +32,12 @@ namespace Composr.Tests
                 Assert.True(post1.Status == post2.Status);
                 Assert.True(post1.Title.Equals(post2.Title));
             }
+        }
+
+        [Fact]
+        public void PostRepositoryGetsPostOfSameBlog()
+        {
+            Assert.True(1 == 2);
         }
 
         [Fact]

@@ -75,6 +75,7 @@ namespace Composr.Repository.Sql
         private IList<Post> Fetch(string criteria, Locale locale, int? offset, int? limit)
         {
             var p = new DynamicParameters();
+            p.Add("@BlogID", Blog.Id);
             p.Add("@Criteria", criteria);
             p.Add("@LocaleID", (int)locale);
 

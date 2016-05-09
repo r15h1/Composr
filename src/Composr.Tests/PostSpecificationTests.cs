@@ -53,7 +53,8 @@ namespace Composr.Tests
         [Fact]
         public void PostWhenNewCanHavePublishedStatus()
         {
-            Post post = new Post(new Blog(1)) { Title = "title", Status = PostStatus.PUBLISHED };
+            Post post = new Post(new Blog(1)) { Title = "title", Status = PostStatus.PUBLISHED, URN = "/test/path"};
+            post.Attributes.Add(PostAttributeKeys.MetaDescription, new string('a', 150));
             ISpecification<Post> specification = new PostSpecification();
             var compliance = specification.EvaluateCompliance(post);
             Assert.True(compliance.IsSatisfied);
@@ -131,7 +132,8 @@ namespace Composr.Tests
         [Fact]
         public void PostWhenExistingCanHavePublishedStatus()
         {
-            Post post = new Post(new Blog(1)) { Id = 123, Title = "title", Status = PostStatus.PUBLISHED };
+            Post post = new Post(new Blog(1)) { Id = 123, Title = "title", Status = PostStatus.PUBLISHED, URN = new string('a', URN_MIN_LENGTH + 1) };
+            post.Attributes.Add(PostAttributeKeys.MetaDescription, new string('a', META_DESC_MIN_LENGTH + 1));
             ISpecification<Post> specification = new PostSpecification();
             var compliance = specification.EvaluateCompliance(post);
             Assert.True(compliance.IsSatisfied);

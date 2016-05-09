@@ -43,7 +43,8 @@ namespace Composr.Repository.Sql
                 using (var reader = conn.QueryMultiple("Post_Select_One", p, commandType: System.Data.CommandType.StoredProcedure))
                 {
                     post = reader.Read().Select<dynamic, Post>(row => BuildPost(row)).SingleOrDefault();
-                    post.Attributes = reader.Read().Select<dynamic, KeyValuePair<string, string>>(row => BuildAttributes(row)).ToDictionary(x => x.Key, x=>x.Value);
+                    if (post != null)
+                        post.Attributes = reader.Read().Select<dynamic, KeyValuePair<string, string>>(row => BuildAttributes(row)).ToDictionary(x => x.Key, x=>x.Value);
                 };
                 return post;
             }

@@ -1,7 +1,9 @@
 ﻿using Composr.Core;
 using Composr.Core.Repositories;
 using Dapper;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Composr.Repository.Sql
 {
@@ -81,10 +83,43 @@ namespace Composr.Repository.Sql
         private Blog Fetch(int blogid, Locale locale)
         {
             //string sql = "SELECT [BlogID], [LocaleID] as Locale, [Name], [Description], [URL] FROM Blogs WHERE BlogID = @BlogId AND LocaleID = @LocaleID AND ISNULL(Deleted, 0) = 0";
+            Blog blog = null;
             var p = new DynamicParameters();
             p.Add("@LocaleID", (int)locale);
             p.Add("@BlogID", blogid);
-            return QueryExecutor.ExecuteSingle<Blog>("Blog_Select_One", p);
+
+            using (System.Data.IDbConnection conn = ConnectionFactory.CreateConnection())
+            {
+                //return conn.Query("Post_Select_One", p, commandType: System.Data.CommandType.StoredProcedure).Select<dynamic, Post>(
+                //        row => BuildPost(row)
+                //).SingleOrDefault();
+
+
+                using (var reader = conn.QueryMultiple("Blog_Select_One", p, commandType: System.Data.CommandType.StoredProcedure))
+                {
+                    blog = reader.Read().Select<dynamic, Blog>(row => BuildBlog(row)).SingleOrDefault();
+                    if(blog != null)
+                        blog.Attributes = reader.Read().Select<dynamic, KeyValuePair<string, string>>(row => BuildAttributes(row)).ToDictionary(x => x.Key, x => x.Value);
+                };
+                return blog;
+            }
+
+            //return QueryExecutor.ExecuteSingle<Blog>("Blog_Select_One", p);
+        }
+
+        private Blog BuildBlog(dynamic row)
+        {
+            return new Composr.Core.Blog((int)row.BlogID)
+            {
+                Description = row.Description,
+                Locale = (Core.Locale)Enum.Parse(typeof(Core.Locale), row.Locale.ToString()),
+                Name = row.Name,
+                Url = row.URL
+            };
+        }
+        private KeyValuePair<string, string> BuildAttributes(dynamic row)
+        {
+            return new KeyValuePair<string, string>(row.Key, row.Value);
         }
 
         /// <summary>
@@ -102,7 +137,22 @@ namespace Composr.Repository.Sql
             if (offset.HasValue) p.Add("@Offset", offset.Value);
             if (limit.HasValue) p.Add("@Limit", limit.Value);
 
-            return QueryExecutor.ExecuteList<Blog>("Blog_Select_Many", p);
+            //return QueryExecutor.ExecuteList<Blog>("Blog_Select_Many", p);
+            using (System.Data.IDbConnection conn = ConnectionFactory.CreateConnection())
+            using (var reader = conn.QueryMultiple("Blog_Select_Many", p, commandType: System.Data.CommandType.StoredProcedure))
+            {
+                var blogs = reader.Read<Blog>().ToList();
+                var attributes = reader.Read<Attribute>().ToList();
+
+                var attrById = attributes.ToLookup(t => t.Id);
+
+                foreach (var blog in blogs)
+                {
+                    blog.Attributes = attrById[blog.Id].ToDictionary(k => k.Key, v => v.Value);
+                }
+
+                return blogs;
+            }
         }
         
         private void Update(Blog blog)

@@ -47,7 +47,7 @@ namespace Composr.Web.MultiTenancy
         {
             foreach (var location in defaultLocations)
             {
-                yield return location.Replace("{0}", $"{{0}}_{tenant}");
+                yield return location.Replace("{0}", $"{tenant}/{{0}}");
                 yield return location;
             }
         }

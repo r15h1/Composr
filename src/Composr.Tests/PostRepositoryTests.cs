@@ -46,7 +46,7 @@ namespace Composr.Tests
             using (TransactionScope t = new TransactionScope())
             {
                 Blog blog = CreateBlog();
-                int existing = GetExistingRepoCount();
+                int existing = GetExistingRepoCount(blog);
                 int newposts = 5;
 
                 IList<Post> l1 = Builder<Post>
@@ -61,9 +61,9 @@ namespace Composr.Tests
             }
         }
 
-        private int GetExistingRepoCount()
+        private int GetExistingRepoCount(Blog blog)
         {
-            return 0;
+            return new Composr.Repository.Sql.PostRepository(blog).Count(null);
         }
 
         [Fact]
@@ -104,7 +104,7 @@ namespace Composr.Tests
         public void PostRepositoryCanCount()
         {
             Blog blog = CreateBlog();
-            int existing = GetExistingRepoCount();
+            int existing = GetExistingRepoCount(blog);
             int newposts = 5;
 
             IList<Post> list = Builder<Post>
@@ -201,12 +201,12 @@ namespace Composr.Tests
         [Fact]
         public void PostRepositoryRetrievesPostsFromExistingBlogsOnly()
         {
-            Blog nonexistingblog = new Blog(2);
+            Blog nonexistingblog = new Blog(999);
             Composr.Core.Repositories.IRepository<Post> repo2 = new Composr.Repository.Sql.PostRepository(nonexistingblog);
             using (TransactionScope t = new TransactionScope())
             {
                 repo.Locale = Locale.EN;
-                IList<Post> posts = repo.Get(new Composr.Core.Repositories.Filter());
+                IList<Post> posts = new Composr.Repository.Sql.PostRepository(nonexistingblog).Get(new Composr.Core.Repositories.Filter());
                 Assert.True(posts.Count == 0);
             }
         }
@@ -220,7 +220,7 @@ namespace Composr.Tests
             using (TransactionScope t = new TransactionScope())
             {
                 repo.Locale = Locale.EN;
-                int id, count = 0;
+                int id, count = 0, existing = repo.Count(null); ;
                 List<int> deleted = new List<int>();
 
                 foreach (Post p in list)
@@ -232,7 +232,7 @@ namespace Composr.Tests
 
                 foreach (int deletedid in deleted) repo.Delete(new Post(blog) { Id = deletedid });
                 
-                Assert.True(repo.Count(null) == (list.Count - deleted.Count));
+                Assert.True(repo.Count(null) == (list.Count + existing - deleted.Count));
             }
         }
 

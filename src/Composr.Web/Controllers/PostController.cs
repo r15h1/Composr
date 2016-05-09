@@ -25,7 +25,7 @@ namespace Composr.Web.Controllers
         public IActionResult Index([FromQuery]PostRequestModel model)
         {
             Filter filter = new Filter() { Criteria= model.Search };
-            ViewData["logo"] = blog.Logo;
+            //ViewData["logo"] = blog.Logo;
             return View(service.Get(filter));
         }
 
@@ -37,21 +37,21 @@ namespace Composr.Web.Controllers
             if (post.Attributes.ContainsKey(PostAttributeKeys.MetaDescription))
                 viewModel.MetaDescription = post.Attributes[PostAttributeKeys.MetaDescription];
 
-            ViewData["logo"] = blog.Logo;
+            //ViewData["logo"] = blog.Logo;
             return View(viewModel);
         }
 
         [HttpGet("new")]
         public IActionResult Create()
         {
-            ViewData["logo"] = blog.Logo;
+            //ViewData["logo"] = blog.Logo;
             return View("Details", new PostViewModel() { BlogId = blog.Id });
         }
 
         [HttpPost("new")]
         public IActionResult Create([FromForm]PostViewModel model)
         {
-            ViewData["logo"] = blog.Logo;
+            //ViewData["logo"] = blog.Logo;
             return Save(model);
         }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Composr.Core
 {
@@ -17,6 +18,7 @@ namespace Composr.Core
 
         private void Init()
         {
+            Attributes = new Dictionary<string, string>();
             Locale = Composr.Core.Locale.EN;
         }
 
@@ -52,17 +54,6 @@ namespace Composr.Core
             }
         }
 
-        private string logo;
-        public string Logo
-        {
-            get
-            {
-                return string.IsNullOrWhiteSpace(logo) ? "~/img/Composr.png" : "~/img/Cocozil.png";
-            }
-            set
-            {
-                logo = value;
-            }
-        }
+        public Dictionary<string, string> Attributes { get; set; }
     }
 }

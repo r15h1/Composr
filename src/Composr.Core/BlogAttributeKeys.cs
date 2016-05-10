@@ -8,5 +8,6 @@ namespace Composr.Core
     public class BlogAttributeKeys
     {
         public const string LogoUrl = "LogoUrl";
+        public const string Copyright = "Copyright";
     }
 }

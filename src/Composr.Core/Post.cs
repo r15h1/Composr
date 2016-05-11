@@ -19,6 +19,8 @@ namespace Composr.Core
         }
 
         int? postid;
+        
+
         public int? Id
         {
             get { return postid; }
@@ -43,5 +45,9 @@ namespace Composr.Core
         public string URN { get; set; }
 
         public IDictionary<string, string> Attributes { get; set; }
+
+        public DateTime? DatePublished { get; set; }
+
+        public DateTime? DateCreated;
     }
 }

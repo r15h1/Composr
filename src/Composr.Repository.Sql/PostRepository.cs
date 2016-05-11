@@ -63,17 +63,19 @@ namespace Composr.Repository.Sql
                 Id = row.PostID,
                 Status = (Core.PostStatus)Enum.Parse(typeof(Core.PostStatus), row.PostStatusID.ToString()),
                 Title = row.Title,
-                URN = row.URN
+                URN = row.URN,
+                DatePublished = row.DatePublished,
+                DateCreated = row.DateCreated
             };
         }
 
         public IList<Core.Post> Get(Filter filter)
         {
             if (filter == null) filter = new Filter();
-            return Fetch(filter.Criteria, Locale, filter.Offset, filter.Limit);
+            return Fetch("Post_Select_Many", filter.Criteria, Locale, filter.Offset, filter.Limit);
         }
 
-        private IList<Post> Fetch(string criteria, Locale locale, int? offset, int? limit)
+        private IList<Post> Fetch(string command, string criteria, Locale locale, int? offset, int? limit)
         {
             var p = new DynamicParameters();
             p.Add("@BlogID", Blog.Id);
@@ -85,7 +87,7 @@ namespace Composr.Repository.Sql
 
             using (System.Data.IDbConnection conn = ConnectionFactory.CreateConnection())
             {
-                return conn.Query("Post_Select_Many", p, commandType: System.Data.CommandType.StoredProcedure).Select<dynamic, Post>(
+                return conn.Query(command, p, commandType: System.Data.CommandType.StoredProcedure).Select<dynamic, Post>(
                         row => BuildPost(row)
                 ).ToList();
             }
@@ -161,6 +163,12 @@ namespace Composr.Repository.Sql
             p.Add("@LocaleID", (int)post.Blog.Locale);
 
             QueryExecutor.ExecuteSingle<Post>("Post_Delete", p);
+        }
+
+        public IList<Post> GetPublishedPosts(Filter filter)
+        {
+            if (filter == null) filter = new Filter();
+            return Fetch("Post_Select_Published", filter.Criteria, Locale, filter.Offset, filter.Limit);
         }
     }
 }

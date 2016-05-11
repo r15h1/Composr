@@ -7,5 +7,6 @@ namespace Composr.Core.Repositories
 {
     public interface IPostRepository:IRepository<Post>
     {
+        IList<Post> GetPublishedPosts(Filter filter);
     }
 }

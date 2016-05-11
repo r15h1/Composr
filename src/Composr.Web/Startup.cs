@@ -27,8 +27,8 @@ namespace Composr.Web
             services.AddScoped<Composr.Core.Specifications.ISpecification<Composr.Core.Blog>, Composr.Specifications.MinimalBlogSpecification>();
             services.AddScoped<Composr.Core.Specifications.ISpecification<Composr.Core.Post>, Composr.Specifications.PostSpecification>();
 
-            services.AddScoped<Composr.Core.Services.IService<Composr.Core.Post>, Composr.Services.Service<Composr.Core.Post>>();
-            services.AddScoped<Composr.Core.Services.IService<Composr.Core.Blog>, Composr.Services.Service<Composr.Core.Blog>>();
+            services.AddScoped<Composr.Core.Services.IRepoService<Composr.Core.Post>, Composr.Services.RepoService<Composr.Core.Post>>();
+            services.AddScoped<Composr.Core.Services.IRepoService<Composr.Core.Blog>, Composr.Services.RepoService<Composr.Core.Blog>>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -12,7 +12,7 @@ namespace Composr.Web.Controllers
     [Route("admin/blogs")]
     public class BlogController : Controller
     {
-        public BlogController(IService<Blog> service)
+        public BlogController(IRepoService<Blog> service)
         {
             this.service = service;
         }
@@ -37,6 +37,6 @@ namespace Composr.Web.Controllers
         //    return Save(model);
         //}
 
-        private IService<Blog> service;
+        private IRepoService<Blog> service;
     }
 }

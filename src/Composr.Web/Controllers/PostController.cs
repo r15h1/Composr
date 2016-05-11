@@ -12,10 +12,10 @@ namespace Composr.Web.Controllers
     [Route("admin/blogs/{blogid:int}/posts")]
     public class PostController : Controller
     {
-        private IService<Post> service;
+        private IRepoService<Post> service;
         private Blog blog;
         
-        public PostController(IService<Post> service, Blog blog)
+        public PostController(IRepoService<Post> service, Blog blog)
         {
             this.service = service;
             this.blog = blog;            

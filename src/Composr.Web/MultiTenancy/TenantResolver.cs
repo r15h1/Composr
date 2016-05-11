@@ -12,7 +12,7 @@ namespace Composr.Web.MultiTenancy
     {
         private static IEnumerable<Blog> blogs = new List<Blog>();
 
-        public BlogResolver(IService<Blog> service)
+        public BlogResolver(IRepoService<Blog> service)
         {
             if (blogs == null || !blogs.Any())
                 blogs = service.Get(null);

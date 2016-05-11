@@ -1,18 +1,17 @@
 ﻿using Composr.Core;
-using Composr.Web.ViewModels;
+using Composr.Core.Services;
 using Microsoft.AspNet.Mvc;
-using System.Linq;
-
-// For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Composr.Web.Controllers
 {
     [Route("")]
     public class HomeController : FrontEndController
     {
-        public HomeController(Blog blog):base(blog)
+        private IRepoService<Post> service;
+
+        public HomeController(IRepoService<Post> service, Blog blog):base(blog)
         {
-            
+            this.service = service;
         }
 
         // GET: /<controller>/

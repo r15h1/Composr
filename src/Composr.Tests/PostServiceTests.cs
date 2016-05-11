@@ -13,35 +13,35 @@ namespace Composr.Tests
         [Fact]
         public void PostServiceThrowsSpecificationExceptionIfNullPostIsSaved()
         {
-            Composr.Services.Service<Post> service = CreatePostService();                
+            Composr.Services.RepoService<Post> service = CreatePostService();                
             Assert.Throws<ArgumentNullException>(() => service.Save(null));
         }
 
         [Fact]
         public void PostServiceThrowsArgumentNullExceptionWhenSavingPostWithNoBlog()
         {
-            Composr.Services.Service<Post> service = CreatePostService();
+            Composr.Services.RepoService<Post> service = CreatePostService();
             Assert.Throws<ArgumentNullException>(() => service.Save(new Post(null)));
          }
 
         [Fact]
         public void PostServiceThrowsArgumentExceptionWhenSavingPostWithEmptyBlogID()
         {
-           Composr.Services.Service<Post> service = CreatePostService();                
+           Composr.Services.RepoService<Post> service = CreatePostService();                
            Assert.Throws<ArgumentException>(() => service.Save(new Post(new Blog())));            
         }
 
         [Fact]
         public void PostServiceThrowsSpecificationExceptionWhenSavingPostWithNullTitle()
         {
-            Composr.Services.Service<Post> service = CreatePostService();
+            Composr.Services.RepoService<Post> service = CreatePostService();
             Assert.Throws<SpecificationException>(() => service.Save(new Post(new Blog(1))));
         }
 
         [Fact]
         public void PostServiceThrowsSpecificationExceptionWhenSavingPostWithEmptyTitle()
         {
-            Composr.Services.Service<Post> service = CreatePostService();
+            Composr.Services.RepoService<Post> service = CreatePostService();
             Assert.Throws<SpecificationException>(() => service.Save(new Post(new Blog(1))
                     {
                         Title = "",
@@ -53,7 +53,7 @@ namespace Composr.Tests
         [Fact]
         public void PostServiceThrowsSpecificationExceptionWhenSavingPostWithWhitespaceTitle()
         {
-            Composr.Services.Service<Post> service = CreatePostService();                
+            Composr.Services.RepoService<Post> service = CreatePostService();                
             Assert.Throws<SpecificationException>(() => service.Save(new Post(new Blog(1))
                 {
                     Title = "    ",
@@ -78,7 +78,7 @@ namespace Composr.Tests
         {
             using(TransactionScope t = new TransactionScope())
             {
-                Composr.Services.Service<Post> service = CreatePostService();
+                Composr.Services.RepoService<Post> service = CreatePostService();
                 int id = service.Save(new Post(new Blog(1))
                     {
                         Title = "Abc",
@@ -94,7 +94,7 @@ namespace Composr.Tests
         {
             using (TransactionScope t = new TransactionScope())
             {
-                Composr.Services.Service<Post> service = CreatePostService();
+                Composr.Services.RepoService<Post> service = CreatePostService();
                 Post post = new Post(new Blog(1))
                 {
                     Title = "Abc",
@@ -110,10 +110,10 @@ namespace Composr.Tests
 
 
 
-        private static Services.Service<Post> CreatePostService()
+        private static Services.RepoService<Post> CreatePostService()
         {
             Blog blog = new Blog(1);
-            Composr.Services.Service<Post> service = new Composr.Services.Service<Post>(new PostRepository(blog), new PostSpecification());
+            Composr.Services.RepoService<Post> service = new Composr.Services.RepoService<Post>(new PostRepository(blog), new PostSpecification());
             return service;
         }
     }

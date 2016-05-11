@@ -7,9 +7,9 @@ using System.Collections.Generic;
 
 namespace Composr.Services
 {
-    public class Service<T> :IService<T> where T :class, IComposrEntity
+    public class RepoService<T> :IRepoService<T> where T :class, IComposrEntity
     {
-        public Service(IRepository<T> repository, ISpecification<T> specification)
+        public RepoService(IRepository<T> repository, ISpecification<T> specification)
         {
             if (repository == null || specification == null) throw new ArgumentNullException();
             this.repository = repository;

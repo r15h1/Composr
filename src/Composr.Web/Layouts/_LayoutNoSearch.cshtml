@@ -7,54 +7,43 @@
     <meta name="viewport" content="width=device-width" />    
     <meta charset="UTF-8" /> 
     <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/styles/programagic-style.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
     @RenderSection("css", required: false)
     <title>@ViewBag.Title</title>
-    <style>
-       .btn-toolbar{
-           margin-bottom:5px;
-       }
-
-       .error{
-           color:red;
-           font-weight:bolder;
-       }
-    </style>
+    
 </head>
 <body>
-    <nav class="navbar" role="navigation">
-        <!-- add header -->
-        <div class="container">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="@Model.BlogUrl">
-                        <img src=@Model.LogoUrl />
-                </a>
-            </div>
-        </div>
-    </nav>
+    <div class="container">
+        <header>
+            <a href="@Model.BlogUrl"><img class="img-responsive" src="@Model.LogoUrl"></a>
+            <h4>Programming Ideas and Experiments</h4>
+        </header>
 
-    <section class="container">
-        @*<h1>@ViewBag.Title</h1>*@
+        <section class="bodywrapper">
+            <section>
+                @RenderBody()
 
-        <!-- /.row -->
-        <!-- Projects Row -->
 
-        @RenderBody()
+                <!-- Footer -->
+                <footer>
+                    <div class="row">
+                        
+                        <p class="col-lg-2 col-md-3 col-sm-4 col-xs-7">@Model.Copyright</p>
+                        <p class="col-lg-2 col-md-3 col-sm-4 col-xs-3"><a href="#" target="_blank">Privacy</a></p>
+                        <p class="col-lg-2 col-md-3 col-sm-4 col-xs-2"><a href="#" target="_blank">Terms</a></p>                       
+                        
+                    </div>
+                    <div class="row"><p class="col-lg-2 col-md-3 col-sm-4 col-xs-7">Built with <a href="https://github.com/r15h1/composr" target="_blank">Composr</a></p></div>
+                    <!-- /.row -->
+                </footer>
 
-        <hr>
-        <!-- Footer -->
-        <footer>
-            <div class="row">
-                <div class="col-lg-12">
-                    <p>@Model.Copyright</p>
-                </div>
-            </div>
-            <!-- /.row -->
-        </footer>
+            </section>
+            <script src="~/lib/jquery/dist/jquery.min.js"></script>
+            <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
 
-    </section>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-
-    @RenderSection("scripts", required: false)
+            @RenderSection("scripts", required: false)
+        </section>
+    </div>
 </body>
 </html>

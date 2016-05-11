@@ -1,0 +1,32 @@
+{
+  "version": "1.0.0-*",
+  "description": "Composr.Indexing.Client Console Application",
+  "authors": [ "rtapsee" ],
+  "tags": [ "" ],
+  "projectUrl": "",
+  "licenseUrl": "",
+
+  "compilationOptions": {
+    "emitEntryPoint": true
+  },
+
+  "dependencies": {
+    "Composr.Indexing": "1.0.0-*",
+    "Microsoft.Extensions.Logging.Abstractions": "1.0.0-rc1-final"
+  },
+
+  "commands": {
+    "Composr.Indexing.Client": "Composr.Indexing.Client"
+  },
+
+  "frameworks": {
+    "dnx451": {
+      "dependencies": {
+        "Composr.Core": "1.0.0-*",
+        "Composr.Repository.Sql": "1.0.0-*",
+        "Composr.Services": "1.0.0-*",
+        "Composr.Util": "1.0.0-*"
+      }
+    }
+  }
+}

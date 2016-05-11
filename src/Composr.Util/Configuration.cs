@@ -23,9 +23,16 @@ namespace Composr.Util
         public static string ConnectionString {
             get
             {
-                if (config == null) InitializeConfiguration();
                 return config["Data:ConnectionString"];
             }
-        } 
+        }
+
+        public static string IndexDirectory
+        {
+            get
+            {
+                return config["Index:Directory"];
+            }
+        }
     }
 }

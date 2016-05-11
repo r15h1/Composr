@@ -11,7 +11,7 @@ namespace Composr.Tests
     
     public class BlogRepositoryTests
     {
-        private Composr.Core.Repositories.IRepository<Blog> repo;
+        private Composr.Core.Repositories.IBlogRepository repo;
 
         public BlogRepositoryTests()
         {

@@ -10,7 +10,7 @@ namespace Composr.Tests
     public class PostRepositoryTests
     {
         //to be created for next session
-        private Composr.Core.Repositories.IRepository<Post> repo;
+        private Composr.Core.Repositories.IPostRepository repo;
 
         public PostRepositoryTests()
         {

@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Composr.Repository.Sql
 {
-    public class PostRepository:Composr.Core.Repositories.IRepository<Post>
+    public class PostRepository:Composr.Core.Repositories.IPostRepository
     {
         public PostRepository(Blog blog) 
         {

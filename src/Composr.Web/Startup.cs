@@ -21,8 +21,8 @@ namespace Composr.Web
                 options.ViewLocationExpanders.Add(new TenantViewLocationExpander());
             });
 
-            services.AddScoped<Composr.Core.Repositories.IRepository<Composr.Core.Blog>, Composr.Repository.Sql.BlogRepository>();
-            services.AddScoped<Composr.Core.Repositories.IRepository<Composr.Core.Post>, Composr.Repository.Sql.PostRepository>();
+            services.AddScoped<Composr.Core.Repositories.IBlogRepository, Composr.Repository.Sql.BlogRepository>();
+            services.AddScoped<Composr.Core.Repositories.IPostRepository, Composr.Repository.Sql.PostRepository>();
             
             services.AddScoped<Composr.Core.Specifications.ISpecification<Composr.Core.Blog>, Composr.Specifications.MinimalBlogSpecification>();
             services.AddScoped<Composr.Core.Specifications.ISpecification<Composr.Core.Post>, Composr.Specifications.PostSpecification>();

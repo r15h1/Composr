@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Composr.Repository.Sql
 {
-    public class BlogRepository : Composr.Core.Repositories.IRepository<Blog>
+    public class BlogRepository : Composr.Core.Repositories.IBlogRepository
     {
 
         public BlogRepository()

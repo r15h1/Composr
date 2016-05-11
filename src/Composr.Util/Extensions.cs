@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Text.RegularExpressions;
 
 namespace Composr.Util
 {
@@ -28,5 +29,32 @@ namespace Composr.Util
             }
             return false;
         }
+
+        static Regex htmlRegex = new Regex("<.*?>", RegexOptions.Compiled);
+        public static string StripHTMLTags(this string source)
+        {
+            return htmlRegex.Replace(source, string.Empty);
+        }
+
+        public static string StripLineFeedCarriageReturn(this string source)
+        {
+            return source.Replace("\r", "").Replace("\n", "").Replace("\t", "").Replace("  ", " ");
+        }
+
+        static readonly Regex trimmer = new Regex(@"\s\s+");
+        public static string StripConsecutiveSpaces(this string source)
+        {
+            return trimmer.Replace(source, " ");
+        }
+
+        public static string GetFirstHtmlParagraph(this string source)
+        {
+            int index = source.IndexOf("</p>");
+            if (index > 0)
+                return source.Substring(0, index);
+
+            return source;
+        }
+
     }
 }

@@ -20,6 +20,6 @@ namespace Composr.Indexing
     
     internal class IndexSettings
     {
-        public const int MaxSnippetLength = 300;
+        public const int MaxSnippetLength = 500;
     }  
 }

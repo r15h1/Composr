@@ -9,5 +9,6 @@ namespace Composr.Core
     {
         public const string LogoUrl = "LogoUrl";
         public const string Copyright = "Copyright";
+        public const string Tagline = "Tagline";
     }
 }

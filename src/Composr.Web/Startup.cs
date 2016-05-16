@@ -21,6 +21,8 @@ namespace Composr.Web
                 options.ViewLocationExpanders.Add(new TenantViewLocationExpander());
             });
 
+            services.AddScoped<Composr.Core.Services.ISearchService, Composr.Services.SearchService>();
+
             services.AddScoped<Composr.Core.Repositories.IRepository<Blog>, Composr.Repository.Sql.BlogRepository>();
             services.AddScoped<Composr.Core.Repositories.IRepository<Post>, Composr.Repository.Sql.PostRepository>();
 

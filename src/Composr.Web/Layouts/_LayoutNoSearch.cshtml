@@ -1,4 +1,4 @@
-﻿@model Composr.Web.ViewModels.BaseViewModel
+﻿@model Composr.Web.ViewModels.BaseFrontEndViewModel
 
 <!DOCTYPE html>
 
@@ -17,7 +17,10 @@
     <div class="container">
         <header>
             <a href="@Model.BlogUrl"><img class="img-responsive" src="@Model.LogoUrl"></a>
-            <h4>Programming Ideas and Experiments</h4>
+            @if (!string.IsNullOrWhiteSpace(@Model.Tagline))
+            {
+                <h4>@Model.Tagline</h4>
+            }
         </header>
 
         <section class="bodywrapper">

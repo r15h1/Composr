@@ -11,15 +11,16 @@ namespace Composr.Web.Controllers
     {
         protected Blog blog { get; set; }
 
-        protected BaseViewModel BaseViewModel { get; }
+        protected BaseFrontEndViewModel BaseViewModel { get; }
 
         public FrontEndController(Blog blog)
         {
             this.blog = blog;
-            BaseViewModel = new BaseViewModel() {
+            BaseViewModel = new BaseFrontEndViewModel() {
                 BlogUrl = blog.Url,
                 LogoUrl = blog.Attributes.SingleOrDefault(x => x.Key == BlogAttributeKeys.LogoUrl).Value,
                 Copyright = blog.Attributes.SingleOrDefault(x => x.Key == BlogAttributeKeys.Copyright).Value,
+                Tagline = blog.Attributes.SingleOrDefault(x => x.Key == BlogAttributeKeys.Tagline).Value,
             };
         }
     }

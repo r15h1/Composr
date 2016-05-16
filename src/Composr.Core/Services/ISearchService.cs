@@ -15,13 +15,8 @@ namespace Composr.Core.Services
         /// get a list of posts that are indexed and published
         /// </summary>
         /// <returns></returns>
-        IList<Post> Search(Blog blog, string searchTerm, SearchSortOrder sort = SearchSortOrder.BestMatch);
+        IList<SearchResult> Search(SearchCriteria criteria);
     }
     
-    public enum SearchSortOrder
-    {
-        Title,
-        DatePublished,
-        BestMatch
-    }
+    
 }

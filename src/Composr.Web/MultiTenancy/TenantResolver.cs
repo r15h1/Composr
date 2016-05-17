@@ -26,7 +26,7 @@ namespace Composr.Web.MultiTenancy
             if (context.Request.Path.HasValue && context.Request.Path.Value.StartsWith("/admin/blogs"))
                 blog = blogs.FirstOrDefault(t => context.Request.Path.Value.StartsWith("/admin/blogs/" + t.Id.ToString()));
             else
-                blog = blogs.FirstOrDefault(t => t.Url.Equals(context.Request.Host.Value.ToLower()));
+                blog = blogs.FirstOrDefault(t => t.Url.Replace("http://","").Replace("http://","").Equals(context.Request.Host.Value.ToLower()));
 
             if (blog != null) ctx = new TenantContext<Blog>(blog);        
 

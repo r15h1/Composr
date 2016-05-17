@@ -1,10 +1,13 @@
 ﻿@model Composr.Web.ViewModels.PostSearchViewModel
+@{ 
+    var post = Model.SearchResults.SingleOrDefault();
+}
 
+<ol class="breadcrumb">
+    <li><a href="/">Home</a></li>
+    <li class="active">Article</li>
+</ol>
 
-
-    @foreach (var result in Model.SearchResults)
-    {        
-        <h1 class="post-heading">@result.Title</h1>            
-        <time class="date" datetime="@result.DatePublished">@result.DatePublished</time>
-        <p>@Html.Raw(@result.Body)</p>
-    }
+<h1 class="post-heading">@post.Title</h1>            
+<time class="date" datetime="@post.DatePublished">@post.DatePublished</time>
+<p>@Html.Raw(@post.Body)</p>

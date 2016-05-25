@@ -5,8 +5,6 @@ using Microsoft.AspNet.Mvc;
 
 namespace Composr.Web.Controllers
 {
-    [Route("")]
-    [Route("blog")]
     public class HomeController : FrontEndController
     {
         private ISearchService service;
@@ -25,10 +23,9 @@ namespace Composr.Web.Controllers
             return View(model);
         }
 
-        [Route("blog/{postkey}")]
         public IActionResult PostDetails(string postkey)
         {
-            var results = service.Search(new SearchCriteria() { BlogID = blog.Id.Value, Locale = blog.Locale.Value, URN = $"/blog/{postkey}" });
+            var results = service.Search(new SearchCriteria() { BlogID = blog.Id.Value, Locale = blog.Locale.Value, URN = HttpContext.Request.Path.Value});
             var model = PostSearchViewModel.FromBaseFrontEndViewModel(BaseViewModel);
             model.SearchResults = results;
             return View(model);

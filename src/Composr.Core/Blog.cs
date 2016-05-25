@@ -46,11 +46,9 @@ namespace Composr.Core
         {
             get
             {
-                return string.IsNullOrWhiteSpace(theme) ? "Default" : theme;
-            }
-            set
-            {
-                theme = value;
+                if (Attributes.ContainsKey(BlogAttributeKeys.Theme))
+                    return Attributes[BlogAttributeKeys.Theme];
+                return null;
             }
         }
 

@@ -42,7 +42,32 @@ namespace Composr.Web
             app.UseStaticFiles();
             app.UseDeveloperExceptionPage();
             app.UseMultitenancy<Blog>();
-            app.UseMvc();            
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "blog-empty-route",
+                    template: "",
+                    defaults: new { controller = "Home", action = "Index" }
+                );
+
+                routes.MapRoute(
+                    name: "blog-default-route",
+                    template: "blog",
+                    defaults: new { controller = "Home", action = "Index" }
+                );
+
+                routes.MapRoute(
+                    name: "blog-details-route",
+                    template: "blog/{postkey}",
+                    defaults: new { controller = "Home", action = "PostDetails" }
+                );
+
+                routes.MapRoute(
+                    name: "recipe-details-route",
+                    template: "mauritius/recipes/{postkey}",
+                    defaults: new { controller = "Home", action = "PostDetails" }
+                );
+            });            
         }
 
         // Entry point for the application.

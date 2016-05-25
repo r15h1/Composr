@@ -1,3 +1,5 @@
-﻿@{
-    Layout = "~/Layouts/_LayoutNoSearch";
+﻿@inject Composr.Core.Blog Blog
+
+@{
+    Layout = $"~/Layouts/_Layout{Blog.Theme}";
 }

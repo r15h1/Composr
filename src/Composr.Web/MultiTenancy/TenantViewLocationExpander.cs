@@ -30,11 +30,11 @@ namespace Composr.Web.MultiTenancy
                     $"/Themes/{theme}/Shared/{{0}}.cshtml"
                 };
 
-                string tenant;
-                if (context.Values.TryGetValue(TENANT_KEY, out tenant))
-                {
-                    themeLocations = ExpandTenantLocations(tenant, themeLocations);
-                }
+                //string tenant;
+                //if (context.Values.TryGetValue(TENANT_KEY, out tenant))
+                //{
+                //    themeLocations = ExpandTenantLocations(tenant, themeLocations);
+                //}
 
                 viewLocations = themeLocations.Concat(viewLocations);
             }
@@ -43,14 +43,14 @@ namespace Composr.Web.MultiTenancy
             return viewLocations;
         }
 
-        private IEnumerable<string> ExpandTenantLocations(string tenant, IEnumerable<string> defaultLocations)
-        {
-            foreach (var location in defaultLocations)
-            {
-                yield return location.Replace("{0}", $"{tenant}/{{0}}");
-                yield return location;
-            }
-        }
+        //private IEnumerable<string> ExpandTenantLocations(string tenant, IEnumerable<string> defaultLocations)
+        //{
+        //    foreach (var location in defaultLocations)
+        //    {
+        //        yield return location.Replace("{0}", $"{tenant}/{{0}}");
+        //        yield return location;
+        //    }
+        //}
     }
 
 }

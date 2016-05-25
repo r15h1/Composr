@@ -1,7 +1,5 @@
 ﻿@model Composr.Web.ViewModels.BaseFrontEndViewModel
-
 <!DOCTYPE html>
-
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />    
@@ -9,10 +7,8 @@
     <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/styles/writer.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Playfair+Display' rel='stylesheet' type='text/css'>
     @RenderSection("css", required: false)
-    <title>@ViewBag.Title</title>
-    
+    <title>@ViewBag.Title</title>    
 </head>
 <body>    
         <section class="bodywrapper">
@@ -48,8 +44,6 @@
             </section>
             <script src="~/lib/jquery/dist/jquery.min.js"></script>
             <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-
-            @RenderSection("scripts", required: false)
         </section>
 
 </body>

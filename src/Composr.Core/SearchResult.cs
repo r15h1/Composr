@@ -16,6 +16,7 @@ namespace Composr.Core
         public string Id { get; set; }
         public string DatePublished { get; set; }
         public string Body{ get; set; }
+        public string Thumbnail { get; set; }
     }
 
     public enum SearchSortOrder

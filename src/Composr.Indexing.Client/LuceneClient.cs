@@ -29,7 +29,7 @@ namespace Composr.Indexing.Client
         {
             logger.LogInformation($"generating index for {blog.Name}");
             IPostRepository repo = new Composr.Repository.Sql.PostRepository(blog);
-            IList<Post> posts = repo.GetPublishedPosts(null);
+            IList<Post> posts = repo.GetPublishedPosts(new Filter { Limit = int.MaxValue});
             writer.GenerateIndex(posts);
         }
     }

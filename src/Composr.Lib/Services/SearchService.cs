@@ -1,8 +1,8 @@
 ﻿using Composr.Core;
-using Composr.Indexing;
+using Composr.Lib.Indexing;
 using System.Collections.Generic;
 
-namespace Composr.Services
+namespace Composr.Lib.Services
 {
     public class SearchService : ISearchService
     {       

@@ -2,6 +2,7 @@
 using Composr.Core;
 using Microsoft.Extensions.Logging;
 using Composr.Lib.Util;
+using Composr.Lib.Indexing;
 
 namespace Composr.Indexing.Client
 {

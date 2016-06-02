@@ -1,4 +1,4 @@
-﻿namespace Composr.Indexing
+﻿namespace Composr.Lib.Indexing
 {
     internal class IndexFields
     {

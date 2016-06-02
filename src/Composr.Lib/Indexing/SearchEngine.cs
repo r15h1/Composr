@@ -6,7 +6,7 @@ using Lucene.Net.Store;
 using System.Collections.Generic;
 using Lucene.Net.Documents;
 
-namespace Composr.Indexing
+namespace Composr.Lib.Indexing
 {
     public class SearchEngine
     {

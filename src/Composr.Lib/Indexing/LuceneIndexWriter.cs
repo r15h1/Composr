@@ -7,7 +7,7 @@ using Lucene.Net.Store;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 
-namespace Composr.Indexing
+namespace Composr.Lib.Indexing
 {
     public class LuceneIndexWriter : IIndexWriter
     {

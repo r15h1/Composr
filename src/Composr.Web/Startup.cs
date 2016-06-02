@@ -21,7 +21,7 @@ namespace Composr.Web
                 options.ViewLocationExpanders.Add(new TenantViewLocationExpander());
             });
 
-            services.AddScoped<Composr.Core.ISearchService, Composr.Services.SearchService>();
+            services.AddScoped<Composr.Core.ISearchService, Composr.Lib.Services.SearchService>();
 
             services.AddScoped<Composr.Core.IRepository<Blog>, Composr.Repository.Sql.BlogRepository>();
             services.AddScoped<Composr.Core.IRepository<Post>, Composr.Repository.Sql.PostRepository>();
@@ -32,8 +32,8 @@ namespace Composr.Web
             services.AddScoped<Composr.Core.ISpecification<Composr.Core.Blog>, Composr.Specifications.MinimalBlogSpecification>();
             services.AddScoped<Composr.Core.ISpecification<Composr.Core.Post>, Composr.Specifications.PostSpecification>();
 
-            services.AddScoped<Composr.Core.IRepoService<Composr.Core.Post>, Composr.Services.RepoService<Composr.Core.Post>>();
-            services.AddScoped<Composr.Core.IRepoService<Composr.Core.Blog>, Composr.Services.RepoService<Composr.Core.Blog>>();
+            services.AddScoped<Composr.Core.IRepoService<Composr.Core.Post>, Composr.Lib.Services.RepoService<Composr.Core.Post>>();
+            services.AddScoped<Composr.Core.IRepoService<Composr.Core.Blog>, Composr.Lib.Services.RepoService<Composr.Core.Blog>>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

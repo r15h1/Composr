@@ -1,7 +1,7 @@
 ﻿using Composr.Core;
 using System.Collections.Generic;
 
-namespace Composr.Indexing
+namespace Composr.Lib.Indexing
 {
     public interface IIndexWriter
     {

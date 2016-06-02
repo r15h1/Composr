@@ -1,5 +1,5 @@
 ﻿using Composr.Core;
-using Composr.Indexing;
+using Composr.Lib.Indexing;
 
 namespace Composr.Tests
 {

@@ -1,6 +1,6 @@
 ﻿using Composr.Core;
 using Composr.Repository.Sql;
-using Composr.Services;
+using Composr.Lib.Services;
 using Xunit;
 using System;
 using System.Transactions;

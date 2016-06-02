@@ -2,7 +2,7 @@
 using Lucene.Net.Analysis.Standard;
 using System.IO;
 
-namespace Composr.Indexing
+namespace Composr.Lib.Indexing
 {
     internal class ComposrAnalyzer:StandardAnalyzer
     {

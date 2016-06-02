@@ -1,4 +1,5 @@
-﻿using Composr.Lib.Util;
+﻿using Composr.Lib.Indexing;
+using Composr.Lib.Util;
 using Microsoft.Extensions.Logging;
 using System;
 

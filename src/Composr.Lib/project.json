@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "Composr.Core": "1.0.0-*",
+    "Lucene.Net": "3.0.3",
+    "Lucene.Net.Contrib": "3.0.3",
     "Microsoft.Extensions.Configuration": "1.0.0-rc1-final",
     "Microsoft.Extensions.Configuration.EnvironmentVariables": "1.0.0-rc1-final",
     "Microsoft.Extensions.Configuration.Json": "1.0.0-rc1-final",

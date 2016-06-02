@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Composr.Services
+namespace Composr.Lib.Services
 {
     public class RepoService<T> :IRepoService<T> where T :class, IComposrEntity
     {

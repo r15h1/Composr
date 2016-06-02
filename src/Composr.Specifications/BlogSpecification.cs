@@ -1,5 +1,4 @@
 ﻿using Composr.Core;
-using Composr.Core;
 using FluentValidation;
 using System.Collections.Generic;
 using System.Linq;

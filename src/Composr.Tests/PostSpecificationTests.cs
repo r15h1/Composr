@@ -1,12 +1,11 @@
 ﻿using Composr.Core;
-using Composr.Core;
 using Composr.Specifications;
 using Xunit;
 using System;
 
 namespace Composr.Tests
 {
-    
+
     public class PostSpecificationTests
     {
         private const int URN_MIN_LENGTH = 5;

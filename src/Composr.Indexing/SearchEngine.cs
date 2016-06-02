@@ -4,9 +4,7 @@ using Lucene.Net.Index;
 using Lucene.Net.Search;
 using Lucene.Net.Store;
 using System.Collections.Generic;
-using System;
 using Lucene.Net.Documents;
-using System.Linq;
 
 namespace Composr.Indexing
 {

@@ -1,14 +1,13 @@
 ﻿using Composr.Core;
 using FizzWare.NBuilder;
 using Xunit;
-using System;
 using System.Collections.Generic;
 using System.Transactions;
 using System.Linq;
 
 namespace Composr.Tests
 {
-    
+
     public class BlogRepositoryTests
     {
         private Composr.Core.IBlogRepository repo;

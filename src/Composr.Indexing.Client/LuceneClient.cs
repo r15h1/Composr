@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 using Composr.Core;
-using Composr.Core;
-using System.Linq;
 using Microsoft.Extensions.Logging;
 using Composr.Util;
 

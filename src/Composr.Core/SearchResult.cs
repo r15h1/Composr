@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Composr.Core
+﻿namespace Composr.Core
 {
     /// <summary>
     /// data structure to represent a post in the form of a search result

@@ -1,6 +1,4 @@
 ﻿using Composr.Core;
-using Composr.Core;
-using Composr.Core;
 using System;
 using System.Collections.Generic;
 

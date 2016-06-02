@@ -1,5 +1,4 @@
 ﻿using Composr.Core;
-using Composr.Core;
 using Microsoft.AspNet.Http;
 using SaasKit.Multitenancy;
 using System.Collections.Generic;

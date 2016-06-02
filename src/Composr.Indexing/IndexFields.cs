@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Composr.Indexing
+﻿namespace Composr.Indexing
 {
     internal class IndexFields
     {

@@ -1,6 +1,5 @@
 ﻿using Lucene.Net.Analysis;
 using Lucene.Net.Analysis.Standard;
-using Lucene.Net.Analysis;
 using System.IO;
 
 namespace Composr.Indexing

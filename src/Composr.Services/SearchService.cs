@@ -1,7 +1,5 @@
 ﻿using Composr.Core;
-using Composr.Core;
 using Composr.Indexing;
-using System;
 using System.Collections.Generic;
 
 namespace Composr.Services

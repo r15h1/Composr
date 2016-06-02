@@ -1,5 +1,4 @@
 ﻿using Composr.Core;
-using Composr.Core;
 using Composr.Web.ViewModels;
 using Microsoft.AspNet.Mvc;
 

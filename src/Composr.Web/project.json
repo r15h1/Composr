@@ -8,7 +8,6 @@
     "Composr.Core": "1.0.0-*",
     "Composr.Lib": "1.0.0-*",
     "Composr.Mock": "1.0.0-*",
-    "Composr.MultiTenancy": "1.0.0-*",
     "Composr.Repository.Sql": "1.0.0-*",
     "Composr.Specifications": "1.0.0-*",
     "Microsoft.AspNet.Diagnostics": "1.0.0-rc1-final",

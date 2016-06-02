@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Composr.Core.Repositories
+namespace Composr.Core
 {
     public interface IRepository<T> where T :class,IComposrEntity
     {

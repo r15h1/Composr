@@ -1,6 +1,5 @@
 ﻿using Composr.Core;
-using Composr.Core.Repositories;
-using Composr.Core.Services;
+using Composr.Core;
 using Composr.Web.Models;
 using Composr.Web.ViewModels;
 using Microsoft.AspNet.Mvc;

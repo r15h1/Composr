@@ -11,7 +11,7 @@ namespace Composr.Tests
     
     public class BlogRepositoryTests
     {
-        private Composr.Core.Repositories.IBlogRepository repo;
+        private Composr.Core.IBlogRepository repo;
 
         public BlogRepositoryTests()
         {
@@ -133,7 +133,7 @@ namespace Composr.Tests
             {
                 foreach (Blog b in list) repo.Save(b);
                 repo.Locale = Locale.EN;
-                IList<Blog> blogs = repo.Get(new Composr.Core.Repositories.Filter { Criteria = "code" });
+                IList<Blog> blogs = repo.Get(new Composr.Core.Filter { Criteria = "code" });
                 Assert.True(blogs.Count == 2);
             }
         }
@@ -157,7 +157,7 @@ namespace Composr.Tests
             {
                 foreach (Blog b in list) repo.Save(b);
                 repo.Locale = Locale.EN;
-                IList<Blog> blogs = repo.Get(new Composr.Core.Repositories.Filter { Criteria = "auto" });
+                IList<Blog> blogs = repo.Get(new Composr.Core.Filter { Criteria = "auto" });
                 Assert.True(blogs.Count == 3);
             }
         }
@@ -180,7 +180,7 @@ namespace Composr.Tests
             {
                 foreach (Blog b in list) repo.Save(b);
                 repo.Locale = Locale.EN;
-                IList<Blog> blogs = repo.Get(new Composr.Core.Repositories.Filter { Criteria = "york" });
+                IList<Blog> blogs = repo.Get(new Composr.Core.Filter { Criteria = "york" });
                 Assert.True(blogs.Count == 2);
             }
         }
@@ -210,7 +210,7 @@ namespace Composr.Tests
                 Assert.True(blogs.Count == newblogs + existing);
                 Blog blogtodelete = blogs.Single(x => x.Description == "new york fries");
                 repo.Delete(blogtodelete);
-                blogs = repo.Get(new Composr.Core.Repositories.Filter{ Criteria= "york" });
+                blogs = repo.Get(new Composr.Core.Filter{ Criteria= "york" });
                 Assert.True(blogs.Count == 1);
                 blogs = repo.Get(null);
                 Assert.True(blogs.Count == 4 + existing);
@@ -236,13 +236,13 @@ namespace Composr.Tests
             {
                 repo.Locale = Locale.EN;
                 foreach (Blog b in list) repo.Save(b);
-                blogs = repo.Get(new Composr.Core.Repositories.Filter { Criteria = "*" });
+                blogs = repo.Get(new Composr.Core.Filter { Criteria = "*" });
                 Assert.True(blogs.Count == 0);
-                blogs = repo.Get(new Composr.Core.Repositories.Filter { Criteria = "'york' OR 1=1" });
+                blogs = repo.Get(new Composr.Core.Filter { Criteria = "'york' OR 1=1" });
                 Assert.True(blogs.Count == 0);
             }
 
-            blogs = repo.Get(new Composr.Core.Repositories.Filter { Criteria = "york; DROP TABLE Locales;" });
+            blogs = repo.Get(new Composr.Core.Filter { Criteria = "york; DROP TABLE Locales;" });
             Assert.True(blogs.Count == 0);
         }
 
@@ -272,7 +272,7 @@ namespace Composr.Tests
                 count = repo.Count(null);
                 Assert.True(count == 5 + existing);
 
-                blogs = repo.Get(new Composr.Core.Repositories.Filter { Criteria = "new", Limit = 2, Offset = 2 });
+                blogs = repo.Get(new Composr.Core.Filter { Criteria = "new", Limit = 2, Offset = 2 });
                 
                 Assert.True(blogs.Count == 2);
                 Assert.True(blogs[0].Name == "hot fries");

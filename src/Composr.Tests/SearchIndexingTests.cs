@@ -1,4 +1,4 @@
-﻿using Composr.Core.Repositories;
+﻿using Composr.Core;
 using Composr.Indexing;
 
 namespace Composr.Tests

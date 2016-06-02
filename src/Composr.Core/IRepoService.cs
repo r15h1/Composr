@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using Composr.Core;
-using Composr.Core.Repositories;
+using Composr.Core;
 
-namespace Composr.Core.Services
+namespace Composr.Core
 {
     public interface IRepoService<T> where T :class, IComposrEntity
     {

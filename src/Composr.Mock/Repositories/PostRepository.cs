@@ -1,5 +1,5 @@
 ﻿using Composr.Core;
-using Composr.Core.Repositories;
+using Composr.Core;
 using FizzWare.NBuilder;
 using System;
 using System.Collections.Generic;

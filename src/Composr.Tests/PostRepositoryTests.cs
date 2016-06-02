@@ -10,7 +10,7 @@ namespace Composr.Tests
     public class PostRepositoryTests
     {
         //to be created for next session
-        private Composr.Core.Repositories.IPostRepository repo;
+        private Composr.Core.IPostRepository repo;
 
         public PostRepositoryTests()
         {
@@ -146,7 +146,7 @@ namespace Composr.Tests
             {
                 repo.Locale = Locale.EN;
                 foreach (Post p in list) repo.Save(p);                
-                IList<Post> posts = repo.Get(new Composr.Core.Repositories.Filter { Criteria = "auto" });
+                IList<Post> posts = repo.Get(new Composr.Core.Filter { Criteria = "auto" });
                 Assert.True(posts.Count == 3);
             }
         }
@@ -161,7 +161,7 @@ namespace Composr.Tests
             {
                 repo.Locale = Locale.EN;
                 foreach (Post p in list) repo.Save(p);
-                IList<Post> posts = repo.Get(new Composr.Core.Repositories.Filter { Criteria = "your" });
+                IList<Post> posts = repo.Get(new Composr.Core.Filter { Criteria = "your" });
                 Assert.True(posts.Count == 2);
             }
         }
@@ -176,7 +176,7 @@ namespace Composr.Tests
             {
                 repo.Locale = Locale.EN;
                 foreach (Post p in list) repo.Save(p);
-                IList<Post> posts = repo.Get(new Composr.Core.Repositories.Filter { Criteria = "sell" });
+                IList<Post> posts = repo.Get(new Composr.Core.Filter { Criteria = "sell" });
                 Assert.True(posts.Count == 3);
             }
         }
@@ -191,7 +191,7 @@ namespace Composr.Tests
             {
                 repo.Locale = Locale.EN;
                 foreach (Post p in list) repo.Save(p);
-                IList<Post> posts = repo.Get(new Composr.Core.Repositories.Filter { Criteria = "auto", Limit = 10, Offset = 1 });
+                IList<Post> posts = repo.Get(new Composr.Core.Filter { Criteria = "auto", Limit = 10, Offset = 1 });
                 Assert.True(posts[0].Title.Equals("das auto"));
                 Assert.True(posts[1].Title.Equals("motoautomatic"));
                 Assert.True(posts.Count == 2);
@@ -202,11 +202,11 @@ namespace Composr.Tests
         public void PostRepositoryRetrievesPostsFromExistingBlogsOnly()
         {
             Blog nonexistingblog = new Blog(999);
-            Composr.Core.Repositories.IRepository<Post> repo2 = new Composr.Repository.Sql.PostRepository(nonexistingblog);
+            Composr.Core.IRepository<Post> repo2 = new Composr.Repository.Sql.PostRepository(nonexistingblog);
             using (TransactionScope t = new TransactionScope())
             {
                 repo.Locale = Locale.EN;
-                IList<Post> posts = new Composr.Repository.Sql.PostRepository(nonexistingblog).Get(new Composr.Core.Repositories.Filter());
+                IList<Post> posts = new Composr.Repository.Sql.PostRepository(nonexistingblog).Get(new Composr.Core.Filter());
                 Assert.True(posts.Count == 0);
             }
         }
@@ -246,7 +246,7 @@ namespace Composr.Tests
             {
                 repo.Locale = Locale.EN;
                 foreach (Post p in list) repo.Save(p);
-                IList<Post> posts = repo.Get(new Composr.Core.Repositories.Filter { Criteria = "'auto' OR 1=1 ", Limit = 10, Offset = 1 });
+                IList<Post> posts = repo.Get(new Composr.Core.Filter { Criteria = "'auto' OR 1=1 ", Limit = 10, Offset = 1 });
                 Assert.True(posts.Count == 0);
             }
         }

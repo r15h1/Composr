@@ -1,5 +1,5 @@
 ﻿using Composr.Core;
-using Composr.Core.Services;
+using Composr.Core;
 using Composr.Web.ViewModels;
 using Microsoft.AspNet.Mvc;
 using System.Collections.Generic;
@@ -21,7 +21,7 @@ namespace Composr.Web.Controllers
         public IActionResult Index([FromQuery] TestModel model)
         {
             //IEnumerable<Blog> blogs = service.Get(null);
-            IEnumerable<Blog> blogs = service.Get(new Core.Repositories.Filter { Criteria = model.Search });
+            IEnumerable<Blog> blogs = service.Get(new Core.Filter { Criteria = model.Search });
             return View(blogs);
         }
 

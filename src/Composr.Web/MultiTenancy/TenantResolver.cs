@@ -1,5 +1,5 @@
 ﻿using Composr.Core;
-using Composr.Core.Services;
+using Composr.Core;
 using Microsoft.AspNet.Http;
 using SaasKit.Multitenancy;
 using System.Collections.Generic;

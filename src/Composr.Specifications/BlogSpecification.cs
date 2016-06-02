@@ -1,5 +1,5 @@
 ﻿using Composr.Core;
-using Composr.Core.Specifications;
+using Composr.Core;
 using FluentValidation;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,11 +16,11 @@ namespace Composr.Specifications
         }
     }
 
-    public class MinimalBlogSpecification : Composr.Core.Specifications.ISpecification<Blog>
+    public class MinimalBlogSpecification : Composr.Core.ISpecification<Blog>
     {
         public Compliance EvaluateCompliance(Blog blog)
         {
-            if (blog == null) return new Core.Specifications.Compliance(new List<string> { "blog cannot be null" });
+            if (blog == null) return new Compliance(new List<string> { "blog cannot be null" });
             var result = new BlogValidator().Validate(blog, ruleSet: "BlogID,Name,Locale");
             return new Compliance(result.Errors.Select(x => x.ErrorMessage));
         }

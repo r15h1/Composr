@@ -1,5 +1,5 @@
 ﻿using Composr.Core;
-using Composr.Core.Specifications;
+using Composr.Core;
 using Composr.Specifications;
 using Xunit;
 using System;

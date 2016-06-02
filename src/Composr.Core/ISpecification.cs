@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Composr.Core.Specifications
+namespace Composr.Core
 {
     /// <summary>
     /// interface to validate any of the core composr elements

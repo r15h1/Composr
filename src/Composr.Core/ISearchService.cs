@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Composr.Core.Services
+namespace Composr.Core
 {
     /// <summary>
     /// gets data for front end - with advanced search capabilities

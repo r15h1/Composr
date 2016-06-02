@@ -1,5 +1,4 @@
 ﻿using Composr.Core;
-using Composr.Core.Repositories;
 using Dapper;
 using System;
 using System.Collections.Generic;
@@ -7,7 +6,7 @@ using System.Linq;
 
 namespace Composr.Repository.Sql
 {
-    public class BlogRepository : Composr.Core.Repositories.IBlogRepository
+    public class BlogRepository : Composr.Core.IBlogRepository
     {
 
         public BlogRepository()

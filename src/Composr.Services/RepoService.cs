@@ -1,7 +1,6 @@
 ﻿using Composr.Core;
-using Composr.Core.Repositories;
-using Composr.Core.Services;
-using Composr.Core.Specifications;
+using Composr.Core;
+using Composr.Core;
 using System;
 using System.Collections.Generic;
 

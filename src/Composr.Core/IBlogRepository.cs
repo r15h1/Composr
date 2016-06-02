@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Composr.Core.Repositories
+namespace Composr.Core
 {
     public interface IBlogRepository:IRepository<Blog>
     {

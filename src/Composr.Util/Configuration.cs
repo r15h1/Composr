@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 
-namespace Composr.Util
+namespace Composr.Lib.Util
 {
     public static class Configuration
     {

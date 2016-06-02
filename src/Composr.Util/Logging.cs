@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 
-namespace Composr.Util
+namespace Composr.Lib.Util
 {
     public class Logging
     {

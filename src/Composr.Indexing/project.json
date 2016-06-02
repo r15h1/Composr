@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "Composr.Core": "1.0.0-*",
-    "Composr.Util": "1.0.0-*",
+    "Composr.Lib": "1.0.0-*",
     "Lucene.Net": "3.0.3",
     "Lucene.Net.Contrib": "3.0.3"
   }

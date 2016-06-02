@@ -12,6 +12,7 @@
 
   "dependencies": {
     "Composr.Indexing": "1.0.0-*",
+    "Composr.Lib": "1.0.0-*",
     "Microsoft.Extensions.Logging.Abstractions": "1.0.0-rc1-final"
   },
 
@@ -24,8 +25,7 @@
       "dependencies": {
         "Composr.Core": "1.0.0-*",
         "Composr.Repository.Sql": "1.0.0-*",
-        "Composr.Services": "1.0.0-*",
-        "Composr.Util": "1.0.0-*"
+        "Composr.Services": "1.0.0-*"
       }
     }
   }

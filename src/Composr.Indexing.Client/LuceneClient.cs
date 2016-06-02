@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Composr.Core;
 using Microsoft.Extensions.Logging;
-using Composr.Util;
+using Composr.Lib.Util;
 
 namespace Composr.Indexing.Client
 {

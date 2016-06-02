@@ -1,5 +1,5 @@
 ﻿using Composr.Core;
-using Composr.Util;
+using Composr.Lib.Util;
 using Lucene.Net.Index;
 using Lucene.Net.Search;
 using Lucene.Net.Store;

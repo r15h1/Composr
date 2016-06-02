@@ -2,7 +2,7 @@
 using System;
 using System.Text.RegularExpressions;
 
-namespace Composr.Util
+namespace Composr.Lib.Util
 {
     public static class Extensions
     {

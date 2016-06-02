@@ -11,7 +11,7 @@ namespace Composr.Repository.Sql
         /// <returns></returns>
         public static IDbConnection CreateConnection(string connectionstring)
         {
-            return Connect(Composr.Util.Configuration.ConnectionString);
+            return Connect(Composr.Lib.Util.Configuration.ConnectionString);
         }
 
         /// <summary>
@@ -21,7 +21,7 @@ namespace Composr.Repository.Sql
         /// <returns></returns>
         public static IDbConnection CreateConnection()
         {
-            return Connect(Composr.Util.Configuration.ConnectionString);
+            return Connect(Composr.Lib.Util.Configuration.ConnectionString);
         }
 
         private static IDbConnection Connect(string connectionstring)

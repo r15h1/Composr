@@ -1,5 +1,5 @@
 ﻿using Composr.Core;
-using Composr.Util;
+using Composr.Lib.Util;
 using Lucene.Net.Analysis.Standard;
 using Lucene.Net.Documents;
 using Lucene.Net.Index;

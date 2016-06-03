@@ -4,11 +4,11 @@ using Composr.Lib.Services;
 using Xunit;
 using System;
 using System.Transactions;
-using Composr.Specifications;
+using Composr.Lib.Specifications;
 
 namespace Composr.Tests
 {
-    
+
     public class BlogServiceTests
     {
         [Fact]

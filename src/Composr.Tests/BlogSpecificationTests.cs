@@ -1,7 +1,7 @@
 ﻿using Composr.Core;
-using Composr.Specifications;
 using Xunit;
 using System;
+using Composr.Lib.Specifications;
 
 namespace Composr.Tests
 {

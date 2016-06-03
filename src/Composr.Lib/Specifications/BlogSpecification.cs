@@ -3,7 +3,7 @@ using FluentValidation;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Composr.Specifications
+namespace Composr.Lib.Specifications
 {
     internal class BlogValidator : FluentValidation.AbstractValidator<Blog>
     {

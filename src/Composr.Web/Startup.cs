@@ -1,4 +1,6 @@
 ﻿using Composr.Core;
+using Composr.Lib.Services;
+using Composr.Lib.Specifications;
 using Composr.Web.MultiTenancy;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
@@ -22,19 +24,19 @@ namespace Composr.Web
                 options.ViewLocationExpanders.Add(new TenantViewLocationExpander());
             });
 
-            services.AddScoped<Composr.Core.ISearchService, Composr.Lib.Services.SearchService>();
+            services.AddScoped<ISearchService, SearchService>();
 
-            services.AddScoped<Composr.Core.IRepository<Blog>, Composr.Repository.Sql.BlogRepository>();
-            services.AddScoped<Composr.Core.IRepository<Post>, Composr.Repository.Sql.PostRepository>();
+            services.AddScoped<IRepository<Blog>, Repository.Sql.BlogRepository>();
+            services.AddScoped<IRepository<Post>, Composr.Repository.Sql.PostRepository>();
 
-            services.AddScoped<Composr.Core.IBlogRepository, Composr.Repository.Sql.BlogRepository>();
-            services.AddScoped<Composr.Core.IPostRepository, Composr.Repository.Sql.PostRepository>();
+            services.AddScoped<IBlogRepository, Repository.Sql.BlogRepository>();
+            services.AddScoped<IPostRepository, Repository.Sql.PostRepository>();
             
-            services.AddScoped<Composr.Core.ISpecification<Composr.Core.Blog>, Composr.Specifications.MinimalBlogSpecification>();
-            services.AddScoped<Composr.Core.ISpecification<Composr.Core.Post>, Composr.Specifications.PostSpecification>();
+            services.AddScoped<ISpecification<Blog>, MinimalBlogSpecification>();
+            services.AddScoped<ISpecification<Post>, PostSpecification>();
 
-            services.AddScoped<Composr.Core.IRepoService<Composr.Core.Post>, Composr.Lib.Services.RepoService<Composr.Core.Post>>();
-            services.AddScoped<Composr.Core.IRepoService<Composr.Core.Blog>, Composr.Lib.Services.RepoService<Composr.Core.Blog>>();
+            services.AddScoped<IRepoService<Post>, RepoService<Post>>();
+            services.AddScoped<IRepoService<Blog>, RepoService<Blog>>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

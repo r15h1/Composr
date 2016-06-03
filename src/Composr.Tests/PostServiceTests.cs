@@ -3,11 +3,11 @@ using Xunit;
 using System.Transactions;
 using Composr.Core;
 using Composr.Repository.Sql;
-using Composr.Specifications;
+using Composr.Lib.Specifications;
 
 namespace Composr.Tests
 {
-    
+
     public class PostServiceTests
     {
         [Fact]

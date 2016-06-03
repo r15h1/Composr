@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Composr.Mock.Repositories
+namespace Composr.Lib.Repositories.Mock
 {
     public class PostRepository : IRepository<Post>
     {

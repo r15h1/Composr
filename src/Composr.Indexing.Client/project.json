@@ -23,8 +23,7 @@
     "dnx451": {
       "dependencies": {
         "Composr.Core": "1.0.0-*",
-        "Composr.Lib": "1.0.0-*",
-        "Composr.Repository.Sql": "1.0.0-*"
+        "Composr.Lib": "1.0.0-*"
       }
     }
   }

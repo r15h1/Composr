@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "Composr.Core": "1.0.0-*",
+    "Dapper": "1.42.0",
     "FluentValidation": "6.2.0",
     "Lucene.Net": "3.0.3",
     "Lucene.Net.Contrib": "3.0.3",

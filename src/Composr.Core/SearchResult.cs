@@ -12,6 +12,7 @@
         public string DatePublished { get; set; }
         public string Body{ get; set; }
         public string Thumbnail { get; set; }
+        public string MetaDescription { get; set; }
     }
 
     public enum SearchSortOrder

@@ -6,5 +6,7 @@
         public string BlogUrl { get; set; }
         public string Copyright { get; set; }
         public string Tagline { get; set; }
+        public string Title { get; set; }
+        public string MetaDescription { get; set; }
     }
 }

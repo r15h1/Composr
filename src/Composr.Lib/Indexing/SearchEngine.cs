@@ -44,6 +44,7 @@ namespace Composr.Lib.Indexing
             result.Id = doc.Get(IndexFields.PostID);            
             result.Title = doc.Get(IndexFields.PostTitle);
             result.URN = doc.Get(IndexFields.PostURN);
+            result.MetaDescription = doc.Get(IndexFields.PostMetaDescription);
 
             if(options == CompileOptions.Include_Post_Body)
                 result.Body = doc.Get(IndexFields.PostBody);

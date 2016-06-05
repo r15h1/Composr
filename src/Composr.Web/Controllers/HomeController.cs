@@ -16,16 +16,22 @@ namespace Composr.Web.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            var results = service.Search(new SearchCriteria() { BlogID = blog.Id.Value, Locale = blog.Locale.Value, SearchSortOrder = SearchSortOrder.DatePublished });
+            var results = service.Search(new SearchCriteria() { BlogID = Blog.Id.Value, Locale = Blog.Locale.Value, SearchSortOrder = SearchSortOrder.DatePublished });
             var model = PostSearchViewModel.FromBaseFrontEndViewModel(BaseViewModel);
             model.SearchResults = results;
+            model.Title = "Cocozil Home - Discover Mauritius";
             return View(model);
         }
 
         public IActionResult PostDetails(string postkey)
         {
-            var results = service.Search(new SearchCriteria() { BlogID = blog.Id.Value, Locale = blog.Locale.Value, URN = HttpContext.Request.Path.Value});
+            var results = service.Search(new SearchCriteria() { BlogID = Blog.Id.Value, Locale = Blog.Locale.Value, URN = HttpContext.Request.Path.Value});
             var model = PostSearchViewModel.FromBaseFrontEndViewModel(BaseViewModel);
+            if (results != null && results.Count > 0)
+            {
+                model.Title = $"{results[0].Title} Recipe - Cocozil";
+                model.MetaDescription = $"{results[0].MetaDescription}";
+            }
             model.SearchResults = results;
             return View(model);
         }

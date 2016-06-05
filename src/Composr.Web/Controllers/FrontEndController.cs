@@ -9,18 +9,22 @@ namespace Composr.Web.Controllers
 {
     public class FrontEndController : Controller
     {
-        protected Blog blog { get; set; }
+        protected Blog Blog { get; set; }
 
-        protected BaseFrontEndViewModel BaseViewModel { get; }
+        protected BaseFrontEndViewModel BaseViewModel {
+            get;
+            set;
+        }
 
         public FrontEndController(Blog blog)
         {
-            this.blog = blog;
-            BaseViewModel = new BaseFrontEndViewModel() {
+            this.Blog = blog;
+            BaseViewModel = new BaseFrontEndViewModel()
+            {
                 BlogUrl = blog.Url,
                 LogoUrl = blog.Attributes.SingleOrDefault(x => x.Key == BlogAttributeKeys.LogoUrl).Value,
                 Copyright = blog.Attributes.SingleOrDefault(x => x.Key == BlogAttributeKeys.Copyright).Value,
-                Tagline = blog.Attributes.SingleOrDefault(x => x.Key == BlogAttributeKeys.Tagline).Value,
+                Tagline = blog.Attributes.SingleOrDefault(x => x.Key == BlogAttributeKeys.Tagline).Value
             };
         }
     }

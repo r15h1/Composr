@@ -17,6 +17,16 @@
            color:red;
            font-weight:bolder;
        }
+
+       footer{           
+           padding: 10px 10px 10px 10px;
+       }
+
+       .footerlogo{
+           background-color:rgb(70, 66, 66);
+           padding: 10px 10px 10px 10px;
+       }
+
     </style>
 </head>
 <body>
@@ -32,14 +42,14 @@
                 </button>
                 <a class="navbar-brand" href="#">
                     @*<img src="~/img/Composr.png" />*@
-                    @if (@ViewData["logo"] == null)
-                    {
-                        <img src="~/img/Composr.png" />
-                    }
+                    @*@if (@ViewData["logo"] == null)
+                    {*@
+                        <img src="~/img/composr-logo.png" />
+                    @*}
                     else
                     {
                         <img src="@ViewData["logo"]" />
-                    }
+                    }*@
                 </a>
             </div>
             <div class="collapse navbar-collapse navbar-ex1-collapse">
@@ -70,7 +80,7 @@
         <footer>
             <div class="row">
                 <div class="col-lg-12">
-                    <p><img src="~/img/programagic.png" /> <span> &copy; @DateTime.Now.Year</span></p>
+                    <p><img class="footerlogo" src="~/img/programagic-logo.png" /> <span> &copy; @DateTime.Now.Year</span></p>
                 </div>
             </div>
             <!-- /.row -->

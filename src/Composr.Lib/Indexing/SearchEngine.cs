@@ -23,7 +23,7 @@ namespace Composr.Lib.Indexing
         {
             IndexSearcher searcher = new IndexSearcher(reader);
             Query query = CreateQuery(criteria);
-            TopDocs docs = searcher.Search(query, 25);
+            TopDocs docs = searcher.Search(query, 100);
             CompileOptions options = string.IsNullOrWhiteSpace(criteria.URN) ? CompileOptions.Exclude_Post_Body : CompileOptions.Include_Post_Body;
             return CompileResults(searcher, docs, options);
         }

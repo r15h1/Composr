@@ -22,5 +22,7 @@ namespace Composr.Web.ViewModels
 
         [StringLength(250)]
         public string URN { get; set; }
+
+        public string Tags { get; set; }
     }
 }

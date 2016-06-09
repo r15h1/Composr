@@ -23,13 +23,17 @@
     </div>
 
     <div class="form-group">
-        <label for="title">URN</label><input class="form-control" type="text" name="urn" id="urn" asp-for="URN" value="@Model.URN" maxlength="250" />
+        <label for="urn">URN</label><input class="form-control" type="text" name="urn" id="urn" asp-for="URN" value="@Model.URN" maxlength="250" />
         <span asp-validation-for="URN"></span>
     </div>
 
     <div class="form-group">
-        <label for="title">Meta Description</label><input class="form-control" type="text" name="metadescription" id="metadescription" asp-for="MetaDescription" value="@Model.MetaDescription" minlength="150" maxlength="160"/>
+        <label for="metadescription">Meta Description</label><input class="form-control" type="text" name="metadescription" id="metadescription" asp-for="MetaDescription" value="@Model.MetaDescription" minlength="150" maxlength="160"/>
         <span asp-validation-for="MetaDescription"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="tags">Tags</label><input class="form-control" type="text" name="tags" id="tags" asp-for="Tags" value="@Model.Tags"/>
     </div>
 
     <div class="form-group">

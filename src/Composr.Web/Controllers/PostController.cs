@@ -32,8 +32,8 @@ namespace Composr.Web.Controllers
         {
             Post post = service.Get(postid);
             PostViewModel viewModel = new PostViewModel() { BlogId = post.Blog.Id, Id = post.Id, Body = post.Body, Title = post.Title , PostStatus = post.Status, URN = post.URN};
-            if (post.Attributes.ContainsKey(PostAttributeKeys.MetaDescription))
-                viewModel.MetaDescription = post.Attributes[PostAttributeKeys.MetaDescription];
+            if (post.Attributes.ContainsKey(PostAttributeKeys.MetaDescription)) viewModel.MetaDescription = post.Attributes[PostAttributeKeys.MetaDescription];
+            if (post.Attributes.ContainsKey(PostAttributeKeys.Tags)) viewModel.Tags = post.Attributes[PostAttributeKeys.Tags];
 
             //ViewData["logo"] = blog.Logo;
             return View(viewModel);
@@ -80,7 +80,8 @@ namespace Composr.Web.Controllers
                 Status = viewModel.PostStatus,
                 URN = viewModel.URN
             };
-            post.Attributes.Add(PostAttributeKeys.MetaDescription, viewModel.MetaDescription);
+            if (!string.IsNullOrWhiteSpace(viewModel.MetaDescription)) post.Attributes.Add(PostAttributeKeys.MetaDescription, viewModel.MetaDescription);
+            if (!string.IsNullOrWhiteSpace(viewModel.Tags)) post.Attributes.Add(PostAttributeKeys.Tags, viewModel.Tags);
             return post;
         }
     }

@@ -87,11 +87,16 @@ html .clearfix {
 h1{
     padding-top:0;
     margin-top:0;
+    /*border-bottom:1px solid rgba(0, 0, 0, 0.1);*/
+}
+
+h2{
+    color:rgb(125,125,125);
     border-bottom:1px solid rgba(0, 0, 0, 0.1);
 }
 
-h2,h3{
-border-bottom:1px solid rgba(0, 0, 0, 0.1);
+h3{
+    color:rgb(140,140,140);
 }
 
 .slider-container .csslider1 {

@@ -43,7 +43,7 @@ namespace Composr.Repository.Sql
                 {
                     post = reader.Read().Select<dynamic, Post>(row => BuildPost(row)).SingleOrDefault();
                     if (post != null)
-                        post.Attributes = reader.Read().Select<dynamic, KeyValuePair<string, string>>(row => BuildAttributes(row)).ToDictionary(x => x.Key, x=>x.Value);
+                        post.Attributes = reader.Read().Select<dynamic, KeyValuePair<string, string>>(row => BuildAttributes(row)).ToDictionary(x => x.Key, x => x.Value);
                 };
                 return post;
             }
@@ -76,6 +76,8 @@ namespace Composr.Repository.Sql
 
         private IList<Post> Fetch(string command, string criteria, Locale locale, int? offset, int? limit)
         {
+            List<Post> posts;
+            
             var p = new DynamicParameters();
             p.Add("@BlogID", Blog.Id);
             p.Add("@Criteria", criteria);
@@ -86,11 +88,36 @@ namespace Composr.Repository.Sql
 
             using (System.Data.IDbConnection conn = ConnectionFactory.CreateConnection())
             {
-                return conn.Query(command, p, commandType: System.Data.CommandType.StoredProcedure).Select<dynamic, Post>(
-                        row => BuildPost(row)
-                ).ToList();
+                //posts = conn.Query(command, p, commandType: System.Data.CommandType.StoredProcedure).Select<dynamic, Post>(
+                //        row => BuildPost(row)
+                //).ToList();
+
+                using (var reader = conn.QueryMultiple(command, p, commandType: System.Data.CommandType.StoredProcedure))
+                {
+                    posts = reader.Read().Select<dynamic, Post>(row => BuildPost(row)).ToList();
+                    var attributes = (
+                        from a in reader.Read()
+                        group a by a.PostID into postAttributes
+                        select postAttributes).ToDictionary(attr => (int) attr.Key, attr => attr.ToDictionary(x=> (string) x.Key, x=> (string) x.Value)
+                    );
+
+                    posts.ForEach((post) =>
+                    {
+                        Dictionary<string, string> attr;
+                        if(attributes.TryGetValue(post.Id.Value, out attr)) post.Attributes = attr;
+                    });
+
+                }
             }
+
+            return posts;
         }
+
+        private KeyValuePair<int, KeyValuePair<string, string>> BuildAttributeDictionary(dynamic row)
+        {
+            return new KeyValuePair<int, KeyValuePair<string, string>>(row.PostID, new KeyValuePair<string, string>(row.Key, row.Value));
+        }
+
 
         public int Count(string criteria)
         {

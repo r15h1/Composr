@@ -45,8 +45,10 @@ namespace Composr.Lib.Indexing
             result.Title = doc.Get(IndexFields.PostTitle);
             result.URN = doc.Get(IndexFields.PostURN);
             result.MetaDescription = doc.Get(IndexFields.PostMetaDescription);
+            result.Yield = doc.Get(IndexFields.Yield);
+            result.Tags = doc.Get(IndexFields.Tags);
 
-            if(options == CompileOptions.Include_Post_Body)
+            if (options == CompileOptions.Include_Post_Body)
                 result.Body = doc.Get(IndexFields.PostBody);
             else
                 result.Snippet = doc.Get(IndexFields.PostSnippet);

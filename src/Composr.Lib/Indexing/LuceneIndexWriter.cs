@@ -48,7 +48,13 @@ namespace Composr.Lib.Indexing
             doc.Add(new Field(IndexFields.PostURN, post.URN, Field.Store.YES, Field.Index.NOT_ANALYZED_NO_NORMS));
 
             if (post.Attributes.ContainsKey(PostAttributeKeys.MetaDescription) && !string.IsNullOrWhiteSpace(post.Attributes[PostAttributeKeys.MetaDescription]))
-                doc.Add(new Field(IndexFields.PostMetaDescription, post.Attributes[PostAttributeKeys.MetaDescription], Field.Store.YES, Field.Index.NO));
+                doc.Add(new Field(IndexFields.PostMetaDescription, post.Attributes[PostAttributeKeys.MetaDescription], Field.Store.YES, Field.Index.ANALYZED_NO_NORMS));
+
+            if (post.Attributes.ContainsKey(PostAttributeKeys.Yield) && !string.IsNullOrWhiteSpace(post.Attributes[PostAttributeKeys.Yield]))
+                doc.Add(new Field(IndexFields.Yield, post.Attributes[PostAttributeKeys.Yield], Field.Store.YES, Field.Index.NO));
+
+            if (post.Attributes.ContainsKey(PostAttributeKeys.Tags) && !string.IsNullOrWhiteSpace(post.Attributes[PostAttributeKeys.Tags]))
+                doc.Add(new Field(IndexFields.Tags, post.Attributes[PostAttributeKeys.Tags], Field.Store.YES, Field.Index.NO));
 
             string snippet = PrepareSnippet(post.Body);
             doc.Add(new Field(IndexFields.PostSnippet, snippet, Field.Store.YES, Field.Index.NO));

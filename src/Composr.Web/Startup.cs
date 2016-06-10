@@ -67,7 +67,7 @@ namespace Composr.Web
 
                 routes.MapRoute(
                     name: "recipe-details-route",
-                    template: "mauritius/recipes/{postkey}",
+                    template: "mauritius/cooking/{postkey}",
                     defaults: new { controller = "Home", action = "PostDetails" }
                 );
             });            

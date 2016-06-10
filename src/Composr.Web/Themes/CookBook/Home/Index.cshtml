@@ -56,7 +56,7 @@
 </div>
 
 <section class="container">    
-    <h2>Popular Recipes</h2>
+    <h2>Recipes</h2>
     <section class="row">
         @foreach (var result in Model.SearchResults)
         {
@@ -65,9 +65,10 @@
                     <div class="polaroid">
                         <a href="@result.URN">
                             <h3 class="polaroid-header">@result.Title</h3>
-                            <figure>
+                            <p>@result.Tags</p>
+                            @*<figure>
                                 <img class="img-thumbnail polaroid-img" src="@result.Thumbnail" alt="@result.Title">
-                            </figure>
+                            </figure>*@
                         </a>
                     </div>
                 </li>

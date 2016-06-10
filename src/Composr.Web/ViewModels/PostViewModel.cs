@@ -24,5 +24,10 @@ namespace Composr.Web.ViewModels
         public string URN { get; set; }
 
         public string Tags { get; set; }
+
+        /// <summary>
+        /// serves how many people
+        /// </summary>
+        public string Yield { get; set; }
     }
 }

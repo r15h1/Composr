@@ -13,6 +13,8 @@
         public string Body{ get; set; }
         public string Thumbnail { get; set; }
         public string MetaDescription { get; set; }
+        public string Yield { get; set; }
+        public string Tags { get; set; }
     }
 
     public enum SearchSortOrder

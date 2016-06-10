@@ -2,15 +2,18 @@
 {
     internal class IndexFields
     {
-        public const string BlogID = "blogid";
-        public const string Locale = "loc";
-        public const string PostID = "pid";
-        public const string PostTitle = "title";
-        public const string PostBody = "body";
-        public const string PostSnippet = "snippet";
-        public const string PostURN = "urn";
-        public const string PostDatePublished = "pubdate";
-        public const string PostMetaDescription = "metadesc";
+        public static readonly string BlogID = "blgid";
+        public static readonly string Locale = "loc";
+        public static readonly string PostID = "pid";
+        public static readonly string PostTitle = "titl";
+        public static readonly string PostBody = "body";
+        public static readonly string PostSnippet = "snipet";
+        public static readonly string PostURN = "urn";
+        public static readonly string PostDatePublished = "pubdate";
+        public static readonly string PostMetaDescription = "metadsc";
+        public static readonly string MainIngredient = "ingrd";
+        public static readonly string Yield ="yield";
+        public static readonly string Tags = "tags";
     }  
     
     internal class IndexSettings

@@ -1,9 +1,9 @@
 ﻿@model Composr.Web.ViewModels.PostSearchViewModel
 
-<section class="container">
+@*<section class="container">*@
     <h1>Mauritian Cuisine</h1>
     <p>A spicy, colourful, aromatic and incredibly tasty blend of native African, French, Chinese and Indian cuisine that reflects the ethnic diversity of the people of Mauritius.</p>
-</section>
+@*</section>*@
 
 <div id="myCarousel" class="container carousel slide" data-ride="carousel">
     <!-- Indicators -->
@@ -55,7 +55,7 @@
     </div>
 </div>
 
-<section class="container">    
+@*<section class="container">*@    
     <h2>Recipes</h2>
     <section class="row">
         @foreach (var result in Model.SearchResults)
@@ -75,4 +75,4 @@
             </ul>
         }
     </section>
-</section>
+@*</section>*@

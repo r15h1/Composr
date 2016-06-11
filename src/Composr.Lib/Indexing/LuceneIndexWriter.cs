@@ -50,9 +50,6 @@ namespace Composr.Lib.Indexing
             if (post.Attributes.ContainsKey(PostAttributeKeys.MetaDescription) && !string.IsNullOrWhiteSpace(post.Attributes[PostAttributeKeys.MetaDescription]))
                 doc.Add(new Field(IndexFields.PostMetaDescription, post.Attributes[PostAttributeKeys.MetaDescription], Field.Store.YES, Field.Index.ANALYZED_NO_NORMS));
 
-            if (post.Attributes.ContainsKey(PostAttributeKeys.Yield) && !string.IsNullOrWhiteSpace(post.Attributes[PostAttributeKeys.Yield]))
-                doc.Add(new Field(IndexFields.Yield, post.Attributes[PostAttributeKeys.Yield], Field.Store.YES, Field.Index.NO));
-
             if (post.Attributes.ContainsKey(PostAttributeKeys.Tags) && !string.IsNullOrWhiteSpace(post.Attributes[PostAttributeKeys.Tags]))
                 doc.Add(new Field(IndexFields.Tags, post.Attributes[PostAttributeKeys.Tags], Field.Store.YES, Field.Index.NO));
 

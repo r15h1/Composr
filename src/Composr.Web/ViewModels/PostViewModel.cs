@@ -13,7 +13,7 @@ namespace Composr.Web.ViewModels
         [Required(ErrorMessage = "Body is missing")]
         public string Body { get; set; }
 
-        [StringLength(maximumLength:160, MinimumLength =150)]
+        [StringLength(maximumLength:160, MinimumLength =135)]
         public string MetaDescription { get; set; }
 
         public int? BlogId { get; set; }
@@ -25,9 +25,5 @@ namespace Composr.Web.ViewModels
 
         public string Tags { get; set; }
 
-        /// <summary>
-        /// serves how many people
-        /// </summary>
-        public string Yield { get; set; }
     }
 }

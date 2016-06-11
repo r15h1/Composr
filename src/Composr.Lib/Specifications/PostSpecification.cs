@@ -21,7 +21,7 @@ namespace Composr.Lib.Specifications
                     RuleFor(post => post.Attributes).Cascade(CascadeMode.StopOnFirstFailure)
                         .NotNull()
                         .Must((post, attributes) => attributes.Count > 0 && attributes.ContainsKey(PostAttributeKeys.MetaDescription)).WithMessage("Meta description is missing")
-                        .Must((post, attributes) => !string.IsNullOrWhiteSpace(attributes[PostAttributeKeys.MetaDescription]) && attributes[PostAttributeKeys.MetaDescription].Length >= 150 && attributes[PostAttributeKeys.MetaDescription].Length <= 160).WithMessage("Meta description must be between 150 and 160 characters long");
+                        .Must((post, attributes) => !string.IsNullOrWhiteSpace(attributes[PostAttributeKeys.MetaDescription]) && attributes[PostAttributeKeys.MetaDescription].Length >= 135 && attributes[PostAttributeKeys.MetaDescription].Length <= 160).WithMessage("Meta description must be between 135 and 160 characters long");
                 });
             });
         }        

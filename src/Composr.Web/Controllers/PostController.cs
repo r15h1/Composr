@@ -35,8 +35,7 @@ namespace Composr.Web.Controllers
 
             if (post.Attributes.ContainsKey(PostAttributeKeys.MetaDescription)) viewModel.MetaDescription = post.Attributes[PostAttributeKeys.MetaDescription];
             if (post.Attributes.ContainsKey(PostAttributeKeys.Tags)) viewModel.Tags = post.Attributes[PostAttributeKeys.Tags];
-            if (post.Attributes.ContainsKey(PostAttributeKeys.Yield)) viewModel.Yield = post.Attributes[PostAttributeKeys.Yield];
-
+            
             //ViewData["logo"] = blog.Logo;
             return View(viewModel);
         }
@@ -85,8 +84,7 @@ namespace Composr.Web.Controllers
 
             if (!string.IsNullOrWhiteSpace(viewModel.MetaDescription)) post.Attributes.Add(PostAttributeKeys.MetaDescription, viewModel.MetaDescription);
             if (!string.IsNullOrWhiteSpace(viewModel.Tags)) post.Attributes.Add(PostAttributeKeys.Tags, viewModel.Tags);
-            if (!string.IsNullOrWhiteSpace(viewModel.Yield)) post.Attributes.Add(PostAttributeKeys.Yield, viewModel.Yield);
-
+            
             return post;
         }
     }

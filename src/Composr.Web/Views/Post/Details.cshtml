@@ -28,7 +28,7 @@
     </div>
 
     <div class="form-group">
-        <label for="metadescription">Short Description</label><input class="form-control" type="text" name="metadescription" id="metadescription" asp-for="MetaDescription" value="@Model.MetaDescription" minlength="135" maxlength="160"/>
+        <label id="metadescriptionlabel" for="metadescription">Meta Description</label><input class="form-control" type="text" name="metadescription" id="metadescription" asp-for="MetaDescription" value="@Model.MetaDescription" minlength="115" maxlength="155"/>
         <span asp-validation-for="MetaDescription"></span>
     </div>       
 
@@ -105,5 +105,16 @@
                 }
             }
         })
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            updateCharacterCount();
+            $('#metadescription').keyup(updateCharacterCount);
+        });
+
+        function updateCharacterCount() {
+            $('#metadescriptionlabel').html("Meta Description (" + $('#metadescription').val().length + " characters)");
+        }
     </script>
 }

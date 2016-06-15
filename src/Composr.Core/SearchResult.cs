@@ -24,6 +24,12 @@
         BestMatch
     }
 
+    public enum SearchType
+    {
+        AutoComplete,
+        Search
+    }
+
     public class SearchCriteria
     {
         public SearchCriteria()
@@ -36,6 +42,8 @@
         public string SearchTerm { get; set; }
         public SearchSortOrder SearchSortOrder { get; set; }
         public string URN { get; set; }
-
+        public int Limit { get; set; } = 100;
+        public int Start { get; set; } = 0;
+        public SearchType SearchType { get; set; } = SearchType.Search;
     }
 }

@@ -138,3 +138,10 @@ article > ol > li{
 .date{
     margin-bottom:20px;
 }
+
+.autocomplete-suggestions { border: 1px solid #999; background: rgb(255, 255, 255); overflow: auto;}
+.autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; }
+.autocomplete-selected { background: #F0F0F0; }
+.autocomplete-suggestions strong { font-weight: bold; color: #337cff; }
+.autocomplete-group { padding: 2px 5px; }
+.autocomplete-group strong { display: block; border-bottom: 1px solid #000; }

@@ -1,6 +1,7 @@
 ﻿using Composr.Core;
 using Composr.Web.ViewModels;
 using Microsoft.AspNet.Mvc;
+using System.Linq;
 
 namespace Composr.Web.Controllers
 {
@@ -34,6 +35,13 @@ namespace Composr.Web.Controllers
             }
             model.SearchResults = results;
             return View(model);
+        }
+
+        [HttpGet("api/autocomplete")]
+        public IActionResult Search(string q)
+        {
+            var results = service.Search(new SearchCriteria() { BlogID = Blog.Id.Value, Locale = Blog.Locale.Value, SearchSortOrder = SearchSortOrder.BestMatch, Limit = 5, SearchTerm = q, SearchType = SearchType.AutoComplete });
+            return new JsonResult(new { suggestions = results.Select(r => new { value = r.Title, data = r.URN }) });
         }
     }
 }

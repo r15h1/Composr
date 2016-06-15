@@ -5,6 +5,7 @@ using Lucene.Net.Search;
 using Lucene.Net.Store;
 using System.Collections.Generic;
 using Lucene.Net.Documents;
+using Lucene.Net.QueryParsers;
 
 namespace Composr.Lib.Indexing
 {
@@ -23,7 +24,7 @@ namespace Composr.Lib.Indexing
         {
             IndexSearcher searcher = new IndexSearcher(reader);
             Query query = CreateQuery(criteria);
-            TopDocs docs = searcher.Search(query, 100);
+            TopDocs docs = searcher.Search(query, criteria.Limit);
             CompileOptions options = string.IsNullOrWhiteSpace(criteria.URN) ? CompileOptions.Exclude_Post_Body : CompileOptions.Include_Post_Body;
             return CompileResults(searcher, docs, options);
         }
@@ -61,28 +62,36 @@ namespace Composr.Lib.Indexing
             BooleanQuery query = new BooleanQuery();
             TermQuery q = null;
 
+            if (!string.IsNullOrWhiteSpace(criteria.SearchTerm) && !criteria.SearchTerm.Contains("*")) criteria.SearchTerm += "*";
+
             if (!string.IsNullOrWhiteSpace(criteria.SearchTerm))
             {
-                q = new TermQuery(new Term(IndexFields.PostTitle, criteria.SearchTerm.ToLowerInvariant()));
-                q.Boost = 1.5f;
-                query.Add(q, Occur.SHOULD);
+                BooleanQuery q1 = new BooleanQuery();
 
-                q = new TermQuery(new Term(IndexFields.PostBody, criteria.SearchTerm.ToLowerInvariant()));
-                q.Boost = 1.0f;
-                query.Add(q, Occur.SHOULD);
+                WildcardQuery w = new WildcardQuery(new Term(IndexFields.PostTitle, criteria.SearchTerm.ToLowerInvariant()));
+                w.Boost = 4f;
+                q1.Add(w, Occur.SHOULD);
+
+                if (criteria.SearchType == SearchType.Search)
+                {
+                    w = new WildcardQuery(new Term(IndexFields.PostBody, criteria.SearchTerm.ToLowerInvariant()));
+                    w.Boost = 1.0f;
+                    q1.Add(w, Occur.SHOULD);
+                }
+                query.Add(q1, Occur.MUST);
             }
 
             if (!string.IsNullOrWhiteSpace(criteria.URN))
             {
                 q = new TermQuery(new Term(IndexFields.PostURN, criteria.URN.ToLowerInvariant()));
                 q.Boost = 1.5f;
-                query.Add(q, Occur.MUST);
+                query.Add(q, Occur.SHOULD);
             }
 
             q = new TermQuery(new Term(IndexFields.BlogID, criteria.BlogID.ToString()));
             query.Add(q, Occur.MUST);
 
-            q = new TermQuery(new Term(IndexFields.Locale, criteria.Locale.ToString()));
+            q = new TermQuery(new Term(IndexFields.Locale, criteria.Locale.ToString().ToLowerInvariant()));
             query.Add(q, Occur.MUST);
 
             return query;

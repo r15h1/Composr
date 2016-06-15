@@ -5,6 +5,7 @@
     "bootstrap": "3.3.6",
     "jquery-validation": "1.15.0",
     "jquery-validation-unobtrusive": "3.2.6",
-    "tinymce": "4.3.7"
+    "tinymce": "4.3.7",
+    "devbridge-autocomplete": "1.2.25"
   }
 }

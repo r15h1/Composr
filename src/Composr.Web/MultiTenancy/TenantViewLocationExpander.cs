@@ -27,7 +27,8 @@ namespace Composr.Web.MultiTenancy
                 IEnumerable<string> themeLocations = new[]
                 {
                     $"/Themes/{theme}/{{1}}/{{0}}.cshtml",
-                    $"/Themes/{theme}/Shared/{{0}}.cshtml"
+                    $"/Themes/{theme}/Shared/{{0}}.cshtml",
+                    $"/Themes/Shared/{{0}}.cshtml"
                 };
 
                 //string tenant;

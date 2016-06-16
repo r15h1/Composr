@@ -65,17 +65,13 @@ namespace Composr.Lib.Indexing
             if (!string.IsNullOrWhiteSpace(criteria.SearchTerm))
             {
                 BooleanQuery q1 = new BooleanQuery();
-                var terms = criteria.SearchTerm.Trim().Split(new char[] { ' ', ',', '-', '.', ';', ':', '+', '*', '%', '&' });
+                var terms = criteria.SearchTerm.ToLowerInvariant().Trim().Split(new char[] { ' ', ',', '-', '.', ';', ':', '+', '*', '%', '&' });
 
                 foreach (var term in terms)
                 {
                     if (!string.IsNullOrWhiteSpace(term))
                     {
-                        WildcardQuery w = new WildcardQuery(new Term(IndexFields.PostTitle, $"{term.ToLowerInvariant()}*"));
-                        w.Boost = 4f;
-                        q1.Add(w, Occur.SHOULD);
-
-                        w = new WildcardQuery(new Term(IndexFields.PostTitle, $"*{term.ToLowerInvariant()}*"));                        
+                        WildcardQuery w = new WildcardQuery(new Term(IndexFields.PostTitle, $"{term}*"));                        
                         q1.Add(w, Occur.SHOULD);
 
                         if (criteria.SearchType == SearchType.Search)

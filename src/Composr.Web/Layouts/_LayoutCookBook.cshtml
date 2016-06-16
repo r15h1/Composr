@@ -38,7 +38,8 @@
             minChars:3,
             serviceUrl: '/api/autocomplete',
             onSelect: function (suggestion) {
-                alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
+                //alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
+                window.location.href = suggestion.data;
             }
         });
     </script>

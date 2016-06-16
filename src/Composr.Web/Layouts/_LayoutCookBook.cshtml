@@ -33,13 +33,20 @@
     @RenderSection("scripts", required: false)    
     <script src="~/lib/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
     <script type="text/javascript">
-        $('#searchField').autocomplete({
+        $('#q').autocomplete({
+            autoSelectFirst:true,
             paramName: 'q',
             minChars:3,
             serviceUrl: '/api/autocomplete',
             onSelect: function (suggestion) {
                 //alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
                 window.location.href = suggestion.data;
+            },
+            formatResult: function (suggestion, currentValue) {
+                if(suggestion.value == "Display all results")
+                    return '<a href="#">' + $.Autocomplete.formatResult(suggestion, currentValue) + '</a>';
+
+                return $.Autocomplete.formatResult(suggestion, currentValue);
             }
         });
     </script>

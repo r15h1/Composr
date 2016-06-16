@@ -41,6 +41,7 @@ namespace Composr.Web.Controllers
         public IActionResult Search(string q)
         {
             var results = service.Search(new SearchCriteria() { BlogID = Blog.Id.Value, Locale = Blog.Locale.Value, SearchSortOrder = SearchSortOrder.BestMatch, Limit = 5, SearchTerm = q, SearchType = SearchType.AutoComplete });
+            if (results.Count > 0) results.Add(new SearchResult { Title = "Display all results", URN=$"/?q={q}" });
             return new JsonResult(new { suggestions = results.Select(r => new { value = r.Title, data = r.URN }) });
         }
     }

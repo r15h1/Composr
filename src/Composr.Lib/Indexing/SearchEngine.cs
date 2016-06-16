@@ -62,30 +62,37 @@ namespace Composr.Lib.Indexing
             BooleanQuery query = new BooleanQuery();
             TermQuery q = null;
 
-            if (!string.IsNullOrWhiteSpace(criteria.SearchTerm) && !criteria.SearchTerm.Contains("*")) criteria.SearchTerm += "*";
-
             if (!string.IsNullOrWhiteSpace(criteria.SearchTerm))
             {
                 BooleanQuery q1 = new BooleanQuery();
+                var terms = criteria.SearchTerm.Trim().Split(new char[] { ' ', ',', '-', '.', ';', ':', '+', '*', '%', '&' });
 
-                WildcardQuery w = new WildcardQuery(new Term(IndexFields.PostTitle, criteria.SearchTerm.ToLowerInvariant()));
-                w.Boost = 4f;
-                q1.Add(w, Occur.SHOULD);
-
-                if (criteria.SearchType == SearchType.Search)
+                foreach (var term in terms)
                 {
-                    w = new WildcardQuery(new Term(IndexFields.PostBody, criteria.SearchTerm.ToLowerInvariant()));
-                    w.Boost = 1.0f;
-                    q1.Add(w, Occur.SHOULD);
+                    if (!string.IsNullOrWhiteSpace(term))
+                    {
+                        WildcardQuery w = new WildcardQuery(new Term(IndexFields.PostTitle, $"{term.ToLowerInvariant()}*"));
+                        w.Boost = 4f;
+                        q1.Add(w, Occur.SHOULD);
+
+                        w = new WildcardQuery(new Term(IndexFields.PostTitle, $"*{term.ToLowerInvariant()}*"));                        
+                        q1.Add(w, Occur.SHOULD);
+
+                        if (criteria.SearchType == SearchType.Search)
+                        {
+                            w = new WildcardQuery(new Term(IndexFields.IndexedPostBody, criteria.SearchTerm.ToLowerInvariant()));
+                            w.Boost = 1.0f;
+                            q1.Add(w, Occur.SHOULD);
+                        }
+                    }
                 }
                 query.Add(q1, Occur.MUST);
             }
-
-            if (!string.IsNullOrWhiteSpace(criteria.URN))
+            else if (!string.IsNullOrWhiteSpace(criteria.URN))
             {
                 q = new TermQuery(new Term(IndexFields.PostURN, criteria.URN.ToLowerInvariant()));
                 q.Boost = 1.5f;
-                query.Add(q, Occur.SHOULD);
+                query.Add(q, Occur.MUST);
             }
 
             q = new TermQuery(new Term(IndexFields.BlogID, criteria.BlogID.ToString()));

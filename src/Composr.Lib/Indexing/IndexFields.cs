@@ -6,6 +6,7 @@
         public static readonly string Locale = "loc";
         public static readonly string PostID = "pid";
         public static readonly string PostTitle = "titl";
+        public static readonly string IndexedPostBody = "indexedbody";
         public static readonly string PostBody = "body";
         public static readonly string PostSnippet = "snipet";
         public static readonly string PostURN = "urn";

@@ -22,7 +22,7 @@ namespace Composr.Lib.Indexing
         
         public void GenerateIndex(IList<Post> posts)
         {
-            StandardAnalyzer analyzer = new StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_30);
+            ComposrAnalyzer analyzer = new ComposrAnalyzer(Lucene.Net.Util.Version.LUCENE_30);
             using (var indexWriter = new IndexWriter(indexDirectory, analyzer, IndexWriter.MaxFieldLength.UNLIMITED))
             {
                 foreach (var post in posts)
@@ -38,14 +38,15 @@ namespace Composr.Lib.Indexing
         private Document CreateDocument(Post post)
         {
             Document doc = new Document();
-            doc.Add(new Field(IndexFields.BlogID, post.Blog.Id.ToString(), Field.Store.YES, Field.Index.ANALYZED_NO_NORMS));
-            doc.Add(new Field(IndexFields.Locale, post.Blog.Locale.ToString(), Field.Store.YES, Field.Index.ANALYZED_NO_NORMS));
-            doc.Add(new Field(IndexFields.PostBody, post.Body, Field.Store.YES, Field.Index.ANALYZED));
+            doc.Add(new Field(IndexFields.BlogID, post.Blog.Id.ToString(), Field.Store.YES, Field.Index.ANALYZED));
+            doc.Add(new Field(IndexFields.Locale, post.Blog.Locale.ToString(), Field.Store.YES, Field.Index.ANALYZED));
+            doc.Add(new Field(IndexFields.IndexedPostBody, post.Body.StripHTMLTags().StripLineFeedCarriageReturn(), Field.Store.YES, Field.Index.ANALYZED));
+            doc.Add(new Field(IndexFields.PostBody, post.Body, Field.Store.YES, Field.Index.NO));
 
             doc.Add(new Field(IndexFields.PostDatePublished, post.DatePublished.Value.ToString("dd/MM/yyyy"), Field.Store.YES, Field.Index.NO));
             doc.Add(new Field(IndexFields.PostID, post.Id.ToString(), Field.Store.YES, Field.Index.NOT_ANALYZED_NO_NORMS));
             doc.Add(new Field(IndexFields.PostTitle, post.Title, Field.Store.YES, Field.Index.ANALYZED));
-            doc.Add(new Field(IndexFields.PostURN, post.URN, Field.Store.YES, Field.Index.ANALYZED));
+            doc.Add(new Field(IndexFields.PostURN, post.URN, Field.Store.YES, Field.Index.NOT_ANALYZED_NO_NORMS));
 
             if (post.Attributes.ContainsKey(PostAttributeKeys.MetaDescription) && !string.IsNullOrWhiteSpace(post.Attributes[PostAttributeKeys.MetaDescription]))
                 doc.Add(new Field(IndexFields.PostMetaDescription, post.Attributes[PostAttributeKeys.MetaDescription], Field.Store.YES, Field.Index.ANALYZED));

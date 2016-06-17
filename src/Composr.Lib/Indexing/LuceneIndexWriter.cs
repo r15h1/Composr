@@ -40,7 +40,7 @@ namespace Composr.Lib.Indexing
             Document doc = new Document();
             doc.Add(new Field(IndexFields.BlogID, post.Blog.Id.ToString(), Field.Store.YES, Field.Index.ANALYZED));
             doc.Add(new Field(IndexFields.Locale, post.Blog.Locale.ToString(), Field.Store.YES, Field.Index.ANALYZED));
-            doc.Add(new Field(IndexFields.IndexedPostBody, post.Body.StripHTMLTags().StripLineFeedCarriageReturn(), Field.Store.YES, Field.Index.ANALYZED));
+            //doc.Add(new Field(IndexFields.IndexedPostBody, post.Body.StripHTMLTags().StripLineFeedCarriageReturn(), Field.Store.YES, Field.Index.ANALYZED));
             doc.Add(new Field(IndexFields.PostBody, post.Body, Field.Store.YES, Field.Index.NO));
 
             doc.Add(new Field(IndexFields.PostDatePublished, post.DatePublished.Value.ToString("dd/MM/yyyy"), Field.Store.YES, Field.Index.NO));

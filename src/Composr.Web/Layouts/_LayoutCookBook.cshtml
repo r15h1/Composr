@@ -48,6 +48,10 @@
                 return $.Autocomplete.formatResult(suggestion, currentValue);
             }
         });
+
+        $("body").keypress(function () {
+            $("#q").focus();
+        });
     </script>
 </body>
 </html>

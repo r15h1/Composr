@@ -76,7 +76,7 @@ namespace Composr.Lib.Indexing
 
                         if (criteria.SearchType == SearchType.Search)
                         {
-                            w = new WildcardQuery(new Term(IndexFields.IndexedPostBody, criteria.SearchTerm.ToLowerInvariant()));
+                            w = new WildcardQuery(new Term(IndexFields.PostMetaDescription, $"{term}*"));
                             w.Boost = 1.0f;
                             q1.Add(w, Occur.SHOULD);
                         }

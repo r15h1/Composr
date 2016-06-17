@@ -3,10 +3,6 @@ body, .container {
     line-height:20px;
 }
 
-a:hover {
-    text-decoration:none;
-}
-
 p {
     font-size: 1.1em;
     text-align: justify;
@@ -23,6 +19,9 @@ li {
     padding: 0.5em;
 }       
         
+li.media.mediatopborder{
+    margin-top:0;
+}
 
 .polaroid {      
     margin-top:5px;      
@@ -91,12 +90,7 @@ h1{
 }
 
 h2{
-    color:rgb(125,125,125);
     border-bottom:1px solid rgba(0, 0, 0, 0.1);
-}
-
-h3{
-    color:rgb(140,140,140);
 }
 
 .slider-container .csslider1 {
@@ -118,7 +112,7 @@ footer{
 }
 
 .slider-size {
-    height: 400px; /* This is your slider height */
+    height: 400px; 
 }
 
 .breadcrumb{
@@ -152,6 +146,25 @@ div.input-group-btn{
     padding-top:5px;
     padding-bottom:0;
     text-align:right;
+}
+
+.mediatopborder{
+    border-top: 1px  solid rgb(221, 219, 219);
+    padding-top:10px;
+    padding-bottom:10px;
+}
+
+.searchurl{
+    color:rgb(50, 159, 49);
+}
+
+.searchtext{
+    font-size:0.98em;
+}
+
+.searchtags{
+    font-size:0.9em;
+    color:rgb(150,150,150);
 }
 
 .autocomplete-suggestions { border: 1px solid #999; background: rgb(255, 255, 255); overflow: auto;}

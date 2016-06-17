@@ -7,7 +7,8 @@
     <li><a href="/">Home</a></li>
     <li class="active">Article</li>
 </ol>
-
-<h1 class="post-heading">@post.Title</h1>            
-<time class="date" datetime="@post.DatePublished">@post.DatePublished</time>
-<p>@Html.Raw(@post.Body)</p>
+<article>
+    <h1 class="post-heading">@post.Title</h1>
+    <time class="date" datetime="@post.DatePublished">@post.DatePublished</time>
+    <p>@Html.Raw(@post.Body)</p>
+</article>

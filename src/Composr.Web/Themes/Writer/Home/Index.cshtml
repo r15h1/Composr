@@ -6,11 +6,11 @@
     @foreach (var result in Model.SearchResults)
     {
         <li class="list-group-item">
-            <a href="@result.URN">
-                <h1 class="list-group-item-heading search-results-heading">@result.Title</h1>
-            </a>
-            <time class="date" datetime="@result.DatePublished">@result.DatePublished</time>
-            <p class="list-group-item-text">@result.Snippet <br /><a href="@result.URN">Read More</a></p>
+            <article>
+                <h1 class="list-group-item-heading search-results-heading"><a href="@result.URN">@result.Title</a></h1>
+                <time class="date" datetime="@result.DatePublished">@result.DatePublished</time>
+                <p class="list-group-item-text">@result.Snippet <br /><a href="@result.URN">Read More</a></p>
+            </article>
         </li>
     }
 </ul>

@@ -139,6 +139,21 @@ article > ol > li{
     margin-bottom:20px;
 }
 
+.search-group{
+    width:100%;
+}
+
+div.input-group-btn{
+    text-align:left;
+}
+
+.navbar-form{
+    border:none;
+    padding-top:5px;
+    padding-bottom:0;
+    text-align:right;
+}
+
 .autocomplete-suggestions { border: 1px solid #999; background: rgb(255, 255, 255); overflow: auto;}
 .autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; }
 .autocomplete-selected { background: #F0F0F0; }

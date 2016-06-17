@@ -4,12 +4,12 @@
     @foreach (var result in Model.SearchResults)
     {
         <li class="media @(addborder? "mediatopborder":"")">
-            <div class="media-body">
+            <article class="media-body">
                 <h3 class="media-heading"><a href="@result.URN">@result.Title</a></h3>
                 <a href="@result.URN" class="searchurl">@result.URN</a>
                 <div class="searchtext">@result.MetaDescription</div>
                 <div class="searchtags">tags: @result.Tags</div>
-            </div>
+            </article>
         </li>
         addborder = true;
     }

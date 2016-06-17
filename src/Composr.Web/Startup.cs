@@ -70,6 +70,12 @@ namespace Composr.Web
                     template: "mauritius/cooking/{postkey}",
                     defaults: new { controller = "Home", action = "PostDetails" }
                 );
+
+                routes.MapRoute(
+                    name: "search-route",
+                    template: "search",
+                    defaults: new { controller = "Home", action = "Search" }
+                );
             });            
         }
 

@@ -15,6 +15,7 @@ namespace Composr.Web.Controllers
         }
 
         // GET: /<controller>/
+        [HttpGet]
         public IActionResult Index()
         {
             var results = service.Search(new SearchCriteria() { BlogID = Blog.Id.Value, Locale = Blog.Locale.Value, SearchSortOrder = SearchSortOrder.DatePublished });
@@ -24,6 +25,7 @@ namespace Composr.Web.Controllers
             return View(model);
         }
 
+        [HttpGet]
         public IActionResult PostDetails(string postkey)
         {
             var results = service.Search(new SearchCriteria() { BlogID = Blog.Id.Value, Locale = Blog.Locale.Value, URN = HttpContext.Request.Path.Value});
@@ -38,11 +40,20 @@ namespace Composr.Web.Controllers
         }
 
         [HttpGet("api/autocomplete")]
-        public IActionResult Search(string q)
+        public IActionResult AutoComplete(string q)
         {
             var results = service.Search(new SearchCriteria() { BlogID = Blog.Id.Value, Locale = Blog.Locale.Value, SearchSortOrder = SearchSortOrder.BestMatch, Limit = 5, SearchTerm = q, SearchType = SearchType.AutoComplete });
-            if (results.Count > 0) results.Add(new SearchResult { Title = "Display all results", URN=$"/?q={q}" });
+            if (results.Count > 0) results.Add(new SearchResult { Title = "Display all results", URN=$"/search?q={q}" });
             return new JsonResult(new { suggestions = results.Select(r => new { value = r.Title, data = r.URN }) });
+        }
+
+        public IActionResult Search(string q)
+        {
+            var results = service.Search(new SearchCriteria() { BlogID = Blog.Id.Value, Locale = Blog.Locale.Value, SearchSortOrder = SearchSortOrder.BestMatch, Limit = 50, SearchTerm = q, SearchType = SearchType.Search });
+            var model = PostSearchViewModel.FromBaseFrontEndViewModel(BaseViewModel);
+            model.SearchResults = results;
+            model.Title = $"Search Results for {q} - Cocozil";
+            return View(model);
         }
     }
 }

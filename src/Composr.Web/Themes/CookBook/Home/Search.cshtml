@@ -1,0 +1,23 @@
+﻿@model Composr.Web.ViewModels.PostSearchViewModel
+
+
+<h1>Search Results</h1>
+
+<section class="row">
+    @foreach (var result in Model.SearchResults)
+    {
+        <ul>
+            <li class="col-md-3 col-sm-4">
+                <div class="polaroid">
+                    <a href="@result.URN">
+                        <h3 class="polaroid-header">@result.Title</h3>
+                        <p>@result.Tags</p>
+                        @*<figure>
+                                <img class="img-thumbnail polaroid-img" src="@result.Thumbnail" alt="@result.Title">
+                            </figure>*@
+                    </a>
+                </div>
+            </li>
+        </ul>
+    }
+</section>

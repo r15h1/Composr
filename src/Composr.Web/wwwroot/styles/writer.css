@@ -139,45 +139,37 @@ padding-top:8px;
 
 @media only screen and (min-width : 100px) {
         .jumbo-text{
-            padding-top:25px;
-            font-size:25px;
+            padding-top:21px;
+            font-size:26px;
         }
 }
 
-@media only screen and (min-width : 395px) {
+@media only screen and (min-width : 400px) {
         .jumbo-text{
-            padding-top:28px;
-            font-size:30px;
-        }
-}
-
-@media only screen and (min-width : 570px) {
-        .jumbo-text{
-            padding-top:30px;
+            padding-top:23px;
             font-size:35px;
         }
 }
 
-/* Extra Small Devices, Phones */ 
-@media only screen and (min-width : 650px) {
-    .jumbo-text{
-            padding-top:25px;
-            font-size:40px;
+/*@media only screen and (min-width : 570px) {
+        .jumbo-text{
+            padding-top:23px;
+            font-size:35px;
         }
-}
+}*/
 
 /* Small Devices, Tablets */
 @media only screen and (min-width : 768px) {
     .jumbo-text{
-            padding-top:20px;
-            font-size:45px;
+            padding-top:21px;
+            font-size:40px;
         }
 }
 
 /* Medium Devices, Desktops */
 @media only screen and (min-width : 992px) {
     .jumbo-text{
-            padding-top:10px;
+            padding-top:19px;
             font-size:50px;
         }
 }
@@ -185,7 +177,7 @@ padding-top:8px;
 /* Large Devices, Wide Screens */
 @media only screen and (min-width : 1200px) {
     .jumbo-text{
-            padding-top:5px;
+            padding-top:15px;
             font-size:60px;
         }
 }

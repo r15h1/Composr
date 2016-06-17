@@ -1,5 +1,12 @@
 ﻿@model Composr.Web.ViewModels.PostSearchViewModel
-
-
 <h1>Search Results</h1>
 @Html.Partial("SearchResultsPartialView", Model)
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#q").val("@Model.SearchQuery");
+        });
+    </script>
+}

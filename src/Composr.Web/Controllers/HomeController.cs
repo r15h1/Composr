@@ -52,6 +52,7 @@ namespace Composr.Web.Controllers
             var results = service.Search(new SearchCriteria() { BlogID = Blog.Id.Value, Locale = Blog.Locale.Value, SearchSortOrder = SearchSortOrder.BestMatch, Limit = 50, SearchTerm = q, SearchType = SearchType.Search });
             var model = PostSearchViewModel.FromBaseFrontEndViewModel(BaseViewModel);
             model.SearchResults = results;
+            model.SearchQuery = q;
             model.Title = $"Search Results for {q} - Cocozil";
             return View(model);
         }

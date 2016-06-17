@@ -17,5 +17,7 @@ namespace Composr.Web.ViewModels
         }
 
         public IList<SearchResult> SearchResults { get; set; }
+
+        public string SearchQuery { get; set; }
     }
 }

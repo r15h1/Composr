@@ -1,0 +1,16 @@
+﻿@model Composr.Web.ViewModels.PostSearchViewModel
+<ul class="media-list">
+    @{ var addborder = false; }
+    @foreach (var result in Model.SearchResults)
+    {
+        <li class="media @(addborder? "mediatopborder":"")">
+            <div class="media-body">
+                <h3 class="media-heading"><a href="@result.URN">@result.Title</a></h3>
+                <a href="@result.URN" class="searchurl">@result.URN</a>
+                <div class="searchtext">@result.MetaDescription</div>
+                <div class="searchtags">tags: @result.Tags</div>
+            </div>
+        </li>
+        addborder = true;
+    }
+</ul>

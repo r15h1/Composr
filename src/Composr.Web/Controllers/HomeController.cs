@@ -56,5 +56,17 @@ namespace Composr.Web.Controllers
             model.Title = $"Search Results for {q} - Cocozil";
             return View(model);
         }
+
+        public IActionResult Error(string error)
+        {
+            var model = new BaseFrontEndViewModel()
+            {
+                BlogUrl = Blog.Url,
+                LogoUrl = Blog.Attributes[BlogAttributeKeys.LogoUrl],
+                MetaDescription = "The page you are looking for does not exist. You will be redirected to the home page shortly.",
+                Title = "Error 404 Not Found - Cocozil"
+            };
+            return View(model);
+        }
     }
 }

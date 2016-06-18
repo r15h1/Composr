@@ -43,10 +43,18 @@ namespace Composr.Web
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseStaticFiles();
-            app.UseDeveloperExceptionPage();
+            //app.UseStatusCodePages("text/plain", "Response, status code: {0}");
+            app.UseStatusCodePagesWithRedirects("/error/{0}");
+            //app.UseDeveloperExceptionPage();
             app.UseMultitenancy<Blog>();
             app.UseMvc(routes =>
             {
+                routes.MapRoute(
+                    name: "error-route",
+                    template: "error/{error}",
+                    defaults: new { controller = "Home", action = "Error" }
+                );
+
                 routes.MapRoute(
                     name: "blog-empty-route",
                     template: "",

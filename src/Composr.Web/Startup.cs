@@ -45,7 +45,12 @@ namespace Composr.Web
             app.UseStaticFiles();
             //app.UseStatusCodePages("text/plain", "Response, status code: {0}");
             app.UseStatusCodePagesWithRedirects("/error/{0}");
-            //app.UseDeveloperExceptionPage();
+
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+
             app.UseMultitenancy<Blog>();
             app.UseMvc(routes =>
             {

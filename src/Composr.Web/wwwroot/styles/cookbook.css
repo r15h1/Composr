@@ -173,3 +173,22 @@ div.input-group-btn{
 .autocomplete-suggestions strong { font-weight: bold; color: #000000; }
 .autocomplete-group { padding: 2px 5px; }
 .autocomplete-group strong { display: block; border-bottom: 1px solid #000; }
+
+.carousel-caption-text{
+    background-color:rgba(40, 40, 40, 0.5);
+    padding:5px 5px 5px 5px;
+    text-align:center;
+    font-size:large;
+}
+
+.carousel{
+    padding:0 0 0 0;
+    margin:0 0 0 0;
+}
+
+.nav-collapse, .nav-collapse.collapse {
+    overflow: visible;
+}   
+.navbar .btn-navbar {
+    display: none;
+}   

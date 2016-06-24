@@ -25,5 +25,8 @@ namespace Composr.Web.ViewModels
 
         public string Tags { get; set; }
 
+        public string ImageUrl { get; set; }
+
+        public string ImageCaption { get; set; }
     }
 }

@@ -34,19 +34,22 @@ namespace Composr.Repository.Sql
 
             using (System.Data.IDbConnection conn = ConnectionFactory.CreateConnection())
             {
-                //return conn.Query("Post_Select_One", p, commandType: System.Data.CommandType.StoredProcedure).Select<dynamic, Post>(
-                //        row => BuildPost(row)
-                //).SingleOrDefault();
-
-
                 using (var reader = conn.QueryMultiple("Post_Select_One", p, commandType: System.Data.CommandType.StoredProcedure))
                 {
                     post = reader.Read().Select<dynamic, Post>(row => BuildPost(row)).SingleOrDefault();
                     if (post != null)
+                    {
                         post.Attributes = reader.Read().Select<dynamic, KeyValuePair<string, string>>(row => BuildAttributes(row)).ToDictionary(x => x.Key, x => x.Value);
+                        post.Images = reader.Read().Select<dynamic, PostImage>(row => BuildImage(row)).ToList();
+                    }
                 };
                 return post;
             }
+        }
+
+        private PostImage BuildImage(dynamic row)
+        {
+            return new PostImage { Caption = row.Caption, Url = row.ImageUrl, SequenceNumber = row.ImageSequenceNumber };
         }
 
         private KeyValuePair<string, string> BuildAttributes(dynamic row)
@@ -148,6 +151,7 @@ namespace Composr.Repository.Sql
             p.Add("@PostStatusID", (int)post.Status);
             p.Add("@URN", post.URN);
             p.Add("@Attributes", GetPostAttributesDataTable(post.Attributes).AsTableValuedParameter("dbo.PostAttrributeTableType"));
+            p.Add("@Images", GetPostImageDataTable(post.Images).AsTableValuedParameter("dbo.PostImageTableType"));
             QueryExecutor.ExecuteSingle<Post>("Post_Update", p);
         }
 
@@ -166,6 +170,7 @@ namespace Composr.Repository.Sql
             p.Add("@PostStatusID", (int)post.Status);
             p.Add("@URN", post.URN);
             p.Add("@Attributes", GetPostAttributesDataTable(post.Attributes).AsTableValuedParameter("dbo.PostAttrributeTableType"));
+            p.Add("@Images", GetPostImageDataTable(post.Images).AsTableValuedParameter("dbo.PostImageTableType"));
             return QueryExecutor.ExecuteSingle<int>("Post_Create", p);
         }
 
@@ -174,11 +179,25 @@ namespace Composr.Repository.Sql
             var dt = new DataTable();
             dt.Columns.Add("Key", typeof(string));
             dt.Columns.Add("Value", typeof(string));
-
-            if(attributes != null && attributes.Count > 0)
-                foreach(var attr in attributes)
-                    dt.Rows.Add(attr.Key, attr.Value);                
+            if (attributes != null && attributes.Count > 0)
+                foreach (var attr in attributes)
+                    dt.Rows.Add(attr.Key, attr.Value);
             
+            return dt;
+        }
+
+        private DataTable GetPostImageDataTable(List<PostImage> images)
+        {
+            var dt = new DataTable();
+            dt.Columns.Add("SequenceNumber", typeof(int));
+            dt.Columns.Add("Url", typeof(string));
+            dt.Columns.Add("Caption", typeof(string));
+
+            if (images != null && images.Count > 0)
+                foreach (var img in images)
+                    if (!string.IsNullOrWhiteSpace(img.Url))
+                        dt.Rows.Add(img.SequenceNumber, img.Url, img.Caption);
+
             return dt;
         }
 

@@ -16,6 +16,7 @@ namespace Composr.Core
             Blog = blog;
             Status = PostStatus.DRAFT;
             Attributes = new Dictionary<string, string>();
+            Images = new List<PostImage>();
         }
 
         int? postid;
@@ -48,6 +49,15 @@ namespace Composr.Core
 
         public DateTime? DatePublished { get; set; }
 
+        public List<PostImage> Images { get; set; }
+
         public DateTime? DateCreated;
+    }
+
+    public class PostImage
+    {
+        public int SequenceNumber { get; set; }
+        public string Url { get; set; }
+        public string Caption { get; set; }
     }
 }

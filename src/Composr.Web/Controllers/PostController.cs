@@ -2,6 +2,7 @@
 using Composr.Web.Models;
 using Composr.Web.ViewModels;
 using Microsoft.AspNet.Mvc;
+using System.Linq;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -35,6 +36,10 @@ namespace Composr.Web.Controllers
 
             if (post.Attributes.ContainsKey(PostAttributeKeys.MetaDescription)) viewModel.MetaDescription = post.Attributes[PostAttributeKeys.MetaDescription];
             if (post.Attributes.ContainsKey(PostAttributeKeys.Tags)) viewModel.Tags = post.Attributes[PostAttributeKeys.Tags];
+            if (post.Images.Count > 0) {
+                viewModel.ImageUrl = post.Images.FirstOrDefault().Url;
+                viewModel.ImageCaption = post.Images.FirstOrDefault().Caption;
+            }
             
             //ViewData["logo"] = blog.Logo;
             return View(viewModel);
@@ -81,6 +86,11 @@ namespace Composr.Web.Controllers
                 Status = viewModel.PostStatus,
                 URN = viewModel.URN
             };
+
+            if (!string.IsNullOrWhiteSpace(viewModel.ImageUrl) && !string.IsNullOrWhiteSpace(viewModel.ImageCaption))
+            {
+                post.Images.Add(new PostImage { Caption = viewModel.ImageCaption, Url = viewModel.ImageUrl, SequenceNumber = 1 });
+            }
 
             if (!string.IsNullOrWhiteSpace(viewModel.MetaDescription)) post.Attributes.Add(PostAttributeKeys.MetaDescription, viewModel.MetaDescription);
             if (!string.IsNullOrWhiteSpace(viewModel.Tags)) post.Attributes.Add(PostAttributeKeys.Tags, viewModel.Tags);

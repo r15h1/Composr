@@ -77,6 +77,7 @@ namespace Composr.Tests
                 post1.URN = "new urn";
                 post1.Attributes[PostAttributeKeys.MetaDescription] = new string('a', 20);
                 //post1.Attributes.Add("abc", new string('b', 20));
+                post1.Images.Add(new PostImage { Url = "urlabc", Caption = "captionxyz" });
                 repo.Save(post1);
                 Post post2 = repo.Get(id);
                 Assert.True(post1.Title.Equals(post2.Title) && post1.URN.Equals(post2.URN) && post1.Attributes[PostAttributeKeys.MetaDescription].Equals(post2.Attributes[PostAttributeKeys.MetaDescription]));
@@ -276,6 +277,7 @@ namespace Composr.Tests
             };
 
             p.Attributes.Add(PostAttributeKeys.MetaDescription, new string('a', 155));
+            p.Images.Add(new PostImage { Url = "urlabc", Caption = "captionxyz", SequenceNumber = 1 });
             return p;
         }
 

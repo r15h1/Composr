@@ -49,7 +49,7 @@ namespace Composr.Repository.Sql
 
         private PostImage BuildImage(dynamic row)
         {
-            return new PostImage { Caption = row.Caption, Url = row.ImageUrl, SequenceNumber = row.ImageSequenceNumber };
+            return new PostImage { Caption = row.Caption, Url = row.ImageUrl, SequenceNumber = row.SequenceNumber };
         }
 
         private KeyValuePair<string, string> BuildAttributes(dynamic row)
@@ -104,10 +104,24 @@ namespace Composr.Repository.Sql
                         select postAttributes).ToDictionary(attr => (int) attr.Key, attr => attr.ToDictionary(x=> (string) x.Key, x=> (string) x.Value)
                     );
 
+                    //var images = (
+                    //    from a in reader.Read()
+                    //    group a by a.PostID into postImages
+                    //    select postImages).ToDictionary(img => (int)img.Key, img => img.ToDictionary(x => (int)x.PostID, x => BuildImage(x))
+                    //);
+
+                    var images = (
+                        from a in reader.Read()
+                        group a by a.PostID into postImages
+                        select postImages).ToDictionary(img => (int)img.Key, img => (PostImage) img.Select(x => BuildImage(x)).FirstOrDefault()
+                    );
+
                     posts.ForEach((post) =>
                     {
-                        Dictionary<string, string> attr;
+                        Dictionary<string, string> attr = null;
+                        PostImage pimg = null;
                         if(attributes.TryGetValue(post.Id.Value, out attr)) post.Attributes = attr;
+                        if (images != null && images.TryGetValue(post.Id.Value, out pimg)) post.Images.Add(pimg);
                     });
 
                 }

@@ -6,6 +6,7 @@ using Lucene.Net.Index;
 using Lucene.Net.Store;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Composr.Lib.Indexing
 {
@@ -56,6 +57,16 @@ namespace Composr.Lib.Indexing
 
             string snippet = PrepareSnippet(post.Body);
             doc.Add(new Field(IndexFields.PostSnippet, snippet, Field.Store.YES, Field.Index.NO));
+
+            if(post.Images.Count > 0)
+            {
+                var img = post.Images.FirstOrDefault();
+                if (!string.IsNullOrWhiteSpace(img.Url))
+                {
+                    doc.Add(new Field(IndexFields.ImageUrl, img.Url, Field.Store.YES, Field.Index.NO));
+                    if (!string.IsNullOrWhiteSpace(img.Caption)) doc.Add(new Field(IndexFields.ImageCaption, img.Caption, Field.Store.YES, Field.Index.NO));
+                }
+            }
 
             return doc;
         }

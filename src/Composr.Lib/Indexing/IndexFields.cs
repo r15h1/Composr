@@ -15,6 +15,8 @@
         public static readonly string MainIngredient = "ingrd";
         public static readonly string Yield ="yield";
         public static readonly string Tags = "tags";
+        public static readonly string ImageUrl = "imgurl";
+        public static readonly string ImageCaption = "imgcap";
     }  
     
     internal class IndexSettings

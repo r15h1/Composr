@@ -6,6 +6,12 @@
             <article class="polaroid">
                 <a href="@result.URN">
                     <header><h3 class="polaroid-header">@result.Title</h3></header>
+
+                    @if (result.PostImage != null && !string.IsNullOrWhiteSpace(result.PostImage.Url))
+                    {
+                        <img src="@result.PostImage.Url" alt="@result.PostImage.Caption" class="img-thumbnail img-responsive"/>
+                    }
+                    
                     <p>@result.Tags</p>
                 </a>
             </article>

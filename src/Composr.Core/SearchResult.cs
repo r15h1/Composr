@@ -15,6 +15,7 @@
         public string MetaDescription { get; set; }
         public string Yield { get; set; }
         public string Tags { get; set; }
+        public PostImage PostImage { get; set; }
     }
 
     public enum SearchSortOrder

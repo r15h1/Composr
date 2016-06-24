@@ -54,6 +54,14 @@ namespace Composr.Lib.Indexing
             else
                 result.Snippet = doc.Get(IndexFields.PostSnippet);
 
+            if(!string.IsNullOrWhiteSpace(doc.Get(IndexFields.ImageUrl)))
+            {
+                result.PostImage = new PostImage();
+                result.PostImage.Url = doc.Get(IndexFields.ImageUrl);
+                result.PostImage.Caption = doc.Get(IndexFields.ImageCaption);
+            }
+
+
             return result;
         }
 

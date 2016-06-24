@@ -63,7 +63,7 @@ namespace Composr.Lib.Indexing
                 var img = post.Images.FirstOrDefault();
                 if (!string.IsNullOrWhiteSpace(img.Url))
                 {
-                    doc.Add(new Field(IndexFields.ImageUrl, img.Url, Field.Store.YES, Field.Index.NO));
+                    doc.Add(new Field(IndexFields.ImageUrl, post.Blog.Attributes[BlogAttributeKeys.ImageLocation] + img.Url, Field.Store.YES, Field.Index.NO));
                     if (!string.IsNullOrWhiteSpace(img.Caption)) doc.Add(new Field(IndexFields.ImageCaption, img.Caption, Field.Store.YES, Field.Index.NO));
                 }
             }

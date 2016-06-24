@@ -2,9 +2,10 @@
 {
     public class BlogAttributeKeys
     {
-        public const string LogoUrl = "LogoUrl";
-        public const string Copyright = "Copyright";
-        public const string Tagline = "Tagline";
-        public const string Theme = "Theme";
+        public static readonly string LogoUrl = "LogoUrl";
+        public static readonly string Copyright = "Copyright";
+        public static readonly string Tagline = "Tagline";
+        public static readonly string Theme = "Theme";
+        public static readonly string ImageLocation = "ImageLocation";
     }
 }

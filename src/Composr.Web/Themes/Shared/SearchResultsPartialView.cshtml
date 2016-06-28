@@ -2,19 +2,21 @@
 <ul class="media-list">
     @foreach (var result in Model.SearchResults)
     {        
-        <li class="col-lg-4 col-md-6 col-sm-6">
+        <li class="col-lg-3 col-md-4 col-sm-6">
             <article class="polaroid">
                 <a href="@result.URN">
-                    <header><h3 class="polaroid-header">@result.Title</h3></header>
-
                     @if (result.PostImage != null && !string.IsNullOrWhiteSpace(result.PostImage.Url))
                     {
-                        <img src="@result.PostImage.Url" alt="@result.PostImage.Caption" class="img-thumbnail img-responsive"/>
+                        <img src="@result.PostImage.Url" alt="@result.PostImage.Caption" class="img-thumbnail img-responsive" />
                     }
-                    
-                    <p>@result.Tags</p>
+                    else
+                    {
+                        <img src="~/images/cocozil/no-image.jpg" class="img-thumbnail img-responsive" />
+                    }
+                    <header><h4>@result.Title</h4></header>
                 </a>
             </article>
+
         </li>        
     }
 </ul>

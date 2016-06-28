@@ -1,6 +1,25 @@
 ﻿@model Composr.Web.ViewModels.PostSearchViewModel
 <h1>Search Results</h1>
-@Html.Partial("SearchResultsPartialView", Model)
+
+@if(@Model.SearchResults.Count > 0) { 
+    @Html.Partial("SearchResultsPartialView", Model)
+}
+else
+{
+    <article>
+        <p>
+            Oops! We could match any document to your search.
+        </p>
+        <p>Suggestions:</p>
+        <ul>
+            <li>Please check spelling</li>
+            <li>Try different keywords</li>
+            <li>Try fewer and more generic words</li>
+        </ul>
+    </article>
+}
+
+
 
 @section scripts
 {

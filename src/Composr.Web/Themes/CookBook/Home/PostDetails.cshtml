@@ -6,7 +6,7 @@
     <h1 class="post-heading">@post.Title</h1>    
     <p>@post.MetaDescription</p>
     @if(@post.PostImage != null){
-        <div><img class="img-responsive img-details-page" src="/@post.PostImage.Url" alt="@post.PostImage.Caption"/></div>
+        <div><img class="img-responsive img-details-page" src="/@post.PostImage.Url.ToLowerInvariant().Replace(".jpg", "-xs.jpg")"  srcset="/@post.PostImage.Url.ToLowerInvariant().Replace(".jpg", "-sm.jpg") 800w" alt="@post.PostImage.Caption"/></div>
     }
     @Html.Raw(@post.Body)
 </article>

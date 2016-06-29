@@ -7,11 +7,11 @@
                 <a href="@result.URN">
                     @if (result.PostImage != null && !string.IsNullOrWhiteSpace(result.PostImage.Url))
                     {
-                        <img src="@result.PostImage.Url" alt="@result.PostImage.Caption" class="img-thumbnail img-responsive" />
+                        <img src="@result.PostImage.Url.ToLowerInvariant().Replace(".jpg", "-xs.jpg")" alt="@result.PostImage.Caption" class="img-thumbnail img-responsive" />
                     }
                     else
                     {
-                        <img src="~/images/cocozil/no-image.jpg" class="img-thumbnail img-responsive" />
+                        <img src="~/images/cocozil/no-image-xs.jpg" class="img-thumbnail img-responsive" />
                     }
                     <header><h4>@result.Title</h4></header>
                 </a>

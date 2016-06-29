@@ -33,5 +33,21 @@ namespace Composr.Lib.Util
                 return config["Index:Directory"];
             }
         }
+
+        public static string ImageSourceDirectory
+        {
+            get
+            {
+                return config["ImageLocation:SourceDirectory"];
+            }
+        }
+
+        public static string ImageDestinationDirectory
+        {
+            get
+            {
+                return config["ImageLocation:DestinationDirectory"];
+            }
+        }
     }
 }

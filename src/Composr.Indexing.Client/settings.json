@@ -5,5 +5,10 @@
 
   "Index": {
     "Directory": "C:\\Temp\\ComposrIndex"
+  },
+
+  "ImageLocation": {
+    "SourceDirectory": "C:\\Programagic\\Composr\\src\\Composr.Web\\wwwroot\\images\\cocozil\\original",
+    "DestinationDirectory": "C:\\Programagic\\Composr\\src\\Composr.Web\\wwwroot\\images\\cocozil"
   }
 }

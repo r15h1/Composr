@@ -57,16 +57,20 @@ namespace Composr.Lib.Indexing
 
             string snippet = PrepareSnippet(post.Body);
             doc.Add(new Field(IndexFields.PostSnippet, snippet, Field.Store.YES, Field.Index.NO));
+            bool hasImage = false;
 
             if(post.Images.Count > 0)
             {
                 var img = post.Images.FirstOrDefault();
                 if (!string.IsNullOrWhiteSpace(img.Url))
                 {
+                    hasImage = true;
                     doc.Add(new Field(IndexFields.ImageUrl, post.Blog.Attributes[BlogAttributeKeys.ImageLocation] + img.Url, Field.Store.YES, Field.Index.NO));
                     if (!string.IsNullOrWhiteSpace(img.Caption)) doc.Add(new Field(IndexFields.ImageCaption, img.Caption, Field.Store.YES, Field.Index.NO));
                 }
             }
+
+            doc.Add(new Field(IndexFields.HasImage, (hasImage? "y": "n"), Field.Store.NO, Field.Index.NOT_ANALYZED_NO_NORMS));
 
             return doc;
         }

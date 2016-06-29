@@ -79,7 +79,8 @@ namespace Composr.Lib.Indexing
                 {
                     if (!string.IsNullOrWhiteSpace(term))
                     {
-                        WildcardQuery w = new WildcardQuery(new Term(IndexFields.PostTitle, $"{term}*"));                        
+                        WildcardQuery w = new WildcardQuery(new Term(IndexFields.PostTitle, $"{term}*"));
+                        w.Boost = 3.0f;                   
                         q1.Add(w, Occur.SHOULD);
 
                         if (criteria.SearchType == SearchType.Search)
@@ -91,6 +92,10 @@ namespace Composr.Lib.Indexing
                     }
                 }
                 query.Add(q1, Occur.MUST);
+
+                q = new TermQuery(new Term(IndexFields.HasImage, "y"));
+                q.Boost = 1.5f;
+                query.Add(q, Occur.SHOULD);
             }
             else if (!string.IsNullOrWhiteSpace(criteria.URN))
             {

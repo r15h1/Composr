@@ -1,12 +1,10 @@
 ﻿{
   "version": "1.0.0-*",
-  "description": "Composr.Core Class Library",
-  "authors": [ "rishi" ],
-  "tags": [ "" ],
-  "projectUrl": "",
-  "licenseUrl": "",
+
+  "dependencies": {
+    },
 
   "frameworks": {
-    "dnx451": {}
+    "dnx451": {   }
   }
 }

@@ -15,10 +15,10 @@ namespace Composr.Lib.Indexing
         private ILogger logger;
         private Directory indexDirectory;
 
-        public LuceneIndexWriter()
+        public LuceneIndexWriter(Blog blog)
         {
-            logger = Logging.CreateLogger<LuceneIndexWriter>();
-            indexDirectory = FSDirectory.Open(new System.IO.DirectoryInfo(Configuration.IndexDirectory));
+            logger = Logging.CreateLogger<LuceneIndexWriter>();            
+            indexDirectory = FSDirectory.Open(new System.IO.DirectoryInfo(Settings.IndexDirectory.TrimEnd('\\')) + $"\\{blog.Id}");
         }
         
         public void GenerateIndex(IList<Post> posts)
@@ -44,7 +44,9 @@ namespace Composr.Lib.Indexing
             //doc.Add(new Field(IndexFields.IndexedPostBody, post.Body.StripHTMLTags().StripLineFeedCarriageReturn(), Field.Store.YES, Field.Index.ANALYZED));
             doc.Add(new Field(IndexFields.PostBody, post.Body, Field.Store.YES, Field.Index.NO));
 
-            doc.Add(new Field(IndexFields.PostDatePublished, post.DatePublished.Value.ToString("dd/MM/yyyy"), Field.Store.YES, Field.Index.NO));
+            doc.Add(new Field(IndexFields.PostDatePublished, post.DatePublished.Value.ToString("MMM d, yyyy"), Field.Store.YES, Field.Index.NO));
+            doc.Add(new Field(IndexFields.PostDatePublishedTicks, post.DatePublished.Value.ToString("yyyyMMddhhmmss"), Field.Store.NO, Field.Index.NOT_ANALYZED));
+
             doc.Add(new Field(IndexFields.PostID, post.Id.ToString(), Field.Store.YES, Field.Index.NOT_ANALYZED_NO_NORMS));
             doc.Add(new Field(IndexFields.PostTitle, post.Title, Field.Store.YES, Field.Index.ANALYZED));
             doc.Add(new Field(IndexFields.PostURN, post.URN, Field.Store.YES, Field.Index.NOT_ANALYZED_NO_NORMS));

@@ -1,5 +1,8 @@
 ﻿using Composr.Core;
+using Composr.Lib.Util;
 using FizzWare.NBuilder;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.PlatformAbstractions;
 using System.Collections.Generic;
 using System.Transactions;
 using Xunit;
@@ -15,6 +18,17 @@ namespace Composr.Tests
         public PostRepositoryTests()
         {
             repo = new Composr.Repository.Sql.PostRepository(new Blog(1));
+            InitializeConfiguration();
+        }
+
+        private void InitializeConfiguration()
+        {
+            var builder = new ConfigurationBuilder()
+                             .SetBasePath(PlatformServices.Default.Application.ApplicationBasePath)
+                             .AddJsonFile("settings.json", optional: false, reloadOnChange: true);
+
+            builder.AddEnvironmentVariables();
+            Settings.Config = builder.Build();
         }
 
         [Fact]

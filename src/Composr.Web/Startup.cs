@@ -1,23 +1,67 @@
-﻿using Composr.Core;
-using Composr.Lib.Services;
-using Composr.Lib.Specifications;
-using Composr.Web.MultiTenancy;
-using Microsoft.AspNet.Builder;
-using Microsoft.AspNet.Hosting;
-using Microsoft.AspNet.Mvc.Razor;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-
+using Microsoft.Extensions.Logging;
+using Composr.Web.Data;
+using Composr.Web.Models;
+using Composr.Web.Services;
+using Composr.Web.MultiTenancy;
+using Composr.Core;
+using Composr.Lib.Services;
+using Microsoft.AspNetCore.Mvc.Razor;
+using Composr.Lib.Specifications;
+using Composr.Lib.Util;
 
 namespace Composr.Web
 {
     public class Startup
     {
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
-        public void ConfigureServices(IServiceCollection services)
+        public Startup(IHostingEnvironment env)
         {
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile("settings.json", optional: true, reloadOnChange: true)
+                .AddJsonFile($"settings.{env.EnvironmentName}.json", optional: true);
+
+            if (env.IsDevelopment())
+            {
+                //For more details on using the user secret store see http://go.microsoft.com/fwlink/?LinkID=532709
+                builder.AddUserSecrets();
+
+                //This will push telemetry data through Application Insights pipeline faster, allowing you to view results immediately.
+               builder.AddApplicationInsightsSettings(developerMode: true);
+            }
+
+            builder.AddEnvironmentVariables();
+            Configuration = builder.Build();
+            Settings.Config = Configuration;
+        }
+
+        public IConfigurationRoot Configuration { get; }
+
+        // This method gets called by the runtime. Use this method to add services to the container.
+        public void ConfigureServices(IServiceCollection services)
+        {            
+            services.AddSingleton<IConfiguration>(Configuration);
+            // Add framework services.
+            services.AddApplicationInsightsTelemetry(Configuration);
+
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+
             services.AddMultitenancy<Blog, BlogResolver>();
             services.AddMvc();
+
+            // Add application services.
+            services.AddTransient<IEmailSender, AuthMessageSender>();
+            services.AddTransient<ISmsSender, AuthMessageSender>();
 
             services.Configure<RazorViewEngineOptions>(options =>
             {
@@ -31,7 +75,7 @@ namespace Composr.Web
 
             services.AddScoped<IBlogRepository, Repository.Sql.BlogRepository>();
             services.AddScoped<IPostRepository, Repository.Sql.PostRepository>();
-            
+
             services.AddScoped<ISpecification<Blog>, MinimalBlogSpecification>();
             services.AddScoped<ISpecification<Post>, PostSpecification>();
 
@@ -40,18 +84,29 @@ namespace Composr.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            app.UseStaticFiles();
-            //app.UseStatusCodePages("text/plain", "Response, status code: {0}");
-            app.UseStatusCodePagesWithRedirects("/error/{0}");
+            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+            loggerFactory.AddDebug();            
+
+            app.UseApplicationInsightsRequestTelemetry();
 
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
+                app.UseBrowserLink();
             }
 
+            app.UseApplicationInsightsExceptionTelemetry();
+
+            app.UseStaticFiles();
+            app.UseIdentity();
+
+            // Add external authentication middleware below. To configure them please see http://go.microsoft.com/fwlink/?LinkID=532715
+            app.UseStatusCodePagesWithRedirects("/error/{0}");
             app.UseMultitenancy<Blog>();
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -89,10 +144,7 @@ namespace Composr.Web
                     template: "search",
                     defaults: new { controller = "Home", action = "Search" }
                 );
-            });            
+            });
         }
-
-        // Entry point for the application.
-        public static void Main(string[] args) => WebApplication.Run<Startup>(args);
     }
 }

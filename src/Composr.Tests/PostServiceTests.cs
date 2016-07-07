@@ -4,12 +4,30 @@ using System.Transactions;
 using Composr.Core;
 using Composr.Repository.Sql;
 using Composr.Lib.Specifications;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.PlatformAbstractions;
+using Composr.Lib.Util;
 
 namespace Composr.Tests
 {
 
     public class PostServiceTests
     {
+        public PostServiceTests()
+        {
+            InitializeConfiguration();
+        }
+
+        private void InitializeConfiguration()
+        {
+            var builder = new ConfigurationBuilder()
+                             .SetBasePath(PlatformServices.Default.Application.ApplicationBasePath)
+                             .AddJsonFile("settings.json", optional: false, reloadOnChange: true);
+
+            builder.AddEnvironmentVariables();
+            Settings.Config = builder.Build();
+        }
+
         [Fact]
         public void PostServiceThrowsSpecificationExceptionIfNullPostIsSaved()
         {

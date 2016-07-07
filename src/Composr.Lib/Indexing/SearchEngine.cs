@@ -16,7 +16,7 @@ namespace Composr.Lib.Indexing
 
         static SearchEngine()
         {
-            directory = new RAMDirectory(FSDirectory.Open(Configuration.IndexDirectory));
+            directory = new RAMDirectory(FSDirectory.Open(Settings.IndexDirectory));
             reader = IndexReader.Open(directory, true);
         }
 
@@ -24,9 +24,17 @@ namespace Composr.Lib.Indexing
         {
             IndexSearcher searcher = new IndexSearcher(reader);
             Query query = CreateQuery(criteria);
-            TopDocs docs = searcher.Search(query, criteria.Limit);
+            TopDocs docs = Search(criteria, searcher, query);
             CompileOptions options = string.IsNullOrWhiteSpace(criteria.URN) ? CompileOptions.Exclude_Post_Body : CompileOptions.Include_Post_Body;
             return CompileResults(searcher, docs, options);
+        }
+
+        private static TopDocs Search(SearchCriteria criteria, IndexSearcher searcher, Query query)
+        {            
+            if (criteria.SearchSortOrder == SearchSortOrder.MostRecent)
+                return searcher.Search(query, null, criteria.Limit, new Sort(new SortField(IndexFields.PostDatePublishedTicks, SortField.STRING, true)));
+
+            return searcher.Search(query, criteria.Limit);
         }
 
         private IList<SearchResult> CompileResults(IndexSearcher searcher, TopDocs docs, CompileOptions options = CompileOptions.Exclude_Post_Body)

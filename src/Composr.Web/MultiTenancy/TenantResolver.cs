@@ -1,5 +1,5 @@
 ﻿using Composr.Core;
-using Microsoft.AspNet.Http;
+using Microsoft.AspNetCore.Http;
 using SaasKit.Multitenancy;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +25,7 @@ namespace Composr.Web.MultiTenancy
             if (context.Request.Path.HasValue && context.Request.Path.Value.StartsWith("/admin/blogs"))
                 blog = blogs.FirstOrDefault(t => context.Request.Path.Value.StartsWith("/admin/blogs/" + t.Id.ToString()));
             else
-                blog = blogs.FirstOrDefault(t => t.Url.Replace("http://","").Replace("http://","").Equals(context.Request.Host.Value.ToLower()));
+                blog = blogs.FirstOrDefault(t => t.Url.Replace("www.","").Replace("http://","").Equals(context.Request.Host.Value.ToLower().Replace("www.", "")));
 
             if (blog != null) ctx = new TenantContext<Blog>(blog);        
 

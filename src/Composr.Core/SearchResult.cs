@@ -21,7 +21,7 @@
     public enum SearchSortOrder
     {
         Title,
-        DatePublished,
+        MostRecent,
         BestMatch
     }
 

@@ -1,9 +1,30 @@
 ﻿{
+  "ConnectionStrings": {
+    "DefaultConnection": "data source=.\\SQL2012; initial catalog=Composr;user id=sa;password=Cr@2yHor5e;MultipleActiveResultSets=true"
+  },
+
   "Data": {
     "ConnectionString": "data source=.\\SQL2012; initial catalog=Composr;user id=sa;password=Cr@2yHor5e;MultipleActiveResultSets=true "
   },
 
   "Index": {
-    "Directory": "C:\\Temp\\ComposrIndex"
+    "Directory": "C:\\Temp\\LuceneIndexes\\Programagic\\1"
+  },
+
+  "Tennant": {
+    "BlogID": "1"
+  },
+
+  "ApplicationInsights": {
+    "InstrumentationKey": ""
+  },
+
+  "Logging": {
+    "IncludeScopes": false,
+    "LogLevel": {
+      "Default": "Debug",
+      "System": "Information",
+      "Microsoft": "Information"
+    }
   }
 }

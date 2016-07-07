@@ -1,0 +1,20 @@
+{
+  "version": "1.0.0-*",
+  "buildOptions": {
+    "emitEntryPoint": true,
+    "copyToOutput": [
+      "settings.json"
+    ]
+  },
+
+  "dependencies": {
+    "Composr.Core": "1.0.0-*",
+    "Composr.Lib": "1.0.0-*",
+    "Microsoft.Extensions.Logging.Abstractions": "1.0.0",
+    "Microsoft.Framework.Runtime.Abstractions": "1.0.0-beta6"
+  },
+
+  "frameworks": {
+    "dnx451": {}
+  }
+}

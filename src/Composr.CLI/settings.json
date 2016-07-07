@@ -1,0 +1,14 @@
+﻿{
+  "Data": {
+    "ConnectionString": "data source=.\\SQL2012; initial catalog=Programagic;user id=sa;password=Cr@2yHor5e;MultipleActiveResultSets=true "
+  },
+
+  "Index": {
+    "Directory": "C:\\Temp\\LuceneIndexes\\Programagic"
+  },
+
+  "ImageLocation": {
+    "SourceDirectory": "C:\\Programagic\\Composr\\src\\Composr.Web\\wwwroot\\images\\cocozil\\original",
+    "DestinationDirectory": "C:\\Programagic\\Composr\\src\\Composr.Web\\wwwroot\\images\\cocozil"
+  }
+}

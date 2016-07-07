@@ -11,6 +11,7 @@
         public static readonly string PostSnippet = "snipet";
         public static readonly string PostURN = "urn";
         public static readonly string PostDatePublished = "pubdate";
+        public static readonly string PostDatePublishedTicks = "pubticks";
         public static readonly string PostMetaDescription = "metadsc";
         public static readonly string MainIngredient = "ingrd";
         public static readonly string Yield ="yield";

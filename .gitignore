@@ -210,3 +210,7 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
+
+#images
+/src/Composr.Web/wwwroot/images
+/src/Composr.Web/wwwroot/img

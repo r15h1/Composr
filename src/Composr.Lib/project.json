@@ -1,17 +1,6 @@
 {
   "version": "1.0.0-*",
-  "description": "Composr.Lib Class Library",
-  "authors": [ "rtapsee" ],
-  "tags": [ "" ],
-  "projectUrl": "",
-  "licenseUrl": "",
-  "frameworks": {
-    "dnx451": {
-      "frameworkAssemblies": {
-        "System.Drawing": "4.0.0.0"
-      }
-    }
-  },
+
   "dependencies": {
     "Composr.Core": "1.0.0-*",
     "Dapper": "1.42.0",
@@ -19,12 +8,21 @@
     "FluentValidation": "6.2.0",
     "Lucene.Net": "3.0.3",
     "Lucene.Net.Contrib": "3.0.3",
-    "Microsoft.Extensions.Configuration": "1.0.0-rc1-final",
-    "Microsoft.Extensions.Configuration.EnvironmentVariables": "1.0.0-rc1-final",
-    "Microsoft.Extensions.Configuration.Json": "1.0.0-rc1-final",
-    "Microsoft.Extensions.Logging": "1.0.0-rc1-final",
-    "Microsoft.Extensions.Logging.Abstractions": "1.0.0-rc1-final",
-    "Microsoft.Extensions.Logging.Console": "1.0.0-rc1-final",
-    "Microsoft.Extensions.Logging.Debug": "1.0.0-rc1-final"
+    "System.Data.SqlClient": "4.1.0",
+    "Microsoft.Extensions.Logging.Abstractions": "1.0.0",
+    "Microsoft.Extensions.Logging": "1.0.0",
+    "Microsoft.Extensions.Logging.Console": "1.0.0-rc2-final",
+    "Microsoft.Extensions.Logging.Debug": "1.0.0",
+    "Microsoft.Extensions.Configuration": "1.0.0",
+    "Microsoft.Extensions.Configuration.Json": "1.0.0",
+    "Microsoft.Extensions.Configuration.EnvironmentVariables": "1.0.0-rc2-final"
+  },
+
+  "frameworks": {
+    "dnx451": {
+      "frameworkAssemblies": {
+        "System.Drawing": "4.0.0.0"
+      }
+    }
   }
 }

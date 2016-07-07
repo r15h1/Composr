@@ -1,6 +1,6 @@
 ﻿using Composr.Core;
 using Composr.Web.ViewModels;
-using Microsoft.AspNet.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 
 namespace Composr.Web.Controllers
@@ -18,10 +18,10 @@ namespace Composr.Web.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var results = service.Search(new SearchCriteria() { BlogID = Blog.Id.Value, Locale = Blog.Locale.Value, SearchSortOrder = SearchSortOrder.DatePublished, Limit=12 });
+            var results = service.Search(new SearchCriteria() { BlogID = Blog.Id.Value, Locale = Blog.Locale.Value, SearchSortOrder = SearchSortOrder.MostRecent, Limit=12 });
             var model = PostSearchViewModel.FromBaseFrontEndViewModel(BaseViewModel);
             model.SearchResults = results;
-            model.Title = "Cocozil Home - Discover Mauritius";
+            model.Title = $"{Blog.Name} - {Blog.Attributes[BlogAttributeKeys.Tagline]}";
             return View(model);
         }
 
@@ -32,7 +32,7 @@ namespace Composr.Web.Controllers
             var model = PostSearchViewModel.FromBaseFrontEndViewModel(BaseViewModel);
             if (results != null && results.Count > 0)
             {
-                model.Title = $"{results[0].Title} Recipe - Cocozil";
+                model.Title = $"{results[0].Title} - {Blog.Name}";
                 model.MetaDescription = $"{results[0].MetaDescription}";
             }
             model.SearchResults = results;

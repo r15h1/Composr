@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Composr.CLI": {
+      "commandName": "Project",
+      "commandLineArgs": "index"
+    }
+  }
+}

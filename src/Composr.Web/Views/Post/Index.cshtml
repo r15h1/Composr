@@ -2,13 +2,10 @@
 @{
     ViewBag.Title = "Posts";
 }
-
-<ol class="breadcrumb">
-    <li><a href="/admin/blogs">blogs</a></li>
-    <li class="active">posts</li>
-</ol>
-
+<h4>Post List</h4>
+<hr />
 <div class="btn-toolbar" role="toolbar">
+    <a class="btn btn-default pull-right" asp-controller="Account" asp-action="Register">New User</a>
     <a class="btn btn-primary pull-right" id="newbutton" asp-action="Create">New Post</a>
 </div>
 

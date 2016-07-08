@@ -2,17 +2,12 @@
 @{
     ViewBag.Title = "Post Details";
 }
-
-<ol class="breadcrumb">
-    <li><a href="/admin/blogs">blogs</a></li>
-    <li><a href="/admin/blogs/@Model.BlogId/posts">posts</a></li>
-    <li class="active">details</li>
-</ol>
-
+<h4>Post Details</h4>
+<hr />
 <form method="post" name="myform" id="myform">
     <div class="btn-toolbar" role="toolbar">
-        <button type="submit" class="btn btn-primary pull-right">Save</button>
         <a class="btn btn-default pull-right" href="/admin/blogs/@Model.BlogId/posts">Cancel</a>
+        <button type="submit" class="btn btn-primary pull-right">Save</button>
         <select class="btn btn-default pull-right" id="poststatus" name="poststatus" asp-for="PostStatus" asp-items="Html.GetEnumSelectList<Composr.Core.PostStatus>()"></select>
     </div>
     <div asp-validation-summary="ModelOnly"></div>

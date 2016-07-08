@@ -1,6 +1,7 @@
 ﻿using Composr.Core;
 using Composr.Web.Models;
 using Composr.Web.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 
@@ -8,6 +9,7 @@ using System.Linq;
 
 namespace Composr.Web.Controllers
 {
+    [Authorize]
     [Route("admin/blogs/{blogid:int}/posts")]
     public class PostController : Controller
     {

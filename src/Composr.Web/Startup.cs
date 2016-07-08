@@ -148,6 +148,11 @@ namespace Composr.Web
                     template: "search",
                     defaults: new { controller = "Home", action = "Search" }
                 );
+
+                routes.MapRoute(
+                   name: "account",
+                   template: "{controller=Account}/{action=Login}/{ id ?}"
+               );
             });
         }
     }

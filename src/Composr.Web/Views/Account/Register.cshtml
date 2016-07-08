@@ -1,14 +1,18 @@
-﻿@model RegisterViewModel
+﻿@inject Composr.Core.Blog Blog
+
+@model RegisterViewModel
 @{
     ViewData["Title"] = "Register";
 }
-
-<h2>@ViewData["Title"].</h2>
-
+<h4>User Registration</h4>
+<hr />
 <form asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
-    <h4>Create a new account.</h4>
-    <hr />
+    <div class="btn-toolbar" role="toolbar">        
+        <a class="btn btn-default pull-right" href="/admin/blogs/@Blog.Id/posts">Cancel</a>
+        <button type="submit" class="btn btn-primary pull-right">Register</button>
+    </div>
     <div asp-validation-summary="All" class="text-danger"></div>
+
     <div class="form-group">
         <label asp-for="Email" class="col-md-2 control-label"></label>
         <div class="col-md-10">
@@ -28,11 +32,6 @@
         <div class="col-md-10">
             <input asp-for="ConfirmPassword" class="form-control" />
             <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <button type="submit" class="btn btn-default">Register</button>
         </div>
     </div>
 </form>

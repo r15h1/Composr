@@ -1,5 +1,6 @@
 ﻿using Composr.Core;
 using Composr.Web.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
@@ -7,6 +8,7 @@ using System.Collections.Generic;
 
 namespace Composr.Web.Controllers
 {
+    [Authorize]
     [Route("admin/blogs")]
     public class BlogController : Controller
     {

@@ -3,10 +3,6 @@
     var post = Model.SearchResults.SingleOrDefault();
 }
 
-<ol class="breadcrumb">
-    <li><a href="/">Home</a></li>
-    <li class="active">Article</li>
-</ol>
 <article>
     <h1 class="post-heading">@post.Title</h1>
     <time class="date" datetime="@post.DatePublished">@post.DatePublished</time>

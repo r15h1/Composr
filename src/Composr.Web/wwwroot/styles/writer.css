@@ -168,8 +168,17 @@ padding-top:8px;
 }
 
 .breadcrumb{
-    background-color:rgb(255, 255, 255);
+    background-color:rgba(255, 255, 255,0);
+    color:rgb(255,255,255);
     margin-bottom:0;
     padding-bottom:0;
     padding-left:0;
+}
+
+.breadcrumb > li >a {
+    color:rgb(255,255,255);
+}
+
+.breadcrumb > li.active {
+    color:rgb(255,255,255);
 }

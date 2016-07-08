@@ -97,6 +97,10 @@ namespace Composr.Web
                 app.UseDatabaseErrorPage();
                 app.UseBrowserLink();
             }
+            else
+            {
+                app.UseStatusCodePagesWithRedirects("/error/{0}");
+            }
 
             app.UseApplicationInsightsExceptionTelemetry();
 
@@ -104,7 +108,7 @@ namespace Composr.Web
             app.UseIdentity();
 
             // Add external authentication middleware below. To configure them please see http://go.microsoft.com/fwlink/?LinkID=532715
-            app.UseStatusCodePagesWithRedirects("/error/{0}");
+            
             app.UseMultitenancy<Blog>();
 
             app.UseMvc(routes =>

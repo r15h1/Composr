@@ -34,6 +34,7 @@ namespace Composr.Web.Controllers
             {
                 model.Title = $"{results[0].Title} - {Blog.Name}";
                 model.MetaDescription = $"{results[0].MetaDescription}";
+                model.CanonicalUrl = $"{model.BlogUrl.TrimEnd('/')}{results[0].URN}";
             }
             model.SearchResults = results;
             return View(model);
@@ -54,6 +55,7 @@ namespace Composr.Web.Controllers
             model.SearchResults = results;
             model.SearchQuery = q;
             model.Title = $"Search Results for {q} - Cocozil";
+            model.CanonicalUrl = $"{model.BlogUrl.TrimEnd('/')}/search?q={System.Net.WebUtility.UrlEncode(q)}";
             return View(model);
         }
 
@@ -64,7 +66,8 @@ namespace Composr.Web.Controllers
                 BlogUrl = Blog.Url,
                 LogoUrl = Blog.Attributes[BlogAttributeKeys.LogoUrl],
                 MetaDescription = "The page you are looking for does not exist. You will be redirected to the home page shortly.",
-                Title = "Error 404 Not Found - Cocozil"
+                Title = "Error 404 Not Found - Cocozil",
+                CanonicalUrl = null
             };
             return View(model);
         }

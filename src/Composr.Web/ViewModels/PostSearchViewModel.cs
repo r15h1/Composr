@@ -12,7 +12,8 @@ namespace Composr.Web.ViewModels
                 BlogUrl = model.BlogUrl,
                 Copyright = model.Copyright,
                 LogoUrl = model.LogoUrl,
-                Tagline = model.Tagline
+                Tagline = model.Tagline,
+                CanonicalUrl = model.CanonicalUrl
             };
         }
 

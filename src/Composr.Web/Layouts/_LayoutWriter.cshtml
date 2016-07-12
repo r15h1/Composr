@@ -4,6 +4,11 @@
 <head>
     <meta name="viewport" content="width=device-width" />    
     <meta charset="UTF-8" /> 
+    @if (!string.IsNullOrWhiteSpace(@Model.CanonicalUrl))
+    {
+        @Html.Raw($"<link rel=\"canonical\" href=\"{@Model.CanonicalUrl}\">");
+    }
+
     <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/styles/writer.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans&subset=latin,latin-ext' rel='stylesheet' type='text/css'>

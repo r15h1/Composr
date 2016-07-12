@@ -25,7 +25,7 @@ else
 {
     <script type="text/javascript">
         $(document).ready(function () {
-            $("#q").val("@Model.SearchQuery");
+             $("#q").val("@Html.Raw(@Model.SearchQuery)");
         });
     </script>
 }

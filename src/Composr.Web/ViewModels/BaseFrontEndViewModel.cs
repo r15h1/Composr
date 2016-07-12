@@ -9,5 +9,6 @@
         public string Title { get; set; }
         public string MetaDescription { get; set; }
         public string ImageLocation { get; set; }
+        public string CanonicalUrl { get; set; }
     }
 }

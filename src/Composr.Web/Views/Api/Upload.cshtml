@@ -1,0 +1,24 @@
+﻿<input id="input-id" name="input-id[]" accept="image/*"  class="file-loading" type="file"  data-preview-file-type="text" multiple>
+
+@section css {    
+    <link href="~/lib/bootstrap-fileinput/css/fileinput.min.css" rel="stylesheet" />
+}
+
+
+@section scripts {       
+    <script src="~/lib/bootstrap-fileinput/js/plugins/sortable.min.js"></script>
+    <script src="~/lib/bootstrap-fileinput/js/fileinput.min.js"></script>
+    <script type="text/javascript">
+        $("#input-id").fileinput({
+            'browseLabel': 'Pick Image',
+            'showUpload': true,
+            'previewFileType': 'image',
+            'uploadAsync': true,
+            'maxFileCount': 5,
+            'uploadUrl': '/api/upload',
+            'previewSettings': {
+                'image': { 'width': 'auto', 'height': '160px' }
+            }
+        });
+    </script>
+}

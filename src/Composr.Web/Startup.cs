@@ -14,6 +14,7 @@ using Composr.Lib.Services;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Composr.Lib.Specifications;
 using Composr.Lib.Util;
+using Composr.Lib.Indexing;
 
 namespace Composr.Web
 {
@@ -68,6 +69,8 @@ namespace Composr.Web
                 options.ViewLocationExpanders.Add(new TenantViewLocationExpander());
             });
 
+            services.AddScoped<IIndexWriter, IndexWriter>();
+            services.AddScoped<IIndexGenerator, IndexGenerator>();
             services.AddScoped<ISearchService, SearchService>();
 
             services.AddScoped<IRepository<Blog>, Repository.Sql.BlogRepository>();

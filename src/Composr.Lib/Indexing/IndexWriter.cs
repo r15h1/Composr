@@ -10,21 +10,21 @@ using System.Linq;
 
 namespace Composr.Lib.Indexing
 {
-    public class LuceneIndexWriter : IIndexWriter
+    public class IndexWriter : IIndexWriter
     {
         private ILogger logger;
         private Directory indexDirectory;
 
-        public LuceneIndexWriter(Blog blog)
+        public IndexWriter()
         {
-            logger = Logging.CreateLogger<LuceneIndexWriter>();            
-            indexDirectory = FSDirectory.Open(new System.IO.DirectoryInfo(Settings.IndexDirectory.TrimEnd('\\')) + $"\\{blog.Id}");
+            logger = Logging.CreateLogger<IndexWriter>();            
+            indexDirectory = FSDirectory.Open(new System.IO.DirectoryInfo(Settings.IndexDirectory));
         }
         
         public void GenerateIndex(IList<Post> posts)
         {
             ComposrAnalyzer analyzer = new ComposrAnalyzer(Lucene.Net.Util.Version.LUCENE_30);
-            using (var indexWriter = new IndexWriter(indexDirectory, analyzer, IndexWriter.MaxFieldLength.UNLIMITED))
+            using (var indexWriter = new Lucene.Net.Index.IndexWriter(indexDirectory, analyzer, Lucene.Net.Index.IndexWriter.MaxFieldLength.UNLIMITED))
             {
                 foreach (var post in posts)
                 {

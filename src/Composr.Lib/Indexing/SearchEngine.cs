@@ -9,7 +9,7 @@ using Lucene.Net.QueryParsers;
 
 namespace Composr.Lib.Indexing
 {
-    public class SearchEngine
+    internal class SearchEngine
     {
         private static IndexReader reader;
         private static Directory directory;
@@ -20,7 +20,13 @@ namespace Composr.Lib.Indexing
             reader = IndexReader.Open(directory, true);
         }
 
-        public IList<SearchResult> Search(SearchCriteria criteria)
+        internal static void ReloadIndex()
+        {
+            directory = new RAMDirectory(FSDirectory.Open(Settings.IndexDirectory));
+            reader = IndexReader.Open(directory, true);
+        }
+
+        internal IList<SearchResult> Search(SearchCriteria criteria)
         {
             IndexSearcher searcher = new IndexSearcher(reader);
             Query query = CreateQuery(criteria);

@@ -1,9 +1,11 @@
 ﻿using Composr.Core;
+using Composr.Lib.Indexing;
 using Composr.Web.Models;
 using Composr.Web.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
+using System.Threading.Tasks;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -13,13 +15,15 @@ namespace Composr.Web.Controllers
     [Route("admin/blogs/{blogid:int}/posts")]
     public class PostController : Controller
     {
-        private IRepoService<Post> service;
         private Blog blog;
-        
-        public PostController(IRepoService<Post> service, Blog blog)
+        private IRepoService<Post> service;
+        private IIndexGenerator indexGenerator;
+
+        public PostController(Blog blog, IRepoService<Post> service,IIndexGenerator indexGenerator)
         {
+            this.blog = blog;
             this.service = service;
-            this.blog = blog;            
+            this.indexGenerator = indexGenerator;
         }
 
         [HttpGet("")]
@@ -75,6 +79,7 @@ namespace Composr.Web.Controllers
 
             viewModel.Id = postid;
             service.Save(MapPost(viewModel));
+            Task.Run(() => indexGenerator.BuildIndex(blog));
             return RedirectToAction("Index");
         }
 

@@ -1,14 +1,14 @@
 ﻿{
   "ConnectionStrings": {
-    "DefaultConnection": "data source=.\\SQL2012; initial catalog=Cocozil;user id=sa;password=Cr@2yHor5e;MultipleActiveResultSets=true"
+    "DefaultConnection": "data source=.\\SQL2012; initial catalog=Programagic;user id=sa;password=Cr@2yHor5e;MultipleActiveResultSets=true"
   },
 
   "Data": {
-    "ConnectionString": "data source=.\\SQL2012; initial catalog=Cocozil;user id=sa;password=Cr@2yHor5e;MultipleActiveResultSets=true "
+    "ConnectionString": "data source=.\\SQL2012; initial catalog=Programagic;user id=sa;password=Cr@2yHor5e;MultipleActiveResultSets=true "
   },
 
   "Index": {
-    "Directory": "C:\\Temp\\LuceneIndexes\\Cocozil\\1"
+    "Directory": "C:\\Temp\\LuceneIndexes\\Programagic\\1"
   },
 
   "Tennant": {

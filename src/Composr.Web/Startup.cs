@@ -81,9 +81,6 @@ namespace Composr.Web
 
             services.AddScoped<ISpecification<Blog>, MinimalBlogSpecification>();
             services.AddScoped<ISpecification<Post>, PostSpecification>();
-
-            services.AddScoped<IRepoService<Post>, RepoService<Post>>();
-            services.AddScoped<IRepoService<Blog>, RepoService<Blog>>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

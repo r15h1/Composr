@@ -16,10 +16,10 @@ namespace Composr.Web.Controllers
     public class PostController : Controller
     {
         private Blog blog;
-        private IRepoService<Post> service;
+        private IRepository<Post> service;
         private IIndexGenerator indexGenerator;
 
-        public PostController(Blog blog, IRepoService<Post> service,IIndexGenerator indexGenerator)
+        public PostController(Blog blog, IRepository<Post> service, IIndexGenerator indexGenerator)
         {
             this.blog = blog;
             this.service = service;

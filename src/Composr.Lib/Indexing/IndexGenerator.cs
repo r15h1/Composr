@@ -1,4 +1,5 @@
 ﻿using Composr.Core;
+using Composr.Lib.Specifications;
 using Composr.Lib.Util;
 using System.Collections.Generic;
 
@@ -16,7 +17,7 @@ namespace Composr.Lib.Indexing
         public void BuildIndex(Blog blog)
         {
             ClearIndexDirectory(blog);
-            IPostRepository repo = new Composr.Repository.Sql.PostRepository(blog);
+            IPostRepository repo = new Composr.Repository.Sql.PostRepository(blog, new PostSpecification());
             IList<Post> posts = repo.GetPublishedPosts(new Filter { Limit = int.MaxValue });
             writer.GenerateIndex(posts);
             SearchEngine.ReloadIndex();

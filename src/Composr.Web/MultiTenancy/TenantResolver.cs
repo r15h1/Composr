@@ -11,10 +11,10 @@ namespace Composr.Web.MultiTenancy
     {
         private static IEnumerable<Blog> blogs = new List<Blog>();
 
-        public BlogResolver(IRepoService<Blog> service)
+        public BlogResolver(IRepository<Blog> repository)
         {
             if (blogs == null || !blogs.Any())
-                blogs = service.Get(null);
+                blogs = repository.Get(null);
         }        
 
         public Task<TenantContext<Blog>> ResolveAsync(HttpContext context)

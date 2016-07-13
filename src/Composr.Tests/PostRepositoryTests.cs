@@ -1,4 +1,5 @@
 ﻿using Composr.Core;
+using Composr.Lib.Specifications;
 using Composr.Lib.Util;
 using FizzWare.NBuilder;
 using Microsoft.Extensions.Configuration;
@@ -17,7 +18,7 @@ namespace Composr.Tests
 
         public PostRepositoryTests()
         {
-            repo = new Composr.Repository.Sql.PostRepository(new Blog(1));
+            repo = new Composr.Repository.Sql.PostRepository(new Blog(1), new PostSpecification());
             InitializeConfiguration();
         }
 
@@ -77,7 +78,7 @@ namespace Composr.Tests
 
         private int GetExistingRepoCount(Blog blog)
         {
-            return new Composr.Repository.Sql.PostRepository(blog).Count(null);
+            return new Composr.Repository.Sql.PostRepository(blog, new PostSpecification()).Count(null);
         }
 
         [Fact]
@@ -217,11 +218,11 @@ namespace Composr.Tests
         public void PostRepositoryRetrievesPostsFromExistingBlogsOnly()
         {
             Blog nonexistingblog = new Blog(999);
-            Composr.Core.IRepository<Post> repo2 = new Composr.Repository.Sql.PostRepository(nonexistingblog);
+            Composr.Core.IRepository<Post> repo2 = new Composr.Repository.Sql.PostRepository(nonexistingblog, new PostSpecification());
             using (TransactionScope t = new TransactionScope())
             {
                 repo.Locale = Locale.EN;
-                IList<Post> posts = new Composr.Repository.Sql.PostRepository(nonexistingblog).Get(new Composr.Core.Filter());
+                IList<Post> posts = new Composr.Repository.Sql.PostRepository(nonexistingblog, new PostSpecification()).Get(new Composr.Core.Filter());
                 Assert.True(posts.Count == 0);
             }
         }

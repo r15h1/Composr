@@ -9,9 +9,12 @@ namespace Composr.Repository.Sql
 {
     public class PostRepository:Composr.Core.IPostRepository
     {
-        public PostRepository(Blog blog) 
+        private ISpecification<Post> specification;
+
+        public PostRepository(Blog blog, ISpecification<Post> specification) 
         {
-            if (blog == null) throw new ArgumentNullException();
+            if (blog == null || specification == null) throw new ArgumentNullException();
+            this.specification = specification;
             Blog = blog;
             Locale = blog.Locale.Value;
         }
@@ -59,7 +62,7 @@ namespace Composr.Repository.Sql
 
         private Post BuildPost(dynamic row)
         {
-            return new Composr.Core.Post(new BlogRepository().Get((int)row.BlogID))
+            return new Composr.Core.Post(Blog)
             {
                 Body = row.Body,
                 Id = row.PostID,
@@ -145,13 +148,21 @@ namespace Composr.Repository.Sql
             return QueryExecutor.ExecuteSingle<int>("Post_Count", p);
         }
 
-        public int Save(Core.Post post)
+        public int Save(Post post)
         {
+            Validate(post);
             if (!post.Id.HasValue)
                 return Create(post);
 
             Update(post);
             return post.Id.Value;
+        }
+
+        private void Validate(Post post)
+        {
+            if (post == null) throw new ArgumentNullException();
+            var compliance = specification.EvaluateCompliance(post);
+            if (!compliance.IsSatisfied) throw new SpecificationException(string.Join(Environment.NewLine, compliance.Errors));
         }
 
         private void Update(Post post)
@@ -215,8 +226,9 @@ namespace Composr.Repository.Sql
             return dt;
         }
 
-        public void Delete(Core.Post post)
+        public void Delete(Post post)
         {
+            if (post == null || !post.Id.HasValue) throw new ArgumentNullException();
             var p = new DynamicParameters();
             p.Add("@PostID", post.Id);
             p.Add("@LocaleID", (int)post.Blog.Locale);

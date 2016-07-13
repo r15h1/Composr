@@ -8,10 +8,13 @@ namespace Composr.Repository.Sql
 {
     public class BlogRepository : Composr.Core.IBlogRepository
     {
+        private ISpecification<Blog> specification;
 
-        public BlogRepository()
+        public BlogRepository(ISpecification<Blog> specification)
         {
+            if (specification == null) throw new ArgumentNullException();
             Locale = Locale.EN;
+            this.specification = specification;
         }
 
         public Locale Locale { get; set; }
@@ -34,14 +37,24 @@ namespace Composr.Repository.Sql
         /// <returns></returns>
         public int Save(Blog blog)
         {
-            if (!blog.Id.HasValue) return Create(blog);
-            
+            Validate(blog);
+            if (!blog.Id.HasValue)
+                return Create(blog);
+
             Update(blog);
             return blog.Id.Value;
         }
 
+        private void Validate(Blog blog)
+        {
+            if (blog == null) throw new ArgumentNullException();
+            var compliance = specification.EvaluateCompliance(blog);
+            if (!compliance.IsSatisfied) throw new SpecificationException(string.Join(Environment.NewLine, compliance.Errors));
+        }
+
         public void Delete(Blog blog)
         {
+            if (blog == null || !blog.Id.HasValue) throw new ArgumentNullException();
             MarkDeleted(blog);
         }
 

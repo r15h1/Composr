@@ -9,12 +9,42 @@
     ]
   },
   {
+    "outputFileName": "wwwroot/themes/writer/site.min.css",
+    "inputFiles": [
+      "wwwroot/lib/bootstrap/dist/css/bootstrap.min.css",
+      "wwwroot/themes/writer/site.css"
+    ]
+  },
+  {
     "outputFileName": "wwwroot/themes/cookbook/site.min.js",
     "inputFiles": [
       "wwwroot/lib/jquery/dist/jquery.min.js",
       "wwwroot/lib/bootstrap/dist/js/bootstrap.min.js",
-      "wwwroot/lib/devbridge-autocomplete/dist/jquery.autocomplete.min.js", 
+      "wwwroot/lib/devbridge-autocomplete/dist/jquery.autocomplete.min.js",
       "wwwroot/themes/cookbook/site.js"
+    ],
+    // Optionally specify minification options
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    // Optinally generate .map file
+    "sourceMap": true
+  },
+
+
+  {
+    "outputFileName": "wwwroot/themes/writer/site.min.css",
+    "inputFiles": [
+      "wwwroot/lib/bootstrap/dist/css/bootstrap.min.css",
+      "wwwroot/themes/writer/site.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/themes/writer/site.min.js",
+    "inputFiles": [
+      "wwwroot/lib/jquery/dist/jquery.min.js",
+      "wwwroot/lib/bootstrap/dist/js/bootstrap.min.js"
     ],
     // Optionally specify minification options
     "minify": {

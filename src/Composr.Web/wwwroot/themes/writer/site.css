@@ -11,7 +11,7 @@ header{
 .jumbotron{
     color:rgb(255, 255, 255);
     background-color:black;
-    background-image:url("../img/bg111.jpg");
+    background-image:url("/themes/writer/bg.jpg");
     background-repeat: no-repeat;
     background-size:cover;
     background-position: top; 

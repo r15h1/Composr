@@ -6,3 +6,4 @@
 /// <reference path="lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js" />
 /// <reference path="themes/cookbook/site.min.js" />
 /// <reference path="themes/cookbook/site_cookbook.js" />
+/// <reference path="themes/writer/site.min.js" />

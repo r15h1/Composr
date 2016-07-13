@@ -10,7 +10,7 @@ using Composr.Web.Models;
 using Composr.Web.Services;
 using Composr.Web.MultiTenancy;
 using Composr.Core;
-using Composr.Lib.Services;
+using Composr.Lib.Indexing;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Composr.Lib.Specifications;
 using Composr.Lib.Util;

@@ -1,32 +1,31 @@
 ﻿using Composr.Core;
-using Composr.Lib.Util;
-using Lucene.Net.Index;
-using Lucene.Net.Search;
-using Lucene.Net.Store;
 using System.Collections.Generic;
+using Lucene.Net.Search;
+using Lucene.Net.Index;
 using Lucene.Net.Documents;
-using Lucene.Net.QueryParsers;
+using Lucene.Net.Store;
+using Composr.Lib.Util;
 
 namespace Composr.Lib.Indexing
 {
-    internal class SearchEngine
+    public class SearchService : ISearchService
     {
         private static IndexReader reader;
         private static Directory directory;
 
-        static SearchEngine()
+        static SearchService()
         {
             directory = new RAMDirectory(FSDirectory.Open(Settings.IndexDirectory));
             reader = IndexReader.Open(directory, true);
         }
 
-        internal static void ReloadIndex()
+        public static void ReloadIndex()
         {
             directory = new RAMDirectory(FSDirectory.Open(Settings.IndexDirectory));
             reader = IndexReader.Open(directory, true);
         }
 
-        internal IList<SearchResult> Search(SearchCriteria criteria)
+        public IList<SearchResult> Search(SearchCriteria criteria)
         {
             IndexSearcher searcher = new IndexSearcher(reader);
             Query query = CreateQuery(criteria);
@@ -36,7 +35,7 @@ namespace Composr.Lib.Indexing
         }
 
         private static TopDocs Search(SearchCriteria criteria, IndexSearcher searcher, Query query)
-        {            
+        {
             if (criteria.SearchSortOrder == SearchSortOrder.MostRecent)
                 return searcher.Search(query, null, criteria.Limit, new Sort(new SortField(IndexFields.PostDatePublishedTicks, SortField.STRING, true)));
 
@@ -56,7 +55,7 @@ namespace Composr.Lib.Indexing
         {
             SearchResult result = new SearchResult();
             result.DatePublished = doc.Get(IndexFields.PostDatePublished);
-            result.Id = doc.Get(IndexFields.PostID);            
+            result.Id = doc.Get(IndexFields.PostID);
             result.Title = doc.Get(IndexFields.PostTitle);
             result.URN = doc.Get(IndexFields.PostURN);
             result.MetaDescription = doc.Get(IndexFields.PostMetaDescription);
@@ -68,7 +67,7 @@ namespace Composr.Lib.Indexing
             else
                 result.Snippet = doc.Get(IndexFields.PostSnippet);
 
-            if(!string.IsNullOrWhiteSpace(doc.Get(IndexFields.ImageUrl)))
+            if (!string.IsNullOrWhiteSpace(doc.Get(IndexFields.ImageUrl)))
             {
                 result.PostImage = new PostImage();
                 result.PostImage.Url = doc.Get(IndexFields.ImageUrl);
@@ -94,7 +93,7 @@ namespace Composr.Lib.Indexing
                     if (!string.IsNullOrWhiteSpace(term))
                     {
                         WildcardQuery w = new WildcardQuery(new Term(IndexFields.PostTitle, $"{term}*"));
-                        w.Boost = 3.0f;                   
+                        w.Boost = 3.0f;
                         q1.Add(w, Occur.SHOULD);
 
                         if (criteria.SearchType == SearchType.Search)
@@ -134,3 +133,4 @@ namespace Composr.Lib.Indexing
         Include_Post_Body
     }
 }
+

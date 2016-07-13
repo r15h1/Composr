@@ -20,7 +20,7 @@ namespace Composr.Lib.Indexing
             IPostRepository repo = new Composr.Repository.Sql.PostRepository(blog, new PostSpecification());
             IList<Post> posts = repo.GetPublishedPosts(new Filter { Limit = int.MaxValue });
             writer.GenerateIndex(posts);
-            SearchEngine.ReloadIndex();
+            SearchService.ReloadIndex();
         }
 
         private static void ClearIndexDirectory(Blog blog)

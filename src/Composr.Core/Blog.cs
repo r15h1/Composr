@@ -41,7 +41,6 @@ namespace Composr.Core
         
         public string Url { get; set; }
 
-        private string theme;
         public string Theme
         {
             get

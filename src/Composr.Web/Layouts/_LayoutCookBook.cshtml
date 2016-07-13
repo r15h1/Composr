@@ -15,8 +15,7 @@
     }
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="~/styles/cookbook.css" rel="stylesheet">
+    <link href="~/themes/cookbook/site.min.css" rel="stylesheet" />
     <title>@Model.Title</title>
 </head>
 <body>
@@ -35,30 +34,7 @@
             </div>
         </footer>
     </section>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/themes/cookbook/site.min.js"></script>
     @RenderSection("scripts", required: false)    
-    <script src="~/lib/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
-    <script type="text/javascript">
-        $('#q').autocomplete({
-            paramName: 'q',
-            minChars:3,
-            serviceUrl: '/api/autocomplete',
-            onSelect: function (suggestion) {
-                //alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
-                window.location.href = suggestion.data;
-            },
-            formatResult: function (suggestion, currentValue) {
-                if(suggestion.value == "Display all results")
-                    return '<a href="#">' + $.Autocomplete.formatResult(suggestion, currentValue) + '</a>';
-
-                return $.Autocomplete.formatResult(suggestion, currentValue);
-            }
-        });
-
-        $("body").keypress(function () {
-            $("#q").focus();
-        });
-    </script>
 </body>
 </html>

@@ -2,16 +2,19 @@
 // More info at https://go.microsoft.com/fwlink/?LinkId=808241
 [
   {
-    "outputFileName": "wwwroot/css/site.min.css",
-    // An array of relative input file paths. Globbing patterns supported
+    "outputFileName": "wwwroot/themes/cookbook/site.min.css",
     "inputFiles": [
-      "wwwroot/css/site.css"
+      "wwwroot/lib/bootstrap/dist/css/bootstrap.min.css",
+      "wwwroot/themes/cookbook/site.css"
     ]
   },
   {
-    "outputFileName": "wwwroot/js/site.min.js",
+    "outputFileName": "wwwroot/themes/cookbook/site.min.js",
     "inputFiles": [
-      "wwwroot/js/site.js"
+      "wwwroot/lib/jquery/dist/jquery.min.js",
+      "wwwroot/lib/bootstrap/dist/js/bootstrap.min.js",
+      "wwwroot/lib/devbridge-autocomplete/dist/jquery.autocomplete.min.js", 
+      "wwwroot/themes/cookbook/site.js"
     ],
     // Optionally specify minification options
     "minify": {
@@ -19,6 +22,6 @@
       "renameLocals": true
     },
     // Optinally generate .map file
-    "sourceMap": false
+    "sourceMap": true
   }
 ]

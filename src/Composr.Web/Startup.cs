@@ -1,20 +1,19 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Composr.Core;
+using Composr.Lib.Indexing;
+using Composr.Lib.Specifications;
+using Composr.Lib.Util;
+using Composr.Web.Data;
+using Composr.Web.Models;
+using Composr.Web.MultiTenancy;
+using Composr.Web.Services;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Composr.Web.Data;
-using Composr.Web.Models;
-using Composr.Web.Services;
-using Composr.Web.MultiTenancy;
-using Composr.Core;
-using Composr.Lib.Indexing;
-using Microsoft.AspNetCore.Mvc.Razor;
-using Composr.Lib.Specifications;
-using Composr.Lib.Util;
-using Composr.Lib.Indexing;
 
 namespace Composr.Web
 {

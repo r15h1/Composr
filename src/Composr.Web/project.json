@@ -76,16 +76,11 @@
 
   "publishOptions": {
     "include": [
-      "wwwroot",
+      "wwwroot/themes",
       "Views",
-      "Areas/**/Views",
-      "settings.json",
       "web.config",
       "Themes",
       "Layouts"
-    ],
-    "includeFiles": [
-      "settings.json"
     ]
   },
 

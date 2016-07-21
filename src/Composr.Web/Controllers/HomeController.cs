@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Composr.Web.Controllers
 {
-    public class HomeController : FrontEndController
+    public class HomeController : BaseFrontEndController
     {
         private ISearchService service;
 
@@ -70,6 +70,11 @@ namespace Composr.Web.Controllers
                 CanonicalUrl = null
             };
             return View(model);
+        }
+
+        public IActionResult AttempRedirect(string url)
+        {
+            return View();
         }
     }
 }

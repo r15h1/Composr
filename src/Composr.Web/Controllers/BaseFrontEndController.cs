@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Composr.Web.Controllers
 {
-    public class FrontEndController : Controller
+    public class BaseFrontEndController : Controller
     {
         protected Blog Blog { get; set; }
 
@@ -16,7 +16,7 @@ namespace Composr.Web.Controllers
             set;
         }
 
-        public FrontEndController(Blog blog)
+        public BaseFrontEndController(Blog blog)
         {
             this.Blog = blog;
             BaseViewModel = new BaseFrontEndViewModel()

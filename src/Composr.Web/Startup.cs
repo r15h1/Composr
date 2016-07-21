@@ -113,45 +113,51 @@ namespace Composr.Web
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
-                    name: "error-route",
-                    template: "error/{error}",
-                    defaults: new { controller = "Home", action = "Error" }
-                );
-
-                routes.MapRoute(
-                    name: "blog-empty-route",
-                    template: "",
-                    defaults: new { controller = "Home", action = "Index" }
-                );
-
-                routes.MapRoute(
-                    name: "blog-default-route",
-                    template: "blog",
-                    defaults: new { controller = "Home", action = "Index" }
-                );
-
-                routes.MapRoute(
-                    name: "blog-details-route",
-                    template: "blog/{postkey}",
-                    defaults: new { controller = "Home", action = "PostDetails" }
-                );
-
-                routes.MapRoute(
                     name: "recipe-details-route",
                     template: "mauritius/cooking/{postkey}",
-                    defaults: new { controller = "Home", action = "PostDetails" }
+                    defaults: new { controller = "FrontEnd", action = "PostDetails" }
                 );
 
                 routes.MapRoute(
                     name: "search-route",
                     template: "search",
-                    defaults: new { controller = "Home", action = "Search" }
+                    defaults: new { controller = "FrontEnd", action = "Search" }
                 );
+
+                routes.MapRoute(
+                    name: "error-route",
+                    template: "error/{error}",
+                    defaults: new { controller = "FrontEnd", action = "Error" }
+                );                
+
+                routes.MapRoute(
+                    name: "blog-default-route",
+                    template: "blog",
+                    defaults: new { controller = "FrontEnd", action = "Index" }
+                );
+
+                routes.MapRoute(
+                    name: "blog-details-route",
+                    template: "blog/{postkey}",
+                    defaults: new { controller = "FrontEnd", action = "PostDetails" }
+                );                
 
                 routes.MapRoute(
                    name: "account",
                    template: "{controller=Account}/{action=Login}/{ id ?}"
                );
+
+                routes.MapRoute(
+                    name: "blog-empty-route",
+                    template: "",
+                    defaults: new { controller = "FrontEnd", action = "Index" }
+                );
+
+                routes.MapRoute(
+                    name: "post-redirect-attempt",
+                    template: "{*url}",
+                    defaults: new { controller = "FrontEnd", action = "AttemptRedirect" }
+                );
             });
         }
     }

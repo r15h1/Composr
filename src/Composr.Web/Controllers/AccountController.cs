@@ -134,7 +134,7 @@ namespace Composr.Web.Controllers
         {
             await _signInManager.SignOutAsync();
             _logger.LogInformation(4, "User logged out.");
-            return RedirectToAction(nameof(BaseFrontEndController.Index), "Home");
+            return RedirectToAction(nameof(FrontEndController.Index), "FrontEnd");
         }
 
         //
@@ -459,7 +459,7 @@ namespace Composr.Web.Controllers
             }
             else
             {
-                return RedirectToAction(nameof(BaseFrontEndController.Index), "Home");
+                return RedirectToAction(nameof(FrontEndController.Index), "FrontEnd");
             }
         }
 

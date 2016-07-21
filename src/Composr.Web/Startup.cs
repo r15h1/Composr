@@ -140,12 +140,7 @@ namespace Composr.Web
                     name: "blog-details-route",
                     template: "blog/{postkey}",
                     defaults: new { controller = "FrontEnd", action = "PostDetails" }
-                );                
-
-                routes.MapRoute(
-                   name: "account",
-                   template: "{controller=Account}/{action=Login}/{ id ?}"
-               );
+                );
 
                 routes.MapRoute(
                     name: "blog-empty-route",
@@ -154,10 +149,15 @@ namespace Composr.Web
                 );
 
                 routes.MapRoute(
+                   name: "account",
+                   template: "{controller=Account}/{action=Login}/{ id ?}"
+               );  
+
+               routes.MapRoute(
                     name: "post-redirect-attempt",
                     template: "{*url}",
                     defaults: new { controller = "FrontEnd", action = "AttemptRedirect" }
-                );
+               );
             });
         }
     }

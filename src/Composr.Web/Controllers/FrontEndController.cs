@@ -5,11 +5,11 @@ using System.Linq;
 
 namespace Composr.Web.Controllers
 {
-    public class HomeController : BaseFrontEndController
+    public class FrontEndController : BaseFrontEndController
     {
         private ISearchService service;
 
-        public HomeController(ISearchService service, Blog blog):base(blog)
+        public FrontEndController(ISearchService service, Blog blog):base(blog)
         {
             this.service = service;
         }

@@ -14,6 +14,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
 
 namespace Composr.Web
 {
@@ -24,7 +25,8 @@ namespace Composr.Web
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("settings.json", optional: true, reloadOnChange: true)
-                .AddJsonFile($"settings.{env.EnvironmentName}.json", optional: true);
+                .AddJsonFile($"settings.{env.EnvironmentName}.json", optional: true)
+                .AddJsonFile("redirections.json", optional: true, reloadOnChange: true);
 
             if (env.IsDevelopment())
             {
@@ -48,6 +50,7 @@ namespace Composr.Web
             services.AddSingleton<IConfiguration>(Configuration);
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);
+            services.Configure<List<RedirectionMapping>>(Configuration.GetSection("Redirections"));
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
@@ -92,16 +95,16 @@ namespace Composr.Web
 
             app.UseApplicationInsightsRequestTelemetry();
 
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
-                app.UseBrowserLink();
-            }
-            else
-            {
-                app.UseStatusCodePagesWithRedirects("/error/{0}");
-            }
+            //if (env.IsDevelopment())
+            //{
+            //    app.UseDeveloperExceptionPage();
+            //    app.UseDatabaseErrorPage();
+            //    app.UseBrowserLink();
+            //}
+            //else
+            //{
+                app.UseStatusCodePagesWithReExecute("/error/{0}");
+            //}
 
             app.UseApplicationInsightsExceptionTelemetry();
 

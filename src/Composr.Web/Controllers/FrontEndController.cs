@@ -11,7 +11,7 @@ namespace Composr.Web.Controllers
         private ISearchService service;
         private IRedirectionMapper redirectionMapper;
 
-        public FrontEndController(ISearchService service, IRedirectionMapper redirectionMapper, Blog blog):base(blog)
+        public FrontEndController(ISearchService service, IRedirectionMapper redirectionMapper, Blog blog) :base(blog)
         {
             this.service = service;
             this.redirectionMapper = redirectionMapper;
@@ -38,9 +38,11 @@ namespace Composr.Web.Controllers
                 model.Title = $"{results[0].Title} - {Blog.Name}";
                 model.MetaDescription = $"{results[0].MetaDescription}";
                 model.CanonicalUrl = $"{model.BlogUrl.TrimEnd('/')}{results[0].URN}";
+                model.SearchResults = results;
+                return View(model);
             }
-            model.SearchResults = results;
-            return View(model);
+
+            return NotFound();
         }
 
         [HttpGet("api/autocomplete")]

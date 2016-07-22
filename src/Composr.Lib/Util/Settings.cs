@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using System.Collections.Generic;
 
 namespace Composr.Lib.Util
 {
@@ -36,6 +37,6 @@ namespace Composr.Lib.Util
             {
                 return Config["ImageLocation:DestinationDirectory"];
             }
-        }
-    }
+        }        
+    }    
 }

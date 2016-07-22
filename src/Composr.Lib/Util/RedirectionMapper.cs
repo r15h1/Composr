@@ -1,5 +1,8 @@
 ﻿using Composr.Core;
 using System.Collections.Concurrent;
+using Microsoft.Extensions.Options;
+using System.Collections.Generic;
+using System;
 
 namespace Composr.Lib.Util
 {
@@ -7,9 +10,17 @@ namespace Composr.Lib.Util
     {
         private ConcurrentDictionary<string, string> redirections;
 
-        public RedirectionMapper()
+        public RedirectionMapper(IOptions<List<RedirectionMapping>> mappings)
         {
-            Initialize();
+            Initialize(mappings);
+        }
+
+        private void Initialize(IOptions<List<RedirectionMapping>> mappings)
+        {
+            redirections = new ConcurrentDictionary<string, string>();
+            foreach (var mapping in mappings.Value)
+                if (!string.IsNullOrWhiteSpace(mapping.From) && !string.IsNullOrWhiteSpace(mapping.To))
+                    redirections.TryAdd(mapping.From, mapping.To);
         }
 
         public bool CanResolve(string url)
@@ -23,12 +34,12 @@ namespace Composr.Lib.Util
                 return redirections[url];
 
             return null;
-        }
+        }        
+    }
 
-        private void Initialize()
-        {
-            redirections = new ConcurrentDictionary<string, string>();
-            redirections.TryAdd("2016/04/rice-vermicelli-soup-with-chicken-and.html", "/mauritius/cooking/rice-vermicelli-soup-recipe");
-        }
+    public class RedirectionMapping
+    {
+        public string From { get; set; }
+        public string To { get; set; }
     }
 }

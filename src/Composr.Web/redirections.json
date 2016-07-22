@@ -1,0 +1,328 @@
+﻿{
+  "Redirections": [
+    {
+      "From": "2016/04/rice-vermicelli-soup-with-chicken-and.html",
+      "To": "/mauritius/cooking/rice-vermicelli-soup-recipe"
+    },
+    {
+      "From": "2014/02/sauteed-lamb.html",
+      "To": "/mauritius/cooking/sauteed-lamb-recipe"
+    },
+    {
+      "From": "2014/01/chicken-fingers.html",
+      "To": "/mauritius/cooking/chicken-finger-recipe"
+    },
+    {
+      "From": "2013/03/flan-caramel.html",
+      "To": "/mauritius/cooking/flan-caramel-recipe"
+    },
+    {
+      "From": "2013/02/fish-chips-no-beer-batter.html",
+      "To": "/mauritius/cooking/fish-and-chips-recipe"
+    },
+    {
+      "From": "2012/12/oven-fried-chicken.html",
+      "To": "/cooking/crispy-oven-baked-chicken-recipe"
+    },
+    {
+      "From": "2012/11/cheese-stick-baguette-fromage.html",
+      "To": "/mauritius/cooking/cheese-sticks-recipe"
+    },
+    {
+      "From": "2012/11/chayote-balls-nukienboulette-chouchou.html",
+      "To": "/mauritius/cooking/chayotte-chicken-dumpling-recipe"
+    },
+    {
+      "From": "2012/11/chicken-broth-to-serve-with-chayote.html",
+      "To": "/mauritius/cooking/chayotte-chicken-dumpling-recipe"
+    },
+    {
+      "From": "2012/10/butter-chicken.html",
+      "To": "/mauritius/cooking/butter-chicken-recipe"
+    },
+    {
+      "From": "2012/10/bitter-gourd-saladsalade-de-margoze.html",
+      "To": "/mauritius/cooking/bittergourd-salad-recipe"
+    },
+    {
+      "From": "2012/09/turmeric-octopus-ourite-safranee.html",
+      "To": "/mauritius/cooking/turmeric-octopus-recipe"
+    },
+    {
+      "From": "2012/09/ti-cari-poulet-chicken-gizzard-heart.html",
+      "To": "/mauritius/cooking/chicken-gizzard-liver-heart-recipe"
+    },
+    {
+      "From": "2012/08/khaja.html",
+      "To": "/mauritius/cooking/khaja-dessert-recipe"
+    },
+    {
+      "From": "2012/05/green-papaya-salad-salade-de-papaye.html",
+      "To": "/mauritius/cooking/green-papaya-salad-recipe"
+    },
+    {
+      "From": "2012/05/white-gourd-and-dried-shrimp-curry.html",
+      "To": "/mauritius/cooking/white-gourd-dried-shrimp-curry-recipe"
+    },
+    {
+      "From": "2012/05/alouda.html",
+      "To": "/mauritius/cooking/alouda-cold-milk-recipe"
+    },
+    {
+      "From": "2012/05/mauritian-style-semolina-greo-la.html",
+      "To": "/mauritius/cooking/semolina-greo-recipe"
+    },
+    {
+      "From": "2012/04/mauritian-style-cucumber-carrot-and.html",
+      "To": "/mauritius/cooking/cucumber-carrot-mango-salad-recipe"
+    },
+    {
+      "From": "2012/04/cassava-pudding-pouding-de-manioc.html",
+      "To": "/mauritius/cooking/cassava-pudding-recipe"
+    },
+    {
+      "From": "2012/04/vermicelli-pudding-pouding-de.html",
+      "To": "/mauritius/cooking/vermicelli-pudding-recipe"
+    },
+    {
+      "From": "2012/04/bread-pudding-pouding-de-pain_30.html",
+      "To": "/mauritius/cooking/bread-pudding-recipe"
+    },
+    {
+      "From": "2012/04/corn-meal-pudding-pouding-de-mais.html",
+      "To": "/mauritius/cooking/corn-maize-pudding-recipe"
+    },
+    {
+      "From": "2012/04/kichri-mauritian-style-rice-cooked-with.html",
+      "To": "/mauritius/cooking/kichri-rice-in-lentils-yellow-split-pea-recipe"
+    },
+    {
+      "From": "2012/04/ladou-ladou-besan.html",
+      "To": "/mauritius/cooking/ladoo-recipe"
+    },
+    {
+      "From": "2012/04/kheer-rice-pudding-pouding-au-riz.html",
+      "To": "/mauritius/cooking/kheer-rice-pudding-recipe"
+    },
+    {
+      "From": "2012/04/banana-cake-gateau-banane.html",
+      "To": "/mauritius/cooking/banana-fritter-recipe"
+    },
+    {
+      "From": "2012/04/gulab-jamun-mauritian-style-sweet-dish.html",
+      "To": "/mauritius/cooking/gulab-jamun-recipe"
+    },
+    {
+      "From": "2012/04/chicken-chop-suey-chop-suey-de-poulet.html",
+      "To": "/mauritius/cooking/chicken-chop-suey-recipe"
+    },
+    {
+      "From": "2012/04/picked-chili-piment-confit.html",
+      "To": "/mauritius/cooking/pickled-chilli-recipe"
+    },
+    {
+      "From": "2012/04/chicken-kebabs-kebab-de-poulet.html",
+      "To": "/mauritius/cooking/chicken-kebab-recipe"
+    },
+    {
+      "From": "2012/04/lima-beans-stew-daude-de-gros-pois.html",
+      "To": "/mauritius/cooking/lima-beans-stew-recipe"
+    },
+    {
+      "From": "2012/04/corned-mutton-in-tomato-sauce-rougaille.html",
+      "To": "/mauritius/cooking/corned-meat-in-tomato-sauce-recipe"
+    },
+    {
+      "From": "2012/04/vegetables-pickle-achard-de-legumes.html",
+      "To": "/mauritius/cooking/cabage-and-carrot-pickle-recipe"
+    },
+    {
+      "From": "2012/04/rice-salad-salade-de-riz.html",
+      "To": "/mauritius/cooking/tuna-rice-salad-recipe"
+    },
+    {
+      "From": "2012/04/lamb-salmi-salmi-dagneau.html",
+      "To": "/mauritius/cooking/lamb-salmi-recipe"
+    },
+    {
+      "From": "2012/04/tandoori-chicken-poulet-tandoori.html",
+      "To": "/mauritius/cooking/tandoori-chicken-recipe"
+    },
+    {
+      "From": "2012/04/fried-chicken-poulet-frite.html",
+      "To": "/mauritius/cooking/kfc-style-fried-chicken-recipe"
+    },
+    {
+      "From": "2012/04/dhall-puri-flat-bread-stuffed-with.html",
+      "To": "/mauritius/cooking/dal-puri-recipe"
+    },
+    {
+      "From": "2012/04/fish-kichri-kichri-poisson.html",
+      "To": "/mauritius/cooking/fish-kichri-recipe"
+    },
+    {
+      "From": "2012/03/lamb-stew-daube-dagneau.html",
+      "To": "/mauritius/cooking/lamb-stew-recipe"
+    },
+    {
+      "From": "2012/03/vegetarian-briyani-briyani-legumes.html",
+      "To": "/mauritius/cooking/vegetarian-briyani-recipe"
+    },
+    {
+      "From": "2012/03/chicken-kalia-kalia-de-poulet.html",
+      "To": "/mauritius/cooking/chicken-kalia-recipe"
+    },
+    {
+      "From": "2012/03/octopus-vindaye-vindaye-ourite.html",
+      "To": "/mauritius/cooking/octopus-vindaye-recipe"
+    },
+    {
+      "From": "2012/03/bread-in-batter-beignet-de-pianpain.html",
+      "To": "/mauritius/cooking/bread-in-batter-recipe"
+    },
+    {
+      "From": "2012/03/chicken-stew-daube-de-poulet.html",
+      "To": "/mauritius/cooking/chicken-stew-recipe"
+    },
+    {
+      "From": "2012/03/prawns-in-red-gravy-cevettes-en-sauce.html",
+      "To": "/mauritius/cooking/prawns-in-red-gravy-recipe"
+    },
+    {
+      "From": "2012/03/chicken-saute-saute-de-poulet.html",
+      "To": "/mauritius/cooking/sauteed-chicken-recipe"
+    },
+    {
+      "From": "2012/02/fish-in-sweet-and-sour-sauce-poisson.html",
+      "To": "/mauritius/cooking/fish-in-sweet-and-sour-sauce-recipe"
+    },
+    {
+      "From": "2012/02/chicken-liver-saute-saute-de-fois-de.html",
+      "To": "/mauritius/cooking/sauteed-chicken-liver-recipe"
+    },
+    {
+      "From": "2012/02/octopus-curry-curry-ourite.html",
+      "To": "/mauritius/cooking/octopus-in-curry-sauce-recipe"
+    },
+    {
+      "From": "2012/02/cauliflower-stew-daube-de-choufleur.html",
+      "To": "/mauritius/cooking/cauliflower-stew-with-boiled-eggs-recipe"
+    },
+    {
+      "From": "2012/02/fish-daube-daube-de-poisson.html",
+      "To": "/mauritius/cooking/fish-stew-recipe"
+    },
+    {
+      "From": "2012/02/pancakes-crepes-doux.html",
+      "To": "/mauritius/cooking/sweet-pancake-recipe"
+    },
+    {
+      "From": "2012/02/flat-roti-roti-mauricien.html",
+      "To": "/mauritius/cooking/flat-bread-roti-recipe"
+    },
+    {
+      "From": "2012/02/tekwa.html",
+      "To": "/mauritius/cooking/puffy-tekwa-fritter-recipe"
+    },
+    {
+      "From": "2012/01/grilled-fish-poisson-grille.html",
+      "To": "/mauritius/cooking/grilled-fish-recipe"
+    },
+    {
+      "From": "2012/01/grilled-chicken-poulet-grille.html",
+      "To": "/mauritius/cooking/grilled-chicken-barbecue-recipe"
+    },
+    {
+      "From": "2012/01/gratin-chayote-gratin-chouchou.html",
+      "To": "/mauritius/cooking/chayote-gratin-recipe"
+    },
+    {
+      "From": "2011/09/green-chili-paste-piment-vert-crase.html",
+      "To": "/mauritius/cooking/green-chilli-paste-recipe"
+    },
+    {
+      "From": "2011/09/curry-bari.html",
+      "To": "/mauritius/cooking/curry-bari-recipe"
+    },
+    {
+      "From": "2011/08/puri.html",
+      "To": "/mauritius/cooking/puri-recipe"
+    },
+    {
+      "From": "2011/08/taro-snack-gateau-arouille.html",
+      "To": "/mauritius/cooking/taro-fritter-pakora-recipe"
+    },
+    {
+      "From": "2011/08/fried-noodles-mine-frite.html",
+      "To": "/mauritius/cooking/chinese-style-fried-noodles-recipe"
+    },
+    {
+      "From": "2011/08/breaded-fish-poisson-pane.html",
+      "To": "/mauritius/cooking/breaded-fish-recipe"
+    },
+    {
+      "From": "2011/08/roasted-chicken-roti-poulet.html",
+      "To": "/mauritius/cooking/roasted-chicken-recipe"
+    },
+    {
+      "From": "2011/08/eggplant-and-fish-curry-curry.html",
+      "To": "/mauritius/cooking/fish-and-eggplant-in-curry-sauce-recipe"
+    },
+    {
+      "From": "2011/08/grilled-lamb-agneau-grille.html",
+      "To": "/mauritius/cooking/grilled-lamb-barbecue-recipe"
+    },
+    {
+      "From": "2011/08/chicken-wings-ailes-de-poulet.html",
+      "To": "/mauritius/cooking/chicken-wings-recipe"
+    },
+    {
+      "From": "2011/08/white-beans-gros-pois.html",
+      "To": "/mauritius/cooking/lima-beans-in-curry-sauce-recipe"
+    },
+    {
+      "From": "2011/08/fried-rice-riz-frite.html",
+      "To": "/mauritius/cooking/fried-rice-recipe"
+    },
+    {
+      "From": "2011/08/crispy-chicken-poulet-croustillant.html",
+      "To": "/mauritius/cooking/crispy-fried-chicken-recipe"
+    },
+    {
+      "From": "2011/08/kutcha-mango-kutcha-mangue.html",
+      "To": "/mauritius/cooking/mango-kutcha-recipe"
+    },
+    {
+      "From": "2011/08/haleem.html",
+      "To": "/mauritius/cooking/haleem-recipe"
+    },
+    {
+      "From": "2011/08/fish-vindaloo-vindaye-de-poisson.html",
+      "To": "/mauritius/cooking/fish-vindaye-recipe"
+    },
+    {
+      "From": "2011/08/lamb-curry-curry-dagneau.html",
+      "To": "/mauritius/cooking/lamb-curry-recipe"
+    },
+    {
+      "From": "2011/08/gateau-piment.html",
+      "To": "/mauritius/cooking/yellow-split-pea-fritter-pakora-recipe"
+    },
+    {
+      "From": "2011/08/bhajia.html",
+      "To": "/mauritius/cooking/bajia-recipe"
+    },
+    {
+      "From": "2011/08/crab-broth-bouillon-crabe.html",
+      "To": "/mauritius/cooking/crab-soup-recipe"
+    },
+    {
+      "From": "2011/08/chicken-curry-curry-de-poulet.html",
+      "To": "/mauritius/cooking/chicken-curry-recipe"
+    },
+    {
+      "From": "2011/08/bowl-upside-down-bol-renverse.html",
+      "To": "/mauritius/cooking/inverted-rice-bowl"
+    }
+  ]
+}

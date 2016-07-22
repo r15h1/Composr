@@ -80,6 +80,8 @@ namespace Composr.Web
 
             services.AddScoped<ISpecification<Blog>, MinimalBlogSpecification>();
             services.AddScoped<ISpecification<Post>, PostSpecification>();
+
+            services.AddSingleton<IRedirectionMapper, RedirectionMapper>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -143,17 +145,11 @@ namespace Composr.Web
                 );
 
                 routes.MapRoute(
-                    name: "blog-empty-route",
-                    template: "",
-                    defaults: new { controller = "FrontEnd", action = "Index" }
-                );
+                   name: "default",
+                   template: "{controller=FrontEnd}/{action=Index}/{ id ?}"
+               );
 
                 routes.MapRoute(
-                   name: "account",
-                   template: "{controller=Account}/{action=Login}/{ id ?}"
-               );  
-
-               routes.MapRoute(
                     name: "post-redirect-attempt",
                     template: "{*url}",
                     defaults: new { controller = "FrontEnd", action = "AttemptRedirect" }

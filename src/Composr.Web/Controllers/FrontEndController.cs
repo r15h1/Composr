@@ -1,4 +1,5 @@
 ﻿using Composr.Core;
+using Composr.Lib.Util;
 using Composr.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
@@ -8,10 +9,12 @@ namespace Composr.Web.Controllers
     public class FrontEndController : BaseFrontEndController
     {
         private ISearchService service;
+        private IRedirectionMapper redirectionMapper;
 
-        public FrontEndController(ISearchService service, Blog blog):base(blog)
+        public FrontEndController(ISearchService service, IRedirectionMapper redirectionMapper, Blog blog):base(blog)
         {
             this.service = service;
+            this.redirectionMapper = redirectionMapper;
         }
 
         // GET: /<controller>/
@@ -66,15 +69,18 @@ namespace Composr.Web.Controllers
                 BlogUrl = Blog.Url,
                 LogoUrl = Blog.Attributes[BlogAttributeKeys.LogoUrl],
                 MetaDescription = "The page you are looking for does not exist. You will be redirected to the home page shortly.",
-                Title = "Error 404 Not Found - Cocozil",
+                Title = "Page Not Found - Cocozil",
                 CanonicalUrl = null
             };
             return View(model);
         }
 
-        public IActionResult AttempRedirect(string url)
+        public IActionResult AttemptRedirect(string url)
         {
-            return View();
+            if (redirectionMapper.CanResolve(url))
+                return RedirectPermanent(redirectionMapper.MapToRedirectUrl(url));
+
+            return new NotFoundResult();
         }
     }
 }

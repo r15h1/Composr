@@ -13,7 +13,9 @@ namespace Composr.Web.ViewModels
                 Copyright = model.Copyright,
                 LogoUrl = model.LogoUrl,
                 Tagline = model.Tagline,
-                CanonicalUrl = model.CanonicalUrl
+                CanonicalUrl = model.CanonicalUrl,
+                AnalyticsTrackingJSCode = model.AnalyticsTrackingJSCode,
+                AdPublisherJSCode = model.AdPublisherJSCode
             };
         }
 

@@ -7,5 +7,7 @@
         public static readonly string Tagline = "Tagline";
         public static readonly string Theme = "Theme";
         public static readonly string ImageLocation = "ImageLocation";
+        public static readonly string AnalyticsTrackingJSCode = "AnalyticsTrackingJSCode";
+        public static readonly string AdPublisherJSCode = "AdPublisherJSCode";
     }
 }

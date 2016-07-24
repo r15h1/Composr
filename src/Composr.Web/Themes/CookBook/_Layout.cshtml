@@ -27,9 +27,9 @@
 <body>
     @Html.Partial("NavigationPartialView", Model)
     <section class="container">
-        @RenderBody()              
+        @RenderBody()
     </section>
-    <section class="container">        
+    <section class="container">
         <footer>
             <div class="row">
                 <p class="alert alert-warning" role="alert">Type something (e.g. <i>chicken</i>) in the search box at the top to find more recipes.</p>
@@ -46,7 +46,12 @@
     </environment>
     <environment names="Staging,Production">
         <script src="~/themes/cookbook/site.min.js"></script>
-    </environment>    
-    @RenderSection("scripts", required: false)    
+    </environment>
+    @RenderSection("scripts", required: false)
+    @if (!string.IsNullOrWhiteSpace(@Model.AnalyticsTrackingJSCode))
+    {
+        @Html.Raw(@Model.AnalyticsTrackingJSCode);
+    }
+    @RenderSection("ads", required: false)
 </body>
 </html>

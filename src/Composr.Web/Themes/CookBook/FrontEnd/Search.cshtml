@@ -18,9 +18,6 @@ else
         </ul>
     </article>
 }
-
-
-
 @section scripts
 {
     <script type="text/javascript">
@@ -28,4 +25,12 @@ else
              $("#q").val("@Html.Raw(@Model.SearchQuery)");
         });
     </script>
+}
+
+@section ads
+{
+    @if (!string.IsNullOrWhiteSpace(@Model.AdPublisherJSCode))
+    {
+        @Html.Raw(@Model.AdPublisherJSCode);
+    }
 }

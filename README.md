@@ -5,8 +5,8 @@
 2. Dapper ORM and optimised SQL server database for fast queries
 3. Multi tennancy support
 4. Custom themes (check http://cocozil.com and http://programagic.ca for 2 live implementations)
-5. Responsive design with bootstrap
-6. Autocomplete api for suggestions in search box 
+5. Autocomplete api for suggestions in search box
+6. Responsive design with bootstrap
 
 ###Coming soon:
 1. "More like this" suggestions

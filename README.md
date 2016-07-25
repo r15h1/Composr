@@ -1,6 +1,6 @@
 
 # composr - a blogging platform built on .Net Core
-###Features:
+###Highlights:
 1. Inverted index built with Lucene.Net for relevance based search
 2. Dapper ORM and optimised SQL server database for fast queries
 3. Multi tennancy support

@@ -49,7 +49,7 @@ namespace Composr.Web.Controllers
             model.MetaDescription = $"{results[0].MetaDescription}";
             model.CanonicalUrl = $"{model.BlogUrl.TrimEnd('/')}{results[0].URN}";
             model.SearchResults = results;
-            return View(model);
+            return View("PostDetails", model);
         }
 
         [HttpGet("api/autocomplete")]

@@ -112,7 +112,7 @@ namespace Composr.Lib.Indexing
             }
             else if (!string.IsNullOrWhiteSpace(criteria.URN))
             {
-                q = new TermQuery(new Term(IndexFields.PostURN, criteria.URN.ToLowerInvariant()));
+                q = new TermQuery(new Term(IndexFields.PostURN, criteria.URN.ToLowerInvariant().TrimEnd('/')));
                 q.Boost = 1.5f;
                 query.Add(q, Occur.MUST);
             }

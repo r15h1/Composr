@@ -118,12 +118,6 @@ namespace Composr.Web
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
-                    name: "recipe-details-route",
-                    template: "mauritius/cooking/{postkey}",
-                    defaults: new { controller = "FrontEnd", action = "PostDetails" }
-                );
-
-                routes.MapRoute(
                     name: "search-route",
                     template: "search",
                     defaults: new { controller = "FrontEnd", action = "Search" }
@@ -152,10 +146,16 @@ namespace Composr.Web
                    template: "{controller=FrontEnd}/{action=Index}/{ id ?}"
                );
 
+                //routes.MapRoute(
+                //    name: "recipe-details-route",
+                //    template: "mauritius/cooking/{postkey}",
+                //    defaults: new { controller = "FrontEnd", action = "PostDetails" }
+                //);
+
                 routes.MapRoute(
-                    name: "post-redirect-attempt",
-                    template: "{*url}",
-                    defaults: new { controller = "FrontEnd", action = "AttemptRedirect" }
+                    name: "findpost",
+                    template: "{*postkey}",
+                    defaults: new { controller = "FrontEnd", action = "FindPost" }
                );
             });
         }

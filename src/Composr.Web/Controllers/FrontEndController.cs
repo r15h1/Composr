@@ -2,6 +2,7 @@
 using Composr.Lib.Util;
 using Composr.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Composr.Web.Controllers
@@ -29,20 +30,26 @@ namespace Composr.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult PostDetails(string postkey)
+        public IActionResult FindPost(string postkey)
         {
             var results = service.Search(new SearchCriteria() { BlogID = Blog.Id.Value, Locale = Blog.Locale.Value, URN = HttpContext.Request.Path.Value});
-            var model = PostSearchViewModel.FromBaseFrontEndViewModel(BaseViewModel);
+
             if (results != null && results.Count > 0)
-            {
-                model.Title = $"{results[0].Title} - {Blog.Name}";
-                model.MetaDescription = $"{results[0].MetaDescription}";
-                model.CanonicalUrl = $"{model.BlogUrl.TrimEnd('/')}{results[0].URN}";
-                model.SearchResults = results;
-                return View(model);
-            }
+                return GetPostDetails(results);
+            else if(redirectionMapper.CanResolve(postkey))
+                return RedirectPermanent(redirectionMapper.MapToRedirectUrl(postkey));
 
             return NotFound();
+        }
+
+        private IActionResult GetPostDetails(IList<SearchResult> results)
+        {
+            var model = PostSearchViewModel.FromBaseFrontEndViewModel(BaseViewModel);
+            model.Title = $"{results[0].Title} - {Blog.Name}";
+            model.MetaDescription = $"{results[0].MetaDescription}";
+            model.CanonicalUrl = $"{model.BlogUrl.TrimEnd('/')}{results[0].URN}";
+            model.SearchResults = results;
+            return View(model);
         }
 
         [HttpGet("api/autocomplete")]
@@ -75,14 +82,6 @@ namespace Composr.Web.Controllers
                 CanonicalUrl = null
             };
             return View(model);
-        }
-
-        public IActionResult AttemptRedirect(string url)
-        {
-            if (redirectionMapper.CanResolve(url))
-                return RedirectPermanent(redirectionMapper.MapToRedirectUrl(url));
-
-            return new NotFoundResult();
         }
     }
 }

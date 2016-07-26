@@ -25,7 +25,7 @@ namespace Composr.Lib.Util
 
         public bool CanResolve(string url)
         {
-            return redirections.ContainsKey(url);
+            return !string.IsNullOrWhiteSpace(url) && redirections.ContainsKey(url);
         }
 
         public string MapToRedirectUrl(string url)

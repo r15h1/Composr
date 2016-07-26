@@ -15,6 +15,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc.Formatters;
 
 namespace Composr.Web
 {
@@ -60,7 +61,12 @@ namespace Composr.Web
                 .AddDefaultTokenProviders();
 
             services.AddMultitenancy<Blog, BlogResolver>();
-            services.AddMvc();
+            services.AddMvc(
+                options =>
+                {
+                    options.OutputFormatters.Add(new XmlSerializerOutputFormatter());
+
+            });
 
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();

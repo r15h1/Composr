@@ -27,10 +27,19 @@ header{
     margin-top:5px;
 }
 
+h1{
+    padding-bottom:4px;
+}
+
+h3{
+     border-bottom:solid 1px rgb(221, 219, 219);
+}
+
 .post-heading{
     margin-top:5px;
     margin-bottom:5px;
     padding-top:10px;
+    border-bottom:solid 1px rgb(221, 219, 219);
 }
 
 .list-group-item{

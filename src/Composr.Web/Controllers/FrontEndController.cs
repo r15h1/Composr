@@ -32,7 +32,7 @@ namespace Composr.Web.Controllers
         [HttpGet]
         public IActionResult FindPost(string postkey)
         {
-            var results = service.Search(new SearchCriteria() { BlogID = Blog.Id.Value, Locale = Blog.Locale.Value, URN = HttpContext.Request.Path.Value});
+            var results = service.Search(new SearchCriteria() { BlogID = Blog.Id.Value, Locale = Blog.Locale.Value, SearchTerm = HttpContext.Request.Path.Value, SearchType = SearchType.URN});
 
             if (results != null && results.Count > 0)
                 return GetPostDetails(results);
@@ -62,7 +62,7 @@ namespace Composr.Web.Controllers
 
         public IActionResult Search(string q)
         {
-            var results = service.Search(new SearchCriteria() { BlogID = Blog.Id.Value, Locale = Blog.Locale.Value, SearchSortOrder = SearchSortOrder.BestMatch, Limit = 50, SearchTerm = q, SearchType = SearchType.Search });
+            var results = service.Search(new SearchCriteria() { BlogID = Blog.Id.Value, Locale = Blog.Locale.Value, SearchSortOrder = SearchSortOrder.BestMatch, Limit = 50, SearchTerm = q, SearchType = SearchType.Default });
             var model = PostSearchViewModel.FromBaseFrontEndViewModel(BaseViewModel);
             model.SearchResults = results;
             model.SearchQuery = q;

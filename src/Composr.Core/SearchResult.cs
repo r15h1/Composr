@@ -1,4 +1,6 @@
-﻿namespace Composr.Core
+﻿using System.Collections.Generic;
+
+namespace Composr.Core
 {
     /// <summary>
     /// data structure to represent a post in the form of a search result
@@ -28,7 +30,8 @@
     public enum SearchType
     {
         AutoComplete,
-        Search
+        Default,
+        URN
     }
 
     public class SearchCriteria
@@ -36,15 +39,16 @@
         public SearchCriteria()
         {
             SearchSortOrder = SearchSortOrder.BestMatch;
+            Tags = new List<string>();
         }
 
         public int BlogID { get; set; }
         public Locale Locale { get; set; }
         public string SearchTerm { get; set; }
         public SearchSortOrder SearchSortOrder { get; set; }
-        public string URN { get; set; }
         public int Limit { get; set; } = 100;
         public int Start { get; set; } = 0;
-        public SearchType SearchType { get; set; } = SearchType.Search;
+        public SearchType SearchType { get; set; } = SearchType.Default;
+        public List<string> Tags { get; set; }
     }
 }

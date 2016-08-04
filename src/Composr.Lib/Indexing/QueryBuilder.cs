@@ -14,60 +14,72 @@ namespace Composr.Lib.Indexing
 
         public Query Build()
         {
-            finalQuery = new BooleanQuery();            
-            finalQuery.Add(new TermQuery(new Term(IndexFields.BlogID, BlogID.ToString())), Occur.MUST);
-            finalQuery.Add(new TermQuery(new Term(IndexFields.Locale, Locale.ToString().ToLowerInvariant())), Occur.MUST);
-            if (!string.IsNullOrWhiteSpace(SearchTerm)) CreateSearchTermQuery();
+            finalQuery = new BooleanQuery();
+            finalQuery.Add(CreateTermQuery(IndexFields.BlogID, BlogID.ToString(), 1.0f), Occur.MUST);
+            finalQuery.Add(CreateTermQuery(IndexFields.Locale, Locale.ToString().ToLowerInvariant(), 1.0f), Occur.MUST);
+            if (!string.IsNullOrWhiteSpace(SearchTerm)) finalQuery.Add(CreateSearchTermQuery(), Occur.MUST);
+            if (!string.IsNullOrWhiteSpace(Tags)) finalQuery.Add(CreateTagQuery(), Occur.MUST);
             return finalQuery;
         }
 
         public int BlogID { get; set; }
         public Locale Locale { get; set; }
         public string SearchTerm { get; set; }
+        public string Tags { get; set; }
         public SearchType SearchType { get; set; }
 
-        private void CreateSearchTermQuery()
+        private Query CreateSearchTermQuery()
         {
-            if (SearchType == SearchType.AutoComplete || SearchType == SearchType.Default) CreateDefaultSearchQuery();
-            else if (SearchType == SearchType.URN) CreateURNQuery();
-        }        
+            if (SearchType == SearchType.URN)
+                return CreateURNQuery();
 
-        private void CreateDefaultSearchQuery()
+            return CreateDefaultSearchQuery();
+        }
+
+        private Query CreateDefaultSearchQuery()
         {
             BooleanQuery q1 = new BooleanQuery();
-            foreach (var term in SplitSearchTerm())
+            foreach (var term in Split(SearchTerm))
             {
                 q1.Add(CreateWildCardQuery(IndexFields.PostTitle, SearchTerm, 3.0f), Occur.SHOULD);
                 if(SearchType == SearchType.Default) q1.Add(CreateWildCardQuery(IndexFields.PostMetaDescription, SearchTerm, 1.0f), Occur.SHOULD);
             }
             q1.Add(BoostPostWithImages(), Occur.SHOULD);
-            finalQuery.Add(q1, Occur.MUST);
+            return q1;
         }
 
-        private void CreateURNQuery()
+        private Query CreateURNQuery()
         {
-            TermQuery tq = new TermQuery(new Term(IndexFields.PostURN, SearchTerm.ToLowerInvariant().TrimEnd('/')));
-            tq.Boost = 1.5f;
-            finalQuery.Add(tq, Occur.MUST);
+            return CreateTermQuery(IndexFields.PostURN, SearchTerm.ToLowerInvariant().TrimEnd('/'), 1.5f);
+        }        
+        
+        private Query BoostPostWithImages()
+        {
+            return CreateTermQuery(IndexFields.HasImage, "y", 1.5f);
+        }
+
+        private Query CreateTagQuery()
+        {
+            BooleanQuery q1 = new BooleanQuery();
+            foreach (var term in Split(Tags))
+                q1.Add(CreateTermQuery(IndexFields.Tags, term, 1.5f), Occur.SHOULD);
+
+            return q1;
+        }
+
+        private IEnumerable<string> Split(string term)
+        {
+            return term.ToLowerInvariant().Trim().Split(new char[] { ' ', ',', '-', '.', ';', ':', '+', '*', '%', '&' }, StringSplitOptions.RemoveEmptyEntries);
         }
 
         private Query CreateWildCardQuery(string field, string term, float boost)
         {
-            WildcardQuery w = new WildcardQuery(new Term(field, $"{term}*"));
-            w.Boost = 3.0f;
-            return w;
+            return new WildcardQuery(new Term(field, $"{term}*")) { Boost = boost };
         }
 
-        private Query BoostPostWithImages()
+        private Query CreateTermQuery(string field, string term, float boost)
         {
-            TermQuery tq = new TermQuery(new Term(IndexFields.HasImage, "y"));
-            tq.Boost = 1.5f;
-            return tq;
-        }
-
-        private IEnumerable<string> SplitSearchTerm()
-        {
-            return SearchTerm.ToLowerInvariant().Trim().Split(new char[] { ' ', ',', '-', '.', ';', ':', '+', '*', '%', '&' }, StringSplitOptions.RemoveEmptyEntries);
+            return new TermQuery(new Term(field, term)) { Boost = boost };
         }
     }
 }

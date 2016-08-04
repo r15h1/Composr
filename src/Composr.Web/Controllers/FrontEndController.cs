@@ -22,7 +22,7 @@ namespace Composr.Web.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var results = service.Search(new SearchCriteria() { BlogID = Blog.Id.Value, Locale = Blog.Locale.Value, SearchSortOrder = SearchSortOrder.MostRecent, Limit=12 });
+            var results = service.Search(new SearchCriteria() { BlogID = Blog.Id.Value, Locale = Blog.Locale.Value, SearchSortOrder = SearchSortOrder.MostRecent, Limit=12, Tags = "recipe", SearchType = SearchType.Default });
             var model = PostSearchViewModel.FromBaseFrontEndViewModel(BaseViewModel);
             model.SearchResults = results;
             model.Title = $"{Blog.Name} - {Blog.Attributes[BlogAttributeKeys.Tagline]}";

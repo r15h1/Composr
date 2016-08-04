@@ -7,6 +7,7 @@ using Lucene.Net.Store;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 namespace Composr.Lib.Indexing
 {
@@ -55,7 +56,8 @@ namespace Composr.Lib.Indexing
                 doc.Add(new Field(IndexFields.PostMetaDescription, post.Attributes[PostAttributeKeys.MetaDescription], Field.Store.YES, Field.Index.ANALYZED));
 
             if (post.Attributes.ContainsKey(PostAttributeKeys.Tags) && !string.IsNullOrWhiteSpace(post.Attributes[PostAttributeKeys.Tags]))
-                doc.Add(new Field(IndexFields.Tags, post.Attributes[PostAttributeKeys.Tags], Field.Store.YES, Field.Index.NO));
+                foreach(var tag in post.Attributes[PostAttributeKeys.Tags].Split(new char[] { ',', ' ', ';' }, StringSplitOptions.RemoveEmptyEntries))
+                    doc.Add(new Field(IndexFields.Tags, tag, Field.Store.YES, Field.Index.NOT_ANALYZED));
 
             string snippet = PrepareSnippet(post.Body);
             doc.Add(new Field(IndexFields.PostSnippet, snippet, Field.Store.YES, Field.Index.NO));

@@ -39,7 +39,6 @@ namespace Composr.Core
         public SearchCriteria()
         {
             SearchSortOrder = SearchSortOrder.BestMatch;
-            Tags = new List<string>();
         }
 
         public int BlogID { get; set; }
@@ -49,6 +48,6 @@ namespace Composr.Core
         public int Limit { get; set; } = 100;
         public int Start { get; set; } = 0;
         public SearchType SearchType { get; set; } = SearchType.Default;
-        public List<string> Tags { get; set; }
+        public string Tags { get; set; }
     }
 }

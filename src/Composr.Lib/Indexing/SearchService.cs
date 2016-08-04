@@ -81,11 +81,14 @@ namespace Composr.Lib.Indexing
 
         private Query CreateQuery(SearchCriteria criteria)
         {
-            QueryBuilder builder = new QueryBuilder();
-            builder.BlogID = criteria.BlogID;
-            builder.Locale = criteria.Locale;
-            builder.SearchType = criteria.SearchType;
-            builder.SearchTerm = criteria.SearchTerm;
+            QueryBuilder builder = new QueryBuilder()
+            {
+                BlogID = criteria.BlogID,
+                Locale = criteria.Locale,
+                SearchType = criteria.SearchType,
+                SearchTerm = criteria.SearchTerm,
+                Tags = criteria.Tags
+            };
             return builder.Build();
         }               
     }

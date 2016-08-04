@@ -1,5 +1,6 @@
 ﻿using Composr.Core;
 using Composr.Lib.Util;
+using Composr.Web.Models;
 using Composr.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -60,14 +61,14 @@ namespace Composr.Web.Controllers
             return new JsonResult(new { suggestions = results.Select(r => new { value = r.Title, data = r.URN }) });
         }
 
-        public IActionResult Search(string q)
+        public IActionResult Search(SearchParameters param)
         {
-            var results = service.Search(new SearchCriteria() { BlogID = Blog.Id.Value, Locale = Blog.Locale.Value, SearchSortOrder = SearchSortOrder.BestMatch, Limit = 50, SearchTerm = q, SearchType = SearchType.Default });
+            var results = service.Search(new SearchCriteria() { BlogID = Blog.Id.Value, Locale = Blog.Locale.Value, SearchSortOrder = SearchSortOrder.BestMatch, Limit = 50, SearchTerm = param.Query, SearchType = SearchType.Default, Tags = param.Category });
             var model = PostSearchViewModel.FromBaseFrontEndViewModel(BaseViewModel);
             model.SearchResults = results;
-            model.SearchQuery = q;
-            model.Title = $"Search Results for {q} - Cocozil";
-            model.CanonicalUrl = $"{model.BlogUrl.TrimEnd('/')}/search?q={System.Net.WebUtility.UrlEncode(q)}";
+            model.SearchQuery = param.Query;
+            model.Title = $"Search Results for {param.Query} - Cocozil";
+            model.CanonicalUrl = $"{model.BlogUrl.TrimEnd('/')}/search?q={System.Net.WebUtility.UrlEncode(param.Query)}";
             return View(model);
         }
 

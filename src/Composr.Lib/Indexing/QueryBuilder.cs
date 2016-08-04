@@ -19,6 +19,7 @@ namespace Composr.Lib.Indexing
             finalQuery.Add(CreateTermQuery(IndexFields.Locale, Locale.ToString().ToLowerInvariant(), 1.0f), Occur.MUST);
             if (!string.IsNullOrWhiteSpace(SearchTerm)) finalQuery.Add(CreateSearchTermQuery(), Occur.MUST);
             if (!string.IsNullOrWhiteSpace(Tags)) finalQuery.Add(CreateTagQuery(), Occur.MUST);
+            finalQuery.Add(BoostPostWithImages(), Occur.SHOULD);
             return finalQuery;
         }
 
@@ -38,14 +39,13 @@ namespace Composr.Lib.Indexing
 
         private Query CreateDefaultSearchQuery()
         {
-            BooleanQuery q1 = new BooleanQuery();
-            foreach (var term in Split(SearchTerm))
+            BooleanQuery query = new BooleanQuery();
+            foreach(var term in Split(SearchTerm))
             {
-                q1.Add(CreateWildCardQuery(IndexFields.PostTitle, SearchTerm, 3.0f), Occur.SHOULD);
-                if(SearchType == SearchType.Default) q1.Add(CreateWildCardQuery(IndexFields.PostMetaDescription, SearchTerm, 1.0f), Occur.SHOULD);
+                query.Add(CreateWildCardQuery(IndexFields.PostTitle, term, 3.0f), Occur.SHOULD);
+                if(SearchType == SearchType.Default) query.Add(CreateWildCardQuery(IndexFields.PostMetaDescription, term, 1.0f), Occur.SHOULD);
             }
-            q1.Add(BoostPostWithImages(), Occur.SHOULD);
-            return q1;
+            return query;
         }
 
         private Query CreateURNQuery()

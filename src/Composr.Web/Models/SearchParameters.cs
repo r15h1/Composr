@@ -1,0 +1,23 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace Composr.Web.Models
+{    
+    public class SearchParameters
+    {
+        /// <summary>
+        /// the search term that the user typed
+        /// </summary>
+        [FromQuery(Name = "q")]
+        public string Query { get; set; }
+
+        /// <summary>
+        /// the category (one or more, delimited) that would be used to filter results
+        /// </summary>
+        [FromQuery(Name = "cat")]
+        public string Category { get; set; }
+    }
+}

@@ -29,6 +29,7 @@
     <section class="container">
         @RenderBody()
     </section>
+    @RenderSection("ads", required: false)
     <section class="container">
         <footer>
             <div class="row">
@@ -52,6 +53,6 @@
     {
         @Html.Raw(@Model.AnalyticsTrackingJSCode);
     }
-    @RenderSection("ads", required: false)
+    
 </body>
 </html>

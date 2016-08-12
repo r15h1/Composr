@@ -1,6 +1,6 @@
-﻿@model Composr.Web.ViewModels.PostSearchViewModel
+﻿@model IEnumerable<Composr.Core.SearchResult>
 <ul class="media-list">
-    @foreach (var result in Model.SearchResults)
+    @foreach (var result in Model)
     {        
         <li class="col-lg-3 col-md-4 col-sm-6">
             <article class="polaroid">

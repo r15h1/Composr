@@ -2,7 +2,7 @@
 <h1>Search Results</h1>
 
 @if(@Model.SearchResults.Count > 0) { 
-    @Html.Partial("SearchResultsPartialView", Model)
+    @Html.Partial("SearchResultsPartialView", Model.SearchResults)
 }
 else
 {

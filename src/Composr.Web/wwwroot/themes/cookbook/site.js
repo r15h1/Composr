@@ -19,3 +19,7 @@ $('#q').autocomplete({
 $("body").keypress(function () {
     $("#q").focus();
 });
+
+$("#SearchFocusLink").click(function () {
+    $("#q").focus();
+});

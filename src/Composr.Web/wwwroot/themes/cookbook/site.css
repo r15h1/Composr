@@ -202,9 +202,7 @@ div.input-group-btn{
 }   
 
 @media only screen and (min-width : 100px) {
-    .polaroid{        
-        min-height:285px;
-    }
+    
 }
 
 /* Small Devices, Tablets */

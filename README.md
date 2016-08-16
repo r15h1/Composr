@@ -14,4 +14,3 @@ Current version: 1.0.0
 ###Coming soon:
 1. "More like this" suggestions
 2. "Did you mean" suggestions 
-3. Row level security for multi tennants

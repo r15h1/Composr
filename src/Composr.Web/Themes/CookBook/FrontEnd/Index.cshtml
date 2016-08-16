@@ -10,3 +10,10 @@ Use the searchbox at the top to find more recipes. For example, type <i>pudding<
 <section class="container">
     @Html.Partial("PaginatorPartialView", Model)
 </section>
+@section ads
+{
+    @if (!string.IsNullOrWhiteSpace(@Model.AdPublisherJSCode))
+    {
+        @Html.Raw(@Model.AdPublisherJSCode);
+    }
+}

@@ -66,5 +66,13 @@ namespace Composr.Lib.Util
                 return 1000;
             }
         }
+
+        public static string SearchDefaultPostTag
+        {
+            get
+            {
+                return Config["Search:DefaultPostTag"];
+            }
+        }
     }    
 }

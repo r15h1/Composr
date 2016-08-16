@@ -93,7 +93,7 @@ namespace Composr.Web.Controllers
                 SearchSortOrder = SearchSortOrder.BestMatch,
                 SearchTerm = param.Query,
                 SearchType = SearchType.Default,
-                Tags = string.IsNullOrWhiteSpace(param.Category) ? "recipe" : param.Category,
+                Tags = string.IsNullOrWhiteSpace(param.Category) ? Settings.SearchDefaultPostTag : param.Category,
                 Start = param.Page.HasValue && param.Page.Value > 0 ? ((param.Page.Value - 1) * Settings.DefaultSearchPageSize) : 0
             };
         }

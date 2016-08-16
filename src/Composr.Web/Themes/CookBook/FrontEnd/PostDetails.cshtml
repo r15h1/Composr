@@ -2,18 +2,21 @@
 @{ 
     var post = Model.SearchResults.SingleOrDefault();
 }
-<article>
-    <h1 class="post-heading">@post.Title</h1>    
-    <p>@post.MetaDescription</p>
-    @if(@post.PostImage != null){
-        <div><img class="img-responsive img-details-page" src="/@post.PostImage.Url.ToLowerInvariant().Replace(".jpg", "-xs.jpg")"  srcset="/@post.PostImage.Url.ToLowerInvariant().Replace(".jpg", "-sm.jpg") 800w" alt="@post.PostImage.Caption"/></div>
-    }
-    @Html.Raw(@post.Body)    
-</article>
-@section ads
+<section class="container">
+    <article>
+        <h1 class="post-heading">@post.Title</h1>
+        <p>@post.MetaDescription</p>
+        @if (@post.PostImage != null)
+        {
+            <div><img class="img-responsive img-details-page" src="/@post.PostImage.Url.ToLowerInvariant().Replace(".jpg", "-xs.jpg")" srcset="/@post.PostImage.Url.ToLowerInvariant().Replace(".jpg", "-sm.jpg") 800w" alt="@post.PostImage.Caption" /></div>
+        }
+        @Html.Raw(@post.Body)
+    </article>
+    </section>
+    @section ads
 {
-    @if (!string.IsNullOrWhiteSpace(@Model.AdPublisherJSCode))
-    {
-        @Html.Raw(@Model.AdPublisherJSCode);
+        @if (!string.IsNullOrWhiteSpace(@Model.AdPublisherJSCode))
+        {
+            @Html.Raw(@Model.AdPublisherJSCode);
+        }
     }
-}

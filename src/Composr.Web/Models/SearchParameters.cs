@@ -19,5 +19,11 @@ namespace Composr.Web.Models
         /// </summary>
         [FromQuery(Name = "cat")]
         public string Category { get; set; }
+
+        /// <summary>
+        /// the current page
+        /// </summary>
+        [FromQuery(Name = "page")]
+        public int? Page { get; set; } = 1;
     }
 }

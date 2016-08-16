@@ -18,7 +18,6 @@ li.media.mediatopborder{
     border:solid 1px rgba(0, 0, 0, 0.14);
     margin-top:20px;
     margin-bottom:20px;  
-    min-height:273px;
 }
 
 .polaroid > a > header, p{     
@@ -201,3 +200,30 @@ div.input-group-btn{
 .navbar .btn-navbar {
     display: none;
 }   
+
+@media only screen and (min-width : 100px) {
+    .polaroid{        
+        min-height:285px;
+    }
+}
+
+/* Small Devices, Tablets */
+@media only screen and (min-width : 768px) {
+    .polaroid{        
+        min-height:315px;
+    }   
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (min-width : 992px) {
+    .polaroid{        
+        min-height:385px;
+    }    
+}
+
+/* Large Devices, Wide Screens */
+@media only screen and (min-width : 1200px) {
+    .polaroid{        
+        min-height:250px;
+    }
+}

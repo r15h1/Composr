@@ -23,9 +23,22 @@ namespace Composr.Web.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var results = service.Search(new SearchCriteria() { BlogID = Blog.Id.Value, Locale = Blog.Locale.Value, SearchSortOrder = SearchSortOrder.MostRecent, Limit=12, Tags = "recipe", SearchType = SearchType.Default });
+            var criteria = new SearchCriteria()
+            {
+                BlogID = Blog.Id.Value,
+                Locale = Blog.Locale.Value,
+                SearchSortOrder = SearchSortOrder.MostRecent,
+                Limit = Settings.DefaultSearchPageSize,
+                Tags = "recipe",
+                SearchType = SearchType.Default,
+                Start = 0
+            };
+
+            var results = service.Search(criteria);
             var model = PostSearchViewModel.FromBaseFrontEndViewModel(BaseViewModel);
-            model.SearchResults = results;
+            model.SearchResults = results.Hits;
+            model.PageCount = (int)((results.HitsCount / Settings.DefaultSearchPageSize) + 1);
+            model.CurrentPage = 1;
             model.Title = $"{Blog.Name} - {Blog.Attributes[BlogAttributeKeys.Tagline]}";
             return View(model);
         }
@@ -35,15 +48,15 @@ namespace Composr.Web.Controllers
         {
             var results = service.Search(new SearchCriteria() { BlogID = Blog.Id.Value, Locale = Blog.Locale.Value, SearchTerm = HttpContext.Request.Path.Value, SearchType = SearchType.URN});
 
-            if (results != null && results.Count > 0)
-                return GetPostDetails(results);
+            if (results != null && results.Hits.Count > 0)
+                return GetPostDetails(results.Hits);
             else if(redirectionMapper.CanResolve(postkey))
                 return RedirectPermanent(redirectionMapper.MapToRedirectUrl(postkey));
 
             return NotFound();
         }
 
-        private IActionResult GetPostDetails(IList<SearchResult> results)
+        private IActionResult GetPostDetails(IList<Hit> results)
         {
             var model = PostSearchViewModel.FromBaseFrontEndViewModel(BaseViewModel);
             model.Title = $"{results[0].Title} - {Blog.Name}";
@@ -57,16 +70,30 @@ namespace Composr.Web.Controllers
         public IActionResult AutoComplete(string q)
         {
             var results = service.Search(new SearchCriteria() { BlogID = Blog.Id.Value, Locale = Blog.Locale.Value, SearchSortOrder = SearchSortOrder.BestMatch, Limit = 5, SearchTerm = q, SearchType = SearchType.AutoComplete });
-            if (results.Count > 0) results.Add(new SearchResult { Title = "Display all results", URN=$"/search?q={q}" });
-            return new JsonResult(new { suggestions = results.Select(r => new { value = r.Title, data = r.URN }) });
+            if (results.Hits.Count > 0) results.Hits.Add(new Hit { Title = "Display all results", URN=$"/search?q={q}" });
+            return new JsonResult(new { suggestions = results.Hits.Select(r => new { value = r.Title, data = r.URN }) });
         }
 
         public IActionResult Search(SearchParameters param)
         {
-            var results = service.Search(new SearchCriteria() { BlogID = Blog.Id.Value, Locale = Blog.Locale.Value, SearchSortOrder = SearchSortOrder.BestMatch, Limit = 50, SearchTerm = param.Query, SearchType = SearchType.Default, Tags = param.Category });
+            var criteria = new SearchCriteria()
+            {
+                BlogID = Blog.Id.Value,
+                Limit = Settings.DefaultSearchPageSize,
+                Locale = Blog.Locale.Value,
+                SearchSortOrder = SearchSortOrder.BestMatch,
+                SearchTerm = param.Query,
+                SearchType = SearchType.Default,
+                Tags = string.IsNullOrWhiteSpace(param.Category)?"recipe": param.Category,
+                Start = param.Page.HasValue && param.Page.Value > 0 ? ((param.Page.Value - 1) * Settings.DefaultSearchPageSize) : 0
+            };
+
+            var results = service.Search(criteria);
             var model = PostSearchViewModel.FromBaseFrontEndViewModel(BaseViewModel);
-            model.SearchResults = results;
+            model.SearchResults = results.Hits;
             model.SearchQuery = param.Query;
+            model.PageCount = (int)((results.HitsCount / Settings.DefaultSearchPageSize) + 1);
+            model.CurrentPage = (int)((criteria.Start / Settings.DefaultSearchPageSize) + 1); ;
             model.Title = $"Search Results for {param.Query} - Cocozil";
             model.CanonicalUrl = $"{model.BlogUrl.TrimEnd('/')}/search?q={System.Net.WebUtility.UrlEncode(param.Query)}";
             return View(model);

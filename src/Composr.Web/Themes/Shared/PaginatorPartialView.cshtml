@@ -1,0 +1,22 @@
+﻿@model Composr.Web.ViewModels.PostSearchViewModel
+@if (Model.PageCount > 1)
+{
+    
+        <div class="row">
+            <div class="text-center">
+            <ul class="pagination">
+                @for (int i = 1; i <= Model.PageCount; i++)
+                {
+                    @if (i == Model.CurrentPage)
+                    {
+                        <li class="active"><a href="/search?q=@Model.SearchQuery&amp;page=@i" rel="nofollow">@i</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="/search?q=@Model.SearchQuery&amp;page=@i" rel="nofollow">@i</a></li>
+                    }
+                }
+            </ul>
+        </div>
+            </div>
+}

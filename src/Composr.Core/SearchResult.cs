@@ -2,10 +2,24 @@
 
 namespace Composr.Core
 {
+
+    public class SearchResults
+    {
+        public SearchResults()
+        {
+            Hits = new List<Hit>();
+        }
+
+        public List<Hit> Hits { get; set; }
+        //public SearchCriteria SearchCriteria { get; set; }
+        public int HitsCount { get; set; }
+    }
+
+
     /// <summary>
     /// data structure to represent a post in the form of a search result
     /// </summary>
-    public class SearchResult
+    public class Hit
     {
         public string Title { get; set; }
         public string Snippet { get; set; }

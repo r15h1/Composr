@@ -19,8 +19,9 @@ namespace Composr.Web.ViewModels
             };
         }
 
-        public IList<SearchResult> SearchResults { get; set; }
-
+        public IList<Hit> SearchResults { get; set; }
         public string SearchQuery { get; set; }
+        public int PageCount { get; internal set; }
+        public int CurrentPage { get; internal set; }
     }
 }

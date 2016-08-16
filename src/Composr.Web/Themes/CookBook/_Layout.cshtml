@@ -26,9 +26,7 @@
 </head>
 <body>
     @Html.Partial("NavigationPartialView", Model)
-    <section class="container">
-        @RenderBody()
-    </section>
+    @RenderBody()
     @RenderSection("ads", required: false)
     <section class="container">
         <footer>

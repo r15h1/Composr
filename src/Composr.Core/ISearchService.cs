@@ -12,7 +12,7 @@ namespace Composr.Core
         /// get a list of posts that are indexed and published
         /// </summary>
         /// <returns></returns>
-        IList<SearchResult> Search(SearchCriteria criteria);
+        SearchResults Search(SearchCriteria criteria);
     }
     
     

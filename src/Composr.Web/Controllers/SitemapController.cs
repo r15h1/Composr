@@ -22,7 +22,7 @@ namespace Composr.Web.Controllers
         {
             var results = service.Search(new SearchCriteria() { BlogID = blog.Id.Value, Locale = blog.Locale.Value, SearchSortOrder = SearchSortOrder.MostRecent, Limit = 1000 });
             SitemapModel sitemap = new ViewModels.SitemapModel();
-            sitemap.Urls = results.Select(r => new SiteUrl { Location = $"{blog.Url}{r.URN}" }).ToList();
+            sitemap.Urls = results.Hits.Select(r => new SiteUrl { Location = $"{blog.Url}{r.URN}" }).ToList();
             return sitemap;
         }
     }

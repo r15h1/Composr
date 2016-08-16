@@ -11,6 +11,11 @@
     "Directory": "C:\\Temp\\LuceneIndexes\\Cocozil\\1"
   },
 
+  "Search": {
+    "DefaultPageSize": 16,
+    "MaxResultsCount": 1000
+  },
+
   "Tennant": {
     "BlogID": "1"
   },

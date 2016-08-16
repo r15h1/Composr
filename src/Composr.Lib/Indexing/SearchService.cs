@@ -6,55 +6,61 @@ using Lucene.Net.Documents;
 using Lucene.Net.Store;
 using Composr.Lib.Util;
 using System;
+using System.Linq;
 
 namespace Composr.Lib.Indexing
 {
     public class SearchService : ISearchService
     {
-        private static IndexReader reader;
         private static Directory directory;
+        private IndexSearcher searcher;
 
         static SearchService()
         {
             directory = new RAMDirectory(FSDirectory.Open(Settings.IndexDirectory));
-            reader = IndexReader.Open(directory, true);
+        }
+
+        public SearchService()
+        {
+            searcher = new IndexSearcher(directory);
         }
 
         public static void ReloadIndex()
         {
             directory = new RAMDirectory(FSDirectory.Open(Settings.IndexDirectory));
-            reader = IndexReader.Open(directory, true);
         }
 
-        public IList<SearchResult> Search(SearchCriteria criteria)
+        public SearchResults Search(SearchCriteria criteria)
         {
-            IndexSearcher searcher = new IndexSearcher(reader);
             Query query = CreateQuery(criteria);
-            TopDocs docs = Search(criteria, searcher, query);
-            CompileOptions options = criteria.SearchType == SearchType.URN ? CompileOptions.Include_Post_Body : CompileOptions.Exclude_Post_Body;
-            return CompileResults(searcher, docs, options);
+            TopDocs docs = Search(criteria, query);            
+            return CompileResults(docs, criteria);
         }
 
-        private static TopDocs Search(SearchCriteria criteria, IndexSearcher searcher, Query query)
+        private TopDocs Search(SearchCriteria criteria, Query query)
         {
             if (criteria.SearchSortOrder == SearchSortOrder.MostRecent)
-                return searcher.Search(query, null, criteria.Limit, new Sort(new SortField(IndexFields.PostDatePublishedTicks, SortField.STRING, true)));
+                return searcher.Search(query, null, Settings.MaxSearchResultsCount, new Sort(new SortField(IndexFields.PostDatePublishedTicks, SortField.STRING, true)));
 
-            return searcher.Search(query, criteria.Limit);
+            return searcher.Search(query, Settings.MaxSearchResultsCount);
         }
 
-        private IList<SearchResult> CompileResults(IndexSearcher searcher, TopDocs docs, CompileOptions options = CompileOptions.Exclude_Post_Body)
+        private SearchResults CompileResults(TopDocs docs, SearchCriteria criteria)
         {
-            List<SearchResult> results = new List<SearchResult>();
-            foreach (var doc in docs.ScoreDocs)
-                results.Add(CompileResult(searcher.Doc(doc.Doc), options));
+            SearchResults results = new SearchResults();
+            CompileOptions options = criteria.SearchType == SearchType.URN ? CompileOptions.Include_Post_Body : CompileOptions.Exclude_Post_Body;
+            
+            var hits = docs.ScoreDocs.Skip(criteria.Start).Take(criteria.Limit);
+            foreach (var doc in hits)
+                results.Hits.Add(CompileResult(searcher.Doc(doc.Doc), options));
 
+            results.HitsCount = docs.TotalHits;
             return results;
         }
 
-        private SearchResult CompileResult(Document doc, CompileOptions options)
+        private Hit CompileResult(Document doc, CompileOptions options)
         {
-            SearchResult result = new SearchResult();
+            Hit result = new Hit();
             result.DatePublished = doc.Get(IndexFields.PostDatePublished);
             result.Id = doc.Get(IndexFields.PostID);
             result.Title = doc.Get(IndexFields.PostTitle);

@@ -1,9 +1,9 @@
-﻿@model IEnumerable<Composr.Core.SearchResult>
+﻿@model IEnumerable<Composr.Core.Hit>
 <ul class="media-list">
     @foreach (var result in Model)
     {        
-        <li class="col-lg-3 col-md-4 col-sm-6">
-            <article class="polaroid">
+        <li class="col-lg-3 col-md-6 col-sm-6">
+            <div class="polaroid">
                 <a href="@result.URN">
                     @if (result.PostImage != null && !string.IsNullOrWhiteSpace(result.PostImage.Url))
                     {
@@ -15,8 +15,7 @@
                     }
                     <header><h4>@result.Title</h4></header>
                 </a>
-            </article>
-
+            </div>
         </li>        
     }
 </ul>

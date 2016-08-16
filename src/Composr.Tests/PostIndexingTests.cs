@@ -139,54 +139,54 @@ namespace Composr.Tests
             };
 
             var post = searcher.Search(criteria);
-            Assert.True(post.Count == 3);
+            Assert.True(post.Hits.Count == 3);
 
             criteria.Tags = "electronics";
             post = searcher.Search(criteria);
-            Assert.True(post.Count == 2);
+            Assert.True(post.Hits.Count == 2);
 
             criteria.Tags = "programming";
             post = searcher.Search(criteria);
-            Assert.True(post.Count == 3);
+            Assert.True(post.Hits.Count == 3);
 
             criteria.Tags = "programming java";
             post = searcher.Search(criteria);
-            Assert.True(post.Count == 3);
+            Assert.True(post.Hits.Count == 3);
 
             criteria.SearchTerm = "java";
             criteria.Tags = "programming";
             post = searcher.Search(criteria);
-            Assert.True(post.Count == 2);
+            Assert.True(post.Hits.Count == 2);
 
             criteria.SearchTerm = "toyota";
             criteria.Tags = "car";
             post = searcher.Search(criteria);
-            Assert.True(post.Count == 1);
+            Assert.True(post.Hits.Count == 1);
 
             criteria.SearchTerm = "toyota";
             criteria.Tags = "car,truck";
             post = searcher.Search(criteria);
-            Assert.True(post.Count == 2);
+            Assert.True(post.Hits.Count == 2);
 
             criteria.SearchTerm = null;
             criteria.Tags = "car";
             post = searcher.Search(criteria);
-            Assert.True(post.Count == 2);
+            Assert.True(post.Hits.Count == 2);
 
             criteria.SearchTerm = null;
             criteria.Tags = "truck";
             post = searcher.Search(criteria);
-            Assert.True(post.Count == 1);
+            Assert.True(post.Hits.Count == 1);
 
             criteria.SearchTerm = "civic";
             criteria.Tags = "car,truck";
             post = searcher.Search(criteria);
-            Assert.True(post.Count == 1);
+            Assert.True(post.Hits.Count == 1);
 
             criteria.SearchTerm = "civic";
             criteria.Tags = "truck";
             post = searcher.Search(criteria);
-            Assert.True(post.Count == 0);
+            Assert.True(post.Hits.Count == 0);
         }
 
     }

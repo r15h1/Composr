@@ -37,6 +37,34 @@ namespace Composr.Lib.Util
             {
                 return Config["ImageLocation:DestinationDirectory"];
             }
-        }        
+        }
+
+        private static int searchPageSize;
+        public static int DefaultSearchPageSize
+        {
+            get
+            {
+                if (!string.IsNullOrWhiteSpace(Config["Search:DefaultPageSize"]) 
+                    && int.TryParse(Config["Search:DefaultPageSize"], out searchPageSize)
+                    )
+                    return searchPageSize;
+
+                return 16;
+            }
+        }
+
+        private static int maxResultsCount;
+        public static int MaxSearchResultsCount
+        {
+            get
+            {
+                if (!string.IsNullOrWhiteSpace(Config["Search:MaxResultsCount"])
+                    && int.TryParse(Config["Search:MaxResultsCount"], out maxResultsCount)
+                    )
+                    return maxResultsCount;
+
+                return 1000;
+            }
+        }
     }    
 }

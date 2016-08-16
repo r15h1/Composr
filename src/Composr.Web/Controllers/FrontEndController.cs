@@ -21,25 +21,12 @@ namespace Composr.Web.Controllers
 
         // GET: /<controller>/
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Index(SearchParameters param)
         {
-            var criteria = new SearchCriteria()
-            {
-                BlogID = Blog.Id.Value,
-                Locale = Blog.Locale.Value,
-                SearchSortOrder = SearchSortOrder.MostRecent,
-                Limit = Settings.DefaultSearchPageSize,
-                Tags = "recipe",
-                SearchType = SearchType.Default,
-                Start = 0
-            };
-
-            var results = service.Search(criteria);
-            var model = PostSearchViewModel.FromBaseFrontEndViewModel(BaseViewModel);
-            model.SearchResults = results.Hits;
-            model.PageCount = (int)((results.HitsCount / Settings.DefaultSearchPageSize) + 1);
-            model.CurrentPage = 1;
+            var model = GetViewModel(param, SearchSortOrder.MostRecent);
             model.Title = $"{Blog.Name} - {Blog.Attributes[BlogAttributeKeys.Tagline]}";
+            model.CanonicalUrl = model.CurrentPage <= 1? $"{model.BlogUrl.TrimEnd('/')}" : $"{model.BlogUrl.TrimEnd('/')}?page={model.CurrentPage}";
+            model.SearchUrl = null;
             return View(model);
         }
 
@@ -76,7 +63,29 @@ namespace Composr.Web.Controllers
 
         public IActionResult Search(SearchParameters param)
         {
-            var criteria = new SearchCriteria()
+            var model = GetViewModel(param, SearchSortOrder.BestMatch);
+            model.Title = $"Search Results for {param.Query} - Cocozil";
+            model.CanonicalUrl = $"{model.BlogUrl.TrimEnd('/')}/search?q={System.Net.WebUtility.UrlEncode(param.Query)}&page={model.CurrentPage}";
+            return View(model);
+        }
+
+        private PostSearchViewModel GetViewModel(SearchParameters param, SearchSortOrder sort)
+        {
+            var criteria = GetSearchCriteria(param);
+            criteria.SearchSortOrder = sort;
+            var results = service.Search(criteria);
+            var model = PostSearchViewModel.FromBaseFrontEndViewModel(BaseViewModel);
+            model.SearchResults = results.Hits;
+            model.SearchQuery = param.Query;
+            model.PageCount = (int)((results.HitsCount / Settings.DefaultSearchPageSize) + 1);
+            model.CurrentPage = (int)((criteria.Start / Settings.DefaultSearchPageSize) + 1);
+            model.SearchUrl = "search";
+            return model;
+        }
+
+        private SearchCriteria GetSearchCriteria(SearchParameters param)
+        {
+            return new SearchCriteria()
             {
                 BlogID = Blog.Id.Value,
                 Limit = Settings.DefaultSearchPageSize,
@@ -84,19 +93,9 @@ namespace Composr.Web.Controllers
                 SearchSortOrder = SearchSortOrder.BestMatch,
                 SearchTerm = param.Query,
                 SearchType = SearchType.Default,
-                Tags = string.IsNullOrWhiteSpace(param.Category)?"recipe": param.Category,
+                Tags = string.IsNullOrWhiteSpace(param.Category) ? "recipe" : param.Category,
                 Start = param.Page.HasValue && param.Page.Value > 0 ? ((param.Page.Value - 1) * Settings.DefaultSearchPageSize) : 0
             };
-
-            var results = service.Search(criteria);
-            var model = PostSearchViewModel.FromBaseFrontEndViewModel(BaseViewModel);
-            model.SearchResults = results.Hits;
-            model.SearchQuery = param.Query;
-            model.PageCount = (int)((results.HitsCount / Settings.DefaultSearchPageSize) + 1);
-            model.CurrentPage = (int)((criteria.Start / Settings.DefaultSearchPageSize) + 1); ;
-            model.Title = $"Search Results for {param.Query} - Cocozil";
-            model.CanonicalUrl = $"{model.BlogUrl.TrimEnd('/')}/search?q={System.Net.WebUtility.UrlEncode(param.Query)}";
-            return View(model);
         }
 
         public IActionResult Error(string error)

@@ -16,6 +16,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.Formatters;
+using Composr.Web.Middleware;
 
 namespace Composr.Web
 {
@@ -120,7 +121,7 @@ namespace Composr.Web
             // Add external authentication middleware below. To configure them please see http://go.microsoft.com/fwlink/?LinkID=532715
             
             app.UseMultitenancy<Blog>();
-
+            //app.UseMiddleware<CompressionMiddleware>();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

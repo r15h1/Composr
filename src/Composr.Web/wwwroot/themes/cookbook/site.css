@@ -128,6 +128,15 @@ footer{
     padding:0;
 }
 
+.breadcrumb > li > a{
+    text-decoration:underline;
+}
+
+.breadcrumb > li > a.active{
+    color:rgb(100, 100, 100);
+    text-decoration:none;
+}
+
 article > ul > li{
     list-style-type: square;
 }

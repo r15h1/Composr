@@ -27,6 +27,7 @@
 <body>
     @Html.Partial("NavigationPartialView", Model)
     @RenderBody()
+
     @RenderSection("ads", required: false)
     <section class="container">
         <footer>
@@ -50,6 +51,6 @@
     {
         @Html.Raw(@Model.AnalyticsTrackingJSCode);
     }
-    
+
 </body>
 </html>

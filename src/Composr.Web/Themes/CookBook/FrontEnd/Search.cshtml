@@ -1,5 +1,8 @@
 ﻿@model Composr.Web.ViewModels.PostSearchViewModel
-<section class="container"><h1>Search Results</h1></section>
+<section class="container">
+    @Html.Partial("BreadCrumbsPartialView", Model)
+    <h1>Search Results</h1>
+</section>
 @if (@Model.SearchResults.Count > 0)
 {
     <section class="container">

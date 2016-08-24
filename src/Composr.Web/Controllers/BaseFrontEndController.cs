@@ -31,5 +31,13 @@ namespace Composr.Web.Controllers
                 CanonicalUrl = blog.Url
             };
         }
+
+        protected string GetReferrer()
+        {
+            if (Request != null && Request.Headers != null && Request.Headers.ContainsKey("Referer"))
+                return Request.Headers["Referer"].ToString();
+
+            return null;
+        }
     }
 }

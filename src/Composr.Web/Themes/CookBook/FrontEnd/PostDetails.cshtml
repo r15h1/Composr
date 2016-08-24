@@ -3,6 +3,7 @@
     var post = Model.SearchResults.SingleOrDefault();
 }
 <section class="container">
+    @Html.Partial("BreadCrumbsPartialView", Model)
     <article>
         <h1 class="post-heading">@post.Title</h1>
         <p>@post.MetaDescription</p>

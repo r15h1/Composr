@@ -46,6 +46,8 @@ namespace Composr.Web.Controllers
         private IActionResult GetPostDetails(IList<Hit> results)
         {
             var model = PostSearchViewModel.FromBaseFrontEndViewModel(BaseViewModel);
+            model.Referrer = GetReferrer();
+            model.Breadcrumbs.Add(new Breadcrumb { IsActive = true, Name = "Recipe" });
             model.Title = $"{results[0].Title} - {Blog.Name}";
             model.MetaDescription = $"{results[0].MetaDescription}";
             model.CanonicalUrl = $"{model.BlogUrl.TrimEnd('/')}{results[0].URN}";
@@ -64,6 +66,8 @@ namespace Composr.Web.Controllers
         public IActionResult Search(SearchParameters param)
         {
             var model = GetViewModel(param, SearchSortOrder.BestMatch);
+            model.Referrer = GetReferrer();
+            model.Breadcrumbs.Add(new Breadcrumb { IsActive = true, Name = "Search Results" });
             model.Title = $"Search Results for {param.Query} - Cocozil";
             model.CanonicalUrl = $"{model.BlogUrl.TrimEnd('/')}/search?q={System.Net.WebUtility.UrlEncode(param.Query)}&page={model.CurrentPage}";
             return View(model);

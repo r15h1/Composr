@@ -1,22 +1,24 @@
-﻿<h1>Oops!</h1>
-<p>
-    The page you are trying to visit does not exist. You will be redirected to the home page in <span id="timeLeft" class="label label-warning">10</span> seconds.
-</p>
-<p>
-    <h4><a href="/">Click here to go to the home page now.</a></h4>
-</p>
+﻿<section class="container">
+    <h1>Oops!</h1>
+    <p>
+        The page you are trying to visit does not exist. You will be redirected to the home page in <span id="timeLeft" class="label label-warning">10</span> seconds.
+    </p>
+    <p>
+        <h4><a href="/">Click here to go to the home page now.</a></h4>
+    </p>
 
-@section scripts{
-    <script type="text/javascript">
-        $(document).ready(function () {
-            window.setInterval(function () {
-                var timeLeft = $("#timeLeft").html();
-                if (eval(timeLeft) == 0) {
-                    window.location = ("/");
-                } else {
-                    $("#timeLeft").html(eval(timeLeft) - eval(1));
-                }
-            }, 1000);
-        });
-    </script>
-}
+    @section scripts{
+        <script type="text/javascript">
+            $(document).ready(function () {
+                window.setInterval(function () {
+                    var timeLeft = $("#timeLeft").html();
+                    if (eval(timeLeft) == 0) {
+                        window.location = ("/");
+                    } else {
+                        $("#timeLeft").html(eval(timeLeft) - eval(1));
+                    }
+                }, 1000);
+            });
+        </script>
+    }
+</section>

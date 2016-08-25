@@ -17,6 +17,10 @@ using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Composr.Web.Middleware;
+using Microsoft.AspNetCore.Http;
+using System;
+using Microsoft.AspNetCore.Http.Extensions;
+using System.Threading.Tasks;
 
 namespace Composr.Web
 {
@@ -101,6 +105,19 @@ namespace Composr.Web
             loggerFactory.AddDebug();            
 
             app.UseApplicationInsightsRequestTelemetry();
+
+
+            app.Use((context, next) =>
+            {
+                var host = context.Request.Host;
+                if (host.Host.ToLower().StartsWith("www."))
+                {
+                    context.Response.Redirect(context.Request.GetEncodedUrl().Replace("www.", ""),true);
+                    return Task.FromResult(0);
+                }
+                return next();
+            });
+
 
             if (env.IsDevelopment())
             {

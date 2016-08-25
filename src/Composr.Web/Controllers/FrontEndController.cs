@@ -19,7 +19,7 @@ namespace Composr.Web.Controllers
             this.redirectionMapper = redirectionMapper;
         }
 
-        // GET: /<controller>/
+        // GET: /<controller>/git
         [HttpGet]
         public IActionResult Index(SearchParameters param)
         {

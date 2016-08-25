@@ -78,8 +78,6 @@ a:hover{
 
 .navbar-default{
     background: rgb(248,248,248);
-    padding-bottom:8px;
-    margin-bottom:10px;
 }
 
 html .clearfix { 
@@ -149,10 +147,6 @@ article > ol > li{
     margin-bottom:20px;
 }
 
-.search-group{
-    width:100%;
-}
-
 div.input-group-btn{
     text-align:left;
 }
@@ -189,30 +183,6 @@ div.input-group-btn{
 .autocomplete-suggestions strong { font-weight: bold; color: #000000; }
 .autocomplete-group { padding: 2px 5px; }
 .autocomplete-group strong { display: block; border-bottom: 1px solid #000; }
-
-.carousel-caption-text{
-    background-color:rgba(40, 40, 40, 0.5);
-    padding:5px 5px 5px 5px;
-    text-align:center;
-    font-size:large;
-    color:rgb(255,255,255);
-}
-
-.carousel{
-    padding:0 0 0 0;
-    margin:0 0 0 0;
-}
-
-.nav-collapse, .nav-collapse.collapse {
-    overflow: visible;
-}   
-.navbar .btn-navbar {
-    display: none;
-}   
-
-@media only screen and (min-width : 100px) {
-    
-}
 
 /* Small Devices, Tablets */
 @media only screen and (min-width : 768px) {

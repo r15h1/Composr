@@ -68,7 +68,7 @@ namespace Composr.Web.Controllers
             var model = GetViewModel(param, SearchSortOrder.BestMatch);
             model.Referrer = GetReferrer();
             UpdateBreadcrumbs(model, new Breadcrumb { IsActive = true, Name = "Search Results" });
-            model.Title = $"Search Results for {param.Query} - Cocozil";
+            model.Title = $"Search Results for {(string.IsNullOrWhiteSpace(param.Query)?"category: " + param.Category:param.Query)} - Cocozil";
             model.CanonicalUrl = $"{model.BlogUrl.TrimEnd('/')}/search?q={System.Net.WebUtility.UrlEncode(param.Query)}&page={model.CurrentPage}";
             return View(model);
         }
@@ -89,6 +89,7 @@ namespace Composr.Web.Controllers
             var model = PostSearchViewModel.FromBaseFrontEndViewModel(BaseViewModel);
             model.SearchResults = results.Hits;
             model.SearchQuery = param.Query;
+            model.SearchCategory = param.Category;
             model.PageCount = (int)((results.HitsCount / Settings.DefaultSearchPageSize) + 1);
             model.CurrentPage = (int)((criteria.Start / Settings.DefaultSearchPageSize) + 1);
             model.SearchUrl = "search";

@@ -23,7 +23,7 @@ namespace Composr.Web.ViewModels
         public string SearchQuery { get; set; }
         public int PageCount { get; internal set; }
         public int CurrentPage { get; internal set; }
-        public string SearchUrl { get; set; }       
-
+        public string SearchUrl { get; set; }
+        public string SearchCategory { get; set; }
     }
 }

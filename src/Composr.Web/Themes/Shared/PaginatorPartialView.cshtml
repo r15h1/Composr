@@ -6,7 +6,7 @@
             <ul class="pagination">
                 @for (int i = 1; i <= Model.PageCount; i++)
                 {
-                    <li class="@(i == Model.CurrentPage? "active": null)"><a href="/@Model.SearchUrl?@(string.IsNullOrWhiteSpace(Model.SearchQuery)? null: "q=" + Model.SearchQuery + "&")page=@i">@i</a></li>
+                    <li class="@(i == Model.CurrentPage? "active": null)"><a href="/@Model.SearchUrl?@(string.IsNullOrWhiteSpace(Model.SearchQuery)? null: "q=" + Model.SearchQuery + "&")@(string.IsNullOrWhiteSpace(Model.SearchCategory)? null: "cat=" + Model.SearchCategory + "&")page=@i">@i</a></li>
                 }
             </ul>
         </div>

@@ -112,7 +112,7 @@ namespace Composr.Web
                 var host = context.Request.Host;
                 if (host.Host.ToLower().StartsWith("www."))
                 {
-                    context.Response.Redirect(context.Request.GetEncodedUrl().Replace("www.", ""),true);
+                    context.Response.Redirect(context.Request.GetEncodedUrl().Replace("://www.", "://"),true);
                     return Task.FromResult(0);
                 }
                 return next();

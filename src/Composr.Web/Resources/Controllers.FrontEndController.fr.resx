@@ -120,6 +120,9 @@
   <data name="Cocozil Search" xml:space="preserve">
     <value>Recherche Cocozil</value>
   </data>
+  <data name="Page Not Found (404) - Cocozil" xml:space="preserve">
+    <value>Page Introuvable (404) - Cocozil</value>
+  </data>
   <data name="Recipe" xml:space="preserve">
     <value>Recette</value>
   </data>
@@ -128,5 +131,8 @@
   </data>
   <data name="tag" xml:space="preserve">
     <value>étiquette</value>
+  </data>
+  <data name="The page you are looking for does not exist. You will be redirected to the home page shortly." xml:space="preserve">
+    <value>La page recherchée n'existe pas. On va vous transférer vers la page d'acceuil.</value>
   </data>
 </root>

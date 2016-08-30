@@ -120,8 +120,8 @@ namespace Composr.Web.Controllers
             {
                 BlogUrl = Blog.Url,
                 LogoUrl = Blog.Attributes[BlogAttributeKeys.LogoUrl],
-                MetaDescription = localizer["message"],
-                Title = localizer["Page Not Found - Cocozil"],
+                MetaDescription = localizer["The page you are looking for does not exist. You will be redirected to the home page shortly."],
+                Title = localizer["Page Not Found (404) - Cocozil"],
                 CanonicalUrl = null
             };
             return View(model);

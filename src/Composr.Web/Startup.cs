@@ -8,24 +8,25 @@ using Composr.Web.MultiTenancy;
 using Composr.Web.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc.Formatters;
-using Composr.Web.Middleware;
-using Microsoft.AspNetCore.Http;
-using System;
-using Microsoft.AspNetCore.Http.Extensions;
+using System.Globalization;
 using System.Threading.Tasks;
 
 namespace Composr.Web
 {
     public class Startup
     {
+        private CultureInfo[] supportedCultures = new[] { new CultureInfo("en"), new CultureInfo("fr")};
+
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -56,6 +57,8 @@ namespace Composr.Web
             services.AddSingleton<IConfiguration>(Configuration);
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);
+
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
             services.Configure<List<RedirectionMapping>>(Configuration.GetSection("Redirections"));
 
             services.AddDbContext<ApplicationDbContext>(options =>
@@ -70,7 +73,15 @@ namespace Composr.Web
                 options =>
                 {
                     options.OutputFormatters.Add(new XmlSerializerOutputFormatter());
+                })
+                .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+                .AddDataAnnotationsLocalization();
 
+            services.Configure<RequestLocalizationOptions>(options =>
+            {                
+                options.DefaultRequestCulture = new RequestCulture(culture: "en", uiCulture: "en");
+                options.SupportedCultures = supportedCultures;
+                options.SupportedUICultures = supportedCultures;
             });
 
             // Add application services.
@@ -116,6 +127,14 @@ namespace Composr.Web
                     return Task.FromResult(0);
                 }
                 return next();
+            });
+
+            
+            app.UseRequestLocalization(new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture("en"),
+                SupportedCultures = supportedCultures,
+                SupportedUICultures = supportedCultures
             });
 
 

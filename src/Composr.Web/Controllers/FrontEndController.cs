@@ -3,6 +3,7 @@ using Composr.Lib.Util;
 using Composr.Web.Models;
 using Composr.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -12,11 +13,13 @@ namespace Composr.Web.Controllers
     {
         private ISearchService service;
         private IRedirectionMapper redirectionMapper;
+        private IStringLocalizer<FrontEndController> localizer;
 
-        public FrontEndController(ISearchService service, IRedirectionMapper redirectionMapper, Blog blog) :base(blog)
+        public FrontEndController(ISearchService service, IRedirectionMapper redirectionMapper, Blog blog, IStringLocalizer<FrontEndController> localizer) :base(blog)
         {
             this.service = service;
             this.redirectionMapper = redirectionMapper;
+            this.localizer = localizer;
         }
 
         // GET: /<controller>/git
@@ -117,8 +120,8 @@ namespace Composr.Web.Controllers
             {
                 BlogUrl = Blog.Url,
                 LogoUrl = Blog.Attributes[BlogAttributeKeys.LogoUrl],
-                MetaDescription = "The page you are looking for does not exist. You will be redirected to the home page shortly.",
-                Title = "Page Not Found - Cocozil",
+                MetaDescription = localizer["message"],
+                Title = localizer["Page Not Found - Cocozil"],
                 CanonicalUrl = null
             };
             return View(model);

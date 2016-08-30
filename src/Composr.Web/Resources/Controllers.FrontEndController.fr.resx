@@ -117,10 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="message" xml:space="preserve">
-    <value>La page recherchée n'existe pas. Vous serez redirigé vers la page d'accueil dans quelques instants.</value>
+  <data name="Cocozil Search" xml:space="preserve">
+    <value>Recherche Cocozil</value>
   </data>
-  <data name="Page Not Found - Cocozil" xml:space="preserve">
-    <value>Page Non Disponible - Cocozil</value>
+  <data name="Recipe" xml:space="preserve">
+    <value>Recette</value>
+  </data>
+  <data name="Search Results" xml:space="preserve">
+    <value>Résultats de Recherche</value>
+  </data>
+  <data name="tag" xml:space="preserve">
+    <value>étiquette</value>
   </data>
 </root>

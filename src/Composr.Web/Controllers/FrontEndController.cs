@@ -50,7 +50,7 @@ namespace Composr.Web.Controllers
         {
             var model = PostSearchViewModel.FromBaseFrontEndViewModel(BaseViewModel);
             model.Referrer = GetReferrer();
-            model.Breadcrumbs.Add(new Breadcrumb { IsActive = true, Name = "Recipe" });
+            model.Breadcrumbs.Add(new Breadcrumb { IsActive = true, Name = localizer["Recipe"] });
             model.Title = $"{results[0].Title} - {Blog.Name}";
             model.MetaDescription = $"{results[0].MetaDescription}";
             model.CanonicalUrl = $"{model.BlogUrl.TrimEnd('/')}{results[0].URN}";
@@ -70,8 +70,8 @@ namespace Composr.Web.Controllers
         {
             var model = GetViewModel(param, SearchSortOrder.BestMatch);
             model.Referrer = GetReferrer();
-            UpdateBreadcrumbs(model, new Breadcrumb { IsActive = true, Name = "Search Results" });
-            model.Title = $"Search Results for {(string.IsNullOrWhiteSpace(param.Query)?"category: " + param.Category:param.Query)} - Cocozil";
+            UpdateBreadcrumbs(model, new Breadcrumb { IsActive = true, Name = localizer["Search Results"] });
+            model.Title = $"{(string.IsNullOrWhiteSpace(param.Query) ? localizer["tag"] + ": " + param.Category : param.Query)} - {localizer["Cocozil Search"]}";
             model.CanonicalUrl = $"{model.BlogUrl.TrimEnd('/')}/search?q={System.Net.WebUtility.UrlEncode(param.Query)}&page={model.CurrentPage}";
             return View(model);
         }

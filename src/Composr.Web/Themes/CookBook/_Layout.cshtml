@@ -28,7 +28,10 @@
     @Html.Partial("NavigationPartialView", Model)
     @RenderBody()
 
-    @RenderSection("ads", required: false)
+    <section class="container"><br />
+        @RenderSection("ads", required: false)
+    </section>
+
     <section class="container">
         <footer>
             <h4>Popular Searches</h4>
@@ -45,9 +48,10 @@
                 <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6"><a href="/search?cat=streetfood" rel="nofollow">Street Food</a></div>
                 <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6"><a href="/search?cat=vegetarian" rel="nofollow">Vegetarian</a></div>
             </div>
-            <br>
+            <hr />
             <div class="row">
                 <p class="col-lg-2 col-md-3 col-sm-4 col-xs-6">@Model.Copyright</p>
+                @await Html.PartialAsync("LanguageSelectionPartialView")
             </div>
         </footer>
     </section>
@@ -66,6 +70,6 @@
     {
         @Html.Raw(@Model.AnalyticsTrackingJSCode);
     }
-
 </body>
+
 </html>

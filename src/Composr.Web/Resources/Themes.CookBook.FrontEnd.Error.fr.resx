@@ -117,25 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Cocozil Search" xml:space="preserve">
-    <value>Recherche Cocozil</value>
+  <data name="Click here to go to the home page now." xml:space="preserve">
+    <value>Cliquez sur ce lien pour aller à la page d'accueil.</value>
   </data>
-  <data name="Page Not Found (404) - Cocozil" xml:space="preserve">
-    <value>Page Introuvable (404) - Cocozil</value>
+  <data name="Page Not Found" xml:space="preserve">
+    <value>Page Introuvable</value>
   </data>
-  <data name="Recipe" xml:space="preserve">
-    <value>Recette</value>
+  <data name="seconds." xml:space="preserve">
+    <value>secondes.</value>
   </data>
-  <data name="Search Results" xml:space="preserve">
-    <value>Résultats de Recherche</value>
+  <data name="The page you are trying to visit does not exist." xml:space="preserve">
+    <value>La page que vous tentez d'accéder n'existe pas.</value>
   </data>
-  <data name="tag" xml:space="preserve">
-    <value>étiquette</value>
-  </data>
-  <data name="The page you are looking for does not exist. You will be redirected to the home page shortly." xml:space="preserve">
-    <value>La page recherchée n'existe pas. On va vous transférer vers la page d'accueil.</value>
-  </data>
-  <data name="Home" xml:space="preserve">
-    <value>Accueil</value>
+  <data name="You will be redirected to the home page in" xml:space="preserve">
+    <value>Vous serez dirigé(e) vers la page d'accueil dans</value>
   </data>
 </root>

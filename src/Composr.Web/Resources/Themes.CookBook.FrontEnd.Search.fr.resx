@@ -117,25 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Cocozil Search" xml:space="preserve">
-    <value>Recherche Cocozil</value>
-  </data>
-  <data name="Page Not Found (404) - Cocozil" xml:space="preserve">
-    <value>Page Introuvable (404) - Cocozil</value>
-  </data>
-  <data name="Recipe" xml:space="preserve">
-    <value>Recette</value>
+  <data name="&lt;p&gt;We're sorry we could match any document to your search.&lt;/p&gt;&lt;p&gt;Suggestions:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Please check spelling&lt;/li&gt;&lt;li&gt;Try different keywords&lt;/li&gt;&lt;li&gt;Try fewer and more generic words&lt;/li&gt;&lt;/ul&gt;" xml:space="preserve">
+    <value>&lt;p&gt;Désolé! Votre recherche ne correspond à aucun document.&lt;/p&gt;&lt;p&gt;Suggestions:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Vérifiez l’orthographe des termes de recherche&lt;/li&gt;&lt;li&gt;Essayez d'autres mots clés&lt;/li&gt;&lt;li&gt;Essayez avec des mots clés plus généraux et en moins grand nombre&lt;/li&gt;&lt;/ul&gt;</value>
   </data>
   <data name="Search Results" xml:space="preserve">
     <value>Résultats de Recherche</value>
-  </data>
-  <data name="tag" xml:space="preserve">
-    <value>étiquette</value>
-  </data>
-  <data name="The page you are looking for does not exist. You will be redirected to the home page shortly." xml:space="preserve">
-    <value>La page recherchée n'existe pas. On va vous transférer vers la page d'accueil.</value>
-  </data>
-  <data name="Home" xml:space="preserve">
-    <value>Accueil</value>
   </data>
 </root>

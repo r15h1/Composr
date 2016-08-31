@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Localization;
+using System;
 using System.Collections.Generic;
 
 namespace Composr.Web.ViewModels
@@ -20,31 +21,8 @@ namespace Composr.Web.ViewModels
         public string CanonicalUrl { get; set; }
         public string AnalyticsTrackingJSCode { get; set; }
         public string AdPublisherJSCode { get; set; }
-
-        private string referrer;
-        public string Referrer { get
-            {
-                return referrer;
-            }
-            set
-            {
-                referrer = value;
-                UpdateBreadcrumbs();
-            }
-        }
-
-        private void UpdateBreadcrumbs()
-        {
-            Breadcrumbs.Add(new Breadcrumb { Name = "Home", Url = "/" });
-
-            if (!string.IsNullOrWhiteSpace(referrer) && referrer.ToLower().Contains("/search")) Breadcrumbs.Add(
-                new Breadcrumb
-                {
-                    Name = "Search Results",
-                    Url = $"/{referrer.ToLowerInvariant().Replace(BlogUrl.ToLowerInvariant(), string.Empty).TrimStart(new char[] { '/' }) }"
-                });
-        }
-
+        //private string referrer;
+        public string Referrer { get; set; }
         public List<Breadcrumb> Breadcrumbs { get; set; }        
     }
 

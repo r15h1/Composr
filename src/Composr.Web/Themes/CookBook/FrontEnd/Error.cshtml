@@ -1,11 +1,11 @@
-﻿<section class="container">
-    <h1>Oops!</h1>
-    <p>
-        The page you are trying to visit does not exist. You will be redirected to the home page in <span id="timeLeft" class="label label-warning">10</span> seconds.
-    </p>
-    <p>
-        <h4><a href="/">Click here to go to the home page now.</a></h4>
-    </p>
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+<section class="container">
+    <h1>@Localizer["Page Not Found"]</h1>
+    <p>@Localizer["The page you are trying to visit does not exist."]</p>
+    <p>@Localizer["You will be redirected to the home page in"] <span id="timeLeft" class="label label-warning">10</span> @Localizer["seconds."]</p>
+    <p><a href="/">@Localizer["Click here to go to the home page now."]</a></p>
 
     @section scripts{
         <script type="text/javascript">

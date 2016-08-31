@@ -1,37 +1,46 @@
 ﻿@model Composr.Web.ViewModels.BaseFrontEndViewModel
-<nav class="navbar navbar-default" role="navigation">
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
             <a href="@Model.BlogUrl"><img src="@Model.LogoUrl"></a>
-        </div>        
-        
-        <form class="navbar-form navbar-left" role="search" method="get" action="/search">
-            <div class="form-group input-group search-group">
-                <input type="text" class="form-control" placeholder="search e.g. chicken" name="q" id="q">
-                <div class="input-group-btn">
-                    <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <form class="navbar-form navbar-left" role="search" method="get" action="/search">
+                <div class="form-group input-group search-group">
+                    <input type="text" class="form-control" placeholder="search e.g. chicken" name="q" id="q">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                    </div>
                 </div>
+            </form>
+            <ul class="nav navbar-nav navbar-left navbar-form">
+                <li class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#">
+                        Browse Recipes  <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="/search?cat=chicken" rel="nofollow">Chicken Recipes</a></li>
+                        <li><a href="/search?cat=curry" rel="nofollow">Curry</a></li>
+                        <li><a href="/search?cat=dessert" rel="nofollow">Desserts</a></li>
+                        <li><a href="/search?cat=fish" rel="nofollow">Fish Recipes</a></li>
+                        <li><a href="/search?cat=grill" rel="nofollow">Grilled</a></li>
+                        <li><a href="/search?cat=meat" rel="nofollow">Meat Recipes</a></li>
+                        <li><a href="/search?cat=pudding" rel="nofollow">Puddings</a></li>
+                        <li><a href="/search?cat=rice" rel="nofollow">Rice Dishes</a></li>
+                        <li><a href="/search?cat=salad" rel="nofollow">Salads</a></li>
+                        <li><a href="/search?cat=streetfood" rel="nofollow">Street Food</a></li>
+                        <li><a href="/search?cat=vegetarian" rel="nofollow">Vegetarian</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="nav navbar-nav navbar-right navbar-form">
+                @await Html.PartialAsync("LanguageSelectionPartialView")
             </div>
-        </form>
-        <ul class="nav navbar-nav navbar-left navbar-form">
-            <li class="dropdown">
-                <button  class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#">
-                    Browse Recipes  <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a href="/search?cat=chicken" rel="nofollow">Chicken Recipes</a></li>
-                    <li><a href="/search?cat=curry" rel="nofollow">Curry</a></li>
-                    <li><a href="/search?cat=dessert" rel="nofollow">Desserts</a></li>
-                    <li><a href="/search?cat=fish" rel="nofollow">Fish Recipes</a></li>
-                    <li><a href="/search?cat=grill" rel="nofollow">Grilled</a></li>
-                    <li><a href="/search?cat=meat" rel="nofollow">Meat Recipes</a></li>                    
-                    <li><a href="/search?cat=pudding" rel="nofollow">Puddings</a></li>
-                    <li><a href="/search?cat=rice" rel="nofollow">Rice Dishes</a></li>
-                    <li><a href="/search?cat=salad" rel="nofollow">Salads</a></li>
-                    <li><a href="/search?cat=streetfood" rel="nofollow">Street Food</a></li>
-                    <li><a href="/search?cat=vegetarian" rel="nofollow">Vegetarian</a></li>
-                </ul>
-            </li>
-        </ul>            
+        </div>
     </div>
 </nav>

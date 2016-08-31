@@ -1,3 +1,7 @@
+body{
+    padding-top: 55px; 
+}
+
 body, .container {
     font-family: 'Open Sans';     
     line-height:25px;
@@ -76,6 +80,10 @@ a:hover{
     display: inline-block; 
 }
 
+.navbar{
+    margin-bottom:0;
+}
+
 .navbar-default{
     background: rgb(248,248,248);
 }
@@ -90,7 +98,7 @@ html .clearfix {
 
 h1{
     padding-top:0;
-    margin-top:0;
+    margin-top:10px;
     border-bottom:1px solid rgba(0, 0, 0, 0.1);
 }
 
@@ -112,7 +120,6 @@ hr{
 footer{
     color:rgb(100, 100, 100);
     margin-top: 20px;
-    padding-top:20px;
     border-top: 1px  solid rgb(221, 219, 219);
 }
 
@@ -122,7 +129,7 @@ footer{
 
 .breadcrumb{
     background-color:rgb(255, 255, 255);
-    margin:0;
+    margin-top:5px;
     padding:0;
 }
 

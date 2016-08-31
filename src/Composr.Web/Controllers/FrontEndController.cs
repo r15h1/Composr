@@ -2,8 +2,11 @@
 using Composr.Lib.Util;
 using Composr.Web.Models;
 using Composr.Web.ViewModels;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -27,7 +30,7 @@ namespace Composr.Web.Controllers
         public IActionResult Index(SearchParameters param)
         {
             var model = GetViewModel(param, SearchSortOrder.MostRecent);
-            model.Title = $"{Blog.Name} - {Blog.Attributes[BlogAttributeKeys.Tagline]}";
+            model.Title = $"{Blog.Attributes[BlogAttributeKeys.Tagline]} - {Blog.Name}";
             model.CanonicalUrl = model.CurrentPage <= 1? $"{model.BlogUrl.TrimEnd('/')}" : $"{model.BlogUrl.TrimEnd('/')}?page={model.CurrentPage}";
             model.SearchUrl = null;
             return View(model);
@@ -50,13 +53,24 @@ namespace Composr.Web.Controllers
         {
             var model = PostSearchViewModel.FromBaseFrontEndViewModel(BaseViewModel);
             model.Referrer = GetReferrer();
-            model.Breadcrumbs.Add(new Breadcrumb { IsActive = true, Name = localizer["Recipe"] });
+            UpdateBreadcrumbs(model, GetDetailBreadCrumbs(model));            
             model.Title = $"{results[0].Title} - {Blog.Name}";
             model.MetaDescription = $"{results[0].MetaDescription}";
             model.CanonicalUrl = $"{model.BlogUrl.TrimEnd('/')}{results[0].URN}";
             model.SearchResults = results;
             return View("PostDetails", model);
         }
+
+        private List<Breadcrumb> GetDetailBreadCrumbs(PostSearchViewModel model)
+        {
+            List<Breadcrumb> crumbs = new List<Breadcrumb> { new Breadcrumb { Name = localizer["Home"], Url = "/" } };
+            if (!string.IsNullOrWhiteSpace(model.Referrer) && model.Referrer.ToLower().Contains("/search"))
+                crumbs.Add(new Breadcrumb { Name = localizer["Search Results"], Url = $"/{model.Referrer.ToLowerInvariant().Replace(model.BlogUrl.ToLowerInvariant(), string.Empty).TrimStart(new char[] { '/' }) }" });
+
+            crumbs.Add(new Breadcrumb { IsActive = true, Name = localizer["Recipe"] });
+            return crumbs;
+        }
+
 
         [HttpGet("api/autocomplete")]
         public IActionResult AutoComplete(string q)
@@ -70,18 +84,25 @@ namespace Composr.Web.Controllers
         {
             var model = GetViewModel(param, SearchSortOrder.BestMatch);
             model.Referrer = GetReferrer();
-            UpdateBreadcrumbs(model, new Breadcrumb { IsActive = true, Name = localizer["Search Results"] });
+            UpdateBreadcrumbs(model, new List<Breadcrumb>{
+                new Breadcrumb { Name = localizer["Home"], Url = "/" },
+                new Breadcrumb { IsActive = true, Name = localizer["Search Results"] }
+            });
+
             model.Title = $"{(string.IsNullOrWhiteSpace(param.Query) ? localizer["tag"] + ": " + param.Category : param.Query)} - {localizer["Cocozil Search"]}";
             model.CanonicalUrl = $"{model.BlogUrl.TrimEnd('/')}/search?q={System.Net.WebUtility.UrlEncode(param.Query)}&page={model.CurrentPage}";
             return View(model);
         }
 
-        private static void UpdateBreadcrumbs(PostSearchViewModel model, Breadcrumb breadcrumb)
+        private static void UpdateBreadcrumbs(PostSearchViewModel model, List<Breadcrumb> breadcrumbs)
         {
-            if(model.Breadcrumbs.Any(b => b.Name.Equals(breadcrumb.Name)))
-                model.Breadcrumbs.Remove(model.Breadcrumbs.SingleOrDefault(b => b.Name.Equals(breadcrumb.Name)));
+            breadcrumbs.ForEach((breadcrumb) =>
+            {
+                if (model.Breadcrumbs.Any(b => b.Name.Equals(breadcrumb.Name)))
+                    model.Breadcrumbs.Remove(model.Breadcrumbs.SingleOrDefault(b => b.Name.Equals(breadcrumb.Name)));
 
-            model.Breadcrumbs.Add(breadcrumb);
+                model.Breadcrumbs.Add(breadcrumb);
+            });
         }
 
         private PostSearchViewModel GetViewModel(SearchParameters param, SearchSortOrder sort)
@@ -125,6 +146,18 @@ namespace Composr.Web.Controllers
                 CanonicalUrl = null
             };
             return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult SetLanguage(string culture, string returnUrl)
+        {
+            Response.Cookies.Append(
+                CookieRequestCultureProvider.DefaultCookieName,
+                CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
+                new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) }
+            );
+
+            return LocalRedirect(returnUrl);
         }
     }
 }

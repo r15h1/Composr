@@ -3,6 +3,6 @@
 <ol class="breadcrumb">
     @foreach(var crumb in Model.Breadcrumbs)
     {
-        <li><a href="@(string.IsNullOrWhiteSpace(crumb.Url)? null: crumb.Url)" class="@(crumb.IsActive ? "active": string.Empty)">@crumb.Name</a></li>
+        <li><a href="@(string.IsNullOrWhiteSpace(crumb.Url)? null: crumb.Url)" class="@(crumb.IsActive ? "active": string.Empty)" rel="nofollow">@crumb.Name</a></li>
     }
 </ol>

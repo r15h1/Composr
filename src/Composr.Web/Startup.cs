@@ -84,6 +84,8 @@ namespace Composr.Web
                 options.SupportedUICultures = supportedCultures;
             });
 
+            services.AddMemoryCache();
+
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();

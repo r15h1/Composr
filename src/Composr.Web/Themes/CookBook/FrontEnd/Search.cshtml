@@ -1,7 +1,10 @@
-﻿@model Composr.Web.ViewModels.PostSearchViewModel
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@model Composr.Web.ViewModels.PostSearchViewModel
 <section class="container">
     @Html.Partial("BreadCrumbsPartialView", Model)
-    <h1>Search Results</h1>
+    <h1>@Localizer["Search Results"]</h1>
 </section>
 @if (@Model.SearchResults.Count > 0)
 {
@@ -16,15 +19,7 @@ else
 {
     <section class="container">
         <article>
-            <p>
-                Oops! We could match any document to your search.
-            </p>
-            <p>Suggestions:</p>
-            <ul>
-                <li>Please check spelling</li>
-                <li>Try different keywords</li>
-                <li>Try fewer and more generic words</li>
-            </ul>
+            @Localizer["<p>We're sorry we could match any document to your search.</p><p>Suggestions:</p><ul><li>Please check spelling</li><li>Try different keywords</li><li>Try fewer and more generic words</li></ul>"]
         </article>
     </section>
 }

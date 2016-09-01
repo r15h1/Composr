@@ -153,6 +153,9 @@
   <data name="Meat Recipes" xml:space="preserve">
     <value>Viande</value>
   </data>
+  <data name="Puddings" xml:space="preserve">
+    <value>Pudding</value>
+  </data>
   <data name="Rice Dishes" xml:space="preserve">
     <value>Riz</value>
   </data>

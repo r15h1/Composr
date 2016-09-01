@@ -171,4 +171,7 @@
   <data name="/search?cat=vegetarian" xml:space="preserve">
     <value>/search?cat=végétarien</value>
   </data>
+  <data name="Puddings" xml:space="preserve">
+    <value>Pudding</value>
+  </data>
 </root>

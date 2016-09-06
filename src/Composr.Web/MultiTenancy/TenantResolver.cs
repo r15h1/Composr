@@ -41,7 +41,9 @@ namespace Composr.Web.MultiTenancy
             var requestCulture = context.Features.Get<IRequestCultureFeature>();
 
             if (context.Request.Path.HasValue && context.Request.Path.Value.StartsWith("/admin/blogs"))
-                blog = blogs.FirstOrDefault(t => context.Request.Path.Value.StartsWith("/admin/blogs/" + t.Id.ToString()));
+            {
+                blog = blogs.FirstOrDefault(t => context.Request.Path.Value.StartsWith("/admin/blogs/" + t.Id.ToString() + "/" + t.Locale.ToString().ToLowerInvariant()));
+            }
             else
             {
                 string host = context.Request.Host.Value.ToLower().Replace("www.", "");

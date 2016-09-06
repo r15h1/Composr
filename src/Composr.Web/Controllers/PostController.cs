@@ -12,14 +12,14 @@ using System.Threading.Tasks;
 namespace Composr.Web.Controllers
 {
     [Authorize]
-    [Route("admin/blogs/{blogid:int}/posts")]
+    [Route("admin/blogs/{blogid:int}/{locale}/posts")]
     public class PostController : Controller
     {
         private Blog blog;
-        private IRepository<Post> service;
+        private IPostRepository service;
         private IIndexGenerator indexGenerator;
 
-        public PostController(Blog blog, IRepository<Post> service, IIndexGenerator indexGenerator)
+        public PostController(Blog blog, IPostRepository service, IIndexGenerator indexGenerator)
         {
             this.blog = blog;
             this.service = service;
@@ -38,7 +38,7 @@ namespace Composr.Web.Controllers
         public IActionResult Details(int postid)
         {
             Post post = service.Get(postid);
-            PostViewModel viewModel = new PostViewModel() { BlogId = post.Blog.Id, Id = post.Id, Body = post.Body, Title = post.Title , PostStatus = post.Status, URN = post.URN};
+            PostViewModel viewModel = new PostViewModel() { BlogId = post.Blog.Id, Id = post.Id, Body = post.Body, Title = post.Title , PostStatus = post.Status, URN = post.URN, Language = blog.Locale.ToString()};
 
             if (post.Attributes.ContainsKey(PostAttributeKeys.MetaDescription)) viewModel.MetaDescription = post.Attributes[PostAttributeKeys.MetaDescription];
             if (post.Attributes.ContainsKey(PostAttributeKeys.Tags)) viewModel.Tags = post.Attributes[PostAttributeKeys.Tags];
@@ -103,6 +103,18 @@ namespace Composr.Web.Controllers
             if (!string.IsNullOrWhiteSpace(viewModel.Tags)) post.Attributes.Add(PostAttributeKeys.Tags, viewModel.Tags);
             
             return post;
+        }
+
+        [HttpGet("{postid:int}/translations")]
+        public IActionResult Translations([FromRoute]int postid)
+        {
+            return View("Translations", service.GetTranslatedPosts(postid));
+        }
+
+        [HttpGet("{postid:int}/translate")]
+        public IActionResult Translate([FromRoute]int postid)
+        {
+            return View("Translations", service.GetTranslatedPosts(postid));
         }
     }
 }

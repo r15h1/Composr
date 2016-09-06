@@ -1,0 +1,61 @@
+﻿@inject Composr.Core.Blog blog
+
+@using System.Linq
+@model IList<Composr.Core.Post>
+@{
+    ViewBag.Title = "Posts";
+}
+<h4>Post Translations</h4>
+<hr />
+<div class="btn-toolbar" role="toolbar">
+    <a class="btn btn-default pull-right" asp-controller="Account" asp-action="Register">New User</a>
+    <a class="btn btn-primary pull-right" id="newbutton" asp-action="Create">New Post</a>
+    <a id="postlistsbutton" asp-action="Index">List of Posts</a>
+</div>
+
+<div class="table-responsive">
+  
+    @if (Model.Count() > 0)
+    {
+        <table class="table table-bordered table-condensed table-hover">
+            <thead>
+                <tr>
+                    <th class="col-md-1 col-sm-1 col-xs-1">Post Id</th>
+                    <th class="col-md-4 col-sm-4 col-xs-3">Title</th>
+                    <th class="col-md-4 col-sm-4 col-xs-5">URN</th>
+                    <th class="col-md-1 col-sm-1 col-xs-1">Lang</th>
+                    <th class="col-md-1 col-sm-1 col-xs-1">Status</th>
+                    <th class="col-md-1 col-sm-1 col-xs-1">Edit</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var post in Model)
+                {
+                    <tr>
+                        <td>@post.Id</td>
+                        <td><a href="/admin/blogs/@post.Blog.Id/@blog.Locale.ToString().ToLowerInvariant()/posts/@post.Id">@post.Title</a></td>
+                        <td>@post.URN</td>
+                        <td>@post.Blog.Locale</td>
+                        <td>@post.Status</td>
+                        <td class="text-center">
+                            <a href="/admin/blogs/@post.Blog.Id/@blog.Locale.ToString().ToLowerInvariant()/posts/@post.Id"><i class="glyphicon glyphicon-edit" data-toggle="tooltip" title="edit"></i></a>
+                        </td>
+                    </tr>
+                }               
+            </tbody>
+
+        </table>
+
+        var translatedLocales = Model.Select(x => x.Blog.Locale).Cast<Composr.Core.Locale>().ToList();
+        var allLocales = Enum.GetValues(typeof(Composr.Core.Locale)).Cast<Composr.Core.Locale>().ToList();
+        foreach (var locale in allLocales.Except(translatedLocales))
+        {
+            <a href="translate/@locale.ToString().ToLower()">Translate to @locale.ToString().ToLower()</a>
+        }
+    }
+    else
+    {
+        <span>No posts</span>
+    }
+
+</div>

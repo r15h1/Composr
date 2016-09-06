@@ -47,7 +47,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 
-                <a href="/admin/blogs/@Blog.Id/posts"><img class="navbar-form" src="@(string.IsNullOrWhiteSpace(logo)? $"~/img/composr-logo.png":logo)"/></a>
+                <a href="/admin/blogs/@Blog.Id/@Blog.Locale.ToString().ToLowerInvariant()/posts"><img class="navbar-form" src="@(string.IsNullOrWhiteSpace(logo)? $"~/img/composr-logo.png":logo)"/></a>
             </div>
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 @await Html.PartialAsync("_LoginPartial")

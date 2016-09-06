@@ -1,4 +1,5 @@
-﻿@model Composr.Web.ViewModels.PostViewModel
+﻿@inject Composr.Core.Blog blog
+@model Composr.Web.ViewModels.PostViewModel
 @{
     ViewBag.Title = "Post Details";
 }
@@ -6,9 +7,9 @@
 <hr />
 <form method="post" name="myform" id="myform">
     <div class="btn-toolbar" role="toolbar">
-        <a class="btn btn-default pull-right" href="/admin/blogs/@Model.BlogId/posts">Cancel</a>
+        <a class="btn btn-default pull-right" href="/admin/blogs/@Model.BlogId/@blog.Locale.ToString().ToLowerInvariant()/posts">Cancel</a>
         <button type="submit" class="btn btn-primary pull-right">Save</button>
-        <select class="btn btn-default pull-right" id="poststatus" name="poststatus" asp-for="PostStatus" asp-items="Html.GetEnumSelectList<Composr.Core.PostStatus>()"></select>
+        <select class="btn btn-default pull-right" id="poststatus" name="poststatus" asp-for="PostStatus" asp-items="Html.GetEnumSelectList<Composr.Core.PostStatus>()"></select>        
     </div>
     <div asp-validation-summary="ModelOnly"></div>
 
@@ -31,7 +32,7 @@
         <label for="tags">Tags</label><input class="form-control" type="text" name="tags" id="tags" asp-for="Tags" value="@Model.Tags" />
     </div>
 
-    <div class="form-group">              
+    <div class="form-group">
         <label for="imageurl">Image</label>
         <input type="text" class="form-control" name="imageurl" id="imageurl" placeholder="image file" value="@Model.ImageUrl">
         <input type="text" class="form-control" name="imagecaption" id="imagecaption" placeholder="image caption" value="@Model.ImageCaption">

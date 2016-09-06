@@ -241,5 +241,32 @@ namespace Composr.Repository.Sql
             if (filter == null) filter = new Filter();
             return Fetch("Post_Select_Published", filter.Criteria, Locale, filter.Offset, filter.Limit);
         }
+
+        public IList<Post> GetTranslatedPosts(int postid)
+        {
+            return Fetch(postid);
+        }
+
+        /// <summary>
+        /// get all translated versions of this post 
+        /// </summary>
+        /// <param name="postid"></param>
+        /// <returns></returns>
+        private IList<Core.Post> Fetch(int postid)
+        {
+            List<Post> posts;
+            var p = new DynamicParameters();
+            p.Add("@BlogID", Blog.Id);
+            p.Add("@PostID", postid);
+
+            using (System.Data.IDbConnection conn = ConnectionFactory.CreateConnection())
+            {
+                using (var reader = conn.QueryMultiple("Post_Select_Translations", p, commandType: System.Data.CommandType.StoredProcedure))
+                {
+                    posts = reader.Read().Select<dynamic, Post>(row => BuildPost(row)).ToList();                    
+                };
+                return posts;
+            }
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿@model IList<Composr.Core.Post>
+﻿@inject Composr.Core.Blog blog
+@model IList<Composr.Core.Post>
 @{
     ViewBag.Title = "Posts";
 }
@@ -7,6 +8,7 @@
 <div class="btn-toolbar" role="toolbar">
     <a class="btn btn-default pull-right" asp-controller="Account" asp-action="Register">New User</a>
     <a class="btn btn-primary pull-right" id="newbutton" asp-action="Create">New Post</a>
+    <select class="btn btn-default pull-right" id="language" name="language" asp-items="Html.GetEnumSelectList<Composr.Core.Locale>()"></select>
 </div>
 
 <div class="table-responsive">
@@ -17,10 +19,12 @@
             <thead>
                 <tr>
                     <th class="col-md-1 col-sm-1 col-xs-1">Post Id</th>
-                    <th class="col-md-5 col-sm-5 col-xs-5">Title</th>
+                    <th class="col-md-4 col-sm-4 col-xs-3">Title</th>
                     <th class="col-md-4 col-sm-4 col-xs-4">URN</th>
+                    <th class="col-md-1 col-sm-1 col-xs-1">Lang</th>
                     <th class="col-md-1 col-sm-1 col-xs-1">Status</th>
-                    <th class="col-md-1 col-sm-1 col-xs-1"></th>
+                    <th class="col-md-1 col-sm-1 col-xs-1">Edit</th>
+                    <th class="col-md-1 col-sm-1 col-xs-1">Translate</th>
                 </tr>
             </thead>
             <tbody>
@@ -28,10 +32,16 @@
                 {
                     <tr>
                         <td>@post.Id</td>
-                        <td><a href="/admin/blogs/@post.Blog.Id/posts/@post.Id">@post.Title</a></td>
+                        <td><a href="/admin/blogs/@post.Blog.Id/@post.Blog.Locale.ToString().ToLowerInvariant()/posts/@post.Id">@post.Title</a></td>
                         <td>@post.URN</td>
+                        <td>@post.Blog.Locale</td>
                         <td>@post.Status</td>
-                        <td class="text-center"><a href="/admin/blogs/@post.Blog.Id/posts/@post.Id"><i class="glyphicon glyphicon-edit" data-toggle="tooltip" title="edit this post"></i></a></td>
+                        <td class="text-center">
+                            <a href="/admin/blogs/@post.Blog.Id/@post.Blog.Locale.ToString().ToLowerInvariant()/posts/@post.Id"><i class="glyphicon glyphicon-edit" data-toggle="tooltip" title="edit"></i></a>
+                        </td>
+                        <td class="text-center">
+                            <a href="/admin/blogs/@post.Blog.Id/@post.Blog.Locale.ToString().ToLowerInvariant()/posts/@post.Id/translations"><i class="glyphicon glyphicon glyphicon-text-width" data-toggle="tooltip" title="translate"></i></a>
+                        </td>
                     </tr>
                 }
             </tbody>
@@ -42,3 +52,16 @@
     }
 
 </div>
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#language option").filter(function() {
+                return this.text == "@blog.Locale.ToString()"; 
+            }).attr('selected', true);
+
+            $("#language").on("change", function() {
+                    window.location = '/admin/blogs/@blog.Id/' + $("#language option:selected").text().toLowerCase() + '/posts';
+                });
+        });
+    </script>
+}

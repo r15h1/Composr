@@ -4,6 +4,7 @@ using Composr.Web.Models;
 using Composr.Web.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -106,15 +107,20 @@ namespace Composr.Web.Controllers
         }
 
         [HttpGet("{postid:int}/translations")]
-        public IActionResult Translations([FromRoute]int postid)
+        public IActionResult Translate([FromRoute]int postid)
         {
             return View("Translations", service.GetTranslatedPosts(postid));
         }
 
-        [HttpGet("{postid:int}/translate")]
-        public IActionResult Translate([FromRoute]int postid)
+        [HttpPost("{postid:int}/translations")]
+        public IActionResult Translate(string postid, string language)
         {
-            return View("Translations", service.GetTranslatedPosts(postid));
+            int id;
+            if (int.TryParse(postid, out id))
+            {
+                service.Translate(id, (Locale)Enum.Parse(typeof(Locale), language));
+            }
+            return View("Translations", service.GetTranslatedPosts(id));
         }
     }
 }

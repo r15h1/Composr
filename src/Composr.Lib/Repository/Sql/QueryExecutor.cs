@@ -22,5 +22,13 @@ namespace Composr.Repository.Sql
                 return conn.Query<T>(storedprocedure, parameters, commandType: CommandType.StoredProcedure).ToList();
             }
         }
+
+        public static void Execute(string storedprocedure, DynamicParameters parameters)
+        {
+            using (IDbConnection conn = ConnectionFactory.CreateConnection())
+            {
+                conn.Query(storedprocedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+        }
     }
 }

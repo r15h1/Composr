@@ -7,5 +7,7 @@ namespace Composr.Core
         IList<Post> GetPublishedPosts(Filter filter);
 
         IList<Post> GetTranslatedPosts(int postid);
+
+        void Translate(int postid, Locale locale);
     }
 }

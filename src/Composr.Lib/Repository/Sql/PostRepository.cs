@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Composr.Repository.Sql
 {
-    public class PostRepository:Composr.Core.IPostRepository
+    public class PostRepository: IPostRepository
     {
         private ISpecification<Post> specification;
 
@@ -62,7 +62,9 @@ namespace Composr.Repository.Sql
 
         private Post BuildPost(dynamic row)
         {
-            return new Composr.Core.Post(Blog)
+            Blog blog = new Blog() { Id = Blog.Id, Locale = (Locale) row.LocaleID };
+            
+            return new Composr.Core.Post(blog)
             {
                 Body = row.Body,
                 Id = row.PostID,
@@ -267,6 +269,15 @@ namespace Composr.Repository.Sql
                 };
                 return posts;
             }
+        }
+
+        public void Translate(int postid, Locale locale)
+        {
+            var p = new DynamicParameters();
+            p.Add("@BlogID", Blog.Id);
+            p.Add("@PostID", postid);
+            p.Add("@LocaleID", (int)locale);
+            QueryExecutor.Execute("Post_Translate", p);            
         }
     }
 }

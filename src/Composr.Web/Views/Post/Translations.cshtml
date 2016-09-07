@@ -7,14 +7,12 @@
 }
 <h4>Post Translations</h4>
 <hr />
-<div class="btn-toolbar" role="toolbar">
-    <a class="btn btn-default pull-right" asp-controller="Account" asp-action="Register">New User</a>
-    <a class="btn btn-primary pull-right" id="newbutton" asp-action="Create">New Post</a>
-    <a id="postlistsbutton" asp-action="Index">List of Posts</a>
+<div class="btn-toolbar" role="toolbar">    
+    <a class="btn btn-default pull-right" id="postlistsbutton" asp-action="Index">List of Posts</a>
 </div>
 
 <div class="table-responsive">
-  
+
     @if (Model.Count() > 0)
     {
         <table class="table table-bordered table-condensed table-hover">
@@ -33,29 +31,38 @@
                 {
                     <tr>
                         <td>@post.Id</td>
-                        <td><a href="/admin/blogs/@post.Blog.Id/@blog.Locale.ToString().ToLowerInvariant()/posts/@post.Id">@post.Title</a></td>
+                        <td><a href="/admin/blogs/@post.Blog.Id/@post.Blog.Locale.ToString().ToLowerInvariant()/posts/@post.Id">@post.Title</a></td>
                         <td>@post.URN</td>
                         <td>@post.Blog.Locale</td>
                         <td>@post.Status</td>
                         <td class="text-center">
-                            <a href="/admin/blogs/@post.Blog.Id/@blog.Locale.ToString().ToLowerInvariant()/posts/@post.Id"><i class="glyphicon glyphicon-edit" data-toggle="tooltip" title="edit"></i></a>
+                            <a href="/admin/blogs/@post.Blog.Id/@post.Blog.Locale.ToString().ToLowerInvariant()/posts/@post.Id"><i class="glyphicon glyphicon-edit" data-toggle="tooltip" title="edit"></i></a>
                         </td>
                     </tr>
-                }               
+                }
             </tbody>
 
         </table>
+        <div class="btn-group btn-group-vertical">
+            @{
 
-        var translatedLocales = Model.Select(x => x.Blog.Locale).Cast<Composr.Core.Locale>().ToList();
-        var allLocales = Enum.GetValues(typeof(Composr.Core.Locale)).Cast<Composr.Core.Locale>().ToList();
-        foreach (var locale in allLocales.Except(translatedLocales))
-        {
-            <a href="translate/@locale.ToString().ToLower()">Translate to @locale.ToString().ToLower()</a>
+                var translatedLocales = Model.Select(x => x.Blog.Locale).Cast<Composr.Core.Locale>
+                    ().ToList();
+                var allLocales = Enum.GetValues(typeof(Composr.Core.Locale)).Cast<Composr.Core.Locale>
+                    ().ToList();
+                foreach (var locale in allLocales.Except(translatedLocales))
+                {
+                    <form asp-controller="Post" asp-action="Translate" method="post">
+                        <input value="@Model.FirstOrDefault().Id" id="postid" name="postid" type="hidden" />
+                        <input value="@locale.ToString()" id="language" name="language" type="hidden" />
+                        <input type="submit" class="btn btn-primary" value="Translate in @locale.ToString()" onclick="return confirm('Really translate in @locale.ToString()?');"/>
+                    </form>
+                }
+            }
+        </div>
         }
-    }
-    else
-    {
+        else
+        {
         <span>No posts</span>
-    }
-
-</div>
+        }
+        </div>

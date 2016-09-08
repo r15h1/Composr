@@ -1,6 +1,7 @@
 ﻿using Composr.Core;
 using Composr.Lib.Specifications;
 using Composr.Lib.Util;
+using System;
 using System.Collections.Generic;
 
 namespace Composr.Lib.Indexing
@@ -16,9 +17,17 @@ namespace Composr.Lib.Indexing
 
         public void BuildIndex(Blog blog)
         {
+            IBlogRepository blogRepository = new Repository.Sql.BlogRepository(new MinimalBlogSpecification());
             ClearIndexDirectory(blog);
-            IPostRepository repo = new Composr.Repository.Sql.PostRepository(blog, new PostSpecification());
-            IList<Post> posts = repo.GetPublishedPosts(new Filter { Limit = int.MaxValue });
+            List<Post> posts = new List<Post>();
+
+            foreach (var locale in Enum.GetValues(typeof(Locale)))
+            {
+                IPostRepository repo = new Composr.Repository.Sql.PostRepository(blog, new PostSpecification(), blogRepository);
+                repo.Locale = (Locale)locale;
+                posts.AddRange(repo.GetPublishedPosts(new Filter { Limit = int.MaxValue }));                
+            }
+
             writer.GenerateIndex(posts);
             SearchService.ReloadIndex();
         }

@@ -10,11 +10,13 @@ namespace Composr.Repository.Sql
     public class PostRepository: IPostRepository
     {
         private ISpecification<Post> specification;
+        private IBlogRepository blogRepository;
 
-        public PostRepository(Blog blog, ISpecification<Post> specification) 
+        public PostRepository(Blog blog, ISpecification<Post> specification, IBlogRepository blogRepository) 
         {
             if (blog == null || specification == null) throw new ArgumentNullException();
             this.specification = specification;
+            this.blogRepository = blogRepository;
             Blog = blog;
             Locale = blog.Locale.Value;
         }
@@ -61,9 +63,16 @@ namespace Composr.Repository.Sql
         }
 
         private Post BuildPost(dynamic row)
-        {
-            Blog blog = new Blog() { Id = Blog.Id, Locale = (Locale) row.LocaleID };
-            
+        {            
+            Blog blog = Blog;
+            Locale postLocale = (Core.Locale)Enum.Parse(typeof(Core.Locale), row.LocaleID.ToString());
+
+            if (Blog.Locale != postLocale)
+            {
+                blogRepository.Locale = postLocale;
+                blog = blogRepository.Get(Blog.Id.Value);
+            }
+
             return new Composr.Core.Post(blog)
             {
                 Body = row.Body,
@@ -96,10 +105,6 @@ namespace Composr.Repository.Sql
 
             using (System.Data.IDbConnection conn = ConnectionFactory.CreateConnection())
             {
-                //posts = conn.Query(command, p, commandType: System.Data.CommandType.StoredProcedure).Select<dynamic, Post>(
-                //        row => BuildPost(row)
-                //).ToList();
-
                 using (var reader = conn.QueryMultiple(command, p, commandType: System.Data.CommandType.StoredProcedure))
                 {
                     posts = reader.Read().Select<dynamic, Post>(row => BuildPost(row)).ToList();
@@ -108,12 +113,6 @@ namespace Composr.Repository.Sql
                         group a by a.PostID into postAttributes
                         select postAttributes).ToDictionary(attr => (int) attr.Key, attr => attr.ToDictionary(x=> (string) x.Key, x=> (string) x.Value)
                     );
-
-                    //var images = (
-                    //    from a in reader.Read()
-                    //    group a by a.PostID into postImages
-                    //    select postImages).ToDictionary(img => (int)img.Key, img => img.ToDictionary(x => (int)x.PostID, x => BuildImage(x))
-                    //);
 
                     var images = (
                         from a in reader.Read()

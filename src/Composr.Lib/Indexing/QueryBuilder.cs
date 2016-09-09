@@ -16,7 +16,7 @@ namespace Composr.Lib.Indexing
         {
             finalQuery = new BooleanQuery();
             finalQuery.Add(CreateTermQuery(IndexFields.BlogID, BlogID.ToString(), 1.0f), Occur.MUST);
-            finalQuery.Add(CreateTermQuery(IndexFields.Locale, Locale.ToString().ToLowerInvariant(), 1.0f), Occur.MUST);
+            if(Locale.HasValue) finalQuery.Add(CreateTermQuery(IndexFields.Locale, Locale.Value.ToString().ToLowerInvariant(), 1.0f), Occur.MUST);
             if (!string.IsNullOrWhiteSpace(SearchTerm)) finalQuery.Add(CreateSearchTermQuery(), Occur.MUST);
             if (!string.IsNullOrWhiteSpace(Tags)) finalQuery.Add(CreateTagQuery(), Occur.MUST);
             finalQuery.Add(BoostPostWithImages(), Occur.SHOULD);
@@ -24,7 +24,7 @@ namespace Composr.Lib.Indexing
         }
 
         public int BlogID { get; set; }
-        public Locale Locale { get; set; }
+        public Locale? Locale { get; set; }
         public string SearchTerm { get; set; }
         public string Tags { get; set; }
         public SearchType SearchType { get; set; }

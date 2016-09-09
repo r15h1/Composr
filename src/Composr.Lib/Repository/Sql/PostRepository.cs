@@ -120,12 +120,27 @@ namespace Composr.Repository.Sql
                         select postImages).ToDictionary(img => (int)img.Key, img => (PostImage) img.Select(x => BuildImage(x)).FirstOrDefault()
                     );
 
+                    Dictionary<int, Dictionary<Locale, string>> translations = null;
+                    if (!reader.IsConsumed)
+                    {
+                        //get translated urns
+                        //var translations = reader.Read().ToDictionary(row => (Locale)row.LocaleID, row => (string)row.URN);
+                        translations = (
+                            from a in reader.Read()
+                            group a by a.PostID into postTranslations
+                            select postTranslations).ToDictionary(trans => (int)trans.Key, trans => trans.ToDictionary(x => (Locale)x.LocaleID, x => (string)x.URN)
+                        );
+                    }
+
                     posts.ForEach((post) =>
                     {
                         Dictionary<string, string> attr = null;
                         PostImage pimg = null;
-                        if(attributes.TryGetValue(post.Id.Value, out attr)) post.Attributes = attr;
+                        Dictionary<Locale, string> trans;
+
+                        if (attributes.TryGetValue(post.Id.Value, out attr)) post.Attributes = attr;
                         if (images != null && images.TryGetValue(post.Id.Value, out pimg)) post.Images.Add(pimg);
+                        if (translations != null && translations.TryGetValue(post.Id.Value, out trans)) post.Translations = trans;
                     });
 
                 }

@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Composr.Web.MultiTenancy
+namespace Composr.Web.Middleware
 {
     public class BlogResolver : ITenantResolver<Blog>
     {

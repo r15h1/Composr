@@ -56,7 +56,7 @@ namespace Composr.Core
         }
 
         public int BlogID { get; set; }
-        public Locale Locale { get; set; }
+        public Locale? Locale { get; set; }
         public string SearchTerm { get; set; }
         public SearchSortOrder SearchSortOrder { get; set; }
         public int Limit { get; set; } = 100;

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Composr.Web.MultiTenancy
+namespace Composr.Web.Middleware
 {
     public class TenantViewLocationExpander : IViewLocationExpander
     {

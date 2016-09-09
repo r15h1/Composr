@@ -76,6 +76,10 @@ namespace Composr.Lib.Indexing
 
             doc.Add(new Field(IndexFields.HasImage, (hasImage? "y": "n"), Field.Store.NO, Field.Index.NOT_ANALYZED_NO_NORMS));
 
+            if(post.Translations != null && post.Translations.Count > 0)
+                foreach(var t in post.Translations)
+                    doc.Add(new Field(t.Key.ToString().ToLowerInvariant(), t.Value.TrimEnd('/'), Field.Store.YES, Field.Index.NO));
+
             return doc;
         }
 

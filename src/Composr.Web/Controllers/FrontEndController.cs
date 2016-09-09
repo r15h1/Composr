@@ -18,7 +18,7 @@ namespace Composr.Web.Controllers
         private IRedirectionMapper redirectionMapper;
         private IStringLocalizer<FrontEndController> localizer;
 
-        public FrontEndController(ISearchService service, IRedirectionMapper redirectionMapper, Blog blog, IStringLocalizer<FrontEndController> localizer) :base(blog)
+        public FrontEndController(ISearchService service, IRedirectionMapper redirectionMapper, Blog blog, IStringLocalizer<FrontEndController> localizer) : base(blog)
         {
             this.service = service;
             this.redirectionMapper = redirectionMapper;
@@ -31,7 +31,7 @@ namespace Composr.Web.Controllers
         {
             var model = GetViewModel(param, SearchSortOrder.MostRecent);
             model.Title = $"{Blog.Attributes[BlogAttributeKeys.Tagline]} - {Blog.Name}";
-            model.CanonicalUrl = model.CurrentPage <= 1? $"{model.BlogUrl.TrimEnd('/')}" : $"{model.BlogUrl.TrimEnd('/')}?page={model.CurrentPage}";
+            model.CanonicalUrl = model.CurrentPage <= 1 ? $"{model.BlogUrl.TrimEnd('/')}" : $"{model.BlogUrl.TrimEnd('/')}?page={model.CurrentPage}";
             model.SearchUrl = null;
             return View(model);
         }
@@ -39,11 +39,11 @@ namespace Composr.Web.Controllers
         [HttpGet]
         public IActionResult FindPost(string postkey)
         {
-            var results = service.Search(new SearchCriteria() { BlogID = Blog.Id.Value, Locale = Blog.Locale.Value, SearchTerm = HttpContext.Request.Path.Value, SearchType = SearchType.URN});
+            var results = service.Search(new SearchCriteria() { BlogID = Blog.Id.Value, Locale = Blog.Locale.Value, SearchTerm = HttpContext.Request.Path.Value, SearchType = SearchType.URN });
 
             if (results != null && results.Hits.Count > 0)
                 return GetPostDetails(results.Hits);
-            else if(redirectionMapper.CanResolve(postkey))
+            else if (redirectionMapper.CanResolve(postkey))
                 return RedirectPermanent(redirectionMapper.MapToRedirectUrl(postkey));
 
             return NotFound();
@@ -53,7 +53,7 @@ namespace Composr.Web.Controllers
         {
             var model = PostSearchViewModel.FromBaseFrontEndViewModel(BaseViewModel);
             model.Referrer = GetReferrer();
-            UpdateBreadcrumbs(model, GetDetailBreadCrumbs(model));            
+            UpdateBreadcrumbs(model, GetDetailBreadCrumbs(model));
             model.Title = $"{results[0].Title} - {Blog.Name}";
             model.MetaDescription = $"{results[0].MetaDescription}";
             model.CanonicalUrl = $"{model.BlogUrl.TrimEnd('/')}{results[0].URN}";
@@ -76,7 +76,7 @@ namespace Composr.Web.Controllers
         public IActionResult AutoComplete(string q)
         {
             var results = service.Search(new SearchCriteria() { BlogID = Blog.Id.Value, Locale = Blog.Locale.Value, SearchSortOrder = SearchSortOrder.BestMatch, Limit = 5, SearchTerm = q, SearchType = SearchType.AutoComplete });
-            if (results.Hits.Count > 0) results.Hits.Add(new Hit { Title = "Display all results", URN=$"/search?q={q}" });
+            if (results.Hits.Count > 0) results.Hits.Add(new Hit { Title = "Display all results", URN = $"/search?q={q}" });
             return new JsonResult(new { suggestions = results.Hits.Select(r => new { value = r.Title, data = r.URN }) });
         }
 
@@ -149,15 +149,15 @@ namespace Composr.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult SetLanguage(string culture, string returnUrl)
+        public IActionResult Translate(string sourceLanguage, string targetLanguage, string url)
         {
-            Response.Cookies.Append(
-                CookieRequestCultureProvider.DefaultCookieName,
-                CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
-                new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) }
-            );
+            var returnUrl = FindTranslatedPost(HttpContext.Request.Path, sourceLanguage, targetLanguage);
+            return FindPost(returnUrl);
+        }
 
-            return LocalRedirect(returnUrl);
+        private string FindTranslatedPost(PathString path, string sourceLanguage, string targetLanguage)
+        {
+            throw new NotImplementedException();
         }
     }
 }

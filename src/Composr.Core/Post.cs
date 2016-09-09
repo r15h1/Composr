@@ -50,6 +50,7 @@ namespace Composr.Core
         public DateTime? DatePublished { get; set; }
 
         public List<PostImage> Images { get; set; }
+        public Dictionary<Locale, string> Translations { get; set; }
 
         public DateTime? DateCreated;
     }

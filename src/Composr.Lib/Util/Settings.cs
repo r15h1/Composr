@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace Composr.Lib.Util
 {
@@ -72,6 +73,14 @@ namespace Composr.Lib.Util
             get
             {
                 return Config["Search:DefaultPostTag"];
+            }
+        }
+
+        public static CultureInfo[] SupportedCultures
+        {
+            get
+            {
+                return new CultureInfo[] { new CultureInfo("en"), new CultureInfo("fr") };
             }
         }
     }    

@@ -3,20 +3,22 @@
 @using Microsoft.AspNetCore.Localization
 @using Microsoft.AspNetCore.Mvc.Localization
 @using Microsoft.Extensions.Options
+@using System.Globalization;
 
 @inject IViewLocalizer Localizer
 @inject IOptions<RequestLocalizationOptions> LocOptions
 
 @{
-    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
-    var cultureItems = LocOptions.Value.SupportedUICultures
-        .Select(c => new SelectListItem { Value = c.Name, Text = c.DisplayName })
-        .ToList();
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture;
+    var cultureItems = LocOptions.Value.SupportedCultures.Except(new List<CultureInfo> { requestCulture });
+    var missingCulture = cultureItems.FirstOrDefault();
 }
 
 
-<form id="langForm" asp-controller="Home" asp-action="SetLanguage" asp-route-returnUrl="@Context.Request.Path" method="post" class="form-horizontal" role="form">
-    <input type="hidden" name="language" value="fr"/>
-    <a href="#" onclick="langForm.submit();" rel="nofollow">Français</a>
+<form id="langForm" asp-controller="FrontEnd" asp-action="Translate" method="post" class="form-horizontal" role="form">
+    <input type="hidden" name="sourceLanguage" value="@requestCulture.TwoLetterISOLanguageName"/>
+    <input type="hidden" name="targetLanguage" value="@missingCulture.TwoLetterISOLanguageName" />
+    <input type="hidden" name="url" value="@Context.Request.Path" />
+    <input type="submit" class="btn btn-link" value="@missingCulture.TextInfo.ToTitleCase(@missingCulture.NativeName)"/>
 </form>
 

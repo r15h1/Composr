@@ -3,8 +3,8 @@ using Composr.Lib.Indexing;
 using Composr.Lib.Specifications;
 using Composr.Lib.Util;
 using Composr.Web.Data;
+using Composr.Web.Middleware;
 using Composr.Web.Models;
-using Composr.Web.MultiTenancy;
 using Composr.Web.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -25,8 +25,6 @@ namespace Composr.Web
 {
     public class Startup
     {
-        private CultureInfo[] supportedCultures = new[] { new CultureInfo("en"), new CultureInfo("fr")};
-
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -80,8 +78,10 @@ namespace Composr.Web
             services.Configure<RequestLocalizationOptions>(options =>
             {                
                 options.DefaultRequestCulture = new RequestCulture(culture: "en", uiCulture: "en");
-                options.SupportedCultures = supportedCultures;
-                options.SupportedUICultures = supportedCultures;
+                options.SupportedCultures = Settings.SupportedCultures;
+                options.SupportedUICultures = Settings.SupportedCultures;
+                options.RequestCultureProviders.Clear();
+                options.RequestCultureProviders.Add(new RouteCultureProvider(options.DefaultRequestCulture));
             });
 
             services.AddMemoryCache();
@@ -131,13 +131,15 @@ namespace Composr.Web
                 return next();
             });
 
-            
-            app.UseRequestLocalization(new RequestLocalizationOptions
+            var localizationOptions = new RequestLocalizationOptions
             {
                 DefaultRequestCulture = new RequestCulture("en"),
-                SupportedCultures = supportedCultures,
-                SupportedUICultures = supportedCultures
-            });
+                SupportedCultures = Settings.SupportedCultures,
+                SupportedUICultures = Settings.SupportedCultures
+            };
+            localizationOptions.RequestCultureProviders.Clear();
+            localizationOptions.RequestCultureProviders.Add(new RouteCultureProvider(localizationOptions.DefaultRequestCulture));
+            app.UseRequestLocalization(localizationOptions);
 
 
             if (env.IsDevelopment())
@@ -152,11 +154,8 @@ namespace Composr.Web
             }
 
             app.UseApplicationInsightsExceptionTelemetry();
-
             app.UseStaticFiles();
             app.UseIdentity();
-
-            // Add external authentication middleware below. To configure them please see http://go.microsoft.com/fwlink/?LinkID=532715
             
             app.UseMultitenancy<Blog>();
             //app.UseMiddleware<CompressionMiddleware>();
@@ -190,12 +189,6 @@ namespace Composr.Web
                    name: "default",
                    template: "{controller=FrontEnd}/{action=Index}/{ id ?}"
                );
-
-                //routes.MapRoute(
-                //    name: "recipe-details-route",
-                //    template: "mauritius/cooking/{postkey}",
-                //    defaults: new { controller = "FrontEnd", action = "PostDetails" }
-                //);
 
                 routes.MapRoute(
                     name: "findpost",

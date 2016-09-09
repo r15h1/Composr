@@ -18,7 +18,7 @@ namespace Composr.Tests
 
         public PostRepositoryTests()
         {
-            repo = new Composr.Repository.Sql.PostRepository(new Blog(1), new PostSpecification());
+            repo = new Composr.Repository.Sql.PostRepository(new Blog(1), new PostSpecification(), new Composr.Repository.Sql.BlogRepository(new MinimalBlogSpecification()));
             InitializeConfiguration();
         }
 
@@ -78,7 +78,7 @@ namespace Composr.Tests
 
         private int GetExistingRepoCount(Blog blog)
         {
-            return new Composr.Repository.Sql.PostRepository(blog, new PostSpecification()).Count(null);
+            return new Composr.Repository.Sql.PostRepository(blog, new PostSpecification(), new Composr.Repository.Sql.BlogRepository(new MinimalBlogSpecification())).Count(null);
         }
 
         [Fact]
@@ -218,11 +218,11 @@ namespace Composr.Tests
         public void PostRepositoryRetrievesPostsFromExistingBlogsOnly()
         {
             Blog nonexistingblog = new Blog(999);
-            Composr.Core.IRepository<Post> repo2 = new Composr.Repository.Sql.PostRepository(nonexistingblog, new PostSpecification());
+            Composr.Core.IRepository<Post> repo2 = new Composr.Repository.Sql.PostRepository(nonexistingblog, new PostSpecification(), new Composr.Repository.Sql.BlogRepository(new MinimalBlogSpecification()));
             using (TransactionScope t = new TransactionScope())
             {
                 repo.Locale = Locale.EN;
-                IList<Post> posts = new Composr.Repository.Sql.PostRepository(nonexistingblog, new PostSpecification()).Get(new Composr.Core.Filter());
+                IList<Post> posts = new Composr.Repository.Sql.PostRepository(nonexistingblog, new PostSpecification(), new Composr.Repository.Sql.BlogRepository(new MinimalBlogSpecification())).Get(new Composr.Core.Filter());
                 Assert.True(posts.Count == 0);
             }
         }

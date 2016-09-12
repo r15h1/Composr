@@ -1,7 +1,16 @@
-﻿@using Microsoft.AspNetCore.Mvc.Localization
+﻿@using Microsoft.AspNetCore.Builder
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.Extensions.Options
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IOptions<RequestLocalizationOptions> LocOptions
 @inject IViewLocalizer Localizer
 
 @model Composr.Web.ViewModels.BaseFrontEndViewModel
+
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture;
+}
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
@@ -13,7 +22,7 @@
             <a href="@Model.BlogUrl"><img src="@Model.LogoUrl"></a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
-            <form class="navbar-form navbar-left" role="search" method="get" action="/search">
+            <form class="navbar-form navbar-left" role="search" method="get" action="/@requestCulture.TwoLetterISOLanguageName@Localizer["/search"]">
                 <div class="form-group input-group search-group">
                     <input type="text" class="form-control" placeholder="@Localizer["search e.g. chicken"]" name="q" id="q">
                     <div class="input-group-btn">

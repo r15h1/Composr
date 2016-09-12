@@ -32,6 +32,7 @@ namespace Composr.Core
         public string Yield { get; set; }
         public string Tags { get; set; }
         public PostImage PostImage { get; set; }
+        public Dictionary<Locale, string> Translations { get; set; }
     }
 
     public enum SearchSortOrder

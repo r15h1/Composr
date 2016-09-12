@@ -81,6 +81,13 @@ namespace Composr.Lib.Indexing
                 result.PostImage.Caption = doc.Get(IndexFields.ImageCaption);
             }
 
+            result.Translations = new Dictionary<Locale, string>();
+            foreach (var loc in Enum.GetValues(typeof(Locale)))
+            {
+                var locale = ((Locale)loc);
+                string translated = doc.Get(locale.ToString().ToLowerInvariant());
+                if (!string.IsNullOrWhiteSpace(translated)) result.Translations.Add(locale, translated);
+            }
 
             return result;
         }

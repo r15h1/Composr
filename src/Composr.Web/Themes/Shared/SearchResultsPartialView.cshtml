@@ -7,7 +7,7 @@
                 <a href="@result.URN">
                     @if (result.PostImage != null && !string.IsNullOrWhiteSpace(result.PostImage.Url))
                     {
-                        <img src="@result.PostImage.Url.ToLowerInvariant().Replace(".jpg", "-xs.jpg")" alt="@result.PostImage.Caption" class="img-thumbnail" />
+                        <img src="~/@result.PostImage.Url.ToLowerInvariant().Replace(".jpg", "-xs.jpg")" alt="@result.PostImage.Caption" class="img-thumbnail" />
                     }
                     else
                     {

@@ -16,9 +16,9 @@
 
 
 <form id="langForm" asp-controller="FrontEnd" asp-action="Translate" method="post" class="form-horizontal" role="form">
-    <input type="hidden" name="sourceLanguage" value="@requestCulture.TwoLetterISOLanguageName"/>
-    <input type="hidden" name="targetLanguage" value="@missingCulture.TwoLetterISOLanguageName" />
-    <input type="hidden" name="url" value="@Context.Request.Path" />
+    <input type="hidden" name="SourceLocale" value="@requestCulture.TwoLetterISOLanguageName"/>
+    <input type="hidden" name="TargetLocale" value="@missingCulture.TwoLetterISOLanguageName" />
+    <input type="hidden" name="Url" value="@Context.Request.Path" />
     <input type="submit" class="btn btn-link" value="@missingCulture.TextInfo.ToTitleCase(@missingCulture.NativeName)"/>
 </form>
 

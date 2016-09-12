@@ -108,7 +108,7 @@ namespace Composr.Web
             services.AddScoped<ISpecification<Blog>, MinimalBlogSpecification>();
             services.AddScoped<ISpecification<Post>, PostSpecification>();
 
-            services.AddSingleton<IRedirectionMapper, RedirectionMapper>();
+            services.AddSingleton<IUrlMapper, UrlMapper>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -159,19 +159,32 @@ namespace Composr.Web
             
             app.UseMultitenancy<Blog>();
             //app.UseMiddleware<CompressionMiddleware>();
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "search-route",
-                    template: "search",
+                    template: "en/search",
                     defaults: new { controller = "FrontEnd", action = "Search" }
                 );
 
                 routes.MapRoute(
+                    name: "search-route-fr",
+                    template: "fr/rechercher",
+                    defaults: new { controller = "FrontEnd", action = "Search" }
+                );
+
+                routes.MapRoute(
+                    name: "home",
+                    template: "{culture:regex(^fr$)}",
+                    defaults: new { controller = "FrontEnd", action = "Index" }
+                );
+
+                routes.MapRoute(
                     name: "error-route",
-                    template: "error/{error}",
+                    template: "{culture=en}/error/{error}",
                     defaults: new { controller = "FrontEnd", action = "Error" }
-                );                
+                );
 
                 routes.MapRoute(
                     name: "blog-default-route",

@@ -174,4 +174,7 @@
   <data name="Puddings" xml:space="preserve">
     <value>Pudding</value>
   </data>
+  <data name="/search" xml:space="preserve">
+    <value>/rechercher</value>
+  </data>
 </root>

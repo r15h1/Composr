@@ -49,7 +49,7 @@ namespace Composr.Web.Controllers
             else if (urlMapper.HasRedirectUrl(postkey))
                 return RedirectPermanent(urlMapper.GetRedirectUrl(postkey));
 
-            return NotFound();
+            return Error("");
         }
 
         private IActionResult GetPostDetails(IList<Hit> results)
@@ -148,7 +148,7 @@ namespace Composr.Web.Controllers
                 Title = localizer["Page Not Found (404) - Cocozil"],
                 CanonicalUrl = null
             };
-            return View(model);
+            return View("Error", model);
         }
 
         [HttpPost]

@@ -117,19 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Click here to go to the home page now." xml:space="preserve">
-    <value>Cliquez sur ce lien pour aller à la page d'accueil.</value>
+  <data name="Or you can click here to go to the home page now." xml:space="preserve">
+    <value>Ou si vous préférez, vous pouvez cliquez sur ce lien pour naviguer jusqu'à la page d'accueil maintenant.</value>
   </data>
-  <data name="Page Not Found" xml:space="preserve">
-    <value>Page Introuvable</value>
+  <data name="Lost at Sea!" xml:space="preserve">
+    <value>Perdu en Mer!</value>
   </data>
   <data name="seconds." xml:space="preserve">
     <value>secondes.</value>
   </data>
-  <data name="The page you are trying to visit does not exist." xml:space="preserve">
-    <value>La page que vous tentez d'accéder n'existe pas.</value>
+  <data name="We're sorry! The page you are trying to visit is lost at sea." xml:space="preserve">
+    <value>Désolé! La page que vous tentez d'accéder a été englouti par les flots</value>
   </data>
-  <data name="You will be redirected to the home page in" xml:space="preserve">
-    <value>Vous serez dirigé(e) vers la page d'accueil dans</value>
+  <data name="But we will help you swim back to the shore in" xml:space="preserve">
+    <value>Mais on va vous aider à nager jusqu'à la plage dans</value>
   </data>
 </root>

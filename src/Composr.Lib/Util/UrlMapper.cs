@@ -42,11 +42,6 @@ namespace Composr.Lib.Util
             );
 
             translations.TryAdd(
-                new TranslationMapping { Locale = Locale.EN, Url = "/en/error" },
-                new List<TranslationMapping> { new TranslationMapping { Locale = Locale.FR, Url = "/fr/erreur" } }
-            );
-
-            translations.TryAdd(
                 new TranslationMapping { Locale = Locale.FR, Url = "/fr" },
                 new List<TranslationMapping> { new TranslationMapping { Locale = Locale.EN, Url = "/" } }
             );
@@ -54,11 +49,6 @@ namespace Composr.Lib.Util
             translations.TryAdd(                
                 new TranslationMapping { Locale = Locale.FR, Url = "/fr/rechercher" },
                 new List<TranslationMapping> { new TranslationMapping { Locale = Locale.EN, Url = "/en/search" } }
-            );
-
-            translations.TryAdd(                
-                new TranslationMapping { Locale = Locale.FR, Url = "/fr/erreur" },
-                new List<TranslationMapping> { new TranslationMapping { Locale = Locale.EN, Url = "/en/error" } }
             );
         }
 

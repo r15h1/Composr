@@ -132,4 +132,7 @@
   <data name="But we will help you swim back to the shore in" xml:space="preserve">
     <value>Mais on va vous aider à nager jusqu'à la plage dans</value>
   </data>
+  <data name="/" xml:space="preserve">
+    <value>/fr</value>
+  </data>
 </root>

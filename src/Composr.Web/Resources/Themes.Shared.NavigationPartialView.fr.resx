@@ -186,4 +186,7 @@
   <data name="/en/search?cat=pudding" xml:space="preserve">
     <value>/fr/rechercher?cat=pudding</value>
   </data>
+  <data name="/" xml:space="preserve">
+    <value>/fr</value>
+  </data>
 </root>

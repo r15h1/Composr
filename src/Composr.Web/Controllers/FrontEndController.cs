@@ -73,10 +73,11 @@ namespace Composr.Web.Controllers
 
 
         [HttpGet("api/autocomplete")]
+        [HttpGet("{culture:regex(^en|fr$)?}/api/autocomplete")]
         public IActionResult AutoComplete(string q)
         {
             var results = service.Search(new SearchCriteria() { BlogID = Blog.Id.Value, Locale = Blog.Locale.Value, SearchSortOrder = SearchSortOrder.BestMatch, Limit = 5, SearchTerm = q, SearchType = SearchType.AutoComplete });
-            if (results.Hits.Count > 0) results.Hits.Add(new Hit { Title = "Display all results", URN = $"/{Blog.Locale.ToString().ToLowerInvariant()}{localizer["/search"]}?q={q}" });
+            if (results.Hits.Count > 0) results.Hits.Add(new Hit { Title = "Display all results", URN = $"{localizer["/en/search"]}?q={q}" });
             return new JsonResult(new { suggestions = results.Hits.Select(r => new { value = r.Title, data = r.URN }) });
         }
 
@@ -154,6 +155,7 @@ namespace Composr.Web.Controllers
                 Title = localizer["Page Not Found (404) - Cocozil"],
                 CanonicalUrl = null
             };
+            HttpContext.Response.StatusCode = 404;
             return View("Error", model);
         }
 

@@ -66,8 +66,8 @@ namespace Composr.Web.Controllers
 
         private List<Breadcrumb> GetDetailBreadCrumbs(PostSearchViewModel model)
         {
-            List<Breadcrumb> crumbs = new List<Breadcrumb> { new Breadcrumb { Name = localizer["Home"], Url = "/" } };
-            if (!string.IsNullOrWhiteSpace(model.Referrer) && model.Referrer.ToLower().Contains("/search"))
+            List<Breadcrumb> crumbs = new List<Breadcrumb> { new Breadcrumb { Name = localizer["Home"], Url = localizer["/"] } };
+            if (!string.IsNullOrWhiteSpace(model.Referrer) && model.Referrer.ToLower().Contains(localizer["/en/search"]))
                 crumbs.Add(new Breadcrumb { Name = localizer["Search Results"], Url = $"/{model.Referrer.ToLowerInvariant().Replace(model.BlogUrl.ToLowerInvariant(), string.Empty).TrimStart(new char[] { '/' }) }" });
 
             crumbs.Add(new Breadcrumb { IsActive = true, Name = localizer["Recipe"] });
@@ -88,7 +88,7 @@ namespace Composr.Web.Controllers
             var model = GetViewModel(param, SearchSortOrder.BestMatch);
             model.Referrer = GetReferrer();
             UpdateBreadcrumbs(model, new List<Breadcrumb>{
-                new Breadcrumb { Name = localizer["Home"], Url = "/" },
+                new Breadcrumb { Name = localizer["Home"], Url = localizer["/"] },
                 new Breadcrumb { IsActive = true, Name = localizer["Search Results"] }
             });
 

@@ -117,29 +117,38 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="/search?cat=chicken" xml:space="preserve">
-    <value>/search?cat=poulet</value>
+  <data name="/en/search?cat=chicken" xml:space="preserve">
+    <value>/fr/rechercher?cat=poulet</value>
   </data>
-  <data name="/search?cat=fish" xml:space="preserve">
-    <value>/search?cat=poisson</value>
+  <data name="/en/search?cat=curry" xml:space="preserve">
+    <value>/fr/rechercher?cat=curry</value>
   </data>
-  <data name="/search?cat=grill" xml:space="preserve">
-    <value>/search?cat=grillade</value>
+  <data name="/en/search?cat=dessert" xml:space="preserve">
+    <value>/fr/rechercher?cat=dessert</value>
   </data>
-  <data name="/search?cat=meat" xml:space="preserve">
-    <value>/search?cat=viande</value>
+  <data name="/en/search?cat=fish" xml:space="preserve">
+    <value>/fr/rechercher?cat=poisson</value>
   </data>
-  <data name="/search?cat=rice" xml:space="preserve">
-    <value>/search?cat=riz</value>
+  <data name="/en/search?cat=grill" xml:space="preserve">
+    <value>/fr/rechercher?cat=grillade</value>
   </data>
-  <data name="/search?cat=salad" xml:space="preserve">
-    <value>/search?cat=salade</value>
+  <data name="/en/search?cat=meat" xml:space="preserve">
+    <value>/fr/rechercher?cat=viande</value>
   </data>
-  <data name="/search?cat=streetfood" xml:space="preserve">
-    <value>/search?cat=cuisinederue</value>
+  <data name="/en/search?cat=pudding" xml:space="preserve">
+    <value>/fr/rechercher?cat=pudding</value>
   </data>
-  <data name="/search?cat=vegetarian" xml:space="preserve">
-    <value>/search?cat=végétarien</value>
+  <data name="/en/search?cat=rice" xml:space="preserve">
+    <value>/fr/rechercher?cat=riz</value>
+  </data>
+  <data name="/en/search?cat=salad" xml:space="preserve">
+    <value>/fr/rechercher?cat=salade</value>
+  </data>
+  <data name="/en/search?cat=streetfood" xml:space="preserve">
+    <value>/fr/rechercher?cat=cuisinederue</value>
+  </data>
+  <data name="/en/search?cat=vegetarian" xml:space="preserve">
+    <value>/fr/rechercher?cat=végétarien</value>
   </data>
   <data name="Chicken Recipes" xml:space="preserve">
     <value>Poulet</value>

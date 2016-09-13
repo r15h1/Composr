@@ -138,4 +138,10 @@
   <data name="Home" xml:space="preserve">
     <value>Accueil</value>
   </data>
+  <data name="/" xml:space="preserve">
+    <value>/fr</value>
+  </data>
+  <data name="/en/search" xml:space="preserve">
+    <value>/fr/rechercher</value>
+  </data>
 </root>

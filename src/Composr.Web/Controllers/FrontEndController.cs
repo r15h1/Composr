@@ -7,6 +7,7 @@ using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using Composr.Web.Middleware;
 
 namespace Composr.Web.Controllers
 {
@@ -15,12 +16,14 @@ namespace Composr.Web.Controllers
         private ISearchService service;
         private IUrlMapper urlMapper;
         private IStringLocalizer<FrontEndController> localizer;
+        private HrefLangLocalizerCollection hreflanglocalizers;
 
         public FrontEndController(ISearchService service, IUrlMapper urlMapper, Blog blog, IStringLocalizer<FrontEndController> localizer) : base(blog)
         {
             this.service = service;
             this.urlMapper = urlMapper;
             this.localizer = localizer;
+            hreflanglocalizers = new HrefLangLocalizerCollection(blog.Locale.Value, localizer);
         }
 
         // GET: /<controller>/git
@@ -30,6 +33,10 @@ namespace Composr.Web.Controllers
             var model = GetViewModel(param, SearchSortOrder.MostRecent);
             model.Title = $"{Blog.Attributes[BlogAttributeKeys.Tagline]} - {Blog.Name}";
             model.CanonicalUrl = model.CurrentPage <= 1 ? $"{model.BlogUrl.TrimEnd('/')}{localizer["/"]}" : $"{model.BlogUrl.TrimEnd('/')}{localizer["/"]}?page={model.CurrentPage}";
+
+            foreach (var hrefLangLocalizer in hreflanglocalizers.GetAlternateLocalizers())
+                model.HrefLangUrls.Add(hrefLangLocalizer.Locale.ToString().ToLowerInvariant(), model.CurrentPage <= 1 ? $"{model.BlogUrl.TrimEnd('/')}{hrefLangLocalizer.Localizer["/"]}" : $"{model.BlogUrl.TrimEnd('/')}{localizer["/"]}?page={model.CurrentPage}");
+
             model.SearchUrl = null;
             return View(model);
         }
@@ -57,6 +64,10 @@ namespace Composr.Web.Controllers
             model.Title = $"{results[0].Title} - {Blog.Name}";
             model.MetaDescription = $"{results[0].MetaDescription}";
             model.CanonicalUrl = $"{model.BlogUrl.TrimEnd('/')}{results[0].URN}";
+
+            foreach (var translation in results[0].Translations)
+                model.HrefLangUrls.Add(translation.Key.ToString().ToLowerInvariant(), $"{model.BlogUrl.TrimEnd('/')}{translation.Value}");
+
             model.SearchResults = results;
             return View("PostDetails", model);
         }
@@ -92,6 +103,9 @@ namespace Composr.Web.Controllers
 
             model.Title = $"{(string.IsNullOrWhiteSpace(param.Query) ? localizer["tag"] + ": " + param.Category : param.Query)} - {localizer["Cocozil Search"]}";
             model.CanonicalUrl = $"{model.BlogUrl.TrimEnd('/')}{localizer["/en/search"]}{BuildQueryString(param)}";
+            //foreach (var hrefLangLocalizer in hreflanglocalizers.GetAlternateLocalizers())
+            //    model.HrefLangUrls.Add(hrefLangLocalizer.Locale.ToString().ToLowerInvariant(), $"{model.BlogUrl.TrimEnd('/')}{hrefLangLocalizer.Localizer["/en/search"]}{BuildQueryString(param)}");
+
             return View(model);
         }
 

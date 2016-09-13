@@ -1,4 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Composr.Lib.Util
 @inject IViewLocalizer Localizer
 
 @model Composr.Web.ViewModels.BaseFrontEndViewModel
@@ -8,8 +9,17 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <meta charset="UTF-8" />
-    @if(!string.IsNullOrWhiteSpace(@Model.MetaDescription)){@Html.Raw($"<meta name=\"description\" content=\"{@Model.MetaDescription}\">");}
-    @if (!string.IsNullOrWhiteSpace(@Model.CanonicalUrl)){@Html.Raw($"<link rel=\"canonical\" href=\"{@Model.CanonicalUrl}\">");}
+    @if (!@Model.MetaDescription.IsBlank()){@Html.Raw($"<meta name=\"description\" content=\"{@Model.MetaDescription}\">");}
+    @if (!@Model.CanonicalUrl.IsBlank()) {@Html.Raw($"<link rel=\"canonical\" href=\"{@Model.CanonicalUrl}\">");}
+
+    @foreach (var hreflang in Model.HrefLangUrls)
+    {
+        @if (!hreflang.Key.IsBlank() && !hreflang.Value.IsBlank())
+        {
+            <link rel="alternate" hreflang="@hreflang.Key" href="@hreflang.Value" />
+        }
+    }
+
     @RenderSection("meta", required: false)
     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
     <environment names="Development">
@@ -25,7 +35,8 @@
     @Html.Partial("NavigationPartialView", Model)
     @RenderBody()
 
-    <section class="container"><br />
+    <section class="container">
+        <br />
         @RenderSection("ads", required: false)
     </section>
 

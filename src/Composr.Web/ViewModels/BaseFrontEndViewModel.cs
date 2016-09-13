@@ -9,6 +9,7 @@ namespace Composr.Web.ViewModels
         public BaseFrontEndViewModel()
         {
             Breadcrumbs = new List<ViewModels.Breadcrumb>();
+            HrefLangUrls = new Dictionary<string, string>();
         }
 
         public string LogoUrl { get; set; }
@@ -24,6 +25,7 @@ namespace Composr.Web.ViewModels
         //private string referrer;
         public string Referrer { get; set; }
         public List<Breadcrumb> Breadcrumbs { get; set; }        
+        public Dictionary<string, string> HrefLangUrls { get; set; }
     }
 
     public class Breadcrumb

@@ -1,6 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Builder
 @using Microsoft.AspNetCore.Localization
 @using Microsoft.Extensions.Options
+@using Composr.Lib.Util
 
 @inject IOptions<RequestLocalizationOptions> LocOptions
 
@@ -17,7 +18,7 @@
             <ul class="pagination">
                 @for (int i = 1; i <= Model.PageCount; i++)
                 {
-                    <li class="@(i == Model.CurrentPage? "active": null)"><a href="/@requestCulture.TwoLetterISOLanguageName/@Model.SearchUrl?@(string.IsNullOrWhiteSpace(Model.SearchQuery)? null: "q=" + Model.SearchQuery + "&")@(string.IsNullOrWhiteSpace(Model.SearchCategory)? null: "cat=" + Model.SearchCategory + "&")page=@i">@i</a></li>
+                    <li class="@(i == Model.CurrentPage? "active": null)"><a href="@Model.SearchUrl?@(Model.SearchQuery.IsBlank()? null: "q=" + Model.SearchQuery + "&")@(Model.SearchCategory.IsBlank()? null: "cat=" + Model.SearchCategory + "&")page=@i">@i</a></li>
                 }
             </ul>
         </div>

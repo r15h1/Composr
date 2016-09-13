@@ -2,14 +2,11 @@
 using Composr.Lib.Util;
 using Composr.Web.Models;
 using Composr.Web.ViewModels;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
-using Microsoft.Extensions.Options;
-using System;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 namespace Composr.Web.Controllers
 {
@@ -32,7 +29,7 @@ namespace Composr.Web.Controllers
         {
             var model = GetViewModel(param, SearchSortOrder.MostRecent);
             model.Title = $"{Blog.Attributes[BlogAttributeKeys.Tagline]} - {Blog.Name}";
-            model.CanonicalUrl = model.CurrentPage <= 1 ? $"{model.BlogUrl.TrimEnd('/')}" : $"{model.BlogUrl.TrimEnd('/')}?page={model.CurrentPage}";
+            model.CanonicalUrl = model.CurrentPage <= 1 ? $"{model.BlogUrl.TrimEnd('/')}{localizer["/"]}" : $"{model.BlogUrl.TrimEnd('/')}{localizer["/"]}?page={model.CurrentPage}";
             model.SearchUrl = null;
             return View(model);
         }
@@ -93,8 +90,17 @@ namespace Composr.Web.Controllers
             });
 
             model.Title = $"{(string.IsNullOrWhiteSpace(param.Query) ? localizer["tag"] + ": " + param.Category : param.Query)} - {localizer["Cocozil Search"]}";
-            model.CanonicalUrl = $"{model.BlogUrl.TrimEnd('/')}/search?q={System.Net.WebUtility.UrlEncode(param.Query)}&page={model.CurrentPage}";
+            model.CanonicalUrl = $"{model.BlogUrl.TrimEnd('/')}{localizer["/en/search"]}{BuildQueryString(param)}";
             return View(model);
+        }
+
+        private string BuildQueryString(SearchParameters param)
+        {
+            string querystring = string.Empty;
+            querystring = param.Page > 1 ? "page=" + param.Page.ToString() : string.Empty;
+            querystring += (param.Query.IsBlank() ? string.Empty : (querystring.IsBlank() ? string.Empty : "&") + "q=" + param.Query);
+            querystring += (param.Category.IsBlank() ? string.Empty : (querystring.IsBlank() ? string.Empty : "&") + "cat=" + param.Category);
+            return querystring.IsBlank() ? string.Empty : $"?{querystring}";
         }
 
         private static void UpdateBreadcrumbs(PostSearchViewModel model, List<Breadcrumb> breadcrumbs)
@@ -119,7 +125,7 @@ namespace Composr.Web.Controllers
             model.SearchCategory = param.Category;
             model.PageCount = (int)((results.HitsCount / Settings.DefaultSearchPageSize) + 1);
             model.CurrentPage = (int)((criteria.Start / Settings.DefaultSearchPageSize) + 1);
-            model.SearchUrl = "search";
+            model.SearchUrl = localizer["/en/search"];
             return model;
         }
 

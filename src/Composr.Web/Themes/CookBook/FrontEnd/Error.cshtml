@@ -5,7 +5,7 @@
     <h1>@Localizer["Lost at Sea!"]</h1>
     <img class="img-responsive img-details-page" src="~/themes/cookbook/404.png" alt="page not found"/><br/>
     <p>@Localizer["We're sorry! The page you are trying to visit is lost at sea."] @Localizer["But we will help you swim back to the shore in"] <span id="timeLeft" class="label label-warning">15</span> @Localizer["seconds."]</p>
-    <p><a href="@Localizer["/"]">@Localizer["Or you can click here to go to the home page now."]</a></p>
+    <p><a href="@Localizer["/"]" rel="nofollow">@Localizer["Or you can click here to go to the home page now."]</a></p>
     @section scripts{
         <script type="text/javascript">
             $(document).ready(function () {
@@ -21,3 +21,5 @@
         </script>
     }
 </section>
+@section meta{ 
+    <meta name="robots" content="noindex">}

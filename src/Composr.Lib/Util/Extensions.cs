@@ -56,5 +56,10 @@ namespace Composr.Lib.Util
             return source;
         }
 
+        public static bool IsBlank(this string source)
+        {
+            return string.IsNullOrWhiteSpace(source);
+        }
+
     }
 }

@@ -101,7 +101,7 @@ namespace Composr.Web.Controllers
                 new Breadcrumb { IsActive = true, Name = localizer["Search Results"] }
             });
 
-            model.Title = $"{(string.IsNullOrWhiteSpace(param.Query) ? localizer["tag"] + ": " + param.Category : param.Query)} - {localizer["Cocozil Search"]}";
+            model.Title = $"{(string.IsNullOrWhiteSpace(param.Query) ? param.Category : param.Query)} - {localizer["Cocozil Search"]}";
             model.CanonicalUrl = $"{model.BlogUrl.TrimEnd('/')}{localizer["/en/search"]}{BuildQueryString(param)}";
             //foreach (var hrefLangLocalizer in hreflanglocalizers.GetAlternateLocalizers())
             //    model.HrefLangUrls.Add(hrefLangLocalizer.Locale.ToString().ToLowerInvariant(), $"{model.BlogUrl.TrimEnd('/')}{hrefLangLocalizer.Localizer["/en/search"]}{BuildQueryString(param)}");

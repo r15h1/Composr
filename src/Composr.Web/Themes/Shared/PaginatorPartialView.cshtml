@@ -18,7 +18,7 @@
             <ul class="pagination">
                 @for (int i = 1; i <= Model.PageCount; i++)
                 {
-                    <li class="@(i == Model.CurrentPage? "active": null)"><a href="@Model.SearchUrl?@(Model.SearchQuery.IsBlank()? null: "q=" + Model.SearchQuery + "&")@(Model.SearchCategory.IsBlank()? null: "cat=" + Model.SearchCategory + "&")page=@i">@i</a></li>
+                    <li class="@(i == Model.CurrentPage? "active": null)"><a rel="nofollow" href="@Model.SearchUrl?@(Model.SearchQuery.IsBlank()? null: "q=" + Model.SearchQuery + "&")@(Model.SearchCategory.IsBlank()? null: "cat=" + Model.SearchCategory + "&")page=@i">@i</a></li>
                 }
             </ul>
         </div>

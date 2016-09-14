@@ -64,6 +64,7 @@ namespace Composr.Web.Controllers
             model.Title = $"{results[0].Title} - {Blog.Name}";
             model.MetaDescription = $"{results[0].MetaDescription}";
             model.CanonicalUrl = $"{model.BlogUrl.TrimEnd('/')}{results[0].URN}";
+            model.HrefLangUrls.Add(Blog.Locale.ToString().ToLowerInvariant(), model.CanonicalUrl);
 
             foreach (var translation in results[0].Translations)
                 model.HrefLangUrls.Add(translation.Key.ToString().ToLowerInvariant(), $"{model.BlogUrl.TrimEnd('/')}{translation.Value}");

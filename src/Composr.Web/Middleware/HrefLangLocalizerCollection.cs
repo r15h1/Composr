@@ -19,8 +19,7 @@ namespace Composr.Web.Middleware
         public IEnumerable<HrefLangLocalizer> GetAlternateLocalizers()
         {
             foreach(var locale in Enum.GetValues(typeof(Locale)))
-                if((Locale) locale != currentLocale)
-                    yield return new HrefLangLocalizer((Locale) locale, localizer.WithCulture(new CultureInfo(((Locale)locale).ToString())));
+                yield return new HrefLangLocalizer((Locale) locale, localizer.WithCulture(new CultureInfo(((Locale)locale).ToString())));
         }
     }
 

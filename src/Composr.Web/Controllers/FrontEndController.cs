@@ -104,8 +104,7 @@ namespace Composr.Web.Controllers
 
             model.Title = $"{(string.IsNullOrWhiteSpace(param.Query) ? param.Category : param.Query)} - {localizer["Cocozil Search"]}";
             model.CanonicalUrl = $"{model.BlogUrl.TrimEnd('/')}{localizer["/en/search"]}{BuildQueryString(param)}";
-            //foreach (var hrefLangLocalizer in hreflanglocalizers.GetAlternateLocalizers())
-            //    model.HrefLangUrls.Add(hrefLangLocalizer.Locale.ToString().ToLowerInvariant(), $"{model.BlogUrl.TrimEnd('/')}{hrefLangLocalizer.Localizer["/en/search"]}{BuildQueryString(param)}");
+            model.HrefLangUrls.Add(Blog.Locale.ToString().ToLowerInvariant(), model.CanonicalUrl);
 
             return View(model);
         }

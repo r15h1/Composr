@@ -16,7 +16,7 @@
     {
         @if (!hreflang.Key.IsBlank() && !hreflang.Value.IsBlank())
         {
-            <link rel="alternate" hreflang="@hreflang.Key" href="@hreflang.Value" />
+            @Html.Raw($"<link rel=\"alternate\" hreflang=\"{@hreflang.Key}\" href=\"{@hreflang.Value}\" />");
         }
     }
 

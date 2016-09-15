@@ -165,6 +165,9 @@
   <data name="Meat Recipes" xml:space="preserve">
     <value>Viande</value>
   </data>
+  <data name="Popular Searches" xml:space="preserve">
+    <value>Consultez</value>
+  </data>
   <data name="Puddings" xml:space="preserve">
     <value>Pudding</value>
   </data>

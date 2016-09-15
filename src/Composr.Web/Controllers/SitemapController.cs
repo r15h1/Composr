@@ -42,21 +42,11 @@ namespace Composr.Web.Controllers
 
         private SiteUrl BuildSiteUrls(Blog blog, Hit r)
         {
-            var url = new SiteUrl { Location = $"{blog.Url}{r.URN}" };
-            url.HrefLangs = new List<HrefLang>();
-            url.HrefLangs.Add(
-                new HrefLang
-                {
-                    Locale = blog.Locale.ToString().ToLowerInvariant(),
-                    Url = url.Location
-                });
+            var url = new SiteUrl { Location = $"{blog.Url}{r.URN}", HrefLangs = new List<HrefLang>() };
+            url.HrefLangs.Add( new HrefLang { Locale = blog.Locale.ToString().ToLowerInvariant(), Url = url.Location });
+
             foreach(var translation in r.Translations)
-                url.HrefLangs.Add(
-                new HrefLang
-                {
-                    Locale = translation.Key.ToString().ToLowerInvariant(),
-                    Url = $"{blog.Url}{translation.Value}"
-                });
+                url.HrefLangs.Add( new HrefLang { Locale = translation.Key.ToString().ToLowerInvariant(), Url = $"{blog.Url}{translation.Value}"});
 
             return url;
         }

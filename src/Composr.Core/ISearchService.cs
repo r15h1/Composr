@@ -13,7 +13,12 @@ namespace Composr.Core
         /// </summary>
         /// <returns></returns>
         SearchResults Search(SearchCriteria criteria);
-    }
-    
-    
+
+        /// <summary>
+        /// gets a list of posts that are similar to the one passed as parameter
+        /// </summary>
+        /// <param name="post"></param>
+        /// <returns></returns>
+        SearchResults GetMoreLikeThis(SearchCriteria criteria);
+    }    
 }

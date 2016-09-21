@@ -19,8 +19,8 @@ namespace Composr.Tests
                 .AddJsonFile("settings.json", optional: true, reloadOnChange: true);            
             Settings.Config = builder.Build();
 
-            SeedData();
-            GenerateIndex();
+            //SeedData();
+            //GenerateIndex();
             searcher = new SearchService();
         }       
 
@@ -187,6 +187,13 @@ namespace Composr.Tests
             criteria.Tags = "truck";
             post = searcher.Search(criteria);
             Assert.True(post.Hits.Count == 0);
+        }
+
+        [Fact]
+        public void MoreLikeThis()
+        {
+            var criteria = new SearchCriteria { BlogID = 1, Locale = Locale.EN, DocumentId = 68, Limit = 4, SearchType = SearchType.MoreLikeThis};
+            var list = searcher.GetMoreLikeThis(criteria);
         }
 
     }

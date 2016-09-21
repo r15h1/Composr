@@ -33,6 +33,7 @@ namespace Composr.Core
         public string Tags { get; set; }
         public PostImage PostImage { get; set; }
         public Dictionary<Locale, string> Translations { get; set; }
+        public int DocumentId { get; set; }
     }
 
     public enum SearchSortOrder
@@ -46,7 +47,8 @@ namespace Composr.Core
     {
         AutoComplete,
         Default,
-        URN
+        URN,
+        MoreLikeThis
     }
 
     public class SearchCriteria
@@ -64,5 +66,6 @@ namespace Composr.Core
         public int Start { get; set; } = 0;
         public SearchType SearchType { get; set; } = SearchType.Default;
         public string Tags { get; set; }
+        public int DocumentId { get; set; }
     }
 }

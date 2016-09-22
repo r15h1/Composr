@@ -8,7 +8,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D1567D9A-C758-4D52-BB05-B0E564C91772}"
 	ProjectSection(SolutionItems) = preProject
 		global.json = global.json
-		Script.sql = Script.sql
 		StopWords.xls = StopWords.xls
 	EndProjectSection
 EndProject

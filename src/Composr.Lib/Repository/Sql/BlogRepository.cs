@@ -185,6 +185,14 @@ namespace Composr.Repository.Sql
             p.Add("@BlogID", blog.Id);
             p.Add("@LocaleID", (int)blog.Locale);
             QueryExecutor.ExecuteSingle<Blog>("Blog_Delete", p);
-        }        
+        }
+
+        public ISet<string> GetStopWords(Blog blog)
+        {
+            var p = new DynamicParameters();
+            p.Add("@BlogID", blog.Id);
+            p.Add("@LocaleID", (int)blog.Locale);
+            return new HashSet<string>(QueryExecutor.ExecuteList<string>("StopWords_Select", p));
+        }
     }
 }

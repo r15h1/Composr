@@ -34,12 +34,6 @@
 <body>
     @Html.Partial("NavigationPartialView", Model)
     @RenderBody()
-
-    <section class="container">
-        <br />
-        @RenderSection("ads", required: false)
-    </section>
-
     <section class="container">
         <footer>
             <h4>@Localizer["Popular Searches"]</h4>

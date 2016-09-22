@@ -25,5 +25,6 @@ namespace Composr.Web.ViewModels
         public int CurrentPage { get; internal set; }
         public string SearchUrl { get; set; }
         public string SearchCategory { get; set; }
+        public IList<Hit> RelatedResults { get; set; }
     }
 }

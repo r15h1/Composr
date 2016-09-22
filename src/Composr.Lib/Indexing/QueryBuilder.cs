@@ -101,13 +101,14 @@ namespace Composr.Lib.Indexing
             mlt.MinDocFreq = 1;
             mlt.MinWordLen = 3;
             mlt.Boost = true;
-            mlt.SetStopWords(new HashSet<string> { "ingredients", "salt", "teaspoon", "spoon", "tablespoon", "grams", "wash", "small", "store", "white", "combine", "cup", "leaves", "seed", "finely", "chopped", "powder", "oil", "Instructions", "allow", "serve", "sliced", "minutes" });
+            mlt.SetStopWords(StopWords);
 
             Query query = mlt.Like(criteria.DocumentId);
             BooleanQuery finalQuery = new BooleanQuery();
             finalQuery.Add(query, Occur.MUST);
             finalQuery.Add(new TermQuery(new Term(IndexFields.BlogID, criteria.BlogID.ToString().ToLowerInvariant())), Occur.MUST);
             finalQuery.Add(new TermQuery(new Term(IndexFields.Locale, criteria.Locale.ToString().ToLowerInvariant())), Occur.MUST);
+            finalQuery.Add(BoostPostWithImages(), Occur.SHOULD);
             return finalQuery;
         }
     }

@@ -49,14 +49,17 @@ namespace Composr.Web.Controllers
             var results = service.Search(new SearchCriteria() { BlogID = Blog.Id.Value, Locale = Blog.Locale.Value, SearchTerm = postkey, SearchType = SearchType.URN });
 
             if (results != null && results.Hits.Count > 0)
-                return GetPostDetails(results.Hits);
+            {
+                var relatedhits = service.GetMoreLikeThis(new SearchCriteria() { BlogID = Blog.Id.Value, Locale = Blog.Locale.Value, SearchType = SearchType.MoreLikeThis, DocumentId = results.Hits[0].DocumentId, Limit = 4 });
+                return GetPostDetails(results.Hits, relatedhits.Hits);
+            }
             else if (urlMapper.HasRedirectUrl(postkey))
                 return RedirectPermanent(urlMapper.GetRedirectUrl(postkey));
 
             return Error("");
         }
 
-        private IActionResult GetPostDetails(IList<Hit> results)
+        private IActionResult GetPostDetails(IList<Hit> results, IList<Hit> related)
         {
             var model = PostSearchViewModel.FromBaseFrontEndViewModel(BaseViewModel);
             model.Referrer = GetReferrer();
@@ -70,6 +73,7 @@ namespace Composr.Web.Controllers
                 model.HrefLangUrls.Add(translation.Key.ToString().ToLowerInvariant(), $"{model.BlogUrl.TrimEnd('/')}{translation.Value}");
 
             model.SearchResults = results;
+            model.RelatedResults = related;
             return View("PostDetails", model);
         }
 

@@ -1,4 +1,6 @@
-﻿@model Composr.Web.ViewModels.PostSearchViewModel
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@model Composr.Web.ViewModels.PostSearchViewModel
+@inject IViewLocalizer Localizer
 @{ 
     var post = Model.SearchResults.SingleOrDefault();
 }
@@ -13,11 +15,17 @@
         }
         @Html.Raw(@post.Body)
     </article>
-    </section>
-    @section ads
-{
-        @if (!string.IsNullOrWhiteSpace(@Model.AdPublisherJSCode))
-        {
-            @Html.Raw(@Model.AdPublisherJSCode);
-        }
+</section>
+<section>
+    @if (!string.IsNullOrWhiteSpace(@Model.AdPublisherJSCode))
+    {
+        @Html.Raw(@Model.AdPublisherJSCode);
     }
+</section>
+@if (Model.RelatedResults != null && Model.RelatedResults.Count > 0)
+{
+<section class="container">
+    <header><h2>@Localizer["You may also like"]</h2></header>
+    @Html.Partial("SearchResultsPartialView", Model.RelatedResults)
+</section>
+}

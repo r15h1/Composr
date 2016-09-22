@@ -113,7 +113,8 @@ namespace Composr.Lib.Indexing
 
         public SearchResults GetMoreLikeThis(SearchCriteria criteria)
         {
-            var builder = new QueryBuilder(criteria) { IndexReader = searcher.IndexReader };
+            ISet<string> stopwords = Cache.GetStopWords(new Blog(criteria.BlogID) { Locale = criteria.Locale});
+            var builder = new QueryBuilder(criteria) { IndexReader = searcher.IndexReader, StopWords = stopwords };
             var query = builder.Build();            
             TopDocs docs = Search(criteria, query);            
             return  CompileResults(docs, criteria);

@@ -4,15 +4,11 @@
 @using Microsoft.AspNetCore.Mvc.Localization
 @using Microsoft.Extensions.Options
 @using System.Globalization;
-
 @inject IViewLocalizer Localizer
 @inject IOptions<RequestLocalizationOptions> LocOptions
-
 @{
     var requestCulture = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture;
     var cultureItems = LocOptions.Value.SupportedCultures.Except(new List<CultureInfo> { requestCulture });
     var missingCulture = cultureItems.FirstOrDefault();
 }
-
-
 <a href="@Html.Raw($"/FrontEnd/Translate?sl={@requestCulture.TwoLetterISOLanguageName}&tl={@missingCulture.TwoLetterISOLanguageName}&url={@Context.Request.Path}")">@missingCulture.TextInfo.ToTitleCase(@missingCulture.NativeName)</a>

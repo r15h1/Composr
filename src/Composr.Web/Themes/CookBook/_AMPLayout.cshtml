@@ -23,8 +23,19 @@ body{
     font-family: 'Open Sans';     
     line-height:25px;    
 }
-.container {
-    
+
+footer > ul{
+  margin-bottom:20px;
+  overflow:hidden;
+  padding:0;
+}
+footer > ul > li{
+  float:left;
+  display:inline;
+}
+footer > ul > li > a{
+    text-decoration:none;
+    white-space:nowrap;
 }
 
 nav{
@@ -33,25 +44,17 @@ nav{
     border-color:rgb(231, 231, 231);
     min-height:25px;
 }
-
 nav > .container > ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     overflow: hidden;
 }
-
 nav > .container > ul > li.logo > a{
     margin:0;padding:0;
 }
-
-/* Float the list items side by side */
 nav > .container > ul li {float: left;}
 nav > .container > ul li.navright {float: right;}
-input{
-    height:25px;
-}
-/* Style the links inside the list items */
 nav > .container > ul li a {
     display: inline-block;
     text-align: center;
@@ -60,23 +63,7 @@ nav > .container > ul li a {
     transition: 0.3s;
     font-size: 17px;
 }
-
-nav > .container > ul li form {
-    display: inline-block;
-    text-align: center;
-    padding:15px 25px 10px 0 ;
-    text-decoration: none;
-    transition: 0.3s;
-    font-size: 17px;
-}
-
-
-/* Hide the list item that contains the link that should open and close the topnav on small screens */
-nav > ul li.icon {display: none;}
-
-
-p {
-    font-size: 1.1em;
+p{
     text-align: justify;
 }
 
@@ -86,6 +73,10 @@ p {
         width:90%; 
         margin:0 auto;
     }     
+
+    footer > ul > li{
+        width:50%;
+    }
 }
 
 @@media only screen and (min-width : 500px) {    
@@ -94,6 +85,22 @@ p {
         width:92%; 
         margin:0 auto;
     }     
+
+    footer > ul > li{
+        width:33.3333%;
+    }
+}
+
+@@media only screen and (min-width : 700px) {    
+    .container{        
+        padding:0 10px 0 10px;
+        width:92%; 
+        margin:0 auto;
+    }     
+
+    footer > ul > li{
+        width:25%;
+    }
 }
 
 /* Medium Devices, Desktops, Large Devices, Wide Screens */
@@ -101,6 +108,10 @@ p {
     .container{
         width:1000px;
         margin: 0 auto;
+    }
+
+    footer > ul > li{
+        width:16.666%;
     }
 }
     </style>
@@ -112,18 +123,19 @@ p {
     <section class="container">
         <footer>
             <h4>@Localizer["Popular Searches"]</h4>
-            
-                <div class=""><a href="@Localizer["/en/search?cat=chicken"]" rel="nofollow">@Localizer["Chicken Recipes"]</a></div>
-                <div class=""><a href="@Localizer["/en/search?cat=curry"]" rel="nofollow">@Localizer["Curry"]</a></div>
-                <div class=""><a href="@Localizer["/en/search?cat=dessert"]" rel="nofollow">@Localizer["Desserts"]</a></div>
-                <div class=""><a href="@Localizer["/en/search?cat=fish"]" rel="nofollow">@Localizer["Fish Recipes"]</a></div>
-                <div class=""><a href="@Localizer["/en/search?cat=grill"]" rel="nofollow">@Localizer["Grilled"]</a></div>
-                <div class=""><a href="@Localizer["/en/search?cat=meat"]" rel="nofollow">@Localizer["Meat Recipes"]</a></div>
-                <div class=""><a href="@Localizer["/en/search?cat=pudding"]" rel="nofollow">@Localizer["Puddings"]</a></div>
-                <div class=""><a href="@Localizer["/en/search?cat=rice"]" rel="nofollow">@Localizer["Rice Dishes"]</a></div>
-                <div class=""><a href="@Localizer["/en/search?cat=salad"]" rel="nofollow">@Localizer["Salads"]</a></div>
-                <div class=""><a href="@Localizer["/en/search?cat=streetfood"]" rel="nofollow">@Localizer["Street Food"]</a></div>
-                <div class=""><a href="@Localizer["/en/search?cat=vegetarian"]" rel="nofollow">@Localizer["Vegetarian"]</a></div>
+            <ul>
+                <li><a href="@Localizer["/en/search?cat=chicken"]" rel="nofollow">@Localizer["Chicken"]</a></li>
+                <li><a href="@Localizer["/en/search?cat=curry"]" rel="nofollow">@Localizer["Curry"]</a></li>
+                <li><a href="@Localizer["/en/search?cat=dessert"]" rel="nofollow">@Localizer["Desserts"]</a></li>
+                <li><a href="@Localizer["/en/search?cat=fish"]" rel="nofollow">@Localizer["Fish"]</a></li>
+                <li><a href="@Localizer["/en/search?cat=grill"]" rel="nofollow">@Localizer["Grilled"]</a></li>
+                <li><a href="@Localizer["/en/search?cat=meat"]" rel="nofollow">@Localizer["Meat"]</a></li>
+                <li><a href="@Localizer["/en/search?cat=pudding"]" rel="nofollow">@Localizer["Puddings"]</a></li>
+                <li><a href="@Localizer["/en/search?cat=rice"]" rel="nofollow">@Localizer["Rice"]</a></li>
+                <li><a href="@Localizer["/en/search?cat=salad"]" rel="nofollow">@Localizer["Salads"]</a></li>
+                <li><a href="@Localizer["/en/search?cat=streetfood"]" rel="nofollow">@Localizer["Street Food"]</a></li>
+                <li><a href="@Localizer["/en/search?cat=vegetarian"]" rel="nofollow">@Localizer["Vegetarian"]</a></li>
+            </ul>
         </footer>
     </section>
 </body>

@@ -13,15 +13,20 @@
     { @Html.Raw($"<link rel=\"canonical\" href=\"{@Model.CanonicalUrl}\">");
     }
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
-    @Html.Raw($"<style amp-boilerplate>body{{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}}@-webkit-keyframes -amp-start{{from{{visibility:hidden}}to{{visibility:visible}}}}@-moz-keyframes -amp-start{{from{{visibility:hidden}}to{{visibility:visible}}}}@-ms-keyframes -amp-start{{from{{visibility:hidden}}to{{visibility:visible}}}}@-o-keyframes -amp-start{{from{{visibility:hidden}}to{{visibility:visible}}}}@keyframes -amp-start{{from{{visibility:hidden}}to{{visibility:visible}}}}</style><noscript><style amp-boilerplate>body{{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}}</style></noscript>")
     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    @Html.Raw($"<style amp-boilerplate>body{{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}}@-webkit-keyframes -amp-start{{from{{visibility:hidden}}to{{visibility:visible}}}}@-moz-keyframes -amp-start{{from{{visibility:hidden}}to{{visibility:visible}}}}@-ms-keyframes -amp-start{{from{{visibility:hidden}}to{{visibility:visible}}}}@-o-keyframes -amp-start{{from{{visibility:hidden}}to{{visibility:visible}}}}@keyframes -amp-start{{from{{visibility:hidden}}to{{visibility:visible}}}}</style><noscript><style amp-boilerplate>body{{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}}</style></noscript>")
     <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
     <script async src="https://cdn.ampproject.org/v0.js"></script>
     <style amp-custom>
-       
-body{
+
+body, .container {
     font-family: 'Open Sans';     
-    line-height:25px;    
+    line-height:25px;
+}
+
+p {
+    font-size: 1.1em;
+    text-align: justify;
 }
 
 footer > ul{
@@ -36,6 +41,11 @@ footer > ul > li{
 footer > ul > li > a{
     text-decoration:none;
     white-space:nowrap;
+}
+
+h1,h2,h3,h4{
+    padding-bottom:2px;
+    border-bottom:1px solid rgba(0, 0, 0, 0.1);
 }
 
 nav{
@@ -103,7 +113,6 @@ p{
     }
 }
 
-/* Medium Devices, Desktops, Large Devices, Wide Screens */
 @@media only screen and (min-width : 1070px) {
     .container{
         width:1000px;
@@ -119,24 +128,6 @@ p{
 <body>
     @Html.Partial("AMPNavigationPartialView", Model)
     @RenderBody()
-    
-    <section class="container">
-        <footer>
-            <h4>@Localizer["Popular Searches"]</h4>
-            <ul>
-                <li><a href="@Localizer["/en/search?cat=chicken"]" rel="nofollow">@Localizer["Chicken"]</a></li>
-                <li><a href="@Localizer["/en/search?cat=curry"]" rel="nofollow">@Localizer["Curry"]</a></li>
-                <li><a href="@Localizer["/en/search?cat=dessert"]" rel="nofollow">@Localizer["Desserts"]</a></li>
-                <li><a href="@Localizer["/en/search?cat=fish"]" rel="nofollow">@Localizer["Fish"]</a></li>
-                <li><a href="@Localizer["/en/search?cat=grill"]" rel="nofollow">@Localizer["Grilled"]</a></li>
-                <li><a href="@Localizer["/en/search?cat=meat"]" rel="nofollow">@Localizer["Meat"]</a></li>
-                <li><a href="@Localizer["/en/search?cat=pudding"]" rel="nofollow">@Localizer["Puddings"]</a></li>
-                <li><a href="@Localizer["/en/search?cat=rice"]" rel="nofollow">@Localizer["Rice"]</a></li>
-                <li><a href="@Localizer["/en/search?cat=salad"]" rel="nofollow">@Localizer["Salads"]</a></li>
-                <li><a href="@Localizer["/en/search?cat=streetfood"]" rel="nofollow">@Localizer["Street Food"]</a></li>
-                <li><a href="@Localizer["/en/search?cat=vegetarian"]" rel="nofollow">@Localizer["Vegetarian"]</a></li>
-            </ul>
-        </footer>
-    </section>
+    @Html.Partial("AMPFooter", Model)    
 </body>
 </html>

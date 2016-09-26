@@ -177,8 +177,8 @@ namespace Composr.Web.Controllers
             return View("Error", model);
         }
 
-        [HttpPost]
-        public IActionResult Translate([FromForm]TranslateRequestModel model)
+        [HttpGet]
+        public IActionResult Translate([FromQuery]TranslateRequestModel model)
         {
             var hits = service.Search(new SearchCriteria {
                 Locale = model.SourceLocale,

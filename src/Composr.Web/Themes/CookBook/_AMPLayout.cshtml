@@ -1,0 +1,130 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Composr.Lib.Util
+@inject IViewLocalizer Localizer
+@inject Composr.Core.Blog Blog
+
+@model Composr.Web.ViewModels.BaseFrontEndViewModel
+<!doctype html>
+<html ⚡ lang="@Blog.Locale.ToString().ToLowerInvariant()">
+<head>
+    <meta charset="utf-8">
+    <title>@Model.Title</title>
+    @if (!@Model.CanonicalUrl.IsBlank())
+    { @Html.Raw($"<link rel=\"canonical\" href=\"{@Model.CanonicalUrl}\">");
+    }
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    @Html.Raw($"<style amp-boilerplate>body{{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}}@-webkit-keyframes -amp-start{{from{{visibility:hidden}}to{{visibility:visible}}}}@-moz-keyframes -amp-start{{from{{visibility:hidden}}to{{visibility:visible}}}}@-ms-keyframes -amp-start{{from{{visibility:hidden}}to{{visibility:visible}}}}@-o-keyframes -amp-start{{from{{visibility:hidden}}to{{visibility:visible}}}}@keyframes -amp-start{{from{{visibility:hidden}}to{{visibility:visible}}}}</style><noscript><style amp-boilerplate>body{{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}}</style></noscript>")
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+    <style amp-custom>
+       
+body{
+    font-family: 'Open Sans';     
+    line-height:25px;    
+}
+.container {
+    
+}
+
+nav{
+    width:100%;
+    background-color:rgb(245, 245, 245);
+    border-color:rgb(231, 231, 231);
+    min-height:25px;
+}
+
+nav > .container > ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+nav > .container > ul > li.logo > a{
+    margin:0;padding:0;
+}
+
+/* Float the list items side by side */
+nav > .container > ul li {float: left;}
+nav > .container > ul li.navright {float: right;}
+input{
+    height:25px;
+}
+/* Style the links inside the list items */
+nav > .container > ul li a {
+    display: inline-block;
+    text-align: center;
+    padding:15px 25px 10px 0 ;
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+nav > .container > ul li form {
+    display: inline-block;
+    text-align: center;
+    padding:15px 25px 10px 0 ;
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+
+/* Hide the list item that contains the link that should open and close the topnav on small screens */
+nav > ul li.icon {display: none;}
+
+
+p {
+    font-size: 1.1em;
+    text-align: justify;
+}
+
+@@media only screen and (min-width : 100px) {    
+    .container{        
+        padding:0 10px 0 10px;
+        width:90%; 
+        margin:0 auto;
+    }     
+}
+
+@@media only screen and (min-width : 500px) {    
+    .container{        
+        padding:0 10px 0 10px;
+        width:92%; 
+        margin:0 auto;
+    }     
+}
+
+/* Medium Devices, Desktops, Large Devices, Wide Screens */
+@@media only screen and (min-width : 1070px) {
+    .container{
+        width:1000px;
+        margin: 0 auto;
+    }
+}
+    </style>
+</head>
+<body>
+    @Html.Partial("AMPNavigationPartialView", Model)
+    @RenderBody()
+    
+    <section class="container">
+        <footer>
+            <h4>@Localizer["Popular Searches"]</h4>
+            
+                <div class=""><a href="@Localizer["/en/search?cat=chicken"]" rel="nofollow">@Localizer["Chicken Recipes"]</a></div>
+                <div class=""><a href="@Localizer["/en/search?cat=curry"]" rel="nofollow">@Localizer["Curry"]</a></div>
+                <div class=""><a href="@Localizer["/en/search?cat=dessert"]" rel="nofollow">@Localizer["Desserts"]</a></div>
+                <div class=""><a href="@Localizer["/en/search?cat=fish"]" rel="nofollow">@Localizer["Fish Recipes"]</a></div>
+                <div class=""><a href="@Localizer["/en/search?cat=grill"]" rel="nofollow">@Localizer["Grilled"]</a></div>
+                <div class=""><a href="@Localizer["/en/search?cat=meat"]" rel="nofollow">@Localizer["Meat Recipes"]</a></div>
+                <div class=""><a href="@Localizer["/en/search?cat=pudding"]" rel="nofollow">@Localizer["Puddings"]</a></div>
+                <div class=""><a href="@Localizer["/en/search?cat=rice"]" rel="nofollow">@Localizer["Rice Dishes"]</a></div>
+                <div class=""><a href="@Localizer["/en/search?cat=salad"]" rel="nofollow">@Localizer["Salads"]</a></div>
+                <div class=""><a href="@Localizer["/en/search?cat=streetfood"]" rel="nofollow">@Localizer["Street Food"]</a></div>
+                <div class=""><a href="@Localizer["/en/search?cat=vegetarian"]" rel="nofollow">@Localizer["Vegetarian"]</a></div>
+        </footer>
+    </section>
+</body>
+</html>

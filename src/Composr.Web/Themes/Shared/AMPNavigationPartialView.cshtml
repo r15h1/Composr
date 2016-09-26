@@ -1,0 +1,21 @@
+﻿@using Microsoft.AspNetCore.Builder
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.Extensions.Options
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IOptions<RequestLocalizationOptions> LocOptions
+@inject IViewLocalizer Localizer
+
+@model Composr.Web.ViewModels.BaseFrontEndViewModel
+
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture;
+}
+<nav>
+    <div class="container">
+        <ul>
+            <li class="logo"><a href="@Localizer["/"]"><amp-img src="@Model.LogoUrl" layout="fixed" width="120px" height="52px"></amp-img></a></li>
+            <li class="navright">@await Html.PartialAsync("AMPLanguageSelectionPartialView")</li>
+        </ul> 
+    </div>
+</nav>

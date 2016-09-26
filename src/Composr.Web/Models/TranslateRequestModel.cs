@@ -5,13 +5,13 @@ namespace Composr.Web.Models
 {
     public class TranslateRequestModel
     {
-        [FromForm(Name = "Url")]
+        [FromQuery(Name = "Url")]
         public string Url { get; set; }
 
-        [FromForm(Name = "SourceLocale")]
+        [FromQuery(Name = "sl")]
         public Locale SourceLocale { get; set; }
 
-        [FromForm(Name = "TargetLocale")]
+        [FromQuery(Name = "tl")]
         public Locale TargetLocale { get; set; }
     }
 }

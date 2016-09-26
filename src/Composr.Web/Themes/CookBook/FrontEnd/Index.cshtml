@@ -2,18 +2,9 @@
 @inject IViewLocalizer Localizer
 
 @model Composr.Web.ViewModels.PostSearchViewModel
+
 <section class="container">
 <h1>@Localizer["Mauritian Cuisine"]</h1>
 <p>@Localizer["A spicy, colourful, aromatic and incredibly tasty blend of native African, French, Chinese and Indian cuisine that reflects the ethnic diversity of the people of Mauritius."]</p>
 <h2>@Localizer["Recipes"]</h2>
-@Html.Partial("SearchResultsPartialView", Model.SearchResults)
-</section>
-<section class="container">
-    @Html.Partial("PaginatorPartialView", Model)
-</section>
-<section class="container">
-    @if (!string.IsNullOrWhiteSpace(@Model.AdPublisherJSCode))
-    {
-        @Html.Raw(@Model.AdPublisherJSCode);
-    }
 </section>

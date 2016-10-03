@@ -1,20 +1,23 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer Localizer
-<section class="container">
+<section>
+    <amp-ad type="adsense" class="ads" data-ad-client="ca-pub-6796979527913172" data-ad-slot="1781289231" width="960" height="100" layout="responsive"></amp-ad>
+</section>
+<section>
     <footer>
         <h4>@Localizer["Popular Searches"]</h4>
-        <ul>
-            <li><a href="@Localizer["/en/search?cat=chicken"]" rel="nofollow">@Localizer["Chicken"]</a></li>
-            <li><a href="@Localizer["/en/search?cat=curry"]" rel="nofollow">@Localizer["Curry"]</a></li>
-            <li><a href="@Localizer["/en/search?cat=dessert"]" rel="nofollow">@Localizer["Desserts"]</a></li>
-            <li><a href="@Localizer["/en/search?cat=fish"]" rel="nofollow">@Localizer["Fish"]</a></li>
-            <li><a href="@Localizer["/en/search?cat=grill"]" rel="nofollow">@Localizer["Grilled"]</a></li>
-            <li><a href="@Localizer["/en/search?cat=meat"]" rel="nofollow">@Localizer["Meat"]</a></li>
-            <li><a href="@Localizer["/en/search?cat=pudding"]" rel="nofollow">@Localizer["Puddings"]</a></li>
-            <li><a href="@Localizer["/en/search?cat=rice"]" rel="nofollow">@Localizer["Rice"]</a></li>
-            <li><a href="@Localizer["/en/search?cat=salad"]" rel="nofollow">@Localizer["Salads"]</a></li>
-            <li><a href="@Localizer["/en/search?cat=streetfood"]" rel="nofollow">@Localizer["Street Food"]</a></li>
-            <li><a href="@Localizer["/en/search?cat=vegetarian"]" rel="nofollow">@Localizer["Vegetarian"]</a></li>
+        <ul class="grid">
+            <li class="col-2_md-3_sm-4_xs-6"><a href="@Localizer["/en/search?cat=chicken"]" rel="nofollow">@Localizer["Chicken"]</a></li>
+            <li class="col-2_md-3_sm-4_xs-6"><a href="@Localizer["/en/search?cat=curry"]" rel="nofollow">@Localizer["Curry"]</a></li>
+            <li class="col-2_md-3_sm-4_xs-6"><a href="@Localizer["/en/search?cat=dessert"]" rel="nofollow">@Localizer["Desserts"]</a></li>
+            <li class="col-2_md-3_sm-4_xs-6"><a href="@Localizer["/en/search?cat=fish"]" rel="nofollow">@Localizer["Fish"]</a></li>
+            <li class="col-2_md-3_sm-4_xs-6"><a href="@Localizer["/en/search?cat=grill"]" rel="nofollow">@Localizer["Grilled"]</a></li>
+            <li class="col-2_md-3_sm-4_xs-6"><a href="@Localizer["/en/search?cat=meat"]" rel="nofollow">@Localizer["Meat"]</a></li>
+            <li class="col-2_md-3_sm-4_xs-6"><a href="@Localizer["/en/search?cat=pudding"]" rel="nofollow">@Localizer["Puddings"]</a></li>
+            <li class="col-2_md-3_sm-4_xs-6"><a href="@Localizer["/en/search?cat=rice"]" rel="nofollow">@Localizer["Rice"]</a></li>
+            <li class="col-2_md-3_sm-4_xs-6"><a href="@Localizer["/en/search?cat=salad"]" rel="nofollow">@Localizer["Salads"]</a></li>
+            <li class="col-2_md-3_sm-4_xs-6"><a href="@Localizer["/en/search?cat=streetfood"]" rel="nofollow">@Localizer["Street Food"]</a></li>
+            <li class="col-2_md-3_sm-4_xs-6"><a href="@Localizer["/en/search?cat=vegetarian"]" rel="nofollow">@Localizer["Vegetarian"]</a></li>
         </ul>
     </footer>
 </section>

@@ -13,7 +13,7 @@
 
   "Search": {
     "DefaultPostTag": "recipe",
-    "DefaultPageSize": 16,
+    "DefaultPageSize": 24,
     "MaxResultsCount": 1000
 
   },

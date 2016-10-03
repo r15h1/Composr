@@ -1,0 +1,18 @@
+﻿@using Microsoft.AspNetCore.Builder
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.Extensions.Options
+@using Composr.Lib.Util
+@inject IOptions<RequestLocalizationOptions> LocOptions
+@model Composr.Web.ViewModels.PostSearchViewModel
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture;
+}
+@if (Model.PageCount > 1)
+{
+<ul class="paginator">
+    @for (int i = 1; i <= Model.PageCount; i++)
+    {
+        <li class="@(i == Model.CurrentPage? "activepage": "pagelink")"><a rel="nofollow" href="@Model.SearchUrl?@(Model.SearchQuery.IsBlank()? null: "q=" + Model.SearchQuery + "&")@(Model.SearchCategory.IsBlank()? null: "cat=" + Model.SearchCategory + "&")page=@i">@i</a></li>
+    }
+</ul>
+}

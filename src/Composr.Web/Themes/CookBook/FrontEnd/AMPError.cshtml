@@ -1,0 +1,10 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+<section>
+    <h1>@Localizer["Lost at Sea!"]</h1>
+    <amp-img src="/themes/cookbook/404.png" alt="page not found" width="359" height="234" layout="responsive" style="max-width:359px;margin:0 auto;"></amp-img><br/>
+    <p>@Localizer["We're sorry! The page you are trying to visit is lost at sea."]</p>
+    <p><a href="@Localizer["/"]" rel="nofollow">@Localizer["Please click here to return to the home page now."]</a></p>
+</section>
+@section meta{<meta name="robots" content="noindex">}

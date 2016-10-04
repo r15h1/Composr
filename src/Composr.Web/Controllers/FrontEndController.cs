@@ -74,7 +74,7 @@ namespace Composr.Web.Controllers
 
             model.SearchResults = results;
             model.RelatedResults = related;
-            return View("PostDetails", model);
+            return View("AMPPostDetails", model);
         }
 
         private List<Breadcrumb> GetDetailBreadCrumbs(PostSearchViewModel model)
@@ -174,7 +174,7 @@ namespace Composr.Web.Controllers
                 CanonicalUrl = null
             };
             HttpContext.Response.StatusCode = 404;
-            return View("Error", model);
+            return View("AMPError", model);
         }
 
         [HttpGet]

@@ -1,0 +1,25 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@model Composr.Web.ViewModels.PostSearchViewModel
+@inject IViewLocalizer Localizer
+@{ 
+    var post = Model.SearchResults.SingleOrDefault();
+}
+<section>
+    @Html.Partial("BreadCrumbsPartialView", Model)
+    <article>
+        <h1>@post.Title</h1>
+        <p>@post.MetaDescription</p>
+        @if (@post.PostImage != null)
+        {
+            <div><amp-img src="/@post.PostImage.Url.ToLowerInvariant().Replace(".jpg", "-xs.jpg")" srcset="/@post.PostImage.Url.ToLowerInvariant().Replace(".jpg", "-xs.jpg") 400w, /@post.PostImage.Url.ToLowerInvariant().Replace(".jpg", "-sm.jpg") 800w" alt="@post.PostImage.Caption" width="400" height="300" layout="responsive"></amp-img></div>
+        }
+        @Html.Raw(@post.Body)
+    </article>
+</section>
+@if (Model.RelatedResults != null && Model.RelatedResults.Count > 0)
+{
+<section>
+    <header><h2>@Localizer["You may also like"]</h2></header>
+    @Html.Partial("AMPSearchResultsPartialView", Model.RelatedResults)
+</section>
+}

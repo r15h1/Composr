@@ -37,17 +37,28 @@ body{
     line-height:25px;
 }
 
-h1,h2,h3,h4{
+h1,h2,h3{
     font-weight:500;
-    border-bottom:solid 1px rgb(240,240,240);
-    padding-bottom:7px;
+    border-bottom:solid 1px rgb(235,235,235);
+    padding-bottom:6px;
+}
+
+h4{
+    font-weight:500;
+    border-top:solid 1px rgb(235,235,235);
+    padding-top:6px;
+}
+
+hr{
+    border:none;
+    border-bottom:solid 1px rgb(235,235,235);
 }
 
 p{text-align:justify; padding:0;margin:0;}
 
 .polaroid {
     border-radius:5px;
-    border:solid 1px rgb(240,240,240);
+    border:solid 1px rgb(235,235,235);
     background-color:rgb(255,255,255);
 }
 
@@ -56,7 +67,7 @@ p{text-align:justify; padding:0;margin:0;}
     color:rgb(51, 51, 51);  
 }
 
-.polaroid > a > header >h4 {
+.polaroid > a > header > h4 {
     border:none; 
 }
 
@@ -69,9 +80,9 @@ p{text-align:justify; padding:0;margin:0;}
 }
 
 .polaroid:hover {
-    -webkit-box-shadow: 0 0 2px rgba(0, 0, 0, 0.1), 0 2px 4px rgb(240,240,240);
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.1), 0 2px 4px rgb(240,240,240);
-    background-color:rgb(250, 250, 250);
+    -webkit-box-shadow: 0 0 2px rgba(0, 0, 0, 0.1), 0 2px 4px rgb(235,235,235);
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.1), 0 2px 4px rgb(235,235,235);
+    background-color:rgb(235, 235, 235);
     text-decoration:underline;
 }
 
@@ -96,7 +107,7 @@ ul.paginator{
 ul.paginator > li{    
     margin:0;
     padding:5px 10px 5px 10px;
-    border: solid 1px rgb(245,245,245);
+    border: solid 1px rgb(235,235,235);
     -webkit-border-radius:5px;
     -moz-border-radius:5px;
     border-radius:5px;
@@ -112,7 +123,7 @@ ul.paginator > li.pagelink{
 }
 
 ul.paginator > li.pagelink:hover{    
-    background-color:rgb(245,245,245);
+    background-color:rgb(235,235,235);
 }
 
 ul.paginator > li.pagelink > a {  
@@ -153,7 +164,7 @@ ul.paginator > li.activepage > a {
     <div class="container">
         @Html.Partial("AMPNavigationPartialView", Model)
         @RenderBody()        
-        @Html.Partial("AMPFooter", Model)
+        @Html.Partial("AMPFooter", Model)        
     </div>
 </body>
 </html>

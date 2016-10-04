@@ -1,5 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer Localizer
+<hr />
 <section>
     <amp-ad type="adsense" class="ads" data-ad-client="ca-pub-6796979527913172" data-ad-slot="1781289231" width="960" height="100" layout="responsive"></amp-ad>
 </section>
@@ -19,5 +20,10 @@
             <li class="col-2_md-3_sm-4_xs-6"><a href="@Localizer["/en/search?cat=streetfood"]" rel="nofollow">@Localizer["Street Food"]</a></li>
             <li class="col-2_md-3_sm-4_xs-6"><a href="@Localizer["/en/search?cat=vegetarian"]" rel="nofollow">@Localizer["Vegetarian"]</a></li>
         </ul>
+        <hr />
+        <div class="grid">
+            <p class="col-2_md-3_sm-4_xs-6">@Model.Copyright</p>
+            @await Html.PartialAsync("AMPLanguageSelectionPartialView")
+        </div>
     </footer>
 </section>

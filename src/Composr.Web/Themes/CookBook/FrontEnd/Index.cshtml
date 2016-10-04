@@ -6,3 +6,11 @@
     <h2>@Localizer["Recipes"]</h2>
     @Html.Partial("AMPSearchResultsPartialView", Model.SearchResults)
 @Html.Partial("AMPPaginatorPartialView", Model)
+@section opengraph{<meta property="og:url" content="@Model.CanonicalUrl" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="@Localizer["Mauritian Cuisine"]" />
+    <meta property="og:description" content="@Localizer["A spicy, colourful, aromatic and incredibly tasty blend of native African, French, Chinese and Indian cuisine that reflects the ethnic diversity of the people of Mauritius."]" />
+    <meta property="og:image" content="@Model.LogoUrl" />
+    <meta property="og:image:width" content="120" />
+    <meta property="og:image:height" content="52" />
+}

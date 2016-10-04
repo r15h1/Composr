@@ -23,3 +23,14 @@
     @Html.Partial("AMPSearchResultsPartialView", Model.RelatedResults)
 </section>
 }
+@section opengraph{<meta property="og:url" content="@Model.CanonicalUrl" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="@post.Title" />
+<meta property="og:description" content="@post.MetaDescription" />
+<meta property="og:image" content="@Model.BlogUrl/@post.PostImage.Url.ToLowerInvariant().Replace(".jpg", "-xs.jpg")" />
+<meta property="og:image:width" content="400" />
+<meta property="og:image:height" content="300" />
+<meta property="og:image" content="@Model.BlogUrl/@post.PostImage.Url.ToLowerInvariant().Replace(".jpg", "-sm.jpg")" />
+<meta property="og:image:width" content="800" />
+<meta property="og:image:height" content="600" />
+}

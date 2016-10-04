@@ -1,0 +1,24 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@model Composr.Web.ViewModels.PostSearchViewModel
+<section>
+    @Html.Partial("BreadCrumbsPartialView", Model)
+    <h1>@Localizer["Search Results"]</h1>
+</section>
+@if (@Model.SearchResults.Count > 0)
+{
+    <section>
+        @Html.Partial("AMPSearchResultsPartialView", Model.SearchResults)
+    </section>
+    <section>
+        @Html.Partial("AMPPaginatorPartialView", Model)
+    </section>
+}
+else
+{
+    <section>
+        <div>
+            @Localizer["<p>We're sorry we could match any document to your search.</p><p>Suggestions:</p><ul><li>Please check spelling</li><li>Try different keywords</li><li>Try fewer and more generic words</li></ul>"]
+        </div>
+    </section>
+}

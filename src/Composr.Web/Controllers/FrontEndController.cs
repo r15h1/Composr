@@ -110,7 +110,7 @@ namespace Composr.Web.Controllers
             model.CanonicalUrl = $"{model.BlogUrl.TrimEnd('/')}{localizer["/en/search"]}{BuildQueryString(param)}";
             model.HrefLangUrls.Add(Blog.Locale.ToString().ToLowerInvariant(), model.CanonicalUrl);
 
-            return View(model);
+            return View("AMPSearch", model);
         }
 
         private string BuildQueryString(SearchParameters param)

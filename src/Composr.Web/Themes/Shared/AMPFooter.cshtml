@@ -1,29 +1,34 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer Localizer
 <hr />
-<section>
-    <amp-ad type="adsense" class="ads" data-ad-client="ca-pub-6796979527913172" data-ad-slot="1781289231" width="960" height="100" layout="responsive"></amp-ad>
-</section>
-<section>
-    <footer>
-        <h4>@Localizer["Popular Searches"]</h4>
-        <ul class="grid">
-            <li class="col-2_md-3_sm-4_xs-6"><a href="@Localizer["/en/search?cat=chicken"]" rel="nofollow">@Localizer["Chicken"]</a></li>
-            <li class="col-2_md-3_sm-4_xs-6"><a href="@Localizer["/en/search?cat=curry"]" rel="nofollow">@Localizer["Curry"]</a></li>
-            <li class="col-2_md-3_sm-4_xs-6"><a href="@Localizer["/en/search?cat=dessert"]" rel="nofollow">@Localizer["Desserts"]</a></li>
-            <li class="col-2_md-3_sm-4_xs-6"><a href="@Localizer["/en/search?cat=fish"]" rel="nofollow">@Localizer["Fish"]</a></li>
-            <li class="col-2_md-3_sm-4_xs-6"><a href="@Localizer["/en/search?cat=grill"]" rel="nofollow">@Localizer["Grilled"]</a></li>
-            <li class="col-2_md-3_sm-4_xs-6"><a href="@Localizer["/en/search?cat=meat"]" rel="nofollow">@Localizer["Meat"]</a></li>
-            <li class="col-2_md-3_sm-4_xs-6"><a href="@Localizer["/en/search?cat=pudding"]" rel="nofollow">@Localizer["Puddings"]</a></li>
-            <li class="col-2_md-3_sm-4_xs-6"><a href="@Localizer["/en/search?cat=rice"]" rel="nofollow">@Localizer["Rice"]</a></li>
-            <li class="col-2_md-3_sm-4_xs-6"><a href="@Localizer["/en/search?cat=salad"]" rel="nofollow">@Localizer["Salads"]</a></li>
-            <li class="col-2_md-3_sm-4_xs-6"><a href="@Localizer["/en/search?cat=streetfood"]" rel="nofollow">@Localizer["Street Food"]</a></li>
-            <li class="col-2_md-3_sm-4_xs-6"><a href="@Localizer["/en/search?cat=vegetarian"]" rel="nofollow">@Localizer["Vegetarian"]</a></li>
-        </ul>
-        <hr />
-        <div class="grid">
-            <span class="col-2_md-3_sm-4_xs-6">@Model.Copyright</span>
-            @await Html.PartialAsync("AMPLanguageSelectionPartialView")
-        </div>
-    </footer>
-</section>
+<environment names="Staging,Production">
+    <section>
+        @if (!string.IsNullOrWhiteSpace(@Model.AdPublisherJSCode))
+        {
+            @Html.Raw(@Model.AdPublisherJSCode);
+        }
+    </section>
+</environment>
+    <section>
+        <footer>
+            <h4>@Localizer["Popular Searches"]</h4>
+            <ul class="grid">
+                <li class="col-2_md-3_sm-4_xs-6"><a href="@Localizer["/en/search?cat=chicken"]" rel="nofollow">@Localizer["Chicken"]</a></li>
+                <li class="col-2_md-3_sm-4_xs-6"><a href="@Localizer["/en/search?cat=curry"]" rel="nofollow">@Localizer["Curry"]</a></li>
+                <li class="col-2_md-3_sm-4_xs-6"><a href="@Localizer["/en/search?cat=dessert"]" rel="nofollow">@Localizer["Desserts"]</a></li>
+                <li class="col-2_md-3_sm-4_xs-6"><a href="@Localizer["/en/search?cat=fish"]" rel="nofollow">@Localizer["Fish"]</a></li>
+                <li class="col-2_md-3_sm-4_xs-6"><a href="@Localizer["/en/search?cat=grill"]" rel="nofollow">@Localizer["Grilled"]</a></li>
+                <li class="col-2_md-3_sm-4_xs-6"><a href="@Localizer["/en/search?cat=meat"]" rel="nofollow">@Localizer["Meat"]</a></li>
+                <li class="col-2_md-3_sm-4_xs-6"><a href="@Localizer["/en/search?cat=pudding"]" rel="nofollow">@Localizer["Puddings"]</a></li>
+                <li class="col-2_md-3_sm-4_xs-6"><a href="@Localizer["/en/search?cat=rice"]" rel="nofollow">@Localizer["Rice"]</a></li>
+                <li class="col-2_md-3_sm-4_xs-6"><a href="@Localizer["/en/search?cat=salad"]" rel="nofollow">@Localizer["Salads"]</a></li>
+                <li class="col-2_md-3_sm-4_xs-6"><a href="@Localizer["/en/search?cat=streetfood"]" rel="nofollow">@Localizer["Street Food"]</a></li>
+                <li class="col-2_md-3_sm-4_xs-6"><a href="@Localizer["/en/search?cat=vegetarian"]" rel="nofollow">@Localizer["Vegetarian"]</a></li>
+            </ul>
+            <hr />
+            <div class="grid">
+                <span class="col-2_md-3_sm-4_xs-6">@Model.Copyright</span>
+                @await Html.PartialAsync("AMPLanguageSelectionPartialView")
+            </div>
+        </footer>
+    </section>

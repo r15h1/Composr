@@ -83,22 +83,11 @@ ul.paginator > li.pagelink:hover{ background-color:rgb(205,205,205); }
         @RenderBody()
         @Html.Partial("AMPFooter", Model)
     </div>
-    <environment names="Staging,Production">
-        <amp-analytics type="googleanalytics" id="analytics2">
-            <script type="application/json">
-                {
-                "vars": {
-                "account": "UA-28545513-2"
-                },
-                "triggers": {
-                "trackPageview": {
-                "on": "visible",
-                "request": "pageview"
-                }
-                }
-                }
-            </script>
-        </amp-analytics>
+    <environment names="Staging,Production">        
+        @if (!string.IsNullOrWhiteSpace(@Model.AnalyticsTrackingJSCode))
+        {
+            @Html.Raw(@Model.AnalyticsTrackingJSCode);
+        }
     </environment>
 </body>
 </html>

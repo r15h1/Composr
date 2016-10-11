@@ -26,6 +26,7 @@ namespace Composr.Web.ViewModels
         public string Referrer { get; set; }
         public List<Breadcrumb> Breadcrumbs { get; set; }        
         public Dictionary<string, string> HrefLangUrls { get; set; }
+        public string ViewPrefix { get; internal set; }
     }
 
     public class Breadcrumb

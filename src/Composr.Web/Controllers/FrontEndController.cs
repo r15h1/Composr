@@ -38,7 +38,7 @@ namespace Composr.Web.Controllers
                 model.HrefLangUrls.Add(hrefLangLocalizer.Locale.ToString().ToLowerInvariant(), model.CurrentPage <= 1 ? $"{model.BlogUrl.TrimEnd('/')}{hrefLangLocalizer.Localizer["/"]}" : $"{model.BlogUrl.TrimEnd('/')}{hrefLangLocalizer.Localizer["/"]}?page={model.CurrentPage}");
 
             model.SearchUrl = null;
-            return View(model);
+            return View($"{BaseViewModel.ViewPrefix}Index", model);
         }
 
         [HttpGet]
@@ -74,7 +74,7 @@ namespace Composr.Web.Controllers
 
             model.SearchResults = results;
             model.RelatedResults = related;
-            return View("AMPPostDetails", model);
+            return View($"{BaseViewModel.ViewPrefix}PostDetails", model);
         }
 
         private List<Breadcrumb> GetDetailBreadCrumbs(PostSearchViewModel model)
@@ -110,7 +110,7 @@ namespace Composr.Web.Controllers
             model.CanonicalUrl = $"{model.BlogUrl.TrimEnd('/')}{localizer["/en/search"]}{BuildQueryString(param)}";
             model.HrefLangUrls.Add(Blog.Locale.ToString().ToLowerInvariant(), model.CanonicalUrl);
 
-            return View("AMPSearch", model);
+            return View($"{BaseViewModel.ViewPrefix}Search", model);
         }
 
         private string BuildQueryString(SearchParameters param)
@@ -174,7 +174,7 @@ namespace Composr.Web.Controllers
                 CanonicalUrl = null
             };
             HttpContext.Response.StatusCode = 404;
-            return View("AMPError", model);
+            return View($"{BaseViewModel.ViewPrefix}Error", model);
         }
 
         [HttpGet]

@@ -28,7 +28,8 @@ namespace Composr.Web.Controllers
                 ImageLocation = blog.Attributes.SingleOrDefault(x => x.Key == BlogAttributeKeys.ImageLocation).Value,
                 AnalyticsTrackingJSCode = blog.Attributes.SingleOrDefault(x => x.Key == BlogAttributeKeys.AnalyticsTrackingJSCode).Value,
                 AdPublisherJSCode = blog.Attributes.SingleOrDefault(x => x.Key == BlogAttributeKeys.AdPublisherJSCode).Value,
-                CanonicalUrl = blog.Url
+                CanonicalUrl = blog.Url,
+                ViewPrefix = blog.Attributes.SingleOrDefault(x => x.Key == BlogAttributeKeys.ViewPrefix).Value,
             };
         }
 

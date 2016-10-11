@@ -1,8 +1,8 @@
 ﻿@model Composr.Web.ViewModels.PostSearchViewModel
-
+@inject Composr.Core.Blog Blog
 <ol class="breadcrumb">
     @foreach(var crumb in Model.Breadcrumbs)
     {
-        <li><a href="@(string.IsNullOrWhiteSpace(crumb.Url)? null: crumb.Url)" class="@(crumb.IsActive ? "active": string.Empty)" rel="nofollow">@crumb.Name</a></li>
+        <li><a href="@(string.IsNullOrWhiteSpace(crumb.Url)? null: $"{Blog.Url.TrimEnd('/')}{crumb.Url}".TrimEnd('/'))" class="@(crumb.IsActive ? "active": string.Empty)" rel="nofollow">@crumb.Name</a></li>
     }
 </ol>

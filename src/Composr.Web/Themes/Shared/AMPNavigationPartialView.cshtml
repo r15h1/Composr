@@ -4,13 +4,15 @@
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IOptions<RequestLocalizationOptions> LocOptions
 @inject IViewLocalizer Localizer
+@inject Composr.Core.Blog Blog
 @model Composr.Web.ViewModels.BaseFrontEndViewModel
 @{
     var requestCulture = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture;
+    var homepage = $"{@Blog.Url.TrimEnd('/')}{@Localizer["/"].Value}".TrimEnd('/');
 }
 <nav>
     <ul>
-        <li><a href="@Localizer["/"]"><amp-img src="@Model.LogoUrl" layout="fixed" width="120px" height="52px"></amp-img></a></li>
+        <li><a href="@homepage"><amp-img src="@Model.LogoUrl" layout="fixed" width="120px" height="52px"></amp-img></a></li>
         <li class="navitem">@await Html.PartialAsync("AMPLanguageSelectionPartialView")</li>
         @*<li>toto
             <ul>

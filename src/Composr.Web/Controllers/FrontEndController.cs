@@ -36,7 +36,7 @@ namespace Composr.Web.Controllers
             foreach (var hrefLangLocalizer in hreflanglocalizers.GetAlternateLocalizers())
                 model.HrefLangUrls.Add(hrefLangLocalizer.Locale.ToString().ToLowerInvariant(), model.CurrentPage <= 1 ? $"{model.BlogUrl.TrimEnd('/')}{hrefLangLocalizer.Localizer["/"]}" : $"{model.BlogUrl.TrimEnd('/')}{hrefLangLocalizer.Localizer["/"]}?page={model.CurrentPage}");
 
-            model.SearchUrl = null;
+            model.SearchUrl = $"{Blog.Url.TrimEnd('/')}";
             return View($"{BaseViewModel.ViewPrefix}Index", model);
         }
 
@@ -143,7 +143,7 @@ namespace Composr.Web.Controllers
             model.SearchCategory = param.Category;
             model.PageCount = (int)((results.HitsCount / Settings.DefaultSearchPageSize) + 1);
             model.CurrentPage = (int)((criteria.Start / Settings.DefaultSearchPageSize) + 1);
-            model.SearchUrl = localizer["/en/search"];
+            model.SearchUrl = $"{Blog.Url.TrimEnd('/')}{localizer["/en/search"]}";
             return model;
         }
 

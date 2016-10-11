@@ -2,7 +2,7 @@
 @inject IViewLocalizer Localizer
 @model Composr.Web.ViewModels.PostSearchViewModel
 <section>
-    @Html.Partial("BreadCrumbsPartialView", Model)
+    @Html.Partial("AMPBreadCrumbsPartialView", Model)
     <h1>@Localizer["Search Results"]</h1>
 </section>
 @if (@Model.SearchResults.Count > 0)

@@ -1,11 +1,15 @@
 ﻿@model IEnumerable<Composr.Core.Hit>
 @inject Composr.Core.Blog Blog
+@{ 
+    var rooturl = Blog.Url.TrimEnd('/');
+}
+
 <section class="grid">
     @foreach (var result in Model)
     {
         <div class="col-3_md-4_sm-6_xs-12">
             <div class="polaroid">
-                <a href="@result.URN">
+                <a href="@rooturl@result.URN">
                     @if (result.PostImage != null && !string.IsNullOrWhiteSpace(result.PostImage.Url))
                     {
                         <amp-img src="@Blog.Url/@result.PostImage.Url.ToLowerInvariant().Replace(".jpg", "-xs.jpg")" alt="@result.PostImage.Caption" width="400" height="300" layout="responsive"></amp-img>

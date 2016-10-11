@@ -32,8 +32,7 @@ namespace Composr.Web.Controllers
         {
             var model = GetViewModel(param, SearchSortOrder.MostRecent);
             model.Title = $"{Blog.Attributes[BlogAttributeKeys.Tagline]} - {Blog.Name}";
-            model.CanonicalUrl = model.CurrentPage <= 1 ? $"{model.BlogUrl.TrimEnd('/')}{localizer["/"]}" : $"{model.BlogUrl.TrimEnd('/')}{localizer["/"]}?page={model.CurrentPage}";
-
+            model.CanonicalUrl = (model.CurrentPage <= 1 ? $"{model.BlogUrl.TrimEnd('/')}{localizer["/"]}" : $"{model.BlogUrl.TrimEnd('/')}{localizer["/"]}?page={model.CurrentPage}").TrimEnd('/');
             foreach (var hrefLangLocalizer in hreflanglocalizers.GetAlternateLocalizers())
                 model.HrefLangUrls.Add(hrefLangLocalizer.Locale.ToString().ToLowerInvariant(), model.CurrentPage <= 1 ? $"{model.BlogUrl.TrimEnd('/')}{hrefLangLocalizer.Localizer["/"]}" : $"{model.BlogUrl.TrimEnd('/')}{hrefLangLocalizer.Localizer["/"]}?page={model.CurrentPage}");
 
@@ -66,7 +65,7 @@ namespace Composr.Web.Controllers
             UpdateBreadcrumbs(model, GetDetailBreadCrumbs(model));
             model.Title = $"{results[0].Title} - {Blog.Name}";
             model.MetaDescription = $"{results[0].MetaDescription}";
-            model.CanonicalUrl = $"{model.BlogUrl.TrimEnd('/')}{results[0].URN}";
+            model.CanonicalUrl = $"{model.BlogUrl.TrimEnd('/')}{results[0].URN}".TrimEnd('/');
             model.HrefLangUrls.Add(Blog.Locale.ToString().ToLowerInvariant(), model.CanonicalUrl);
 
             foreach (var translation in results[0].Translations)
@@ -107,7 +106,7 @@ namespace Composr.Web.Controllers
             });
 
             model.Title = $"{(string.IsNullOrWhiteSpace(param.Query) ? param.Category : param.Query)} - {localizer["Cocozil Search"]}";
-            model.CanonicalUrl = $"{model.BlogUrl.TrimEnd('/')}{localizer["/en/search"]}{BuildQueryString(param)}";
+            model.CanonicalUrl = $"{model.BlogUrl.TrimEnd('/')}{localizer["/en/search"]}{BuildQueryString(param)}".TrimEnd('/');
             model.HrefLangUrls.Add(Blog.Locale.ToString().ToLowerInvariant(), model.CanonicalUrl);
 
             return View($"{BaseViewModel.ViewPrefix}Search", model);

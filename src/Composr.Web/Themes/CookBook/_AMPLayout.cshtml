@@ -2,8 +2,10 @@
 @using Composr.Lib.Util
 @inject IViewLocalizer Localizer
 @inject Composr.Core.Blog Blog
-
 @model Composr.Web.ViewModels.BaseFrontEndViewModel
+@{
+    string rootUrl = Blog.Url.TrimEnd('/');
+}
 <!doctype html>
 <html ⚡ lang="@Blog.Locale.ToString().ToLowerInvariant()">
 <head>
@@ -26,6 +28,8 @@
     @RenderSection("opengraph", required: false)
     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
     @Html.Raw($"<style amp-boilerplate>body{{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}}@-webkit-keyframes -amp-start{{from{{visibility:hidden}}to{{visibility:visible}}}}@-moz-keyframes -amp-start{{from{{visibility:hidden}}to{{visibility:visible}}}}@-ms-keyframes -amp-start{{from{{visibility:hidden}}to{{visibility:visible}}}}@-o-keyframes -amp-start{{from{{visibility:hidden}}to{{visibility:visible}}}}@keyframes -amp-start{{from{{visibility:hidden}}to{{visibility:visible}}}}</style><noscript><style amp-boilerplate>body{{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}}</style></noscript>")
+    <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
+    <script async custom-element="amp-fit-text" src="https://cdn.ampproject.org/v0/amp-fit-text-0.1.js"></script> 
     <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
     <script async custom-element="amp-ad" src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"></script>
     <script async src="https://cdn.ampproject.org/v0.js"></script>
@@ -35,10 +39,16 @@
 a{text-decoration:none;}
 a:hover{text-decoration:underline;}
 a, a:visited{color:rgb(45, 114, 198);}
+amp-sidebar { width: 250px; padding-right: 10px; background-color:rgba(0,0,0,0.85);color:#ffffff;}
+amp-sidebar > ul {list-style:none;}
+amp-sidebar > ul > li {padding:2px 0 2px 0;}
+amp-sidebar > ul > li > a, amp-sidebar > ul > li > a:visited  {color:#ffffff;}
 body{font-family: 'Open Sans';line-height:25px;}
 .breadcrumb{ list-style: none;overflow: hidden; background-color:rgb(255, 255, 255);margin-top:5px;padding:0;}
 .breadcrumb > li > a.active{ color:rgb(126, 123, 123); text-decoration:none; }
 ol.breadcrumb > li+li:before { padding-right: 8px;color: black;content: ">";}
+button { background-color:rgb(45, 114, 198);border:solid 1px rgb(45, 114, 198); color:rgb(255, 255, 255);padding:2px 5px 2px 5px;font-size:15px;border-radius:3px;font-family:'Open Sans';}
+button:hover { background-color:rgb(45, 114, 198);color:rgb(255,255,255);cursor:pointer;}
 div > amp-img{max-width:800px;margin:0 auto;margin-bottom:25px;}
 footer > ul > li {padding-bottom:5px;line-height:17px;}
 h1,h2,h3 {font-weight:500;padding-bottom:6px; margin-bottom:15px;line-height:39.6px;}
@@ -48,6 +58,8 @@ h2{font-size:30px;}
 h3{font-size:24px;margin:0;padding-bottom:0;}
 h4{font-weight:500;font-size:18px;padding-top:6px;line-height:20px;}
 hr{border:none;border-bottom:solid 1px rgb(225,225,225);}
+input[type=text]{border:solid 1px rgb(255, 255, 255);border-radius:3px;font-family:'Open Sans';margin-bottom:5px;padding:3px 2px 3px 2px;width:100%;}
+.link{cursor:pointer;}
 p{text-align:justify; padding:0;margin:15px 0 15px 0;}
 ol{margin-top:0;padding-left:30px;}
 ol>li{line-height:25px;padding:5px 0 5px 0;text-align:justify;}
@@ -64,7 +76,9 @@ ol>li{line-height:25px;padding:5px 0 5px 0;text-align:justify;}
 }
 nav > ul{padding:0; margin:0;}
 nav > ul > li, footer > ul > li, ul.paginator > li, ol.breadcrumb > li { display: inline;}
-nav>ul>li.navitem { padding-top:20px; float:right; }
+nav>ul>li.navitem { padding-right:10px; padding-top:20px; float:right; }
+.sidebar-separator{border-bottom:solid 1px rgb(128, 128, 128);margin:3px 0 3px 0;}
+.sidebar-right{text-align:right;}
 ul.paginator{ list-style:none; text-align:center; padding:0; }
 ul.paginator > li{ margin:0; padding:5px 10px 5px 10px; border: solid 1px rgb(205,205,205); 
 -webkit-border-radius:5px; -moz-border-radius:5px; border-radius:5px; background-clip: padding-box;}
@@ -78,6 +92,33 @@ ul.paginator > li.pagelink:hover{ background-color:rgb(205,205,205); }
 </style>
 </head>
 <body>
+    <amp-sidebar id='sidebar' layout="nodisplay" side="right">
+        <ul>
+            <li class="sidebar-right link"><a on='tap:sidebar.close'>@Localizer["Close"] [X]</a></li>
+            <li class="sidebar-separator"></li>
+            <li>
+                <form role="search" method="get" action="@Localizer["/en/search"]">                    
+                        <input type="text" placeholder="@Localizer["search e.g. chicken"]" name="q" id="q">
+                        <button type="submit">@Localizer["Search"]</button>                   
+                </form>
+            </li>
+            <li class="sidebar-separator"></li>
+            <li><a href="@rootUrl@Localizer["/en/search?cat=chicken"]" rel="nofollow">@Localizer["Chicken Recipes"]</a></li>
+            <li><a href="@rootUrl@Localizer["/en/search?cat=curry"]" rel="nofollow">@Localizer["Curry Recipes"]</a></li>
+            <li><a href="@rootUrl@Localizer["/en/search?cat=dessert"]" rel="nofollow">@Localizer["Desserts"]</a></li>
+            <li><a href="@rootUrl@Localizer["/en/search?cat=fish"]" rel="nofollow">@Localizer["Fish Recipes"]</a></li>
+            <li><a href="@rootUrl@Localizer["/en/search?cat=grill"]" rel="nofollow">@Localizer["Grills and BBQs"]</a></li>
+            <li><a href="@rootUrl@Localizer["/en/search?cat=meat"]" rel="nofollow">@Localizer["Meat Recipes"]</a></li>
+            <li><a href="@rootUrl@Localizer["/en/search?cat=pudding"]" rel="nofollow">@Localizer["Puddings"]</a></li>
+            <li><a href="@rootUrl@Localizer["/en/search?cat=rice"]" rel="nofollow">@Localizer["Rice Dishes"]</a></li>
+            <li><a href="@rootUrl@Localizer["/en/search?cat=salad"]" rel="nofollow">@Localizer["Salads"]</a></li>
+            <li><a href="@rootUrl@Localizer["/en/search?cat=streetfood"]" rel="nofollow">@Localizer["Street Food"]</a></li>
+            <li><a href="@rootUrl@Localizer["/en/search?cat=vegetarian"]" rel="nofollow">@Localizer["Vegetarian Dishes"]</a></li>
+            <li class="sidebar-separator"></li>
+            <li><a href="@Localizer["/"]">@Localizer["Home"]</a></li>
+            <li>@await Html.PartialAsync("AMPLanguageSelectionPartialView")</li>
+        </ul>
+    </amp-sidebar>
     <div class="container">
         @Html.Partial("AMPNavigationPartialView", Model)
         @RenderBody()
@@ -88,6 +129,6 @@ ul.paginator > li.pagelink:hover{ background-color:rgb(205,205,205); }
         {
             @Html.Raw(@Model.AnalyticsTrackingJSCode);
         }
-    </environment>
+    </environment>    
 </body>
 </html>

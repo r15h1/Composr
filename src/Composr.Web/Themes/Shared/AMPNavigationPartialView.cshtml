@@ -13,13 +13,6 @@
 <nav>
     <ul>
         <li><a href="@homepage"><amp-img src="@Model.LogoUrl" layout="fixed" width="120px" height="52px"></amp-img></a></li>
-        <li class="navitem">@await Html.PartialAsync("AMPLanguageSelectionPartialView")</li>
-        @*<li>toto
-            <ul>
-                <li><a href="#">Themes</a></li>
-                <li><a href="#">Plugins</a></li>
-                <li><a href="#">Tutorials</a></li>
-            </ul>
-        </li>*@
+        <li class="navitem"><button on='tap:sidebar.open'>Menu</button></li>
     </ul>
 </nav>

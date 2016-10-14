@@ -2,6 +2,7 @@
 using Dapper;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 
 namespace Composr.Repository.Sql
@@ -100,7 +101,7 @@ namespace Composr.Repository.Sql
             p.Add("@LocaleID", (int)locale);
             p.Add("@BlogID", blogid);
 
-            using (System.Data.IDbConnection conn = ConnectionFactory.CreateConnection())
+            using (IDbConnection conn = ConnectionFactory.CreateConnection())
             {
                 //return conn.Query("Post_Select_One", p, commandType: System.Data.CommandType.StoredProcedure).Select<dynamic, Post>(
                 //        row => BuildPost(row)
@@ -150,7 +151,7 @@ namespace Composr.Repository.Sql
             if (limit.HasValue) p.Add("@Limit", limit.Value);
 
             //return QueryExecutor.ExecuteList<Blog>("Blog_Select_Many", p);
-            using (System.Data.IDbConnection conn = ConnectionFactory.CreateConnection())
+            using (IDbConnection conn = ConnectionFactory.CreateConnection())
             using (var reader = conn.QueryMultiple("Blog_Select_Many", p, commandType: System.Data.CommandType.StoredProcedure))
             {
                 var blogs = reader.Read<Blog>().ToList();
@@ -193,6 +194,34 @@ namespace Composr.Repository.Sql
             p.Add("@BlogID", blog.Id);
             p.Add("@LocaleID", (int)blog.Locale);
             return new HashSet<string>(QueryExecutor.ExecuteList<string>("StopWords_Select", p));
+        }
+
+        public IDictionary<string, IList<string>> GetSynonyms(Blog blog)
+        {
+            Dictionary<string, IList<string>> synonyms = new Dictionary<string, IList<string>>();
+            var p = new DynamicParameters();
+            p.Add("@BlogID", blog.Id);
+            p.Add("@LocaleID", (int)blog.Locale);
+
+            using (var conn = ConnectionFactory.CreateConnection())            
+            {
+                conn.Query("Synonyms_Select", p, commandType: System.Data.CommandType.StoredProcedure)
+                                .Select(x => new KeyValuePair<string, string>(x.Word1, x.Word2))
+                                .ToList().ForEach((KeyValuePair < string, string > item) => AddToSynonyms(synonyms, item));                
+            }
+            return synonyms;
+        }
+
+        private void AddToSynonyms(Dictionary<string, IList<string>> synonyms, KeyValuePair<string, string> item)
+        {
+            AddToSynonyms(synonyms, item.Key, item.Value);
+            AddToSynonyms(synonyms, item.Value, item.Key);
+        }
+
+        private void AddToSynonyms(Dictionary<string, IList<string>> synonyms, string key, string value)
+        {
+            if (synonyms.ContainsKey(key)) synonyms[key].Add(value);
+            else synonyms.Add(key, new List<string> { value });
         }
     }
 }

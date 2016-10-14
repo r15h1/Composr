@@ -9,26 +9,30 @@ namespace Composr.Lib.Indexing
     public class IndexGenerator: IIndexGenerator
     {
         private IIndexWriter writer;
+        private IBlogRepository blogRepository;
+        private IPostRepository postRepository;
 
-        public IndexGenerator(IIndexWriter writer)
+        public IndexGenerator(IIndexWriter writer, IBlogRepository blogRepository, IPostRepository postRepository)
         {
             this.writer = writer;
+            this.blogRepository = blogRepository;
+            this.postRepository = postRepository;
         }
 
         public void BuildIndex(Blog blog)
-        {
-            IBlogRepository blogRepository = new Repository.Sql.BlogRepository(new MinimalBlogSpecification());
+        {            
             ClearIndexDirectory(blog);
-            List<Post> posts = new List<Post>();
-
+            
             foreach (var locale in Enum.GetValues(typeof(Locale)))
             {
-                IPostRepository repo = new Composr.Repository.Sql.PostRepository(blog, new PostSpecification(), blogRepository);
-                repo.Locale = (Locale)locale;
-                posts.AddRange(repo.GetPublishedPosts(new Filter { Limit = int.MaxValue }));                
+                //make a shallow copy to avoid DI MemoryCache corruption
+                var blg = new Blog() { Id = blog.Id, Locale = (Locale)locale };
+                postRepository.Locale = (Locale)locale;
+                var posts = postRepository.GetPublishedPosts(new Filter { Limit = int.MaxValue });
+                var synonymEngine = new ComposrSynonymEngine(blogRepository.GetSynonyms(blg));
+                writer.GenerateIndex(posts, synonymEngine);
             }
-
-            writer.GenerateIndex(posts);
+            
             SearchService.ReloadIndex();
         }
 

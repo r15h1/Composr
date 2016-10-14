@@ -1,20 +1,25 @@
 ﻿using Composr.Core;
+using Lucene.Net.Analysis.Tokenattributes;
 using Lucene.Net.Index;
+using Lucene.Net.QueryParsers;
 using Lucene.Net.Search;
 using Lucene.Net.Search.Similar;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Composr.Lib.Indexing
 {
     public class QueryBuilder
     {
-        private SearchCriteria criteria;   
+        private SearchCriteria criteria;
+        private ComposrAnalyzer analyzer;
 
         public QueryBuilder(SearchCriteria criteria)
         {
             if (criteria == null) throw new ArgumentNullException();
             this.criteria = criteria;
+            analyzer = new Indexing.ComposrAnalyzer(Lucene.Net.Util.Version.LUCENE_30);            
         }
 
         public Query Build()
@@ -72,14 +77,23 @@ namespace Composr.Lib.Indexing
         {
             BooleanQuery q1 = new BooleanQuery();
             foreach (var term in Split(criteria.Tags))
-                q1.Add(CreateTermQuery(IndexFields.Tags, term, 1.5f), Occur.SHOULD);
+                q1.Add(CreateTermQuery(IndexFields.Tags, term, 1.5f), Occur.MUST);
 
             return q1;
         }
 
         private IEnumerable<string> Split(string term)
         {
-            return term.ToLowerInvariant().Trim().Split(new char[] { ' ', ',', '-', '.', ';', ':', '+', '*', '%', '&' }, StringSplitOptions.RemoveEmptyEntries);
+            List<string> terms = new List<string>();
+            foreach(var t in term.ToLowerInvariant().Trim().Split(new char[] { ' ', ',', '-', '.', ';', ':', '+', '*', '%', '&' }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                var tokenStream = analyzer.TokenStream(null, new StringReader(t));
+                var termAttr = tokenStream.GetAttribute<ITermAttribute>();
+                while (tokenStream.IncrementToken())
+                    terms.Add(termAttr.Term);
+            }
+
+            return terms;
         }
 
         private Query CreateWildCardQuery(string field, string term, float boost)
@@ -95,7 +109,7 @@ namespace Composr.Lib.Indexing
         private Query CreateMoreLikeThisQuery()
         {
             MoreLikeThis mlt = new MoreLikeThis(IndexReader);
-            mlt.Analyzer = new ComposrAnalyzer(Lucene.Net.Util.Version.LUCENE_30);
+            mlt.Analyzer = analyzer;
             mlt.SetFieldNames(new string[] { IndexFields.PostBody, IndexFields.PostMetaDescription, IndexFields.PostTitle });
             mlt.MinTermFreq = 1;
             mlt.MinDocFreq = 1;

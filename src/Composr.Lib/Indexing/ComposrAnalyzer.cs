@@ -1,4 +1,5 @@
-﻿using Lucene.Net.Analysis;
+﻿using Composr.Core;
+using Lucene.Net.Analysis;
 using Lucene.Net.Analysis.Standard;
 using System.IO;
 
@@ -11,8 +12,13 @@ namespace Composr.Lib.Indexing
         public override TokenStream TokenStream(string fieldName, TextReader reader)
         {
             CharStream chStream = CharReader.Get(reader);
-            HTMLStripCharFilter filter = new HTMLStripCharFilter(chStream);
-            return base.TokenStream(fieldName, filter);
+            var tokenstream = base.TokenStream(fieldName, new HTMLStripCharFilter(chStream));
+            if (SynonymEngine != null)
+                tokenstream = new SynonymFilter(tokenstream, SynonymEngine);
+
+            return new PorterStemFilter(tokenstream);
         }
+
+        public ISynonymEngine SynonymEngine { get; set; }
     }
 }

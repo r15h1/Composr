@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using Lucene.Net.Analysis;
 
 namespace Composr.Lib.Indexing
 {
@@ -22,10 +23,12 @@ namespace Composr.Lib.Indexing
             indexDirectory = FSDirectory.Open(new System.IO.DirectoryInfo(Settings.IndexDirectory));
         }
         
-        public void GenerateIndex(IList<Post> posts)
+        public void GenerateIndex(IList<Post> posts, ISynonymEngine synonymEngine)
         {
-            ComposrAnalyzer analyzer = new ComposrAnalyzer(Lucene.Net.Util.Version.LUCENE_30);
-            using (var indexWriter = new Lucene.Net.Index.IndexWriter(indexDirectory, analyzer, Lucene.Net.Index.IndexWriter.MaxFieldLength.UNLIMITED))
+            PerFieldAnalyzerWrapper analyzerWrapper = new PerFieldAnalyzerWrapper(new ComposrAnalyzer(Lucene.Net.Util.Version.LUCENE_30));      
+            if(synonymEngine != null) analyzerWrapper.AddAnalyzer(IndexFields.Tags, new ComposrAnalyzer(Lucene.Net.Util.Version.LUCENE_30) { SynonymEngine = synonymEngine });
+
+            using (var indexWriter = new Lucene.Net.Index.IndexWriter(indexDirectory, analyzerWrapper, Lucene.Net.Index.IndexWriter.MaxFieldLength.UNLIMITED))
             {
                 foreach (var post in posts)
                 {
@@ -57,7 +60,7 @@ namespace Composr.Lib.Indexing
 
             if (post.Attributes.ContainsKey(PostAttributeKeys.Tags) && !string.IsNullOrWhiteSpace(post.Attributes[PostAttributeKeys.Tags]))
                 foreach(var tag in post.Attributes[PostAttributeKeys.Tags].Split(new char[] { ',', ' ', ';' }, StringSplitOptions.RemoveEmptyEntries))
-                    doc.Add(new Field(IndexFields.Tags, tag, Field.Store.YES, Field.Index.NOT_ANALYZED));
+                    doc.Add(new Field(IndexFields.Tags, tag, Field.Store.YES, Field.Index.ANALYZED));
 
             string snippet = PrepareSnippet(post.Body);
             doc.Add(new Field(IndexFields.PostSnippet, snippet, Field.Store.YES, Field.Index.NO));

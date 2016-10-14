@@ -20,8 +20,8 @@ namespace Composr.CLI
             logger.LogInformation("getting list of blogs");
             IBlogRepository repo = new Composr.Repository.Sql.BlogRepository(new MinimalBlogSpecification());
             IList<Blog> blogs = repo.Get(null);
-            var generator = new IndexGenerator(new IndexWriter());
-            foreach (var blog in blogs) generator.BuildIndex(blog);
-        }        
+            //var generator = new IndexGenerator(new IndexWriter(), repo);
+            //foreach (var blog in blogs) generator.BuildIndex(blog);
+        }
     }
 }

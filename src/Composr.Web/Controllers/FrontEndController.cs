@@ -193,5 +193,10 @@ namespace Composr.Web.Controllers
 
             return LocalRedirect($"/{ model.TargetLocale.ToString().ToLowerInvariant() }");
         }
+
+        public IActionResult SearchCategories(CategorySearchParameters param)
+        {
+            return Search( new SearchParameters { Category = param.Category } );
+        }
     }
 }

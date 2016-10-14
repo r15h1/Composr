@@ -163,6 +163,12 @@ namespace Composr.Web
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
+                    name: "category-search-route",
+                    template: "{locale:regex(^(fr|en)$)}/{region:regex(^(mauritius|ile\\-maurice)$)}/{category}",
+                    defaults: new { controller = "FrontEnd", action = "SearchCategories"}
+                );
+
+                routes.MapRoute(
                     name: "search-route",
                     template: "en/search",
                     defaults: new { controller = "FrontEnd", action = "Search" }

@@ -120,8 +120,8 @@
   <data name="Cocozil Search" xml:space="preserve">
     <value>Recherche Cocozil</value>
   </data>
-  <data name="Page Not Found (404) - Cocozil" xml:space="preserve">
-    <value>Page Introuvable (404) - Cocozil</value>
+  <data name="Page Not Found (404)" xml:space="preserve">
+    <value>Page Introuvable (404)</value>
   </data>
   <data name="Recipe" xml:space="preserve">
     <value>Recette</value>

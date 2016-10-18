@@ -1,14 +1,17 @@
 ﻿using Composr.Core;
 using Composr.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
+using System;
+using System.Collections.Generic;
 using System.Linq;
-
-// For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Composr.Web.Controllers
 {
     public class BaseFrontEndController : Controller
     {
+        private string blogCategoryPagesCacheKey;
+
         protected Blog Blog { get; set; }
 
         protected BaseFrontEndViewModel BaseViewModel {
@@ -16,9 +19,18 @@ namespace Composr.Web.Controllers
             set;
         }
 
-        public BaseFrontEndController(Blog blog)
+        public BaseFrontEndController(Blog blog, IBlogRepository blogRepository, IMemoryCache cache)
         {
+            IList<Category> blogCategoryPages;
             this.Blog = blog;
+            blogCategoryPagesCacheKey = $"BlogCategoryPagesCacheKey_{blog.Id}_{blog.Locale}";
+
+            if(!cache.TryGetValue(blogCategoryPagesCacheKey, out blogCategoryPages))
+            {
+                blogCategoryPages = blogRepository.GetCategoryPages(blog);
+                cache.Set(blogCategoryPagesCacheKey, blogCategoryPages, new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromHours(5)));
+            }
+
             BaseViewModel = new BaseFrontEndViewModel()
             {
                 BlogUrl = blog.Url,
@@ -30,6 +42,7 @@ namespace Composr.Web.Controllers
                 AdPublisherJSCode = blog.Attributes.SingleOrDefault(x => x.Key == BlogAttributeKeys.AdPublisherJSCode).Value,
                 CanonicalUrl = blog.Url,
                 ViewPrefix = blog.Attributes.SingleOrDefault(x => x.Key == BlogAttributeKeys.ViewPrefix).Value,
+                CategoryPages = blogCategoryPages
             };
         }
 

@@ -7,5 +7,7 @@ namespace Composr.Core
         ISet<string> GetStopWords(Blog blog);
 
         IDictionary<string, IList<string>> GetSynonyms(Blog blog);
+
+        IList<Category> GetCategoryPages(Blog blog);
     }
 }

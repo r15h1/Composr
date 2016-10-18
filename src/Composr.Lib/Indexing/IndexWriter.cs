@@ -23,7 +23,7 @@ namespace Composr.Lib.Indexing
             indexDirectory = FSDirectory.Open(new System.IO.DirectoryInfo(Settings.IndexDirectory));
         }
         
-        public void GenerateIndex(IList<Post> posts, ISynonymEngine synonymEngine)
+        public void IndexPosts(IList<Post> posts, ISynonymEngine synonymEngine)
         {
             PerFieldAnalyzerWrapper analyzerWrapper = new PerFieldAnalyzerWrapper(new ComposrAnalyzer(Lucene.Net.Util.Version.LUCENE_30));      
             if(synonymEngine != null) analyzerWrapper.AddAnalyzer(IndexFields.Tags, new ComposrAnalyzer(Lucene.Net.Util.Version.LUCENE_30) { SynonymEngine = synonymEngine });
@@ -31,29 +31,40 @@ namespace Composr.Lib.Indexing
             using (var indexWriter = new Lucene.Net.Index.IndexWriter(indexDirectory, analyzerWrapper, Lucene.Net.Index.IndexWriter.MaxFieldLength.UNLIMITED))
             {
                 foreach (var post in posts)
-                {
-                    Document doc = CreateDocument(post);
-                    indexWriter.AddDocument(doc);
-                }
+                    indexWriter.AddDocument(CreateDocument(post));
+                
                 indexWriter.Commit();
                 indexWriter.Optimize();
             }
         }
 
+        public void IndexCategories(IList<Category> categories)
+        {
+            var analyzer = new ComposrAnalyzer(Lucene.Net.Util.Version.LUCENE_30);
+            using (var indexWriter = new Lucene.Net.Index.IndexWriter(indexDirectory, analyzer, Lucene.Net.Index.IndexWriter.MaxFieldLength.UNLIMITED))
+            {
+                foreach (var category in categories)
+                    indexWriter.AddDocument(CreateDocument(category));
+
+                indexWriter.Commit();
+                indexWriter.Optimize();
+            }
+        }
+        
         private Document CreateDocument(Post post)
         {
             Document doc = new Document();
-            doc.Add(new Field(IndexFields.BlogID, post.Blog.Id.ToString(), Field.Store.YES, Field.Index.ANALYZED));
-            doc.Add(new Field(IndexFields.Locale, post.Blog.Locale.ToString(), Field.Store.YES, Field.Index.ANALYZED));
+            doc.Add(new Field(IndexFields.BlogID, post.Blog.Id.ToString(), Field.Store.YES, Field.Index.NOT_ANALYZED_NO_NORMS));
+            doc.Add(new Field(IndexFields.Locale, post.Blog.Locale.ToString().ToLowerInvariant(), Field.Store.YES, Field.Index.NOT_ANALYZED_NO_NORMS));
             //doc.Add(new Field(IndexFields.IndexedPostBody, post.Body.StripHTMLTags().StripLineFeedCarriageReturn(), Field.Store.YES, Field.Index.ANALYZED));
             doc.Add(new Field(IndexFields.PostBody, post.Body, Field.Store.YES, Field.Index.ANALYZED));
 
             doc.Add(new Field(IndexFields.PostDatePublished, post.DatePublished.Value.ToString("MMM d, yyyy"), Field.Store.YES, Field.Index.NO));
-            doc.Add(new Field(IndexFields.PostDatePublishedTicks, post.DatePublished.Value.ToString("yyyyMMddhhmmss"), Field.Store.NO, Field.Index.NOT_ANALYZED));
+            doc.Add(new Field(IndexFields.PostDatePublishedTicks, post.DatePublished.Value.ToString("yyyyMMddhhmmss"), Field.Store.NO, Field.Index.NOT_ANALYZED_NO_NORMS));
 
             doc.Add(new Field(IndexFields.PostID, post.Id.ToString(), Field.Store.YES, Field.Index.NOT_ANALYZED_NO_NORMS));
-            doc.Add(new Field(IndexFields.PostTitle, post.Title, Field.Store.YES, Field.Index.ANALYZED));
-            doc.Add(new Field(IndexFields.PostURN, post.URN.TrimEnd('/'), Field.Store.YES, Field.Index.NOT_ANALYZED_NO_NORMS));
+            doc.Add(new Field(IndexFields.Title, post.Title, Field.Store.YES, Field.Index.ANALYZED));
+            doc.Add(new Field(IndexFields.URN, post.URN.TrimEnd('/'), Field.Store.YES, Field.Index.NOT_ANALYZED_NO_NORMS));
 
             if (post.Attributes.ContainsKey(PostAttributeKeys.MetaDescription) && !string.IsNullOrWhiteSpace(post.Attributes[PostAttributeKeys.MetaDescription]))
                 doc.Add(new Field(IndexFields.PostMetaDescription, post.Attributes[PostAttributeKeys.MetaDescription], Field.Store.YES, Field.Index.ANALYZED));
@@ -86,6 +97,22 @@ namespace Composr.Lib.Indexing
             return doc;
         }
 
+        private Document CreateDocument(Category category)
+        {
+            Document doc = new Document();
+            doc.Add(new Field(IndexFields.BlogID, category.Blog.Id.ToString(), Field.Store.YES, Field.Index.NOT_ANALYZED_NO_NORMS));
+            doc.Add(new Field(IndexFields.Locale, category.Blog.Locale.ToString().ToLowerInvariant(), Field.Store.YES, Field.Index.NOT_ANALYZED_NO_NORMS));
+            doc.Add(new Field(IndexFields.Title, category.Title, Field.Store.YES, Field.Index.NOT_ANALYZED_NO_NORMS));
+            doc.Add(new Field(IndexFields.URN, category.URN.TrimEnd('/'), Field.Store.YES, Field.Index.NOT_ANALYZED_NO_NORMS));
+            doc.Add(new Field(IndexFields.Tags, "cat", Field.Store.YES, Field.Index.NOT_ANALYZED_NO_NORMS));
+
+            if (category.Translations != null && category.Translations.Any())
+                foreach (var t in category.Translations)
+                    doc.Add(new Field(t.Locale.ToString().ToLowerInvariant(), t.URN.TrimEnd('/'), Field.Store.YES, Field.Index.NO));
+
+            return doc;
+        }
+
         private static string PrepareSnippet(string source)
         {
             string snippet = source.Trim()
@@ -98,6 +125,6 @@ namespace Composr.Lib.Indexing
                 return snippet.Substring(0, IndexSettings.MaxSnippetLength);
 
             return snippet;
-        }
+        }        
     }
 }

@@ -154,6 +154,7 @@ namespace Composr.Web
             }
 
             app.UseApplicationInsightsExceptionTelemetry();
+            app.UseStaticFiles("/images/*");
             app.UseStaticFiles();
             app.UseIdentity();
             
@@ -163,7 +164,7 @@ namespace Composr.Web
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
-                    name: "category-search-route",
+                    name: "category-page-route",
                     template: "{locale:regex(^(fr|en)$)}/{region:regex(^(mauritius|ile\\-maurice)$)}/{category}",
                     defaults: new { controller = "FrontEnd", action = "SearchCategories"}
                 );

@@ -25,15 +25,26 @@ namespace Composr.Lib.Indexing
             
             foreach (var locale in Enum.GetValues(typeof(Locale)))
             {
-                //make a shallow copy to avoid DI MemoryCache corruption
-                var blg = new Blog() { Id = blog.Id, Locale = (Locale)locale };
-                postRepository.Locale = (Locale)locale;
-                var posts = postRepository.GetPublishedPosts(new Filter { Limit = int.MaxValue });
-                var synonymEngine = new ComposrSynonymEngine(blogRepository.GetSynonyms(blg));
-                writer.GenerateIndex(posts, synonymEngine);
+                var blg = new Blog() { Id = blog.Id, Locale = (Locale)locale }; //make a shallow copy to avoid DI MemoryCache corruption
+                AddPostsToIndex(blg);
+                AddCategoriesToIndex(blg);
             }
-            
+
             SearchService.ReloadIndex();
+        }
+
+        private void AddCategoriesToIndex(Blog blog)
+        {
+            var categories = blogRepository.GetCategoryPages(blog);
+            writer.IndexCategories(categories);
+        }
+
+        private void AddPostsToIndex(Blog blog)
+        {
+            postRepository.Locale = blog.Locale.Value;
+            var posts = postRepository.GetPublishedPosts(new Filter { Limit = int.MaxValue });
+            var synonymEngine = new ComposrSynonymEngine(blogRepository.GetSynonyms(blog));
+            writer.IndexPosts(posts, synonymEngine);
         }
 
         private static void ClearIndexDirectory(Blog blog)

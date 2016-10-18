@@ -57,7 +57,7 @@ namespace Composr.Lib.Indexing
             BooleanQuery query = new BooleanQuery();
             foreach(var term in Split(criteria.SearchTerm))
             {
-                query.Add(CreateWildCardQuery(IndexFields.PostTitle, term, 3.0f), Occur.SHOULD);
+                query.Add(CreateWildCardQuery(IndexFields.Title, term, 3.0f), Occur.SHOULD);
                 if(criteria.SearchType == SearchType.Default) query.Add(CreateWildCardQuery(IndexFields.PostMetaDescription, term, 1.0f), Occur.SHOULD);
             }
             return query;
@@ -65,7 +65,7 @@ namespace Composr.Lib.Indexing
 
         private Query CreateURNQuery()
         {
-            return CreateTermQuery(IndexFields.PostURN, criteria.SearchTerm.ToLowerInvariant().TrimEnd('/'), 1.5f);
+            return CreateTermQuery(IndexFields.URN, criteria.SearchTerm.ToLowerInvariant().TrimEnd('/'), 1.5f);
         }        
         
         private Query BoostPostWithImages()
@@ -110,7 +110,7 @@ namespace Composr.Lib.Indexing
         {
             MoreLikeThis mlt = new MoreLikeThis(IndexReader);
             mlt.Analyzer = analyzer;
-            mlt.SetFieldNames(new string[] { IndexFields.PostBody, IndexFields.PostMetaDescription, IndexFields.PostTitle });
+            mlt.SetFieldNames(new string[] { IndexFields.PostBody, IndexFields.PostMetaDescription, IndexFields.Title });
             mlt.MinTermFreq = 1;
             mlt.MinDocFreq = 1;
             mlt.MinWordLen = 3;

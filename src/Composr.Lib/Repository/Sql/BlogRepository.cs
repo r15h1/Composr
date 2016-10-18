@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Composr.Repository.Sql
 {
-    public class BlogRepository : Composr.Core.IBlogRepository
+    public class BlogRepository : IBlogRepository
     {
         private ISpecification<Blog> specification;
 
@@ -222,6 +222,31 @@ namespace Composr.Repository.Sql
         {
             if (synonyms.ContainsKey(key)) synonyms[key].Add(value);
             else synonyms.Add(key, new List<string> { value });
+        }
+
+        public IList<Category> GetCategoryPages(Blog blog)
+        {
+            Dictionary<string, string> synonyms = new Dictionary<string, string>();
+            var p = new DynamicParameters();
+            p.Add("@BlogID", blog.Id);
+            p.Add("@LocaleID", (int)blog.Locale);
+
+            using (var conn = ConnectionFactory.CreateConnection())
+            using (var reader = conn.QueryMultiple("Category_Pages_Select", p, commandType: System.Data.CommandType.StoredProcedure))
+            {
+                var categories = reader.Read().Select<dynamic, Category>(row => BuildCategory(blog, row)).ToList();
+                var translations = reader.Read().Select<dynamic, Category>(row => BuildCategory(null, row)).ToList();
+                categories.ForEach((category) => category.Translations = translations.Where(t => t.Id == category.Id));
+                return categories;
+            }
+        }
+
+        private Category BuildCategory(Blog blog, dynamic row)
+        {
+            if (blog == null)
+                return new Category(new Blog(row.BlogId) { Locale = (Locale)row.Locale }) { Id = row.Id, Title = row.Title, URN = row.URN };
+
+            return new Category(blog) { Id = row.Id, Title = row.Title, URN = row.URN };
         }
     }
 }

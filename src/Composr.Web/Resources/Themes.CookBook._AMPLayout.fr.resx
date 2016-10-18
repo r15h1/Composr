@@ -198,4 +198,7 @@
   <data name="Vegetarian Dishes" xml:space="preserve">
     <value>Plats Végétariens</value>
   </data>
+  <data name="/en/search" xml:space="preserve">
+    <value>/fr/rechercher</value>
+  </data>
 </root>

@@ -15,7 +15,8 @@ namespace Composr.Web.ViewModels
                 Tagline = model.Tagline,
                 CanonicalUrl = model.CanonicalUrl,
                 AnalyticsTrackingJSCode = model.AnalyticsTrackingJSCode,
-                AdPublisherJSCode = model.AdPublisherJSCode
+                AdPublisherJSCode = model.AdPublisherJSCode,
+                CategoryPages = model.CategoryPages
             };
         }
 

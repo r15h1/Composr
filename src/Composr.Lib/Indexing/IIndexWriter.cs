@@ -10,6 +10,12 @@ namespace Composr.Lib.Indexing
         /// </summary>
         /// <param name="posts"></param>
         /// <param name="SynonymEngine">the synonym engine to use</param>
-        void GenerateIndex(IList<Post> posts, ISynonymEngine SynonymEngine);        
+        void IndexPosts(IList<Post> posts, ISynonymEngine SynonymEngine);
+
+        /// <summary>
+        /// adds categories to an index
+        /// </summary>
+        /// <param name=""></param>
+        void IndexCategories(IList<Category> categories);        
     }
 }

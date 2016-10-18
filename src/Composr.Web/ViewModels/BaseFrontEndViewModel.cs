@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Localization;
+﻿using Composr.Core;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
 
@@ -27,6 +28,7 @@ namespace Composr.Web.ViewModels
         public List<Breadcrumb> Breadcrumbs { get; set; }        
         public Dictionary<string, string> HrefLangUrls { get; set; }
         public string ViewPrefix { get; internal set; }
+        public IList<Category> CategoryPages { get; set; }
     }
 
     public class Breadcrumb

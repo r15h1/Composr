@@ -10,7 +10,7 @@
 <html ⚡ lang="@Blog.Locale.ToString().ToLowerInvariant()">
 <head>
     <meta charset="utf-8">
-    <title>@Model.Title</title>
+    <title>@Blog.Name - @Model.Title</title>
     @if (!@Model.MetaDescription.IsBlank())
     { @Html.Raw($"<meta name=\"description\" content=\"{@Model.MetaDescription}\">");
     }
@@ -28,6 +28,7 @@
     @RenderSection("opengraph", required: false)
     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
     @Html.Raw($"<style amp-boilerplate>body{{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}}@-webkit-keyframes -amp-start{{from{{visibility:hidden}}to{{visibility:visible}}}}@-moz-keyframes -amp-start{{from{{visibility:hidden}}to{{visibility:visible}}}}@-ms-keyframes -amp-start{{from{{visibility:hidden}}to{{visibility:visible}}}}@-o-keyframes -amp-start{{from{{visibility:hidden}}to{{visibility:visible}}}}@keyframes -amp-start{{from{{visibility:hidden}}to{{visibility:visible}}}}</style><noscript><style amp-boilerplate>body{{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}}</style></noscript>")
+    <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
     <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
     <script async custom-element="amp-fit-text" src="https://cdn.ampproject.org/v0/amp-fit-text-0.1.js"></script> 
     <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
@@ -97,26 +98,22 @@ ul.paginator > li.pagelink:hover{ background-color:rgb(205,205,205); }
             <li class="sidebar-right link"><a on='tap:sidebar.close'>@Localizer["Close"] [X]</a></li>
             <li class="sidebar-separator"></li>
             <li>
-                <form role="search" method="get" action="@Localizer["/en/search"]">                    
-                        <input type="text" placeholder="@Localizer["search e.g. chicken"]" name="q" id="q">
-                        <button type="submit">@Localizer["Search"]</button>                   
+                <form role="search" method="get" action="@Localizer["/en/search"]" target="_top">
+                    <input type="text" placeholder="@Localizer["search e.g. chicken"]" name="q" id="q">
+                    <button type="submit">@Localizer["Search"]</button>
                 </form>
             </li>
             <li class="sidebar-separator"></li>
-            <li><a href="@rootUrl@Localizer["/en/search?cat=chicken"]" rel="nofollow">@Localizer["Chicken Recipes"]</a></li>
-            <li><a href="@rootUrl@Localizer["/en/search?cat=curry"]" rel="nofollow">@Localizer["Curry Recipes"]</a></li>
-            <li><a href="@rootUrl@Localizer["/en/search?cat=dessert"]" rel="nofollow">@Localizer["Desserts"]</a></li>
-            <li><a href="@rootUrl@Localizer["/en/search?cat=fish"]" rel="nofollow">@Localizer["Fish Recipes"]</a></li>
-            <li><a href="@rootUrl@Localizer["/en/search?cat=grill"]" rel="nofollow">@Localizer["Grills and BBQs"]</a></li>
-            <li><a href="@rootUrl@Localizer["/en/search?cat=meat"]" rel="nofollow">@Localizer["Meat Recipes"]</a></li>
-            <li><a href="@rootUrl@Localizer["/en/search?cat=pudding"]" rel="nofollow">@Localizer["Puddings"]</a></li>
-            <li><a href="@rootUrl@Localizer["/en/search?cat=rice"]" rel="nofollow">@Localizer["Rice Dishes"]</a></li>
-            <li><a href="@rootUrl@Localizer["/en/search?cat=salad"]" rel="nofollow">@Localizer["Salads"]</a></li>
-            <li><a href="@rootUrl@Localizer["/en/search?cat=streetfood"]" rel="nofollow">@Localizer["Street Food"]</a></li>
-            <li><a href="@rootUrl@Localizer["/en/search?cat=vegetarian"]" rel="nofollow">@Localizer["Vegetarian Dishes"]</a></li>
+            @if (Model.CategoryPages != null && Model.CategoryPages.Count > 0)
+            {
+                @foreach (var cat in Model.CategoryPages)
+                {
+                    <li><a href="@rootUrl@cat.URN" rel="nofollow">@cat.Title</a></li>
+                }
+            }
             <li class="sidebar-separator"></li>
             <li><a href="@Localizer["/"]">@Localizer["Home"]</a></li>
-            @*<li>@await Html.PartialAsync("AMPLanguageSelectionPartialView")</li>*@
+            <li>@await Html.PartialAsync("AMPLanguageSelectionPartialView")</li>
         </ul>
     </amp-sidebar>
     <div class="container">

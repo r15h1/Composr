@@ -27,7 +27,7 @@ namespace Composr.Tests
         private void GenerateIndex()
         {
             ClearIndexDirectory(blog);
-            new Lib.Indexing.IndexWriter().GenerateIndex(posts);
+            new Lib.Indexing.IndexWriter().IndexPosts(posts, null);
         }
 
         private static void ClearIndexDirectory(Blog blog)

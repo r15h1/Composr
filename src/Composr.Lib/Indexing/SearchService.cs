@@ -76,8 +76,8 @@ namespace Composr.Lib.Indexing
             result.DocumentId = documentId;
             result.DatePublished = doc.Get(IndexFields.PostDatePublished);
             result.Id = doc.Get(IndexFields.PostID);
-            result.Title = doc.Get(IndexFields.PostTitle);
-            result.URN = doc.Get(IndexFields.PostURN);
+            result.Title = doc.Get(IndexFields.Title);
+            result.URN = doc.Get(IndexFields.URN);
             result.MetaDescription = doc.Get(IndexFields.PostMetaDescription);
             result.Yield = doc.Get(IndexFields.Yield);
             result.Tags = doc.Get(IndexFields.Tags);

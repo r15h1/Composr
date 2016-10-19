@@ -108,7 +108,7 @@ ul.paginator > li.pagelink:hover{ background-color:rgb(205,205,205); }
             {
                 @foreach (var cat in Model.CategoryPages)
                 {
-                    <li><a href="@rootUrl@cat.URN" rel="nofollow">@cat.Title</a></li>
+                    <li><a href="@rootUrl@cat.URN">@cat.Title</a></li>
                 }
             }
             <li class="sidebar-separator"></li>

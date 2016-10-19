@@ -162,8 +162,8 @@ namespace Composr.Web.Controllers
             model.SearchResults = results.Hits;
             model.SearchQuery = param.Query;
             model.SearchCategory = param.Category;
-            model.PageCount = (int)((results.HitsCount / Settings.DefaultSearchPageSize) + 1);
-            model.CurrentPage = (int)((criteria.Start / Settings.DefaultSearchPageSize) + 1);
+            model.PageCount = (int)Math.Ceiling((((double) results.HitsCount) / Settings.DefaultSearchPageSize));
+            model.CurrentPage = (int)Math.Ceiling((((double) criteria.Start) / Settings.DefaultSearchPageSize)) + 1;
             model.SearchUrl = $"{Blog.Url.TrimEnd('/')}{localizer["/en/search"]}";
             return model;
         }

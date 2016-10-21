@@ -83,7 +83,10 @@ namespace Composr.Lib.Indexing
             result.Tags = doc.Get(IndexFields.Tags);
 
             if (options == CompileOptions.Include_Post_Body)
+            {
                 result.Body = doc.Get(IndexFields.PostBody);
+                result.StructuredDataJsonLD = doc.Get(IndexFields.StructuredDataJsonLD);
+            }
             else
                 result.Snippet = doc.Get(IndexFields.PostSnippet);
 

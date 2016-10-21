@@ -1,4 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Composr.Lib.Util
 @model Composr.Web.ViewModels.PostSearchViewModel
 @inject IViewLocalizer Localizer
 @{ 
@@ -35,5 +36,14 @@
         <meta property="og:image" content="@Model.BlogUrl/@post.PostImage.Url.ToLowerInvariant().Replace(".jpg", "-sm.jpg")" />
         <meta property="og:image:width" content="800" />
         <meta property="og:image:height" content="600" />
+    }
+}
+
+@if (!post.StructuredDataJsonLD.IsBlank())
+{
+    @section googleStructuredData{
+        <script type="application/ld+json">
+            @Html.Raw(@post.StructuredDataJsonLD)
+        </script>
     }
 }

@@ -34,6 +34,7 @@ namespace Composr.Core
         public PostImage PostImage { get; set; }
         public Dictionary<Locale, string> Translations { get; set; }
         public int DocumentId { get; set; }
+        public string StructuredDataJsonLD { get; set; }
     }
 
     public enum SearchSortOrder

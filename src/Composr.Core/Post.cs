@@ -53,6 +53,16 @@ namespace Composr.Core
         public Dictionary<Locale, string> Translations { get; set; }
 
         public DateTime? DateCreated;
+
+        /// <summary>
+        /// visitor pattern implementation  to translate post into a structred data type
+        /// </summary>
+        /// <typeparam name="T">tartget type</typeparam>
+        /// <param name="translator">entity performing the translation</param>
+        public void AcceptTranslator(IStructuredDataTranslator translator)
+        {
+            translator.Translate(this);
+        }
     }
 
     public class PostImage

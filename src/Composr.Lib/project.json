@@ -16,7 +16,8 @@
     "Microsoft.Extensions.Configuration": "1.0.0",
     "Microsoft.Extensions.Configuration.Json": "1.0.0",
     "Microsoft.Extensions.Configuration.EnvironmentVariables": "1.0.0-rc2-final",
-    "Microsoft.Extensions.Options": "1.0.0"
+    "Microsoft.Extensions.Options": "1.0.0",
+    "HtmlAgilityPack": "1.4.9.5"
   },
 
   "frameworks": {

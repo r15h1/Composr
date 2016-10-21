@@ -19,7 +19,7 @@
         public static readonly string ImageUrl = "imgurl";
         public static readonly string ImageCaption = "imgcap";
         public static readonly string HasImage = "hasimg";
-        public static readonly string JsonLD = "jsld";
+        public static readonly string StructuredDataJsonLD = "jsld";
     }  
     
     internal class IndexSettings

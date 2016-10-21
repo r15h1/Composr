@@ -10,5 +10,6 @@
         public static readonly string Tagline = "Tagline";
         public static readonly string Theme = "Theme";        
         public static readonly string ViewPrefix = "ViewPrefix";
+        public static readonly string StructuredDataTranslator = "StructuredDataTranslator";
     }
 }

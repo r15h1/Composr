@@ -1,5 +1,6 @@
 ﻿using Composr.Core;
 using Composr.Lib.Indexing;
+using Composr.Lib.Specifications;
 using Composr.Lib.Util;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
@@ -18,10 +19,12 @@ namespace Composr.Tests
             var builder = new ConfigurationBuilder()
                 .AddJsonFile("settings.json", optional: true, reloadOnChange: true);            
             Settings.Config = builder.Build();
-
+            blog.Attributes.Add(BlogAttributeKeys.StructuredDataTranslator, "Composr.Lib.StructuredData.RecipeTranslator");
+            blog.Attributes.Add(BlogAttributeKeys.ImageLocation, "images/cocozil/");
+            blog.Url = "http://cocozil.com";
             //SeedData();
             //GenerateIndex();
-            searcher = new SearchService();
+            //searcher = new SearchService();
         }       
 
         private void GenerateIndex()
@@ -194,6 +197,16 @@ namespace Composr.Tests
         {
             var criteria = new SearchCriteria { BlogID = 1, Locale = Locale.EN, DocumentId = 68, Limit = 4, SearchType = SearchType.MoreLikeThis};
             var list = searcher.GetMoreLikeThis(criteria);
+        }
+
+        [Fact]
+        public void StructuredDataIndexingTests()
+        {
+            Composr.Core.IBlogRepository blogRepo = new Composr.Repository.Sql.BlogRepository(new MinimalBlogSpecification());
+            var blog = blogRepo.Get(1);
+            Composr.Core.IPostRepository postRepo = new Composr.Repository.Sql.PostRepository(blog, new PostSpecification(), new Composr.Repository.Sql.BlogRepository(new MinimalBlogSpecification()));
+            posts = postRepo.GetPublishedPosts(new Composr.Core.Filter { Limit = 5000 });
+            GenerateIndex();
         }
 
     }

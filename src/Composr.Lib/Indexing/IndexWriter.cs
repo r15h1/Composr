@@ -1,14 +1,13 @@
 ﻿using Composr.Core;
+using Composr.Lib.StructuredData;
 using Composr.Lib.Util;
-using Lucene.Net.Analysis.Standard;
+using Lucene.Net.Analysis;
 using Lucene.Net.Documents;
-using Lucene.Net.Index;
 using Lucene.Net.Store;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System;
-using Lucene.Net.Analysis;
 
 namespace Composr.Lib.Indexing
 {
@@ -16,6 +15,7 @@ namespace Composr.Lib.Indexing
     {
         private ILogger logger;
         private Directory indexDirectory;
+        private IStructuredDataTranslator structuredDataTranslator;
 
         public IndexWriter()
         {
@@ -28,6 +28,10 @@ namespace Composr.Lib.Indexing
             PerFieldAnalyzerWrapper analyzerWrapper = new PerFieldAnalyzerWrapper(new ComposrAnalyzer(Lucene.Net.Util.Version.LUCENE_30));      
             if(synonymEngine != null) analyzerWrapper.AddAnalyzer(IndexFields.Tags, new ComposrAnalyzer(Lucene.Net.Util.Version.LUCENE_30) { SynonymEngine = synonymEngine });
 
+            structuredDataTranslator = null;
+            if (posts != null && posts.Count > 0 && posts[0].Blog.Attributes.ContainsKey(BlogAttributeKeys.StructuredDataTranslator))
+                structuredDataTranslator = GetStructuredDataTranslator(posts[0].Blog.Attributes[BlogAttributeKeys.StructuredDataTranslator]);
+
             using (var indexWriter = new Lucene.Net.Index.IndexWriter(indexDirectory, analyzerWrapper, Lucene.Net.Index.IndexWriter.MaxFieldLength.UNLIMITED))
             {
                 foreach (var post in posts)
@@ -36,6 +40,11 @@ namespace Composr.Lib.Indexing
                 indexWriter.Commit();
                 indexWriter.Optimize();
             }
+        }
+
+        private IStructuredDataTranslator GetStructuredDataTranslator(string type)
+        {
+            return StructuredDataTranslatorFactory.CreateTranslator(type);
         }
 
         public void IndexCategories(IList<Category> categories)
@@ -93,6 +102,14 @@ namespace Composr.Lib.Indexing
             if(post.Translations != null && post.Translations.Count > 0)
                 foreach(var t in post.Translations)
                     doc.Add(new Field(t.Key.ToString().ToLowerInvariant(), t.Value.TrimEnd('/'), Field.Store.YES, Field.Index.NO));
+
+            if (structuredDataTranslator != null)
+            {
+                post.AcceptTranslator(structuredDataTranslator);
+                var structuredData = structuredDataTranslator.Output;
+                var jsonld = structuredData.ToJsonLD();
+                if(!jsonld.IsBlank()) doc.Add(new Field(IndexFields.StructuredDataJsonLD, jsonld, Field.Store.YES, Field.Index.NO));
+            }
 
             return doc;
         }

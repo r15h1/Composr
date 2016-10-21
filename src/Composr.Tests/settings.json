@@ -1,6 +1,6 @@
 ﻿{
   "Data": {
-    "ConnectionString": "data source=.\\SQL2012; initial catalog=Cocozil;user id=sa;password=Cr@2yHor5e;MultipleActiveResultSets=true"
+    "ConnectionString": "data source=.\\SQL2012; initial catalog=Cocozil-1.0.6;user id=sa;password=Cr@2yHor5e;MultipleActiveResultSets=true"
   },
 
   "Index": {

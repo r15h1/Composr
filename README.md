@@ -15,7 +15,6 @@ Current version: 1.0.0
 10. Group posts thro' categories / tags
 
 ###Coming soon
-------------------------------------------
 1. Advance image manipulation api
 2. "Did you mean"?
 3. Search results facets

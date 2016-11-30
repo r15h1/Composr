@@ -1,7 +1,7 @@
 
 # Composr - a blogging platform built on .Net Core
 
-Current version: 1.0.0
+Current version: 1.0.6.2
 ###Highlights:
 1. Inverted index built with Lucene.Net for relevance based search
 2. Dapper ORM and optimised SQL server database for fast queries

@@ -1,6 +1,5 @@
 
 # Composr - a blogging platform built on .Net Core
-Search, performance and multi-tennant support as key considerations. 
 
 Current version: 1.0.0
 ###Highlights:
@@ -15,7 +14,7 @@ Current version: 1.0.0
 9. Multi language support
 10. Group posts thro' categories / tags
 
-Coming soon
+###Coming soon
 ------------------------------------------
 1. Advance image manipulation api
 2. "Did you mean"?

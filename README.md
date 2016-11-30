@@ -14,7 +14,7 @@ Current version: 1.0.0
 9. Multi language support
 10. Group posts thro' categories / tags
 
-###Coming soon
+###Coming soon:
 1. Advance image manipulation api
 2. "Did you mean"?
 3. Search results facets

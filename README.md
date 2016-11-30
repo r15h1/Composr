@@ -11,3 +11,5 @@ Current version: 1.0.0
 5. Autocomplete api for suggestions in search box
 6. Responsive design with AMP / bootstrap
 7. "More like this" suggestions
+8. SEO friendly (meta description, google structured data tags / rich snippets, hreflang and alternates)
+9. Multi language support

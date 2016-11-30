@@ -13,4 +13,4 @@ Current version: 1.0.0
 7. "More like this" suggestions
 8. SEO friendly (meta description, google structured data tags / rich snippets, hreflang and alternates)
 9. Multi language support
-10. Categories support through tags
+10. Group post through categories / tags

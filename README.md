@@ -13,7 +13,7 @@ Current version: 1.0.6.2
 8. SEO friendly (meta description, google structured data tags / rich snippets, hreflang and alternates, customisable url)
 9. Multi language support
 10. Group posts thro' categories / tags
-11. Custom redirections
+11. Easy config based redirections
 
 ###Coming soon:
 1. Advance image manipulation api

@@ -1,3 +1,7 @@
+a, a:hover{
+    color:#4779f1;
+}
+
 body{
    font-family: 'Open Sans', Arial;
 }
@@ -6,21 +10,6 @@ header{
     margin-top:5px;
     margin-bottom:5px;
     text-align:center;
-}
-
-.jumbotron{
-    color:rgb(255, 255, 255);
-    background-color:black;
-    background-image:url("/themes/writer/bg.jpg");
-    background-repeat: no-repeat;
-    background-size:cover;
-    background-position: top; 
-    font-family: 'Playfair Display', serif;
-    padding-bottom:10px;
-    padding-top:10px;
-    margin-bottom:0;
-    text-shadow:2px 2px 2px black;
-    height:200px;
 }
 
 .list-group{
@@ -32,14 +21,19 @@ h1{
 }
 
 h3{
-     border-bottom:solid 1px rgb(221, 219, 219);
+     border-bottom:solid 1px rgb(240,240,240);
+}
+
+a.logo, a.logo:hover{
+    text-decoration:none;
+    color:black;
 }
 
 .post-heading{
     margin-top:5px;
     margin-bottom:5px;
     padding-top:10px;
-    border-bottom:solid 1px rgb(221, 219, 219);
+    border-bottom:solid 1px rgb(240,240,240);
 }
 
 .list-group-item{
@@ -55,16 +49,22 @@ p, .list-group-item-text{
     line-height:22.4px;
 }
 
+.search-results-heading > a, .search-results-heading > a:hover{
+    color:rgb(51, 51, 51);
+    text-decoration:none;
+}
+
 .search-results-heading, .post-heading{
     font-size:2em;
     color:rgb(51, 51, 51);
+    border-bottom:solid 1px rgb(240,240,240);
 }
 
 footer{
     color:rgb(186, 182, 182);
     margin-top: 20px;
     padding-top:20px;
-    border-top: 1px  solid rgb(221, 219, 219);
+    border-top: 1px  solid rgb(240,240,240);
 }
 
 .navbar-inverse .navbar-nav > li > a {

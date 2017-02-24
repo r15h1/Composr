@@ -8,6 +8,7 @@ using Composr.Core;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using System.IO;
+using Microsoft.Net.Http.Headers;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -40,9 +41,25 @@ namespace Composr.Web.Controllers
         }
 
         [HttpGet("upload")]
-        public IActionResult Upload()
-        {            
-            return View();
+        public IActionResult Upload(ICollection<IFormFile> files)
+        {
+            long size = 0;
+            foreach (var file in files)
+            {
+                var filename = ContentDispositionHeaderValue
+                                .Parse(file.ContentDisposition)
+                                .FileName
+                                .Trim('"');
+
+                filename = "C:\\" + $@"\{filename}";
+                size += file.Length;
+                using (FileStream fs = System.IO.File.Create(filename))
+                {
+                    file.CopyTo(fs);
+                    fs.Flush();
+                }
+            }
+            return new JsonResult("hello");
         }
     }
 }

@@ -1,9 +1,11 @@
 a, a:hover{
-    color:#4779f1;
+    color:#0046ed;
+    text-decoration:underline;
 }
 
 body{
    font-family: 'Open Sans', Arial;
+   color:#000000;
 }
 
 header{
@@ -99,7 +101,7 @@ time{
     display: block;
     font-size: 92%;
     margin: 5px 0 0.8em 0;
-    color:rgb(170, 170, 170);
+    color:#099a0b;
 }
 
 .bodywrapper {

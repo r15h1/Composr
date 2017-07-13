@@ -19,7 +19,7 @@
             <div class="container">
                 <div style="background-color:rgba(255, 255, 255, 0.50);border:none;border-radius:0;margin-bottom:15px;">
                     <a href="/" class="logo">
-                        <img src="@Model.LogoUrl" style="float:left;margin-top:7px;margin-right:1px;" /><h2 style="padding-top:15px;font-weight:600;">Programagic</h2>
+                        <h2 style="padding-top:15px;font-weight:600;">Programagic</h2>
                         <span style="margin-top:15px;font-weight:600;">Programming Ideas & Experiments</span>
                     </a>
                 </div>
@@ -39,5 +39,9 @@
 
         </section>
     <script src="~/themes/writer/site.min.js"></script>
+    @if (!string.IsNullOrWhiteSpace(@Model.AnalyticsTrackingJSCode))
+    {
+        @Html.Raw(@Model.AnalyticsTrackingJSCode);
+    }
 </body>
 </html>

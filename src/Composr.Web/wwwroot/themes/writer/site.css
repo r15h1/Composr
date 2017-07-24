@@ -23,7 +23,7 @@ h1{
 }
 
 h3{
-     border-bottom:solid 1px rgb(240,240,240);
+     border-bottom:solid 1px rgb(210, 210, 210);
 }
 
 a.logo, a.logo:hover{
@@ -35,7 +35,7 @@ a.logo, a.logo:hover{
     margin-top:5px;
     margin-bottom:5px;
     padding-top:10px;
-    border-bottom:solid 1px rgb(240,240,240);
+    border-bottom:solid 1px rgb(210, 210, 210);
 }
 
 .list-group-item{
@@ -59,14 +59,14 @@ p, .list-group-item-text{
 .search-results-heading, .post-heading{
     font-size:2em;
     color:rgb(51, 51, 51);
-    border-bottom:solid 1px rgb(240,240,240);
+    border-bottom:solid 1px rgb(210, 210, 210);
 }
 
 footer{
     color:rgb(186, 182, 182);
     margin-top: 20px;
     padding-top:20px;
-    border-top: 1px  solid rgb(240,240,240);
+    border-top: 1px  solid rgb(210, 210, 210);
 }
 
 .navbar-inverse .navbar-nav > li > a {

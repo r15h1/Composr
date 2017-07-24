@@ -8,42 +8,48 @@
 <form method="post" name="myform" id="myform">
     <div class="btn-toolbar" role="toolbar">
         <a class="btn btn-default pull-right" href="/admin/blogs/@Model.BlogId/@blog.Locale.ToString().ToLowerInvariant()/posts">Cancel</a>
-        <button type="submit" class="btn btn-primary pull-right">Save</button>
-        <select class="btn btn-default pull-right" id="poststatus" name="poststatus" asp-for="PostStatus" asp-items="Html.GetEnumSelectList<Composr.Core.PostStatus>()"></select>        
-    </div>
-    <div asp-validation-summary="ModelOnly"></div>
+        @{
+            if (Model.Id.HasValue)
+            {
+                <a class="btn btn-default pull-right" href="/admin/blogs/@Model.BlogId/@blog.Locale.ToString().ToLowerInvariant()/posts/@Model.Id/preview" target="_blank">Preview</a>
+            }
+        }
+            <button type="submit" class="btn btn-primary pull-right">Save</button>
+            <select class="btn btn-default pull-right" id="poststatus" name="poststatus" asp-for="PostStatus" asp-items="Html.GetEnumSelectList<Composr.Core.PostStatus>()"></select>
+        </div>
+        <div asp-validation-summary="ModelOnly"></div>
 
-    <div class="form-group">
-        <label for="title">Title</label><input class="form-control" type="text" name="title" id="title" asp-for="Title" value="@Model.Title" required minlength="5" maxlength="100" />
-        <span asp-validation-for="Title" class="label label-warning"></span>
-    </div>
+        <div class="form-group">
+            <label for="title">Title</label><input class="form-control" type="text" name="title" id="title" asp-for="Title" value="@Model.Title" required minlength="5" maxlength="100" />
+            <span asp-validation-for="Title" class="label label-warning"></span>
+        </div>
 
-    <div class="form-group">
-        <label for="urn">URN</label><input class="form-control" type="text" name="urn" id="urn" asp-for="URN" value="@Model.URN" maxlength="250" />
-        <span asp-validation-for="URN"></span>
-    </div>
+        <div class="form-group">
+            <label for="urn">URN</label><input class="form-control" type="text" name="urn" id="urn" asp-for="URN" value="@Model.URN" maxlength="250" />
+            <span asp-validation-for="URN"></span>
+        </div>
 
-    <div class="form-group">
-        <label id="metadescriptionlabel" for="metadescription">Meta Description</label><input class="form-control" type="text" name="metadescription" id="metadescription" asp-for="MetaDescription" value="@Model.MetaDescription" minlength="115" maxlength="155" />
-        <span asp-validation-for="MetaDescription"></span>
-    </div>
+        <div class="form-group">
+            <label id="metadescriptionlabel" for="metadescription">Meta Description</label><input class="form-control" type="text" name="metadescription" id="metadescription" asp-for="MetaDescription" value="@Model.MetaDescription" minlength="115" maxlength="155" />
+            <span asp-validation-for="MetaDescription"></span>
+        </div>
 
-    <div class="form-group">
-        <label for="tags">Tags</label><input class="form-control" type="text" name="tags" id="tags" asp-for="Tags" value="@Model.Tags" />
-    </div>
+        <div class="form-group">
+            <label for="tags">Tags</label><input class="form-control" type="text" name="tags" id="tags" asp-for="Tags" value="@Model.Tags" />
+        </div>
 
-    <div class="form-group">
-        <label for="imageurl">Image</label>
-        <input type="text" class="form-control" name="imageurl" id="imageurl" placeholder="image file" value="@Model.ImageUrl">
-        <input type="text" class="form-control" name="imagecaption" id="imagecaption" placeholder="image caption" value="@Model.ImageCaption">
-    </div>
+        <div class="form-group">
+            <label for="imageurl">Image</label>
+            <input type="text" class="form-control" name="imageurl" id="imageurl" placeholder="image file" value="@Model.ImageUrl">
+            <input type="text" class="form-control" name="imagecaption" id="imagecaption" placeholder="image caption" value="@Model.ImageCaption">
+        </div>
 
-    <div class="form-group">
-        <label for="body">Body</label>
-        <textarea autofocus class="form-control" name="body" id="body" asp-for="Body" rows="10" required>@Model.Body</textarea>
-        <span asp-validation-for="Body"></span>
-    </div>
-</form>
+        <div class="form-group">
+            <label for="body">Body</label>
+            <textarea autofocus class="form-control" name="body" id="body" asp-for="Body" rows="10" required>@Model.Body</textarea>
+            <span asp-validation-for="Body"></span>
+        </div>
+    </form>
 
 @section scripts {
 <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>

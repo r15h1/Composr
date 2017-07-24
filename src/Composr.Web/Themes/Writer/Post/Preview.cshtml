@@ -1,0 +1,15 @@
+﻿@model Composr.Web.ViewModels.PostSearchViewModel
+@{ 
+    var post = Model.SearchResults.SingleOrDefault();
+}
+
+<article>
+    <h1 class="post-heading">@post.Title</h1>
+    <time class="date" datetime="@post.DatePublished">@post.DatePublished</time>
+    <p>@Html.Raw(@post.Body)</p>
+</article>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.5.0/highlight.min.js"></script>
+<script type="text/javascript">hljs.initHighlightingOnLoad();</script>
+@section css{
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.5.0/styles/vs.min.css">
+}

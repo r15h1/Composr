@@ -5,6 +5,7 @@ using Composr.Web.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -52,6 +53,42 @@ namespace Composr.Web.Controllers
             return View(viewModel);
         }
 
+        [HttpGet("{postid:int}/preview")]
+        public IActionResult Preview(int postid)
+        {
+            Post post = service.Get(postid);
+            PostViewModel viewModel = new PostViewModel() { BlogId = post.Blog.Id, Id = post.Id, Body = post.Body, Title = post.Title, PostStatus = post.Status, URN = post.URN, Language = blog.Locale.ToString() };
+
+            if (post.Attributes.ContainsKey(PostAttributeKeys.MetaDescription)) viewModel.MetaDescription = post.Attributes[PostAttributeKeys.MetaDescription];
+            if (post.Attributes.ContainsKey(PostAttributeKeys.Tags)) viewModel.Tags = post.Attributes[PostAttributeKeys.Tags];
+            if (post.Images.Count > 0)
+            {
+                viewModel.ImageUrl = post.Images.FirstOrDefault().Url;
+                viewModel.ImageCaption = post.Images.FirstOrDefault().Caption;
+            }
+
+            var model = new PostSearchViewModel()
+            {
+                BlogUrl = viewModel.URN,
+                CanonicalUrl = viewModel.URN,
+                Title = viewModel.Title,
+                MetaDescription = viewModel.MetaDescription                               
+            };
+            model.SearchResults = new List<Hit>
+            {
+                new Hit()
+                {
+                    Body = viewModel.Body,
+                    DatePublished = DateTime.Now.ToString("ddMMMyyyy"),
+                    MetaDescription = viewModel.MetaDescription,
+                    PostImage = new PostImage { Url = viewModel.ImageUrl },                    
+                    Title = viewModel.Title                    
+                }
+            };
+            //ViewData["logo"] = blog.Logo;
+            return View(model);
+        }
+
         [HttpGet("new")]
         public IActionResult Create()
         {
@@ -81,7 +118,10 @@ namespace Composr.Web.Controllers
             viewModel.Id = postid;
             service.Save(MapPost(viewModel));
             Task.Run(() => indexGenerator.BuildIndex(blog));
-            return RedirectToAction("Index");
+            if(!postid.HasValue)
+                return RedirectToAction("Index");
+
+            return View("Details", viewModel);
         }
 
         private Post MapPost(PostViewModel viewModel)
